@@ -91,4 +91,5 @@
 	const LEECH_SEED_EFFECT          ; $54
 	const SPLASH_EFFECT              ; $55
 	const DISABLE_EFFECT             ; $56
+	const TRI_ATTACK_EFFECT          ; $57 Randomly burn, freeze, or paralyze the opponent
 DEF NUM_MOVE_EFFECTS EQU const_value - 1

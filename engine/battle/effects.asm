@@ -201,6 +201,26 @@ ExplodeEffect:
 	ld [de], a
 	ret
 
+TriAttackEffect:
+	ld b, BURN_SIDE_EFFECT1
+	ld a, [hRandomSub] ; grab a random number
+	cp 85 ; 85 / 256 chance = 33%
+	jr c, .gotStatusEffect
+	inc b ; FREEZE_SIDE_EFFECT
+	cp 170 ; (170-85) / 256 chance = 33%
+	jr c, .gotStatusEffect
+	inc b ; PARALYZE_SIDE_EFFECT1 ; remaining 33%
+.gotStatusEffect
+	ld a, [hWhoseTurn] ; check if it is the player's turn or the opponent's
+	and a
+	ld a, b ; get the effect we chose earlier
+	jr nz, .opponent
+	ld [wPlayerMoveEffect], a ; store it as the player's move effect if player's turn
+	jr FreezeBurnParalyzeEffect
+.opponent
+	ld [wEnemyMoveEffect], a ; store it as the enemy's move effect if enemy's turn
+; fallthrough to FreezeBurnParalyzeEffect
+
 FreezeBurnParalyzeEffect:
 	xor a
 	ld [wAnimationType], a
