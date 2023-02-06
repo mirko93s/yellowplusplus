@@ -704,3 +704,5 @@ INCLUDE "data/sgb/sgb_palettes.asm"
 SECTION "Item Descriptions", ROMX
 
 INCLUDE "engine/menus/item_descriptions.asm"
+
+INCLUDE "engine/mon_gender.asm"

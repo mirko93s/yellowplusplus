@@ -166,6 +166,9 @@ StatusScreen:
 	call PrintNumber ; ID Number
 	ld d, $0
 	call PrintStatsBox
+	ld a, [wLoadedMonSpecies]
+	ld [wGenderTemp], a
+	call PrintGenderStatusScreen
 	call Delay3
 	call GBPalNormal
 	hlcoord 1, 0
@@ -262,6 +265,21 @@ DrawLineBox:
 	ret
 
 PTile: INCBIN "gfx/font/P.1bpp"
+
+PrintGenderStatusScreen:
+	ld de, wLoadedMonDVs
+	farcall GetMonGender
+	ld a, [wGenderTemp]
+	and a
+	ret z
+	dec a
+	ld a, "♂"
+	jr z, .ok
+	ld a, "♀"
+.ok
+	coord hl, 18, 2
+	ld [hl], a
+	ret
 
 PrintStatsBox:
 	ld a, d
