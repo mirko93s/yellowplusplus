@@ -358,7 +358,7 @@ StartMenu_Item::
 	cp BICYCLE
 	jp z, .useOrTossItem
 .notBicycle1
-	ld a, USE_TOSS_MENU_TEMPLATE
+	ld a, USE_INFO_TOSS_MENU_TEMPLATE
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
 	ld hl, wTopMenuItemY
@@ -369,8 +369,8 @@ StartMenu_Item::
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	inc a ; a = 1
-	ld [hli], a ; max menu item ID
+	inc a, 2
+	ld [hli], a ; max menu item ID (USE/INFO/TOSS)
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; menu watched keys
 	xor a
@@ -396,10 +396,16 @@ StartMenu_Item::
 	jp ItemMenuLoop
 .notBicycle2
 	ld a, [wCurrentMenuItem]
-	and a
-	jr nz, .tossItem
+	cp a, 2
+	jr z, .tossItem
+	cp a, 1
+	jr z, .infoItem
+	; and a
+	; jr nz, .tossItem
 ; use item
-	ld [wPseudoItemID], a ; a must be 0 due to above conditional jump
+	; ld [wPseudoItemID], a ; a must be 0 due to above conditional jump
+	xor a
+	ld [wPseudoItemID], a
 	ld a, [wcf91]
 	cp HM01
 	jr nc, .useItem_partyMenu
@@ -453,6 +459,9 @@ StartMenu_Item::
 	ld hl, wNumBagItems
 	call TossItem
 .tossZeroItems
+	jp ItemMenuLoop
+.infoItem
+	callba DisplayItemDescription
 	jp ItemMenuLoop
 
 CannotUseItemsHereText:
