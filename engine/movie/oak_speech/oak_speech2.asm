@@ -208,7 +208,8 @@ DisplayIntroNameTextBox:
 	ld [wMenuWatchedKeys], a ; A_BUTTON
 	inc a
 	ld [wTopMenuItemY], a
-	inc a
+	; inc a
+	ld a, 4 ; 4th name suggestion
 	ld [wMaxMenuItem], a
 	jp HandleMenuInput
 

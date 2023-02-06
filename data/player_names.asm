@@ -3,6 +3,7 @@ DefaultNamesPlayer:
 	next "YELLOW"
 	next "ASH"
 	next "JACK"
+	next "MIRKO"
 	db   "@"
 
 DefaultNamesGirl:
@@ -10,6 +11,7 @@ DefaultNamesGirl:
 	next "GREEN"
  	next "LEAF"
  	next "AMANDA"
+	next "FEDE"
 	db   "@"
 
 DefaultNamesRival:
@@ -17,4 +19,5 @@ DefaultNamesRival:
 	next "BLUE"
 	next "GARY"
 	next "JOHN"
+	next "MALFA"
 	db   "@"
