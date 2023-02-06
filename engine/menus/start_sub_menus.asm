@@ -369,7 +369,7 @@ StartMenu_Item::
 	xor a
 	ld [hli], a ; current menu item ID
 	inc hl
-	inc a, 2
+	ld a, 2
 	ld [hli], a ; max menu item ID (USE/INFO/TOSS)
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; menu watched keys
@@ -461,7 +461,7 @@ StartMenu_Item::
 .tossZeroItems
 	jp ItemMenuLoop
 .infoItem
-	callba DisplayItemDescription
+	farcall DisplayItemDescription
 	jp ItemMenuLoop
 
 CannotUseItemsHereText:
