@@ -502,13 +502,13 @@ AIUsePotion:
 AIUseSuperPotion:
 ; enemy trainer heals his monster with a super potion
 	ld a, SUPER_POTION
-	ld b, 50
+	ld b, 60
 	jr AIRecoverHP
 
 AIUseHyperPotion:
 ; enemy trainer heals his monster with a hyper potion
 	ld a, HYPER_POTION
-	ld b, 200
+	ld b, 120
 	; fallthrough
 
 AIRecoverHP:
