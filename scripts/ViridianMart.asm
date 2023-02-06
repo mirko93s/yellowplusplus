@@ -105,3 +105,6 @@ ViridianMartText2:
 ViridianMartText3:
 	text_far _ViridianMartText3
 	text_end
+
+ViridianCashierText::
+	script_mart POKE_BALL, POTION, ANTIDOTE, PARLYZ_HEAL, BURN_HEAL

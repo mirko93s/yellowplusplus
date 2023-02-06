@@ -34,7 +34,7 @@ INCLUDE "home/timer.asm"
 INCLUDE "home/audio.asm"
 INCLUDE "home/update_sprites.asm"
 
-INCLUDE "data/items/marts.asm"
+; INCLUDE "data/items/marts.asm"
 
 INCLUDE "home/overworld_text.asm"
 INCLUDE "home/uncompress.asm"
