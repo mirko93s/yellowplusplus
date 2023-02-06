@@ -32,3 +32,9 @@
 *.sn*
 *.sa*
 *.sg1
+
+# random
+*.TODO
+*.gb
+*.gbc
+*.rar
