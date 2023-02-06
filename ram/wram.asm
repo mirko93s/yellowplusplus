@@ -2296,7 +2296,9 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	ds 78
+	; ds 78
+	ds 1
+	ds 17 ; -60 for +30 item bag capacity
 wGameProgressFlagsEnd::
 
 	ds 56
