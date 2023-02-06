@@ -2301,7 +2301,13 @@ wRoute18Gate1FCurScript:: db
 	ds 17 ; -60 for +30 item bag capacity
 wGameProgressFlagsEnd::
 
-	ds 56
+wPlayerGender::
+	; $00 = male
+	; $01 = female
+		ds 1
+
+	; unused
+		ds 55
 
 wObtainedHiddenItemsFlags:: flag_array 112
 

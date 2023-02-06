@@ -6513,11 +6513,18 @@ LoadPlayerBackPic:
 	ld de, ProfOakPicBack
 	cp BATTLE_TYPE_PIKACHU ; is it the pikachu battle at the beginning of the game?
 	jr z, .next
-	ld de, RedPicBack
+	ld a, [wPlayerGender]
+	and a
+	jr z, .RedBack
+	ld de, GreenPicBack
+	; ld a, BANK(GreenPicBack) ; Load female back sprite
+	jr .next
+.RedBack
+    ld de, RedPicBack
 .next
 	ld a, BANK(RedPicBack)
-	ASSERT BANK(RedPicBack) == BANK(OldManPicBack)
-	ASSERT BANK(RedPicBack) == BANK(ProfOakPicBack)
+	; ASSERT BANK(RedPicBack) == BANK(OldManPicBack)
+	; ASSERT BANK(RedPicBack) == BANK(ProfOakPicBack)
 	call UncompressSpriteFromDE
 	call LoadBackSpriteUnzoomed
 	ld hl, wShadowOAM
