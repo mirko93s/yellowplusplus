@@ -45,7 +45,7 @@ BuySellQuitText:
 
 UseInfoTossText:
 	db   "USE"
-	NEXT "INFO"
+	next "INFO"
 	next "TOSS@"
 
 JapaneseSaveMessageText:
