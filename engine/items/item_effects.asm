@@ -529,7 +529,7 @@ ItemUseBall:
 	cp BATTLE_TYPE_OLD_MAN ; is this the old man battle?
 	jp z, .oldManCaughtMon ; if so, don't give the player the caught Pokémon
 	cp BATTLE_TYPE_PIKACHU
-	jr z, .oldManCaughtMon ; same with Pikachu battle
+	jp z, .oldManCaughtMon ; same with Pikachu battle
 	ld hl, ItemUseBallText05
 	call PrintText
 
@@ -584,6 +584,12 @@ ItemUseBall:
 	jr nz, .printTransferredToPCText
 	ld hl, ItemUseBallText08
 .printTransferredToPCText
+	call PrintText
+	;add reminder that box is now full
+	ld a,[wNumInBox] ; is box full?
+	cp MONS_PER_BOX
+	jr nz, .done
+	ld hl, BoxFullReminderTXT
 	call PrintText
 	jr .done
 
@@ -2625,6 +2631,11 @@ BoxFullCannotThrowBallText:
 DontHavePokemonText:
 	text_far _DontHavePokemonText
 	text_end
+
+;add a reminder that the box is full
+BoxFullReminderTXT:
+	text_far _BoxIsFullReminderText
+	db "@"
 
 ItemUseText00:
 	text_far _ItemUseText001
