@@ -2508,10 +2508,11 @@ ItemUseTMHM:
 	pop af
 	ld [wWhichPokemon], a
 
-	ld a, [wcf91]
-	call IsItemHM
-	ret c
-	jp RemoveUsedItem
+	; ld a, [wcf91]
+	; call IsItemHM
+	; ret c
+	; jp RemoveUsedItem
+	ret
 
 BootedUpTMText:
 	text_far _BootedUpTMText
