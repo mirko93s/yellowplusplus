@@ -529,26 +529,26 @@ MtMoon3Text7:
 	text_asm
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, MtMoon3Text_4a0ae
+	ld hl, AskForDomeFossil
 	call PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .asm_4a0ab
+	jr nz, .done
 	lb bc, DOME_FOSSIL, 1
 	call GiveItem
-	jp nc, MtMoon3Script_4a0fd
-	call MtMoon3Script_4a0f0
+	jp nc, NoRoomForFossil
+	call GotFossil
 	ld a, HS_MT_MOON_B2F_FOSSIL_1
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	SetEvent EVENT_GOT_DOME_FOSSIL
-	ld a, $4
-	call MtMoon3Script_49ce5
-.asm_4a0ab
+	; ld a, $4
+	; call MtMoon3Script_49ce5
+.done
 	jp TextScriptEnd
 
-MtMoon3Text_4a0ae:
+AskForDomeFossil:
 	text_far _MtMoon3Text_49f24
 	text_end
 
@@ -556,30 +556,30 @@ MtMoon3Text8:
 	text_asm
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, MtMoon3Text_4a0eb
+	ld hl, AskForHelixFossil
 	call PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .asm_4a0e8
+	jr nz, .done
 	lb bc, HELIX_FOSSIL, 1
 	call GiveItem
-	jp nc, MtMoon3Script_4a0fd
-	call MtMoon3Script_4a0f0
+	jp nc, NoRoomForFossil
+	call GotFossil
 	ld a, HS_MT_MOON_B2F_FOSSIL_2
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	SetEvent EVENT_GOT_HELIX_FOSSIL
-	ld a, $4
-	call MtMoon3Script_49ce5
-.asm_4a0e8
+	; ld a, $4
+	; call MtMoon3Script_49ce5 ; ???
+.done
 	jp TextScriptEnd
 
-MtMoon3Text_4a0eb:
+AskForHelixFossil:
 	text_far _MtMoon3Text_49f64
 	text_end
 
-MtMoon3Script_4a0f0:
+GotFossil:
 	ld hl, MtMoon3Text_4a0f6
 	jp PrintText
 
@@ -589,12 +589,12 @@ MtMoon3Text_4a0f6:
 	text_waitbutton
 	text_end
 
-MtMoon3Script_4a0fd:
-	ld hl, MtMoon3Text_4a106
+NoRoomForFossil:
+	ld hl, NoRoomForFossilText
 	call PrintText
 	jp TextScriptEnd
 
-MtMoon3Text_4a106:
+NoRoomForFossilText:
 	text_far _MtMoon3Text_49f7f
 	text_waitbutton
 	text_end
