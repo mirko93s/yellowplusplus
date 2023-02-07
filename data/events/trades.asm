@@ -6,14 +6,14 @@ TradeMons:
 	; from the Japanese Blue trades, which used species that evolve.
 	; Japanese Red and Green used TRADE_DIALOGSET_CASUAL, and had
 	; the same species as English Red and Blue.
-	db LICKITUNG,  DUGTRIO,  TRADE_DIALOGSET_CASUAL,    "GURIO@@@@@@"
-	db CLEFAIRY,   MR_MIME,  TRADE_DIALOGSET_CASUAL,    "MILES@@@@@@"
-	db BUTTERFREE, BEEDRILL, TRADE_DIALOGSET_HAPPY,     "STINGER@@@@" ; unused
-	db KANGASKHAN, MUK,      TRADE_DIALOGSET_CASUAL,    "STICKY@@@@@"
-	db MEW,        MEW,      TRADE_DIALOGSET_HAPPY,     "BART@@@@@@@" ; unused
-	db TANGELA,    PARASECT, TRADE_DIALOGSET_CASUAL,    "SPIKE@@@@@@"
-	db PIDGEOT,    PIDGEOT,  TRADE_DIALOGSET_EVOLUTION, "MARTY@@@@@@" ; unused
-	db GOLDUCK,    RHYDON,   TRADE_DIALOGSET_EVOLUTION, "BUFFY@@@@@@"
-	db GROWLITHE,  DEWGONG,  TRADE_DIALOGSET_HAPPY,     "CEZANNE@@@@"
-	db CUBONE,     MACHOKE,  TRADE_DIALOGSET_HAPPY,     "RICKY@@@@@@"
+	db LICKITUNG,  GRAVELER, TRADE_DIALOGSET_CASUAL, "SABURO@@@@@" ; route 11
+	db CLEFAIRY,   MR_MIME,  TRADE_DIALOGSET_CASUAL, "MASARU@@@@@" ; route 2
+	db BUTTERFREE, BEEDRILL, TRADE_DIALOGSET_HAPPY,  "STINGER@@@@" ; ---unused---
+	db KANGASKHAN, KADABRA,  TRADE_DIALOGSET_CASUAL, "OHIGE@@@@@@" ; pokemon lab
+	db MEW,        MEW,      TRADE_DIALOGSET_HAPPY,  "BART@@@@@@@" ; ---unused---
+	db TANGELA,    HAUNTER,  TRADE_DIALOGSET_CASUAL, "GHOSUKE@@@@" ; route 18
+	db PIDGEOT,    PIDGEOT,  TRADE_DIALOGSET_POLITE, "MARTY@@@@@@" ; ---unused---
+	db PIKACHU,    CATERPIE, TRADE_DIALOGSET_POLITE, "BRUCLINO@@@" ; pokemon lab "easter egg"
+	db POLIWHIRL,  JYNX,     TRADE_DIALOGSET_HAPPY,  "MASAKO@@@@@" ; pokemon lab
+	db CUBONE,     MACHOKE,  TRADE_DIALOGSET_HAPPY,  "ROCKY@@@@@@" ; underground path
 	assert_table_length NUM_NPC_TRADES
