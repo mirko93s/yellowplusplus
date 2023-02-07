@@ -64,6 +64,31 @@ OakSpeech:
 	ld a, [wd732]
 	bit 1, a ; possibly a debug mode bit
 	jp nz, .skipChoosingNames
+
+	farcall SendPikaPal ; mirko93s intro
+	ld a, CATERPIE
+	ld [wd0b5], a
+	ld [wcf91], a
+	call GetMonHeader
+	hlcoord 6, 4
+	call LoadFlippedFrontSpriteByMonIndex
+	call MovePicLeft
+	ld hl, MirkoIntroText
+	call PrintText
+	call MovePicLeft
+	farcall SendOakPal
+	call MovePicLeft
+	farcall SendPokeballPal
+	call MovePicLeft
+	farcall SendPlayerPal
+	call MovePicLeft
+	farcall SendRivalPal
+	call MovePicLeft
+	farcall SendPikaPal
+	ld hl, MirkoIntroText2
+	call PrintText
+	call ClearScreen ; :)
+
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
 	call PrintText     ; show this text
 	call BoyGirlChoice ; added routine at the end of this file
@@ -211,6 +236,12 @@ OakSpeechText3:
 	text_end
 BoyGirlText: ; This is new so we had to add a reference to get it to compile
     text_far _BoyGirlText
+    text_end
+MirkoIntroText:
+	text_far _MirkoIntroText
+    text_end
+MirkoIntroText2:
+	text_far _MirkoIntroText2
     text_end
 
 FadeInIntroPic:
