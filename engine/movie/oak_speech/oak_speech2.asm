@@ -1,5 +1,5 @@
 ChoosePlayerName:
-	; call OakSpeechSlidePicRight
+	call OakSpeechSlidePicRight
 	; ld de, DefaultNamesPlayer
 	; call DisplayIntroNameTextBox
 	ld a, [wPlayerGender] ; load gender

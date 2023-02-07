@@ -150,7 +150,7 @@ OakSpeech:
 	and a      ; check gender
   	jr z, .NotGreen2
  	ld de, GreenPicFront
-    lb bc, Bank(GreenPicFront), $00
+    lb bc, BANK(GreenPicFront), $00
 .NotGreen2:
  	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
