@@ -50,7 +50,7 @@ OptionsMenu_TextSpeed:
 	jr .nonePressed
 .pressedRight
 	ld a, c
-	cp $2
+	cp $3
 	jr c, .increase
 	ld c, $ff
 .increase
@@ -61,7 +61,7 @@ OptionsMenu_TextSpeed:
 	ld a, c
 	and a
 	jr nz, .decrease
-	ld c, $3
+	ld c, $4
 .decrease
 	dec c
 	ld a, d
@@ -85,10 +85,12 @@ OptionsMenu_TextSpeed:
 	ret
 
 TextSpeedStringsPointerTable:
-	dw FastText
-	dw MidText
-	dw SlowText
-
+	dw WarpText ; $0 - 0
+	dw FastText ; $1 - 1
+	dw MidText  ; $2 - 3
+	dw SlowText ; $3 - 5
+WarpText:
+	db "WARP@"
 FastText:
 	db "FAST@"
 MidText:
@@ -103,17 +105,23 @@ GetTextSpeed:
 	jr z, .slowTextOption
 	cp $1
 	jr z, .fastTextOption
+	cp $0
+	jr z, .warpTextOption
 ; mid text option
-	ld c, $1
+	ld c, $2
 	lb de, 1, 5
 	ret
 .slowTextOption
-	ld c, $2
-	lb de, 3, 1
+	ld c, $3
+	lb de, 3, 0
 	ret
 .fastTextOption
+	ld c, $1
+	lb de, 0, 3
+	ret
+.warpTextOption
 	ld c, $0
-	lb de, 5, 3
+	lb de, 5, 1
 	ret
 
 OptionsMenu_BattleAnimations:
