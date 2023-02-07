@@ -1,14 +1,16 @@
 Route8WildMons:
 	def_grass_wildmons 15 ; encounter rate
-	db 20, PIDGEY
-	db 22, PIDGEY
-	db 20, RATTATA
-	db 15, ABRA
-	db 19, ABRA
-	db 24, PIDGEOTTO
-	db 19, JIGGLYPUFF
-	db 24, JIGGLYPUFF
-	db 20, KADABRA
+	db 26, MEOWTH
+	db 27, MANKEY
+	db 29, EKANS
+	db 28, SANDSHREW
+	db 26, GROWLITHE
+	db 29, VULPIX
+	db 27, RATTATA
+	db 28, ABRA
+	db 26, JIGGLYPUFF
+	db 27, PIDGEY
+	db 27, PIDGEOTTO
 	db 27, KADABRA
 	end_grass_wildmons
 

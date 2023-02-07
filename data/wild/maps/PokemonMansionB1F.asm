@@ -1,15 +1,17 @@
 PokemonMansionB1FWildMons:
 	def_grass_wildmons 10 ; encounter rate
-	db 35, GRIMER
-	db 38, GRIMER
-	db 37, RATICATE
-	db 40, RATICATE
-	db 41, MUK
-	db 43, RATICATE
-	db 24, DITTO
-	db 46, RATICATE
-	db 18, DITTO
-	db 12, DITTO
+	db 45, GRIMER
+	db 48, RATICATE
+	db 46, DITTO
+	db 46, KOFFING
+	db 47, GROWLITHE
+	db 47, PONYTA
+	db 49, VULPIX
+	db 47, MAGMAR
+	db 48, GRIMER
+	db 48, RATICATE
+	db 50, MUK
+	db 50, WEEZING
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

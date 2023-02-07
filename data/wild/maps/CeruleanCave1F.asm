@@ -1,15 +1,17 @@
 CeruleanCave1FWildMons:
 	def_grass_wildmons 10 ; encounter rate
-	db 50, GOLBAT
-	db 55, GOLBAT
-	db 45, GRAVELER
-	db 55, GLOOM
-	db 55, WEEPINBELL
-	db 52, SANDSLASH
-	db 54, VENOMOTH
-	db 54, PARASECT
-	db 55, DITTO
-	db 60, DITTO
+	db 60, GRAVELER
+	db 65, GLOOM
+	db 63, WEEPINBELL
+	db 61, SANDSLASH
+	db 62, VENOMOTH
+	db 63, PARASECT
+	db 64, HYPNO
+	db 64, MAGNETON
+	db 62, DODRIO
+	db 60, ARBOK
+	db 65, RAICHU
+	db 65, DITTO
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

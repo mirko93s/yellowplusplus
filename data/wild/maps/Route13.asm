@@ -1,26 +1,30 @@
 Route13WildMons:
 	def_grass_wildmons 15 ; encounter rate
-	db 25, ODDISH
-	db 25, BELLSPROUT
-	db 28, PIDGEOTTO
-	db 28, PIDGEY
-	db 27, ODDISH
-	db 27, BELLSPROUT
-	db 29, GLOOM
-	db 29, WEEPINBELL
-	db 26, FARFETCHD
-	db 31, FARFETCHD
+	db 42, ODDISH
+	db 42, BELLSPROUT
+	db 48, PIDGEOTTO
+	db 49, PIDGEY
+	db 50, GLOOM
+	db 46, VENONAT
+	db 44, WEEPINBELL
+	db 47, DITTO
+	db 45, BELLSPROUT
+	db 43, ODDISH
+	db 42, FARFETCHD
+	db 51, FARFETCHD
 	end_grass_wildmons
 
 	def_water_wildmons 3 ; encounter rate
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWPOKE
-	db 15, SLOWBRO
-	db 20, SLOWBRO
+	db 45, SLOWPOKE
+	db 45, SLOWPOKE
+	db 45, SLOWPOKE
+	db 45, HORSEA
+	db 45, HORSEA
+	db 55, SEADRA
+	db 55, SEADRA
+	db 55, SHELLDER
+	db 55, SLOWBRO
+	db 45, SLOWPOKE
+	db 50, SLOWBRO
+	db 45, SLOWPOKE
 	end_water_wildmons
