@@ -11,7 +11,8 @@ PokemonMansion1FWildMons:
 	db 47, GRIMER
 	db 48, GROWLITHE
 	db 47, WEEZING
-	db 50, MUK	end_grass_wildmons
+	db 50, MUK
+	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
 	end_water_wildmons

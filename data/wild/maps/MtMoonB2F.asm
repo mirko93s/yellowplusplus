@@ -11,7 +11,7 @@ MtMoonB2FWildMons:
 	db 13, PARAS
 	db 14, CLEFAIRY
 	db 12, PARAS
-	db 14, CLEFAIRYRY
+	db 14, CLEFAIRY
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate

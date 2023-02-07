@@ -11,7 +11,7 @@ MtMoonB1FWildMons:
 	db 11, ZUBAT
 	db 13, CLEFAIRY
 	db 13, ZUBAT
-	db 14, CLEFAIRYIRY
+	db 14, CLEFAIRY
 	end_grass_wildmons
 
 	def_water_wildmons 0 ; encounter rate
