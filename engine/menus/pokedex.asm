@@ -480,8 +480,8 @@ ShowPokedexDataInternal:
 	ret
 
 HeightWeightText:
-	db   "HT  ?′??″"
-	next "WT   ???lb@"
+	db   "HT   ?.?m"
+	next "WT   ???Kg@"
 
 ; XXX does anything point to this?
 PokeText:
@@ -595,21 +595,21 @@ DrawDexEntryOnScreen:
 	and a
 	ret z ; if the pokemon has not been owned, don't print the height, weight, or description
 
-	inc de ; de = address of feet (height)
-	ld a, [de] ; reads feet, but a is overwritten without being used
-	hlcoord 12, 6
+	inc de ; de = address of decimeters (height)
+	ld a, [de] ; reads decimeters, but a is overwritten without being used
+	hlcoord 13, 6
 	lb bc, 1, 2
-	call PrintNumber ; print feet (height)
-	ld a, "′"
+	call PrintNumber ; print decimeters (height)
+	ld a, "."
 	ld [hl], a
 	inc de
-	inc de ; de = address of inches (height)
+	inc de ; de = address of decimeters (height)
 	hlcoord 15, 6
-	lb bc, LEADING_ZEROES | 1, 2
-	call PrintNumber ; print inches (height)
-	ld a, "″"
+	; lb bc, LEADING_ZEROES | 1, 2
+	call PrintNumber ; print decimeters (height)
+	ld a, "m"
 	ld [hl], a
-; now print the weight (note that weight is stored in tenths of pounds internally)
+; now print the weight (note that weight is stored in tenths of kilograms internally)
 	inc de
 	inc de
 	inc de ; de = address of upper byte of weight
