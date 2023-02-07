@@ -125,7 +125,7 @@ MainMenu:
 InitOptions:
 	ld a, TEXT_DELAY_FAST
 	ld [wLetterPrintingDelayFlags], a
-	ld a, TEXT_DELAY_FAST
+	ld a, %01000001 ; fast text speed, anim on, battle set
 	ld [wOptions], a
 	ld a, 64 ; audio?
 	ld [wPrinterSettings], a
