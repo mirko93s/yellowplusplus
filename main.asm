@@ -701,6 +701,15 @@ SECTION "bank42", ROMX, BANK[$42]
 
 INCLUDE "data/sgb/sgb_palettes.asm"
 
+SECTION "bank44",ROMX,BANK[$43]
+
+PartyMonSprites:  INCBIN "gfx/party_mon_sprites1.w32.2bpp"
+
+SECTION "bank45",ROMX,BANK[$44]
+INCBIN "gfx/party_mon_sprites2.w32.2bpp"
+
+INCLUDE "engine/mon_party_sprites2.asm"
+
 SECTION "Item Descriptions", ROMX
 
 INCLUDE "engine/menus/item_descriptions.asm"
