@@ -32,7 +32,7 @@
 	const SPRITE_MIDDLE_AGED_WOMAN       ; $1c
 	const SPRITE_BRUNETTE_GIRL           ; $1d
 	const SPRITE_LANCE                   ; $1e
-	const SPRITE_UNUSED_RED_1            ; $1f
+	const SPRITE_BROCK            		 ; $1f
 	const SPRITE_SCIENTIST               ; $20
 	const SPRITE_ROCKER                  ; $21
 	const SPRITE_SWIMMER                 ; $22
@@ -51,11 +51,11 @@
 	const SPRITE_FISHER                  ; $2f
 	const SPRITE_KOGA                    ; $30
 	const SPRITE_GUARD                   ; $31
-	const SPRITE_UNUSED_RED_2            ; $32
+	const SPRITE_MISTY            		 ; $32
 	const SPRITE_MOM                     ; $33
 	const SPRITE_BALDING_GUY             ; $34
 	const SPRITE_LITTLE_BOY              ; $35
-	const SPRITE_UNUSED_RED_3            ; $36
+	const SPRITE_LTSURGE            	 ; $36
 	const SPRITE_GAMEBOY_KID             ; $37
 	const SPRITE_FAIRY                   ; $38
 	const SPRITE_AGATHA                  ; $39
@@ -80,9 +80,9 @@ DEF FIRST_STILL_SPRITE EQU const_value
 	const SPRITE_POKEDEX                 ; $4b
 	const SPRITE_CLIPBOARD               ; $4c
 	const SPRITE_SNORLAX                 ; $4d
-	const SPRITE_UNUSED_OLD_AMBER        ; $4e
+	const SPRITE_BLAINE        			 ; $4e
 	const SPRITE_OLD_AMBER               ; $4f
-	const SPRITE_UNUSED_GAMBLER_ASLEEP_1 ; $50
+	const SPRITE_SABRINA 				 ; $50
 	const SPRITE_UNUSED_GAMBLER_ASLEEP_2 ; $51
 	const SPRITE_GAMBLER_ASLEEP          ; $52
 DEF NUM_SPRITES EQU const_value - 1
