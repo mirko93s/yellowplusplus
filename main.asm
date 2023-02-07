@@ -714,4 +714,6 @@ SECTION "Item Descriptions", ROMX
 
 INCLUDE "engine/menus/item_descriptions.asm"
 
+INCLUDE "engine/overworld/field_moves.asm"
+
 INCLUDE "engine/mon_gender.asm"
