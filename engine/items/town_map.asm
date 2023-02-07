@@ -344,6 +344,8 @@ ExitTownMap:
 	xor a
 	ld [wTownMapSpriteBlinkingEnabled], a
 	call GBPalWhiteOut
+	call ReloadMapData
+	call RestoreScreenTilesAndReloadTilePatterns
 	call ClearScreen
 	call ClearSprites
 	call LoadPlayerSpriteGraphics
@@ -392,8 +394,8 @@ DisplayWildLocations:
 	call LoadTownMapEntry
 	pop hl
 	ld a, [de]
-	cp $19 ; Cerulean Cave's coordinates
-	jr z, .nextEntry ; skip Cerulean Cave
+	; cp $19 ; Cerulean Cave's coordinates
+	; jr z, .nextEntry ; skip Cerulean Cave
 	call TownMapCoordsToOAMCoords
 	ld a, $4 ; nest icon tile no.
 	ld [hli], a
