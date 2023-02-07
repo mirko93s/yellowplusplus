@@ -2170,7 +2170,7 @@ DisplayBattleMenu::
 	ld a, $2 ; select the "ITEM" menu
 	jp .upperLeftMenuItemWasNotSelected
 .oldManName
-	db "OLD MAN@"
+	db "GRANDPA@"
 .profOakName
 	db "PROF.OAK@"
 .handleBattleMenuInput
