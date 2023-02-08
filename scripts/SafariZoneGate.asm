@@ -17,7 +17,12 @@ SafariZoneGate_ScriptPointers:
 .SafariZoneEntranceScript0
 	ld hl, .CoordsData_75221
 	call ArePlayerCoordsInArray
-	ret nc
+	jr c, .playerInfrontOfClerk
+	ld hl, .exitCoords
+	call ArePlayerCoordsInArray
+	jr c, .SafariZoneEntranceScript5
+	ret
+.playerInfrontOfClerk
 	ld a, $3
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -46,6 +51,11 @@ SafariZoneGate_ScriptPointers:
 .CoordsData_75221:
 	dbmapcoord  3,  2
 	dbmapcoord  4,  2
+	db -1 ; end
+
+.exitCoords
+	dbmapcoord  3,  0
+	dbmapcoord  4,  0
 	db -1 ; end
 
 .SafariZoneEntranceScript1
