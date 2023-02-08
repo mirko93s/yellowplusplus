@@ -6484,12 +6484,15 @@ LoadEnemyMonData:
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
 	predef IndexToPokedex
+	call IsGhostBattle
+	jr nz, .noMarkSeen
 	ld a, [wd11e]
 	dec a
 	ld c, a
 	ld b, FLAG_SET
 	ld hl, wPokedexSeen
 	predef FlagActionPredef ; mark this mon as seen in the pokedex
+.noMarkSeen
 	ld hl, wEnemyMonLevel
 	ld de, wEnemyMonUnmodifiedLevel
 	ld bc, 1 + NUM_STATS * 2
