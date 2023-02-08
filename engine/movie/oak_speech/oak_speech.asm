@@ -3,8 +3,10 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
+IF DEF(_DEBUG)
 	ld a, [wd732]
 	push af
+ENDC
 	ld a, [wPrinterSettings]
 	push af
 	ld hl, wPlayerName
@@ -22,8 +24,10 @@ SetDefaultNames:
 	pop af
 	ld [wPrinterSettings], a
 	pop af
+IF DEF(_DEBUG)
 	ld [wd732], a
 	pop af
+ENDC
 	ld [wOptions], a
 	pop af
 	ld [wLetterPrintingDelayFlags], a
