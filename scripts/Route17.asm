@@ -29,6 +29,7 @@ Route17_TextPointers:
 	dw Route17Text14
 	dw Route17Text15
 	dw Route17Text16
+	dw Route17Text17
 
 Route17TrainerHeaders:
 	def_trainers
@@ -256,4 +257,8 @@ Route17Text15:
 
 Route17Text16:
 	text_far _Route17Text16
+	text_end
+
+Route17Text17:
+	text_far _Route16Text9
 	text_end

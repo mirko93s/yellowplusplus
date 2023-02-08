@@ -10,6 +10,7 @@ Route17_Object:
 	bg_event  9, 87, 14 ; Route17Text14
 	bg_event  9, 111, 15 ; Route17Text15
 	bg_event  9, 141, 16 ; Route17Text16
+	bg_event  5, -1, 17 ; Route17Text17 which is a repeat of Route16Text9
 
 	def_object_events
 	object_event 12, 19, SPRITE_BIKER, STAY, LEFT, 1, OPP_CUE_BALL, 4
