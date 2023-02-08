@@ -57,18 +57,8 @@ InitBattleCommon:
 	callabd_ModifyPikachuHappiness PIKAHAPPY_GYMLEADER ; useless since already in bank3d
 	jp _InitBattleCommon
 
-InitWildBattle:
-	ld a, $1
-	ld [wIsInBattle], a
-	callfar LoadEnemyMonData
-	callfar DoBattleTransitionAndInitBattleVariables
-	ld a, [wCurOpponent]
-	cp RESTLESS_SOUL
-	jr z, .isGhost
-	callfar IsGhostBattle
-	jr nz, .isNoGhost
-.isGhost
-	ld hl, wMonHSpriteDim
+LoadGhostPic:
+    ld hl, wMonHSpriteDim
 	ld a, $66
 	ld [hli], a   ; write sprite dimensions
 	ld bc, GhostPic
@@ -95,7 +85,21 @@ InitWildBattle:
 	call LoadMonFrontSprite ; load ghost sprite
 	pop af
 	ld [wcf91], a
-	jr .spriteLoaded
+    ret
+
+InitWildBattle:
+	ld a, $1
+	ld [wIsInBattle], a
+	callfar LoadEnemyMonData
+	callfar DoBattleTransitionAndInitBattleVariables
+	ld a, [wCurOpponent]
+	cp RESTLESS_SOUL
+	jr z, .isGhost
+	callfar IsGhostBattle
+	jr nz, .isNoGhost
+.isGhost
+	call LoadGhostPic
+    jr .spriteLoaded
 .isNoGhost
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load mon sprite

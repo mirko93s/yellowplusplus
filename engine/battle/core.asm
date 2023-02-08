@@ -2429,7 +2429,7 @@ UseBagItem:
 ItemsCantBeUsedHereText:
 	text_far _ItemsCantBeUsedHereText
 	text_end
-
+	
 PartyMenuOrRockOrRun:
 	dec a ; was Run selected?
 	jp nz, BattleMenu_RunWasSelected
@@ -2520,7 +2520,13 @@ PartyMenuOrRockOrRun:
 	ld [wd0b5], a
 	call GetMonHeader
 	ld de, vFrontPic
-	call LoadMonFrontSprite
+	call IsGhostBattle
+	push af
+	call nz, LoadMonFrontSprite
+	pop af
+	jr nz, .noGhostPic
+	callfar LoadGhostPic
+.noGhostPic
 	jr .enemyMonPicReloaded
 .doEnemyMonAnimation
 	ld b, BANK(AnimationSubstitute) ; BANK(AnimationMinimizeMon)
