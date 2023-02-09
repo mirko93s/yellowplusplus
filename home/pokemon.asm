@@ -22,11 +22,11 @@ DrawHPBar::
 	jr nz, .draw
 
 	; Right
-	ld a, [wHPBarType]
-	dec a
-	ld a, $6d ; status screen and battle
-	jr z, .ok
-	dec a ; pokemon menu
+	; ld a, [wHPBarType]
+	; dec a
+	ld a, $6c ; status screen and battle
+	; jr z, .ok
+	; dec a ; pokemon menu
 .ok
 	ld [hl], a
 
@@ -369,8 +369,8 @@ PrintLevel::
 	jr c, PrintLevelCommon
 ; if level at least 100, write over the ":L" tile
 	dec hl
-	inc c ; increment number of digits to 3
-	jr PrintLevelCommon
+	; inc c ; increment number of digits to 3
+	jr PrintLevelFull
 
 ; prints the level without leaving off ":L" regardless of level
 ; INPUT:

@@ -105,8 +105,8 @@ StatusScreen:
 	push af
 	xor a
 	ldh [hTileAnimations], a
-	hlcoord 19, 4
-	lb bc, 3, 10
+	hlcoord 19, 5
+	lb bc, 2, 10
 	call DrawLineBox ; Draws the box around name, HP and status
 	ld de, -6
 	add hl, de
@@ -346,6 +346,8 @@ StatusScreen2:
 	lb bc, 5, 10
 	call ClearScreenArea ; Clear under name
 	hlcoord 19, 3
+	ld [hl], $78
+	hlcoord 19, 4
 	ld [hl], $78
 	hlcoord 0, 8
 	lb bc, 8, 18

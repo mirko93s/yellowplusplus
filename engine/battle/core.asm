@@ -1902,7 +1902,7 @@ DrawPlayerHUDAndHPBar:
 	call ClearScreenArea
 	callfar PlacePlayerHUDTiles
 	hlcoord 18, 9
-	ld [hl], $73
+	ld [hl], $72 ; empty tile
 	ld de, wBattleMonNick
 	hlcoord 10, 7
 	call PlaceString
@@ -1916,15 +1916,11 @@ DrawPlayerHUDAndHPBar:
 	ld de, wLoadedMonLevel
 	ld bc, wBattleMonPP - wBattleMonLevel
 	call CopyData
-	hlcoord 14, 8
-	push hl
-	inc hl
+	hlcoord 11, 8
 	ld de, wLoadedMonStatus
 	call PrintStatusConditionNotFainted
-	pop hl
-	jr nz, .doNotPrintLevel
+	hlcoord 15, 8
 	call PrintLevel
-.doNotPrintLevel
 	ld a, [wLoadedMonSpecies]
 	ld [wcf91], a
 	hlcoord 10, 9
@@ -1968,17 +1964,13 @@ DrawEnemyHUDAndHPBar:
 	call CenterMonName
 	call PlaceString
 	call PrintEnemyMonGender
-	hlcoord 6, 1
-	push hl
-	inc hl
+	hlcoord 5, 1
 	ld de, wEnemyMonStatus
 	call PrintStatusConditionNotFainted
-	pop hl
-	jr nz, .skipPrintLevel ; if the mon has a status condition, skip printing the level
 	ld a, [wEnemyMonLevel]
 	ld [wLoadedMonLevel], a
+	hlcoord 1, 1
 	call PrintLevel
-.skipPrintLevel
 	ld hl, wEnemyMonHP
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -2041,7 +2033,7 @@ DrawEnemyHUDAndHPBar:
 .drawHPBar
 	xor a
 	ld [wHPBarType], a
-	hlcoord 2, 2
+	hlcoord 0, 2
 	call DrawHPBar
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
@@ -2085,13 +2077,14 @@ CenterMonName:
 PrintPlayerMonGender:
 	ld a, [wBattleMonSpecies]
 	ld de, wBattleMonDVs
-	coord hl, 17, 8
+	coord hl, 19, 8
 	jr PrintGenderCommon
 
 PrintEnemyMonGender:
 	ld a, [wEnemyMonSpecies]
 	ld de, wEnemyMonDVs
-	coord hl, 9, 1
+	coord hl, 0, 1
+
 PrintGenderCommon:
 	ld [wGenderTemp], a
 	push hl
