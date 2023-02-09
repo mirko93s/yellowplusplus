@@ -15,15 +15,7 @@ DisplayPokemonCenterDialogue_::
 	bit 2, [hl]
 	set 1, [hl]
 	set 2, [hl]
-	jr nz, .skipShallWeHealYourPokemon
-	ld hl, ShallWeHealYourPokemonText
-	call PrintText
-.skipShallWeHealYourPokemon
-	call YesNoChoicePokeCenter ; yes/no menu
 	call UpdateSprites
-	ld a, [wCurrentMenuItem]
-	and a
-	jp nz, .declinedHealing ; if the player chose No
 	call SetLastBlackoutMap
 	callfar IsStarterPikachuInOurParty
 	jr nc, .notHealingPlayerPikachu
@@ -68,8 +60,6 @@ DisplayPokemonCenterDialogue_::
 .doNotReturnPikachu
 	lb bc, 1, 0
 	call Func_6ebb
-	ld hl, PokemonFightingFitText
-	call PrintText
 	callfar IsStarterPikachuInOurParty
 	jr nc, .notInParty
 	lb bc, 15, 0
@@ -126,18 +116,18 @@ PokemonCenterWelcomeText:
 	text_far _PokemonCenterWelcomeText
 	text_end
 
-ShallWeHealYourPokemonText:
-	text_pause
-	text_far _ShallWeHealYourPokemonText
-	text_end
+; ShallWeHealYourPokemonText:
+; 	text_pause
+; 	text_far _ShallWeHealYourPokemonText
+; 	text_end
 
 NeedYourPokemonText:
 	text_far _NeedYourPokemonText
 	text_end
 
-PokemonFightingFitText:
-	text_far _PokemonFightingFitText
-	text_end
+; PokemonFightingFitText:
+; 	text_far _PokemonFightingFitText
+; 	text_end
 
 PokemonCenterFarewellText:
 	text_pause
