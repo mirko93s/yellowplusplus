@@ -105,8 +105,8 @@ StatusScreen:
 	push af
 	xor a
 	ldh [hTileAnimations], a
-	hlcoord 19, 1
-	lb bc, 6, 10
+	hlcoord 19, 4
+	lb bc, 3, 10
 	call DrawLineBox ; Draws the box around name, HP and status
 	ld de, -6
 	add hl, de
