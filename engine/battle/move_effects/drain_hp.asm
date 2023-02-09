@@ -74,7 +74,7 @@ DrainHPEffect_:
 	hlcoord 10, 9
 	ld a, $1
 	jr z, .next2
-	hlcoord 2, 2
+	hlcoord 0, 2
 	xor a
 .next2
 	ld [wHPBarType], a

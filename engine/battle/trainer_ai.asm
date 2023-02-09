@@ -552,7 +552,7 @@ AIRecoverHP:
 
 AIPrintItemUseAndUpdateHPBar:
 	call AIPrintItemUse_
-	hlcoord 2, 2
+	hlcoord 0, 2
 	xor a
 	ld [wHPBarType], a
 	predef UpdateHPBar2

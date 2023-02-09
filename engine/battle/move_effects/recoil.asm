@@ -58,7 +58,7 @@ RecoilEffect_:
 	and a
 	ld a, $1
 	jr z, .updateHPBar
-	hlcoord 2, 2
+	hlcoord 0, 2
 	xor a
 .updateHPBar
 	ld [wHPBarType], a

@@ -680,7 +680,7 @@ UpdateCurMonHPBar:
 	and a
 	ld a, $1
 	jr z, .playersTurn
-	hlcoord 2, 2    ; tile pointer to enemy HP bar
+	hlcoord 0, 2    ; tile pointer to enemy HP bar
 	xor a
 .playersTurn
 	push bc
@@ -5071,7 +5071,7 @@ ApplyDamageToEnemyPokemon:
 	ld [wHPBarNewHP+1], a
 	ld a, [hl]
 	ld [wHPBarNewHP], a
-	hlcoord 2, 2
+	hlcoord 0, 2
 	xor a
 	ld [wHPBarType], a
 	predef UpdateHPBar2 ; animate the HP bar shortening
