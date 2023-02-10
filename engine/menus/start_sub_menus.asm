@@ -840,3 +840,22 @@ SwitchPartyMon_InitVarOrSwapData:
 	pop de
 	pop hl
 	ret
+
+StartMenu_SelectPressed::
+	ld a, [wCurrentMenuItem]
+	ld [wBattleAndStartSavedMenuItem], a ; save current menu selection
+	call SaveScreenTilesToBuffer2 ; copy background from wTileMap to wTileMapBackup2
+	ld hl, vChars2 tile $78
+	ld de, PokeballTileGraphics
+	lb bc, BANK(PokeballTileGraphics), 1
+	call CopyVideoData
+	ld a, 1
+	ld [wUnusedD71F], a ; check if from options menu
+	farcall ChangeBox
+	; ld b, SET_PAL_OVERWORLD
+	; call RunPaletteCommand
+	call LoadScreenTilesFromBuffer2 ; restore saved screen
+	call LoadTextBoxTilePatterns
+	call UpdateSprites
+.done
+	jp RedisplayStartMenu

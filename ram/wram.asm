@@ -2369,7 +2369,7 @@ wDungeonWarpDestinationMap:: db
 ; which dungeon warp within the source map was used
 wWhichDungeonWarp:: db
 
-wUnusedD71F:: db
+wUnusedD71F:: db ; used to check if change box menu was opened from pause menu so we don't change the ow palette
 
 	ds 8
 
