@@ -2632,17 +2632,17 @@ MoveSelectionMenu:
 	ret z
 	ld hl, wBattleMonMoves
 	call .loadmoves
-	hlcoord 4, 12
-	lb bc, 4, 14
+	hlcoord 5, 12
+	lb bc, 4, 13
 	di ; out of pure coincidence, it is possible for vblank to occur between the di and ei
 	   ; so it is necessary to put the di ei block to not cause tearing
 	call TextBoxBorder
-	hlcoord 4, 12
-	ld [hl], $7a
-	hlcoord 10, 12
-	ld [hl], $7e
+	; hlcoord 4, 12
+	; ld [hl], $7a
+	; hlcoord 10, 12
+	; ld [hl], $7e
 	ei
-	hlcoord 6, 13
+	hlcoord 7, 13
 	call .writemoves
 	ld b, $5
 	ld a, $c
@@ -2675,6 +2675,7 @@ MoveSelectionMenu:
 	ld hl, wTopMenuItemY
 	ld [hli], a ; wTopMenuItemY
 	ld a, b
+	inc a
 	ld [hli], a ; wTopMenuItemX
 	ld a, [wMoveMenuType]
 	cp $1
@@ -2733,7 +2734,7 @@ SelectMenuItem:
 	ld a, [wMenuItemToSwap]
 	and a
 	jr z, .select
-	hlcoord 5, 13
+	hlcoord 6, 13
 	dec a
 	ld bc, SCREEN_WIDTH
 	call AddNTimes
@@ -3038,8 +3039,8 @@ ENDC
 PrintMenuItem:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 0, 8
-	lb bc, 3, 9
+	hlcoord 0, 10
+	lb bc, 1, 8
 	call TextBoxBorder
 	ld a, [wPlayerDisabledMove]
 	and a
@@ -3050,7 +3051,7 @@ PrintMenuItem:
 	ld a, [wCurrentMenuItem]
 	cp b
 	jr nz, .notDisabled
-	hlcoord 1, 10
+	hlcoord 1, 11
 	ld de, DisabledText
 	call PlaceString
 	jr .moveDisabled
@@ -3082,23 +3083,28 @@ PrintMenuItem:
 	and $3f
 	ld [wcd6d], a
 ; print TYPE/<type> and <curPP>/<maxPP>
-	hlcoord 1, 9
-	ld de, TypeText
-	call PlaceString
-	hlcoord 7, 11
-	ld [hl], "/"
-	hlcoord 5, 9
-	ld [hl], "/"
-	hlcoord 5, 11
+	; hlcoord 1, 9
+	; ld de, TypeText
+	; call PlaceString
+	hlcoord 3, 14
+	ld [hl], "fullslash"
+	hlcoord 2, 15
+	ld [hl], "fullslash"
+	; hlcoord 5, 9
+	; ld [hl], "/"
+
+	hlcoord 1, 14
 	ld de, wcd6d
 	lb bc, 1, 2
 	call PrintNumber
-	hlcoord 8, 11
+
+	hlcoord 3, 15
 	ld de, wMaxPP
 	lb bc, 1, 2
 	call PrintNumber
+
 	call GetCurrentMove
-	hlcoord 2, 10
+	hlcoord 1, 11
 	predef PrintMoveType
 .moveDisabled
 	ld a, $1
