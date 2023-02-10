@@ -95,7 +95,7 @@ PoisonEffect:
 	ld de, wEnemyMoveEffect
 .poisonEffect
 	call CheckTargetSubstitute
-	jr nz, .noEffect ; can't poison a substitute target
+	jp nz, .noEffect ; can't poison a substitute target
 	ld a, [hli]
 	ld b, a
 	and a
@@ -123,8 +123,18 @@ PoisonEffect:
 	jr nz, .didntAffect
 	jr .inflictPoison
 .sideEffectTest
+	ld a, [wChargeMoveNum]
+	cp POISON_STING
+	jr z, .altChance
+	cp SLUDGE
+	jr z, .altChance
 	call BattleRandom
 	cp b ; was side effect successful?
+	jr .regularChance
+.altChance
+	call BattleRandom
+	cp 30 percent + 1 ; was side effect successful?
+.regularChance
 	ret nc
 .inflictPoison
 	dec hl
@@ -249,6 +259,10 @@ FreezeBurnParalyzeEffect:
 	ld b, 30 percent + 1
 	jr z, .regular_effectiveness
 	ld b, 10 percent + 1
+	ld a, [wChargeMoveNum]
+	cp TRI_ATTACK
+	jr nz, .regular_effectiveness ; if it is tri_attack bump chance to 20 so each of the three possible effects get 6.66% chance
+	ld b, 20 percent + 1
 	jr .regular_effectiveness
 .asm_3f2c7
 	cp PARALYZE_SIDE_EFFECT1 + 1
@@ -613,8 +627,26 @@ StatModifierDownEffect:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	jr c, .nonSideEffect
+	ld a, [wChargeMoveNum]
+	cp ACID
+	jr z, .altChance
+	cp AURORA_BEAM
+	jr z, .altChance
+	cp BUBBLEBEAM
+	jr z, .altChance
+	cp BUBBLE
+	jr z, .altChance
+	cp CONSTRICT
+	jr z, .altChance
+	cp PSYCHIC_M
+	jr z, .altChance
 	call BattleRandom
 	cp 33 percent + 1 ; chance for side effects
+	jr .regularChance
+.altChance ; used for some move who got changed in newer generations
+	call BattleRandom
+	cp 10 percent + 1 ; chance for side effects
+.regularChance
 	jp nc, CantLowerAnymore
 	ld a, [de]
 	sub ATTACK_DOWN_SIDE_EFFECT ; map each stat to 0-3
@@ -1187,8 +1219,16 @@ RecoilEffect:
 	jpfar RecoilEffect_
 
 ConfusionSideEffect:
+	ld a, [wChargeMoveNum]
+	cp DIZZY_PUNCH
+	jr z, .altChance
 	call BattleRandom
 	cp 10 percent ; chance of confusion
+	jr .regularChance
+.altChance
+	call BattleRandom
+	cp 20 percent ; chance of confusion
+.regularChance
 	ret nc
 	jr ConfusionSideEffectSuccess
 

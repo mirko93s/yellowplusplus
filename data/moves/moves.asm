@@ -54,7 +54,7 @@ Moves:
 		move TWINEEDLE,    TWINEEDLE_EFFECT,            25, BUG,          100, 20
 		move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  25, BUG,           95, 20
 		move LEER,         DEFENSE_DOWN1_EFFECT,         0, NORMAL,       100, 30
-		move BITE,         FLINCH_SIDE_EFFECT1,         60, NORMAL,       100, 25 ; DARK
+		move BITE,         FLINCH_SIDE_EFFECT2,         60, NORMAL,       100, 25
 		move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,       100, 40
 		move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,       100, 20
 		move SING,         SLEEP_EFFECT,                 0, NORMAL,        55, 15
@@ -91,13 +91,13 @@ Moves:
 		move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,         75, 30
 		move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,         75, 15
 		move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,  120, GRASS,        100, 10
-		move STRING_SHOT,  SPEED_DOWN1_EFFECT,           0, BUG,           95, 40
+		move STRING_SHOT,  SPEED_DOWN2_EFFECT,           0, BUG,           95, 40
 		move DRAGON_RAGE,  SPECIAL_DAMAGE_EFFECT,        1, DRAGON,       100, 10
 		move FIRE_SPIN,    TRAPPING_EFFECT,             35, FIRE,          85, 15
 		move THUNDERSHOCK, PARALYZE_SIDE_EFFECT1,       40, ELECTRIC,     100, 30
 		move THUNDERBOLT,  PARALYZE_SIDE_EFFECT1,       90, ELECTRIC,     100, 15
 		move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC,      90, 20
-		move THUNDER,      PARALYZE_SIDE_EFFECT1,      110, ELECTRIC,      70, 10
+		move THUNDER,      PARALYZE_SIDE_EFFECT2,      110, ELECTRIC,      70, 10
 		move ROCK_THROW,   NO_ADDITIONAL_EFFECT,        50, ROCK,          90, 15
 		move EARTHQUAKE,   NO_ADDITIONAL_EFFECT,       100, GROUND,       100, 10
 		move FISSURE,      OHKO_EFFECT,                  1, GROUND,        30,  5
@@ -136,7 +136,7 @@ Moves:
 		move SMOG,         POISON_SIDE_EFFECT2,         30, POISON,        70, 20
 		move SLUDGE,       POISON_SIDE_EFFECT2,         65, POISON,       100, 20
 		move BONE_CLUB,    FLINCH_SIDE_EFFECT1,         65, GROUND,        85, 20
-		move FIRE_BLAST,   BURN_SIDE_EFFECT2,          110, FIRE,          85,  5
+		move FIRE_BLAST,   BURN_SIDE_EFFECT1,          110, FIRE,          85,  5
 		move WATERFALL,    NO_ADDITIONAL_EFFECT,        80, WATER,        100, 15
 		move CLAMP,        TRAPPING_EFFECT,             35, WATER,         85, 15
 		move SWIFT,        SWIFT_EFFECT,                60, NORMAL,       100, 20
@@ -153,10 +153,10 @@ Moves:
 		move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  15, NORMAL,        85, 20
 		move LEECH_LIFE,   DRAIN_HP_EFFECT,             80, BUG,          100, 10
 		move LOVELY_KISS,  SLEEP_EFFECT,                 0, NORMAL,        75, 10
-		move SKY_ATTACK,   CHARGE_EFFECT,              140, FLYING,        90,  5
+		move SKY_ATTACK,   CHARGE_EFFECT,              140, FLYING,        90,  5 ; critical ok, add flinch 30%, find a way to get 2 effects on a move
 		move TRANSFORM,    TRANSFORM_EFFECT,             0, NORMAL,       100, 10
 		move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      40, WATER,        100, 30
-		move DIZZY_PUNCH,  NO_ADDITIONAL_EFFECT,        70, NORMAL,       100, 10
+		move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       70, NORMAL,       100, 10
 		move SPORE,        SLEEP_EFFECT,                 0, GRASS,        100, 15
 		move FLASH,        ACCURACY_DOWN1_EFFECT,        0, NORMAL,       100, 20
 		move PSYWAVE,      SPECIAL_DAMAGE_EFFECT,        1, PSYCHIC_TYPE, 100, 15
@@ -167,7 +167,7 @@ Moves:
 		move FURY_SWIPES,  TWO_TO_FIVE_ATTACKS_EFFECT,  18, NORMAL,        80, 15
 		move BONEMERANG,   ATTACK_TWICE_EFFECT,         50, GROUND,        90, 10
 		move REST,         HEAL_EFFECT,                  0, PSYCHIC_TYPE, 100,  5
-		move ROCK_SLIDE,   NO_ADDITIONAL_EFFECT,        75, ROCK,          90, 10
+		move ROCK_SLIDE,   FLINCH_SIDE_EFFECT2,        	75, ROCK,          90, 10
 		move HYPER_FANG,   FLINCH_SIDE_EFFECT1,         80, NORMAL,        90, 15
 		move SHARPEN,      ATTACK_UP1_EFFECT,            0, NORMAL,       100, 30
 		move CONVERSION,   CONVERSION_EFFECT,            0, NORMAL,       100, 30
