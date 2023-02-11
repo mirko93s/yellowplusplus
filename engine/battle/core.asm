@@ -3039,9 +3039,9 @@ ENDC
 PrintMenuItem:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 0, 10
-	lb bc, 1, 8
-	call TextBoxBorder
+	; hlcoord 0, 10
+	; lb bc, 1, 8
+	; call TextBoxBorder ; type/pp box
 	ld a, [wPlayerDisabledMove]
 	and a
 	jr z, .notDisabled
@@ -3051,7 +3051,7 @@ PrintMenuItem:
 	ld a, [wCurrentMenuItem]
 	cp b
 	jr nz, .notDisabled
-	hlcoord 1, 11
+	hlcoord 1, 14 ; disabled text
 	ld de, DisabledText
 	call PlaceString
 	jr .moveDisabled
@@ -3086,25 +3086,25 @@ PrintMenuItem:
 	; hlcoord 1, 9
 	; ld de, TypeText
 	; call PlaceString
-	hlcoord 3, 14
+	hlcoord 3, 15
 	ld [hl], "fullslash"
-	hlcoord 2, 15
+	hlcoord 2, 16
 	ld [hl], "fullslash"
 	; hlcoord 5, 9
 	; ld [hl], "/"
 
-	hlcoord 1, 14
+	hlcoord 1, 15 ; current pp
 	ld de, wcd6d
 	lb bc, 1, 2
 	call PrintNumber
 
-	hlcoord 3, 15
+	hlcoord 3, 16 ; max pp
 	ld de, wMaxPP
 	lb bc, 1, 2
 	call PrintNumber
 
 	call GetCurrentMove
-	hlcoord 1, 11
+	hlcoord 1, 13 ; move type
 	predef PrintMoveType
 .moveDisabled
 	ld a, $1
@@ -3112,7 +3112,7 @@ PrintMenuItem:
 	jp Delay3
 
 DisabledText:
-	db "Disabled!@"
+	db "DSBL@"
 
 TypeText:
 	db "TYPE@"

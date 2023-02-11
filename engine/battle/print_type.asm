@@ -40,6 +40,16 @@ PrintMoveType:
 PrintType_:
 	add a
 	ld hl, TypeNames
+	push af
+	ld a, [wIsInBattle]
+	cp 2
+	jr z, .shortNames  ; if trianer battle go to short
+	cp 1
+	jr nz, .regularNames ; else if wild fall through, else if not wild  go to regular
+.shortNames
+	ld hl, TypeNamesShort
+.regularNames
+	pop af
 	ld e, a
 	ld d, $0
 	add hl, de
