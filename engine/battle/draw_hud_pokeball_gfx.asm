@@ -135,8 +135,8 @@ PlaceHUDTilesBeforeStart:
 PlayerBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the player's pokemon
 	db $73 ; unused ($73 is hardcoded into the routine that uses these bytes)
-	db $74 ; xp bar end closing pixels
-	db $78 ; "xp" text
+	db $74 ; xp bar right end ("xp" text)
+	db $78 ; xp bar left end
 
 PlayerHUDTilesBeforeStart:
 	db $72

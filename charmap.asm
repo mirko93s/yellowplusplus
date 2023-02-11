@@ -156,6 +156,16 @@
 	charmap "'s",        $bd
 	charmap "'t",        $be
 	charmap "'v",        $bf
+	; status effect font
+	charmap "_S",		 $d0
+	charmap "_L",		 $d1
+	charmap "_P",		 $d2
+	charmap "_N",		 $d3
+	charmap "_B",		 $d4
+	charmap "_R",		 $d5
+	charmap "_F",		 $d6
+	charmap "_Z",		 $d7
+	charmap "_A",		 $d8
 
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
