@@ -7,39 +7,44 @@ _CeladonGameCornerText1::
 	cont "next door."
 	done
 
-_CeladonGameCornerText_48d22::
+_CeladonGameCornerText_Welcome::
 	text "Welcome to ROCKET"
 	line "GAME CORNER!"
 
 	para "Do you need some"
 	line "game coins?"
 
-	para "It's ¥1000 for 50"
+	para "It's ¥10000 for 500"
 	line "coins. Would you"
 	cont "like some?"
 	done
 
-_CeladonGameCornerText_48d27::
+_CeladonGameCornerText_BoughtCoins::
 	text "Thanks! Here are"
-	line "your 50 coins!"
+	line "your 500 coins!"
+
+	para "Do you need more"
+	line "coins?"
 	done
 
-_CeladonGameCornerText_48d2c::
+_CeladonGameCornerText_ChoiceNo::
 	text "No? Please come"
 	line "play sometime!"
 	done
 
-_CeladonGameCornerText_48d31::
+_CeladonGameCornerText_CantAfford::
 	text "You can't afford"
 	line "the coins!"
 	done
 
-_CeladonGameCornerText_48d36::
+_CeladonGameCornerText_CaseFull::
 	text "Oops! Your COIN"
-	line "CASE is full."
+	line "CASE is almost"
+	cont "full. Spend some"
+	cont "and come back!"
 	done
 
-_CeladonGameCornerText_48d3b::
+_CeladonGameCornerText_NoCoinCase::
 	text "You don't have a"
 	line "COIN CASE!"
 	done

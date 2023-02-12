@@ -139,85 +139,86 @@ CeladonGameCornerText1:
 	text_far _CeladonGameCornerText1
 	text_end
 
-CeladonGameCornerText2:
+CeladonGameCornerText2: ; guy selling coins
 	text_asm
-	call CeladonGameCornerScript_48f1e
-	ld hl, CeladonGameCornerText_48d22
+	call CeladonGameCornerScript_DrawUpdateMenu
+	ld hl, CeladonGameCornerText_Welcome
+.loop
 	call PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jr nz, .asm_48d0f
+	jr nz, .choiceNo
 	ld b, COIN_CASE
 	call IsItemInBag
-	jr z, .asm_48d19
-	call Has9990Coins
-	jr nc, .asm_48d14
+	jr z, .noCoinCase
+	call Has9499Coins
+	jr nc, .caseFull
 	xor a
-	ldh [hMoney], a
 	ldh [hMoney + 2], a
-	ld a, $10
 	ldh [hMoney + 1], a
+	ld a, $1
+	ldh [hMoney], a
 	call HasEnoughMoney
-	jr nc, .asm_48cdb
-	ld hl, CeladonGameCornerText_48d31
-	jr .asm_48d1c
-.asm_48cdb
+	jr nc, .hasMoney
+	ld hl, CeladonGameCornerText_CantAfford
+	jr .done
+.hasMoney
 	xor a
-	ldh [hMoney], a
 	ldh [hMoney + 2], a
-	ld a, $10
 	ldh [hMoney + 1], a
+	ld a, $1
+	ldh [hMoney], a
 	ld hl, hMoney + 2
 	ld de, wPlayerMoney + 2
 	ld c, $3
 	predef SubBCDPredef
 	xor a
 	ldh [hUnusedCoinsByte], a
-	ldh [hCoins], a
-	ld a, $50
 	ldh [hCoins + 1], a
+	ld a, $5
+	ldh [hCoins], a
 	ld de, wPlayerCoins + 1
 	ld hl, hCoins + 1
 	ld c, $2
 	predef AddBCDPredef
-	call CeladonGameCornerScript_48f1e
-	ld hl, CeladonGameCornerText_48d27
-	jr .asm_48d1c
-.asm_48d0f
-	ld hl, CeladonGameCornerText_48d2c
-	jr .asm_48d1c
-.asm_48d14
-	ld hl, CeladonGameCornerText_48d36
-	jr .asm_48d1c
-.asm_48d19
-	ld hl, CeladonGameCornerText_48d3b
-.asm_48d1c
+	call CeladonGameCornerScript_DrawUpdateMenu
+	ld hl, CeladonGameCornerText_BoughtCoins
+	jr .loop
+.choiceNo
+	ld hl, CeladonGameCornerText_ChoiceNo
+	jr .done
+.caseFull
+	ld hl, CeladonGameCornerText_CaseFull
+	jr .done
+.noCoinCase
+	ld hl, CeladonGameCornerText_NoCoinCase
+.done
 	call PrintText
 	jp TextScriptEnd
 
-CeladonGameCornerText_48d22:
-	text_far _CeladonGameCornerText_48d22
+CeladonGameCornerText_Welcome:
+	text_far _CeladonGameCornerText_Welcome
 	text_end
 
-CeladonGameCornerText_48d27:
-	text_far _CeladonGameCornerText_48d27
+CeladonGameCornerText_BoughtCoins:
+	text_far _CeladonGameCornerText_BoughtCoins
 	text_end
 
-CeladonGameCornerText_48d2c:
-	text_far _CeladonGameCornerText_48d2c
+CeladonGameCornerText_ChoiceNo:
+	text_far _CeladonGameCornerText_ChoiceNo
 	text_end
 
-CeladonGameCornerText_48d31:
-	text_far _CeladonGameCornerText_48d31
+CeladonGameCornerText_CantAfford:
+	text_far _CeladonGameCornerText_CantAfford
 	text_end
 
-CeladonGameCornerText_48d36:
-	text_far _CeladonGameCornerText_48d36
+CeladonGameCornerText_CaseFull:
+	text_far _CeladonGameCornerText_CaseFull
 	text_end
 
-CeladonGameCornerText_48d3b:
-	text_far _CeladonGameCornerText_48d3b
+CeladonGameCornerText_NoCoinCase:
+	text_far _CeladonGameCornerText_NoCoinCase
 	text_end
 
 CeladonGameCornerText3:
@@ -237,7 +238,7 @@ CeladonGameCornerText5:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .asm_48d93
-	call Has9990Coins
+	call Has9499Coins
 	jr nc, .asm_48d8e
 	xor a
 	ldh [hUnusedCoinsByte], a
@@ -317,7 +318,7 @@ CeladonGameCornerText9:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .asm_48e1d
-	call Has9990Coins
+	call Has9499Coins
 	jr nc, .asm_48e18
 	xor a
 	ldh [hUnusedCoinsByte], a
@@ -369,7 +370,7 @@ CeladonGameCornerText10:
 	ld b, COIN_CASE
 	call IsItemInBag
 	jr z, .asm_48e7f
-	call Has9990Coins
+	call Has9499Coins
 	jr z, .asm_48e7a
 	xor a
 	ldh [hUnusedCoinsByte], a
@@ -475,7 +476,7 @@ CeladonGameCornerText_48f19:
 	text_far _CeladonGameCornerText_48f19
 	text_end
 
-CeladonGameCornerScript_48f1e:
+CeladonGameCornerScript_DrawUpdateMenu:
 	ld hl, wd730
 	set 6, [hl]
 	hlcoord 11, 0
@@ -521,9 +522,9 @@ GameCornerBlankText1:
 GameCornerBlankText2:
 	db "       @"
 
-Has9990Coins:
-	ld a, $99
+Has9499Coins:
+	ld a, $94
 	ldh [hCoins], a
-	ld a, $90
+	ld a, $99
 	ldh [hCoins + 1], a
 	jp HasEnoughCoins
