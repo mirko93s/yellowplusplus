@@ -167,3 +167,12 @@ _VermilionCityText13::
 _VermilionCityText14::
 	text "VERMILION HARBOR"
 	done
+
+_VermilionCityText16::
+	text "The S.S.ANNE"
+	line "is back!"
+	
+	para "After a long"
+	line "journey it's"
+	cont "back in port."
+	done

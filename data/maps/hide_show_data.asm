@@ -97,7 +97,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw NoHS
+	dw VermilionDockHS
 	dw NoHS
 	dw SSAnne2FHS
 	dw NoHS
@@ -578,5 +578,7 @@ BluesHouseHSCopy: ; unreferenced
 	db BLUES_HOUSE, $01, SHOW
 	db BLUES_HOUSE, $02, HIDE
 	db BLUES_HOUSE, $03, SHOW
+VermilionDockHS:
+	db VERMILION_DOCK, $01, HIDE
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

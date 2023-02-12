@@ -245,4 +245,5 @@ DEF SHOW EQU $15
 	const HS_DAISY_SITTING_COPY            ; EC
 	const HS_DAISY_WALKING_COPY            ; ED
 	const HS_TOWN_MAP_COPY                 ; EE
+	const HS_MEW_VERMILION_DOCK            ; EF
 DEF NUM_HS_OBJECTS EQU const_value
