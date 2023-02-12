@@ -110,6 +110,14 @@ _AddPartyMon::
 	and a ; is this a wild mon caught in battle?
 	jr nz, .copyEnemyMonData
 
+; starter pikachu gets maxed IVs
+	ld a, [wcf91]
+	cp STARTER_PIKACHU
+	jr nz, .continue
+	ld a, $ff
+	ld b, a
+	jr .next4
+.continue
 ; Not wild.
 	call Random ; generate random IVs
 	ld b, a
