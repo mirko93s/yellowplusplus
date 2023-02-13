@@ -38,3 +38,6 @@
 *.rar
 *.sh
 *.bat
+
+#test folder
+/TEST
