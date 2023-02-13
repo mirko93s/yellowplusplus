@@ -34,7 +34,7 @@ MainMenu:
 	jr z, .noSaveFile
 ; there's a save file
 	hlcoord 0, 0
-	lb bc, 6, 13
+	lb bc, 7, 9
 	call TextBoxBorder
 	hlcoord 2, 2
 	ld de, ContinueText
@@ -48,6 +48,9 @@ MainMenu:
 	ld de, NewGameText
 	call PlaceString
 .next2
+	hlcoord 0, 17
+	ld de, VersionText
+	call PlaceString
 	ld hl, wd730
 	res 6, [hl]
 	call UpdateSprites
@@ -179,30 +182,39 @@ ContinueText:
 
 NewGameText:
 	db   "NEW GAME"
-	next "OPTION@"
+	next "OPTIONS@"
+
+VersionText:
+	db   "v0.0.1"
+	text_end
 
 DisplayContinueGameInfo:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 4, 7
-	lb bc, 8, 14
+	hlcoord 11, 0
+	lb bc, 7, 7
 	call TextBoxBorder
-	hlcoord 5, 9
-	ld de, SaveScreenInfoText
+	hlcoord 12, 2
+	ld de, SaveScreenInfoTextMenu
 	call PlaceString
-	hlcoord 12, 9
+	hlcoord 12, 1
 	ld de, wPlayerName
 	call PlaceString
-	hlcoord 17, 11
+	hlcoord 17, 3
 	call PrintNumBadges
-	hlcoord 16, 13
+	hlcoord 16, 5
 	call PrintNumOwnedMons
-	hlcoord 13, 15
+	hlcoord 13, 7
 	call PrintPlayTime
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ld c, 30
 	jp DelayFrames
+
+SaveScreenInfoTextMenu:
+	db " Badges"
+	next "Pokédex"
+	next "   Time@"
 
 PrintSaveScreenText:
 	xor a
