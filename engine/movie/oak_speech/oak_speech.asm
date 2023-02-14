@@ -188,6 +188,9 @@ OakSpeech:
 .NotGreen3:
 	ld hl, vSprites
 	call CopyVideoData
+	ld a, [wPlayerGender] ; check gender
+ 	and a      ; check gender
+	jr nz, .shrinkG
  	ld de,ShrinkPic1
 	lb bc, BANK(ShrinkPic1), $00
 	call IntroDisplayPicCenteredOrUpperRight
@@ -200,6 +203,21 @@ OakSpeech:
 	call DelayFrames
 	ld de,ShrinkPic3
 	lb bc, BANK(ShrinkPic3), $00
+	jr .continue
+.shrinkG
+	ld de,ShrinkPic1G
+	lb bc, BANK(ShrinkPic1G), $00
+	call IntroDisplayPicCenteredOrUpperRight
+	ld c, 4
+	call DelayFrames
+	ld de, ShrinkPic2G
+	lb bc, BANK(ShrinkPic2G), $00
+	call IntroDisplayPicCenteredOrUpperRight
+	ld c,4
+	call DelayFrames
+	ld de,ShrinkPic3G
+	lb bc, BANK(ShrinkPic3G), $00
+.continue
 	call IntroDisplayPicCenteredOrUpperRight
 	call ResetPlayerSpriteData
 	ldh a, [hLoadedROMBank]
