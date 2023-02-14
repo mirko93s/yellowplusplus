@@ -8,6 +8,20 @@ PrintBeginningBattleText:
 	cp POKEMON_TOWER_7F + 1
 	jr c, .pokemonTower
 .notPokemonTower
+	; play animation if mon is shiny
+	ld de, wEnemyMonDVs
+	ld b, Bank(IsMonShiny)
+	ld hl, IsMonShiny
+	call Bankswitch
+	jr z, .noFlash
+	; play shiny animation
+	ld hl, wShinyMonFlag
+	set 1, [hl]
+	ld hl, PlayShinySparkleAnimation
+	ld b, Bank(PlayShinySparkleAnimation)
+	call Bankswitch
+	callfar AnimationFlashScreen
+.noFlash
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
 	jr nz, .notPikachuBattle
@@ -55,7 +69,7 @@ PrintBeginningBattleText:
 	and a
 	jr z, .noSilphScope
 	callfar LoadEnemyMonData
-	jr .notPokemonTower
+	jp .notPokemonTower
 .noSilphScope
 	ld hl, EnemyAppearedText
 	call PrintText

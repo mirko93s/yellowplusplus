@@ -30,6 +30,19 @@ SetPal_Battle:
 	ld de, wPalPacket
 	ld bc, $10
 	call CopyData
+	;Shiny
+	ld hl, wShinyMonFlag
+	res 0, [hl]
+	ld a, [wBattleMonSpecies]
+	and a
+	jr z, .getPALID
+	ld de, wBattleMonDVs
+	callfar IsMonShiny
+	jr z, .getPALID
+	ld hl, wShinyMonFlag
+	set 0, [hl]
+.getPALID
+    ;shiny2 
 	ld hl, wBattleMonSpecies
 	ld a, [hl]
 	and a
@@ -41,8 +54,23 @@ SetPal_Battle:
 .asm_71ef9
 	call DeterminePaletteIDBack
 	ld b, a
+	;shiny3
+	push bc
+	ld hl, wShinyMonFlag
+	res 0, [hl]
+	ld a, [wEnemyMonSpecies2]
+	and a
+	jr z, .getPalID2
+	ld de, wEnemyMonDVs
+	callfar IsMonShiny
+	jr z, .getPalID2
+	ld hl, wShinyMonFlag
+	set 0, [hl]
+.getPalID2
+    ;shiny4
 	ld hl, wEnemyMonSpecies2
 	call DeterminePaletteIDFront
+	pop bc
 	ld c, a
 	ld hl, wPalPacket + 1
 	ld a, [wPlayerHPBarColor]
@@ -309,9 +337,13 @@ GetMonPalID:
 	push bc
 	predef IndexToPokedex
 	pop bc
-	ld a, [wd11e]
 	ld hl, MonsterPalettes
+	ld a, [wShinyMonFlag]
+	bit 0, a ; is mon supposed to be shiny?
+	jr z, GetPalID ; not shiny
+	ld hl, ShinyMonsterPalettes ; shiny
 GetPalID:
+	ld a, [wd11e]
 	ld e, a
 	ld d, 0
 	add hl, de

@@ -167,6 +167,8 @@
 	charmap "_Z",		 $d7
 	charmap "_A",		 $d8
 
+	charmap "⁂", 		$df ; shiny
+	
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
 	charmap "<MN>",      $e2

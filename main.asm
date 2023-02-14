@@ -77,7 +77,8 @@ INCLUDE "engine/menus/start_sub_menus.asm"
 INCLUDE "engine/items/tms.asm"
 
 EXPBarGraphics::  INCBIN "gfx/exp_bar.2bpp"
-EXPBarGraphicsEnd::
+ShinySparkleGraphics:           INCBIN "gfx/shiny_sparkle.2bpp"
+EXPBarShinySparkleGraphicsEnd::
 
 
 SECTION "Battle Engine 1", ROMX
@@ -618,6 +619,9 @@ INCLUDE "engine/pikachu/pikachu_movement.asm"
 INCLUDE "engine/pikachu/pikachu_pic_animation.asm"
 INCLUDE "engine/debug/debug_menu.asm"
 
+SECTION "bank3B",ROMX,BANK[$3B]
+
+INCLUDE "engine/shiny.asm"
 
 SECTION "bank40", ROMX, BANK[$40]
 

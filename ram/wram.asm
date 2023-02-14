@@ -2299,7 +2299,11 @@ wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
 	; ds 78
 	ds 1
-	ds 17 ; -60 for +30 item bag capacity
+	ds 16 ; -60 for +30 item bag capacity -1 shiny
+	
+; Bit 0 is set if the mon should be shiny
+; Bit 1 is set for enemy mon animation, reset for player mon animation
+wShinyMonFlag:: ; cc97
 wGameProgressFlagsEnd::
 
 wPlayerGender::

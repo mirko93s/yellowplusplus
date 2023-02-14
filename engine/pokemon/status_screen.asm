@@ -123,6 +123,15 @@ StatusScreen:
 	predef DrawHP
 	ld hl, wStatusScreenHPBarColor
 	call GetHealthBarColor
+	ld de, wLoadedMonDVs
+	callfar IsMonShiny
+	ld hl, wShinyMonFlag
+	jr nz, .shiny
+	res 0, [hl]
+	jr .setPal
+.shiny
+	set 0, [hl]
+.setPal
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
 	hlcoord 16, 6
@@ -166,6 +175,7 @@ StatusScreen:
 	call PrintNumber ; ID Number
 	ld d, $0
 	call PrintStatsBox
+	call PrintShinySymbol
 	ld a, [wLoadedMonSpecies]
 	ld [wGenderTemp], a
 	call PrintGenderStatusScreen
@@ -279,6 +289,14 @@ PrintGenderStatusScreen:
 .ok
 	coord hl, 18, 2
 	ld [hl], a
+	ret
+
+PrintShinySymbol:
+	ld de, wLoadedMonDVs
+	callfar IsMonShiny
+	ret z
+	coord hl, 19, 2
+	ld [hl], "⁂"
 	ret
 
 PrintStatsBox:

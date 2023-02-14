@@ -1477,6 +1477,20 @@ EnemySendOutFirstMon:
 	ldh [hStartTileID], a
 	hlcoord 15, 6
 	predef AnimateSendingOutMon
+	; play animation if mon is shiny
+	ld de, wEnemyMonDVs
+	ld b, Bank(IsMonShiny)
+	ld hl, IsMonShiny
+	call Bankswitch
+	jr z, .noFlash
+	; play shiny animation
+	ld hl, wShinyMonFlag
+	set 1, [hl]
+    ld hl, PlayShinySparkleAnimation
+	ld b, Bank(PlayShinySparkleAnimation)
+	call Bankswitch
+	callfar AnimationFlashScreen
+.noFlash
 	ld a, [wEnemyMonSpecies2]
 	call PlayCry
 	call DrawEnemyHUDAndHPBar
@@ -1826,6 +1840,20 @@ SendOutMon:
 	callfar PlayPikachuSoundClip
 	jr .done
 .playRegularCry
+	; play animation if mon is shiny
+	ld de, wBattleMonDVs
+	ld b, Bank(IsMonShiny)
+	ld hl, IsMonShiny
+	call Bankswitch
+	jr z, .noFlash
+	; play shiny animation
+	ld hl, wShinyMonFlag
+	res 1, [hl]
+	ld hl, PlayShinySparkleAnimation
+	ld b, Bank(PlayShinySparkleAnimation)
+	call Bankswitch
+	callfar AnimationFlashScreen
+.noFlash
 	ld a, [wcf91]
 	call PlayCry
 .done
@@ -1907,6 +1935,7 @@ DrawPlayerHUDAndHPBar:
 	hlcoord 10, 7
 	call PlaceString
 	call PrintEXPBar
+	call PrintPlayerMonShiny
 	call PrintPlayerMonGender
 	ld hl, wBattleMonSpecies
 	ld de, wLoadedMon
@@ -1963,6 +1992,7 @@ DrawEnemyHUDAndHPBar:
 	hlcoord 1, 0
 	call CenterMonName
 	call PlaceString
+	call PrintEnemyMonShiny
 	call PrintEnemyMonGender
 	hlcoord 5, 1
 	ld de, wEnemyMonStatus
@@ -2072,6 +2102,27 @@ CenterMonName:
 	jr nz, .loop
 .done
 	pop de
+	ret
+
+PrintPlayerMonShiny:
+	ld de, wBattleMonDVs
+	coord hl, 19, 9
+	jr PrintShinyCommon
+
+PrintEnemyMonShiny:
+	ld de, wEnemyMonDVs
+	coord hl, 9, 2
+PrintShinyCommon:
+	push hl
+	callfar IsMonShiny
+	jr z, .notShiny
+	ld a, "⁂"
+	jr .ok
+.notShiny
+	ld a, " "
+.ok
+	pop hl
+	ld [hl], a
 	ret
 
 PrintPlayerMonGender:
