@@ -23,6 +23,8 @@ DetermineWildOpponent:
 	callfar TryDoWildEncounter
 	ret nz
 InitBattleCommon:
+	xor a
+	ld [wNextEncounterSpecies], a
 	ld a, [wMapPalOffset]
 	push af
 	ld hl, wLetterPrintingDelayFlags

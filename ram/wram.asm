@@ -2312,7 +2312,12 @@ wPlayerGender::
 		ds 1
 
 	; unused
-		ds 55
+		ds 53
+		
+wNextEncounterLevel:: ; d3aa
+	ds 1
+wNextEncounterSpecies:: ; d3ab
+	ds 1
 
 wObtainedHiddenItemsFlags:: flag_array 112
 
