@@ -849,8 +849,10 @@ StartMenu_SelectPressed::
 	ld de, PokeballTileGraphics
 	lb bc, BANK(PokeballTileGraphics), 1
 	call CopyVideoData
-	ld a, 1
-	ld [wUnusedD71F], a ; check if from options menu
+	push hl
+	ld hl, wExtraFlags
+	set 0, [hl]
+	pop hl
 	farcall ChangeBox
 	; ld b, SET_PAL_OVERWORLD
 	; call RunPaletteCommand

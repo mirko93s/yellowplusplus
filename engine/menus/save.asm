@@ -427,13 +427,14 @@ DisplayChangeBoxMenu:
 	hlcoord 0, 0
 	lb bc, 2, 9
 	call TextBoxBorder
-	ld a, [wUnusedD71F]
-	cp $1
-	jr z, .dontChangePalette
+	push hl
+	ld hl, wExtraFlags
+	bit 0, [hl]
+	res 0, [hl]
+	pop hl
+	jr nz, .dontChangePalette
 	call SendPokeballPal
 .dontChangePalette
-	ld a, 0
-	ld [wUnusedD71F], a
 	ld hl, ChooseABoxText
 	call PrintText
 	hlcoord 11, 0

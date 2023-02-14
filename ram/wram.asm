@@ -2299,7 +2299,10 @@ wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
 	; ds 78
 	ds 1
-	ds 16 ; -60 for +30 item bag capacity -1 shiny
+	ds 15
+
+; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
+wExtraFlags::
 	
 ; Bit 0 is set if the mon should be shiny
 ; Bit 1 is set for enemy mon animation, reset for player mon animation
@@ -2378,7 +2381,7 @@ wDungeonWarpDestinationMap:: db
 ; which dungeon warp within the source map was used
 wWhichDungeonWarp:: db
 
-wUnusedD71F:: db ; used to check if change box menu was opened from pause menu so we don't change the ow palette
+wUnusedD71F:: db
 
 	ds 8
 
