@@ -2299,8 +2299,11 @@ wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
 	ds 1 ; unused
 
-	ds 9 ; unused
+	ds 8 ; unused
 	
+; Used to store a random shiny atk/def DVs (xx1x1010 "x" bits are randomized)
+wRandomShinyATK::
+
 ; Used to calc and store status screen DVs
 wStatusScreenDVs::
 	ds 4
@@ -2308,6 +2311,7 @@ wStatusScreenDVs::
 wStatusScreenHPDVs::
 	ds 2
 ; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
+; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
 wExtraFlags::
 	
 ; Bit 0 is set if the mon should be shiny

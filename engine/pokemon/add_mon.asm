@@ -113,11 +113,33 @@ _AddPartyMon::
 ; starter pikachu gets maxed IVs
 	ld a, [wcf91]
 	cp STARTER_PIKACHU
-	jr nz, .continue
+	jr z, .maxedDVs
+	push hl
+	ld hl, wExtraFlags
+	bit 1, [hl]
+	res 1, [hl]
+	pop hl
+	jr z, .randomDVs
+	; ( xx1x 1010 "x" bits can be randomized to get a shiny with random atk)
+	call Random ; random shiny atk
+	sla a
+	sla a
+	sla a
+	sla a
+	add a, $a ; def set to 10
+	push hl
+	ld [wRandomShinyATK], a
+	ld hl, wRandomShinyATK
+	set 5, [hl] ; atk value set to one of the shiny ones (2, 3, 6, 7, 10, 11, 14, 15)
+	pop hl
+	ld a, [wRandomShinyATK]
+	ld b, $aa ; speed and special set to 10
+	jr .next4
+.maxedDVs
 	ld a, $ff
 	ld b, a
 	jr .next4
-.continue
+.randomDVs
 ; Not wild.
 	call Random ; generate random IVs
 	ld b, a
