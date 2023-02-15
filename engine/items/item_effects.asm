@@ -2912,8 +2912,7 @@ IsKeyItem_::
 	ld [wIsKeyItem], a
 	ld a, [wcf91]
 	cp HM01 ; is the item an HM or TM?
-	jr nc, .checkIfItemIsHM
-; if the item is not an HM or TM
+	ret nc ; if hm or tm don't show quantity
 	push af
 	ld hl, KeyItemFlags
 	ld de, wBuffer
@@ -2929,10 +2928,7 @@ IsKeyItem_::
 	ld a, c
 	and a
 	ret nz
-.checkIfItemIsHM
-	ld a, [wcf91]
-	call IsItemHM
-	ret c
+	; not a key item, draw quantity
 	xor a
 	ld [wIsKeyItem], a
 	ret
