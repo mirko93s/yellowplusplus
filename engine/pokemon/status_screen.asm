@@ -59,6 +59,20 @@ DrawHP_:
 	call PrintNumber
 	pop hl
 	pop de
+
+	ldh a, [hUILayoutFlags]
+	bit 0, a
+	ret nz
+; print hp dvs
+	call DVParse
+	hlcoord 15, 5
+	ld bc, 0
+	ld de, HPDVText
+	call PlaceString 
+	hlcoord 16, 5
+	lb bc, 1, 2
+	ld de, wStatusScreenHPDVs
+	call PrintNumber
 	ret
 
 
@@ -331,6 +345,22 @@ PrintStatsBox:
 	ld de, wLoadedMonSpeed
 	call PrintStat
 	ld de, wLoadedMonSpecial
+	call PrintStat
+; Print DVs in the stat box
+	hlcoord 1, 10 ; Start printing dv text from here
+	ld bc, 20 ; Number offset
+	ld de, DVText
+	call PlaceString
+	hlcoord 2, 10 ; Start printing dv from here
+	lb bc, 1, 2
+	; call DVParse
+	ld de, wStatusScreenDVs
+	call PrintStat
+	ld de, wStatusScreenDVs + 1
+	call PrintStat
+	ld de, wStatusScreenDVs + 2
+	call PrintStat
+	ld de, wStatusScreenDVs + 3
 	jp PrintNumber
 PrintStat:
 	push hl
@@ -339,6 +369,15 @@ PrintStat:
 	ld de, SCREEN_WIDTH * 2
 	add hl, de
 	ret
+HPDVText:
+	db "(  )"
+	text_end
+DVText:
+	db   "(  )"
+	next "(  )"
+	next "(  )"
+	next "(  )"
+	text_end
 
 StatsText:
 	db   "ATTACK"
@@ -531,4 +570,44 @@ StatusScreen_PrintPP:
 	add hl, de
 	dec c
 	jr nz, StatusScreen_PrintPP
+	ret
+
+DVParse:
+	push hl
+	push bc
+	ld hl, wStatusScreenDVs
+	ld b, $00
+	ld a, [wLoadedMonDVs] ; attack
+	swap a
+	call dv1
+	sla a
+	sla a
+	sla a
+	call dv2
+	ld a, [wLoadedMonDVs] ; defense
+	call dv1
+	sla a
+	sla a
+	call dv2
+	ld a, [wLoadedMonDVs + 1] ; speed
+	swap a
+	call dv1
+	sla a
+	call dv2
+	ld a, [wLoadedMonDVs + 1] ; special
+	call dv1
+	call dv2
+	ld [hl], b	;hp
+	pop bc
+	pop hl
+	ret
+dv1:
+	and $0F
+	ld [hl], a
+	inc hl
+	and $01
+	ret
+dv2:
+	or b
+	ld b, a
 	ret

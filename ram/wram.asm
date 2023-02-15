@@ -2297,10 +2297,16 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	; ds 78
-	ds 1
-	ds 15
+	ds 1 ; unused
 
+	ds 9 ; unused
+	
+; Used to calc and store status screen DVs
+wStatusScreenDVs::
+	ds 4
+; Used to calc and store status screen HP DV
+wStatusScreenHPDVs::
+	ds 2
 ; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
 wExtraFlags::
 	
