@@ -59,20 +59,6 @@ DrawHP_:
 	call PrintNumber
 	pop hl
 	pop de
-
-	ldh a, [hUILayoutFlags]
-	bit 0, a
-	ret nz
-; print hp dvs
-	call DVParse
-	hlcoord 15, 5
-	ld bc, 0
-	ld de, HPDVText
-	call PlaceString 
-	hlcoord 16, 5
-	lb bc, 1, 2
-	ld de, wStatusScreenHPDVs
-	call PrintNumber
 	ret
 
 
@@ -135,6 +121,16 @@ StatusScreen:
 	call PlaceString ; "TYPE1/"
 	hlcoord 11, 3
 	predef DrawHP
+; print hp dvs
+	call DVParse
+	hlcoord 15, 5
+	ld bc, 0
+	ld de, HPDVText
+	call PlaceString 
+	hlcoord 16, 5
+	lb bc, 1, 2
+	ld de, wStatusScreenHPDVs
+	call PrintNumber
 	ld hl, wStatusScreenHPBarColor
 	call GetHealthBarColor
 	ld de, wLoadedMonDVs
