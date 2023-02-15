@@ -365,16 +365,16 @@ PrintStat:
 	ld de, SCREEN_WIDTH * 2
 	add hl, de
 	ret
+
 HPDVText:
-	db "(  )"
-	text_end
+	db "(  )@"
+
 DVText:
 	db   "(  )"
 	next "(  )"
 	next "(  )"
-	next "(  )"
-	text_end
-
+	next "(  )@"
+	
 StatsText:
 	db   "ATTACK"
 	next "DEFENSE"
@@ -575,35 +575,41 @@ DVParse:
 	ld b, $00
 	ld a, [wLoadedMonDVs] ; attack
 	swap a
-	call dv1
-	sla a
-	sla a
-	sla a
-	call dv2
-	ld a, [wLoadedMonDVs] ; defense
-	call dv1
-	sla a
-	sla a
-	call dv2
-	ld a, [wLoadedMonDVs + 1] ; speed
-	swap a
-	call dv1
-	sla a
-	call dv2
-	ld a, [wLoadedMonDVs + 1] ; special
-	call dv1
-	call dv2
-	ld [hl], b	;hp
-	pop bc
-	pop hl
-	ret
-dv1:
 	and $0F
 	ld [hl], a
 	inc hl
 	and $01
-	ret
-dv2:
+	sla a
+	sla a
+	sla a
 	or b
 	ld b, a
+	ld a, [wLoadedMonDVs] ; defense
+	and $0F
+	ld [hl], a
+	inc hl
+	and $01
+	sla a
+	sla a
+	or b
+	ld b, a
+	ld a, [wLoadedMonDVs + 1] ; speed
+	swap a
+	and $0F
+	ld [hl], a
+	inc hl
+	and $01
+	sla a
+	or b
+	ld b, a
+	ld a, [wLoadedMonDVs + 1] ; special
+	and $0F
+	ld [hl], a
+	inc hl
+	and $01
+	or b
+	ld b, a
+	ld [hl], b	;hp
+	pop bc
+	pop hl
 	ret
