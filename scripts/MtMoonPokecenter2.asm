@@ -21,6 +21,10 @@ MagikarpSalesman::
 	ld hl, .NoMoneyText
 	jr .printText
 .enoughMoney
+	push hl
+	ld hl, wExtraFlags
+	set 1, [hl]
+	pop hl
 	lb bc, MAGIKARP, 15
 	call GivePokemon
 	jr nc, .done
