@@ -592,7 +592,7 @@ _TM33Description::
 _TM34Description::
 	text "TM-34"
 	line "BIDE"
-	para "Waits 2-3 turns &"
+	para "Waits 2-3 turns,"
 	line "hits back double."
 	prompt
 
