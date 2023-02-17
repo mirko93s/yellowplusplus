@@ -318,14 +318,15 @@ PrintStatsBox:
 	call TextBoxBorder ; Draws the box
 	hlcoord 1, 9 ; Start printing stats from here
 	ld bc, $19 ; Number offset
-	jr .PrintStats
+	jr PrintDVs
 .DifferentBox
 	hlcoord 9, 2
 	lb bc, 8, 9
 	call TextBoxBorder
 	hlcoord 11, 3
 	ld bc, $18
-.PrintStats
+	; fall through
+PrintNormalStats:
 	push bc
 	push hl
 	ld de, StatsText
@@ -341,15 +342,16 @@ PrintStatsBox:
 	ld de, wLoadedMonSpeed
 	call PrintStat
 	ld de, wLoadedMonSpecial
-	call PrintStat
-; Print DVs in the stat box
+	jp PrintNumber
+
+PrintDVs:
+	call PrintNormalStats
 	hlcoord 1, 10 ; Start printing dv text from here
 	ld bc, 20 ; Number offset
 	ld de, DVText
 	call PlaceString
 	hlcoord 2, 10 ; Start printing dv from here
 	lb bc, 1, 2
-	; call DVParse
 	ld de, wStatusScreenDVs
 	call PrintStat
 	ld de, wStatusScreenDVs + 1
@@ -358,6 +360,7 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wStatusScreenDVs + 3
 	jp PrintNumber
+
 PrintStat:
 	push hl
 	call PrintNumber
