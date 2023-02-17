@@ -2302,21 +2302,23 @@ wRoute18Gate1FCurScript:: db
 	ds 8 ; unused
 	
 ; Used to store a random shiny atk/def DVs (xx1x1010 "x" bits are randomized)
-wRandomShinyATK::
+wRandomShinyATK:: db
 
 ; Used to calc and store status screen DVs
 wStatusScreenDVs::
 	ds 4
+
 ; Used to calc and store status screen HP DV
 wStatusScreenHPDVs::
 	ds 2
+	
 ; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
 ; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
-wExtraFlags::
+wExtraFlags:: db
 	
 ; Bit 0 is set if the mon should be shiny
 ; Bit 1 is set for enemy mon animation, reset for player mon animation
-wShinyMonFlag:: ; cc97
+wShinyMonFlag:: db; cc97
 wGameProgressFlagsEnd::
 
 wPlayerGender::
