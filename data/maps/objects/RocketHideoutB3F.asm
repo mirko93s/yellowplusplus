@@ -8,8 +8,8 @@ RocketHideoutB3F_Object:
 	def_bg_events
 
 	def_object_events
-	object_event 10, 22, SPRITE_ROCKET, STAY, RIGHT, 1, OPP_ROCKET, 14
-	object_event 26, 12, SPRITE_ROCKET, STAY, UP, 2, OPP_ROCKET, 15
+	object_event 10, 22, SPRITE_ROCKET, STAY, RIGHT, 1, OPP_ROCKET, 13
+	object_event 26, 12, SPRITE_ROCKET, STAY, UP, 2, OPP_ROCKET, 14
 	object_event 26, 17, SPRITE_POKE_BALL, STAY, NONE, 3, TM_DOUBLE_EDGE
 	object_event 20, 14, SPRITE_POKE_BALL, STAY, NONE, 4, RARE_CANDY
 

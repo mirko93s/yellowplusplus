@@ -12,9 +12,9 @@ MtMoonB2F_Object:
 	def_object_events
 	object_event 12,  8, SPRITE_SUPER_NERD, STAY, RIGHT, 1, OPP_SUPER_NERD, 2
 	object_event  9,  3, SPRITE_JESSIE, STAY, LEFT, 2
-	object_event 15, 22, SPRITE_ROCKET, STAY, DOWN, 3, OPP_ROCKET, 2
-	object_event 29, 11, SPRITE_ROCKET, STAY, UP, 4, OPP_ROCKET, 3
-	object_event 29, 17, SPRITE_ROCKET, STAY, LEFT, 5, OPP_ROCKET, 1
+	object_event 15, 22, SPRITE_ROCKET, STAY, DOWN, 3, OPP_ROCKET, 1
+	object_event 29, 11, SPRITE_ROCKET, STAY, UP, 4, OPP_ROCKET, 2
+	object_event 29, 17, SPRITE_ROCKET, STAY, LEFT, 5, OPP_ROCKET, 3
 	object_event  9,  4, SPRITE_JAMES, STAY, LEFT, 6
 	object_event 12,  6, SPRITE_FOSSIL, STAY, NONE, 7 ; person
 	object_event 13,  6, SPRITE_FOSSIL, STAY, NONE, 8 ; person

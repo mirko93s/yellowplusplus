@@ -65,108 +65,102 @@ YoungsterData: ; COMPLETED
 	db 23, SLOWPOKE, SHELLDER, 0                        ;  6 - Route 25
 	db 23, EKANS, SANDSHREW, 0                          ;  7 - Route 25
 	db 25, NIDORINO, 0                                  ;  8 - SS Anne 1F Rooms
-	db 25, EKANS, KOFFING, 0                            ;  9 - Route 11
-	db 26, SANDSHREW, ZUBAT, 0                          ; 10 - Route 11
-	db 26, RATTATA, RATICATE, 0                         ; 11 - Route 11
-	db 26, NIDORAN_M, NIDORINO, 0                       ; 12 - Route 11
-	db 17, SPEAROW, RATTATA, RATTATA, SPEAROW, 0        ; 13 - Unused
-	db 33, SANDSLASH, 0                                 ; 14 - Route 9
+	db 33, SANDSLASH, 0                                 ;  9 - Route 9
+	db 25, EKANS, KOFFING, 0                            ; 10 - Route 11
+	db 26, SANDSHREW, ZUBAT, 0                          ; 11 - Route 11
+	db 26, RATTATA, RATICATE, 0                         ; 12 - Route 11
+	db 26, NIDORAN_M, NIDORINO, 0                       ; 13 - Route 11
 
 BugCatcherData: ; COMPLETED
 	db  9, WEEDLE, CATERPIE, 0                          ;  1 - Viridian Forest
 	db 11, KAKUNA, METAPOD, 0                           ;  2 - Viridian Forest
 	db 13, BUTTERFREE, BEEDRILL, 0                      ;  3 - Viridian Forest
-	db 13, PINSIR, 0                                    ;  4 - Route 3
-	db 15, CATERPIE, METAPOD, 0                         ;  5 - Route 3
-	db 15, ODDISH, PARAS, VENONAT, 0                    ;  6 - Route 3
-	db 17, BUTTERFREE, 0                                ;  7 - Mt. Moon 1F
-	db 17, BEEDRILL, 0                                  ;  8 - Mt. Moon 1F
-	db 20, BUTTERFREE, SCYTHER, 0                       ;  9 - Route 24
-	db 25, WEEDLE, CATERPIE, WEEDLE, 0                  ; 10 - Route 6
-	db 25, BUTTERFREE, TANGELA, 0                       ; 11 - Route 6
-	db 18, METAPOD, CATERPIE, VENONAT, 0                ; 12 - Unused
+	db 10, BUTTERFREE, 0                                ;  4 - Viridian Forest
+	db 13, PINSIR, 0                                    ;  5 - Route 3
+	db 15, CATERPIE, METAPOD, 0                         ;  6 - Route 3
+	db 15, ODDISH, PARAS, VENONAT, 0                    ;  7 - Route 3
+	db 17, BUTTERFREE, 0                                ;  8 - Mt. Moon 1F
+	db 17, BEEDRILL, 0                                  ;  9 - Mt. Moon 1F
+	db 20, BUTTERFREE, SCYTHER, 0                       ; 10 - Route 24
+	db 25, WEEDLE, CATERPIE, WEEDLE, 0                  ; 11 - Route 6
+	db 25, BUTTERFREE, TANGELA, 0                       ; 12 - Route 6
 	db 33, BUTTERFREE, BEEDRILL, 0                      ; 13 - Route 9
 	db 32, BEEDRILL, BUTTERFREE, VENONAT, 0             ; 14 - Route 9
-	db 10, BUTTERFREE, 0                                ; 15 - Viridian Forest
 
 LassData: ; COMPLETED
-	db 14, JIGGLYPUFF, JIGGLYPUFF, EEVEE, 0             ;  1 - Route 3
-	db 15, JIGGLYPUFF, CLEFAIRY, 0                      ;  2 - Route 3
-	db 15, WIGGLYTUFF, CLEFABLE, 0                      ;  3 - Route 3
-	db 45, PARAS, PARAS, PARASECT, 0                    ;  4 - Route 4
+	db 10, NIDORAN_M, NIDORAN_F, 0                      ;  1 - Viridian Forest
+	db 14, JIGGLYPUFF, JIGGLYPUFF, EEVEE, 0             ;  2 - Route 3
+	db 15, JIGGLYPUFF, CLEFAIRY, 0                      ;  3 - Route 3
+	db 15, WIGGLYTUFF, CLEFABLE, 0                      ;  4 - Route 3
 	db 16, ODDISH, BELLSPROUT, 0                        ;  5 - Mt. Moon 1F
 	db 16, CLEFAIRY, 0                                  ;  6 - Mt. Moon 1F
-	db 20, NIDORINO, CLEFABLE, 0                        ;  7 - Route 24
-	db 20, NIDORINA, WIGGLYTUFF, 0                      ;  8 - Route 24
-	db 23, NIDORINO, NIDORINA, 0                        ;  9 - Route 25
-	db 23, ODDISH, PIDGEOTTO, 0                         ; 10 - Route 25
-	db 25, PORYGON, NIDORINA, 0                         ; 11 - SS Anne 1F Rooms
-	db 25, RATTATA, PIKACHU, 0                          ; 12 - SS Anne 2F Rooms
-	db 36, NIDOQUEEN, 0                                 ; 13 - Route 8
-	db 36, PERSIAN, PIDGEOT, 0                          ; 14 - Route 8
-	db 36, DRAGONAIR, NIDOKING, PERSIAN, 0              ; 15 - Route 8
-	db 37, CLEFABLE, 0                                  ; 16 - Route 8
-	db 37, BELLSPROUT, WEEPINBELL, VICTREEBEL, 0        ; 17 - Celadon Gym
-	db 41, VILEPLUME, 0                                 ; 18 - Celadon Gym
-	db 10, NIDORAN_M, NIDORAN_F, 0                      ; 19 - Viridian Forest
+	db 45, PARAS, PARAS, PARASECT, 0                    ;  7 - Route 4
+	db 20, NIDORINO, CLEFABLE, 0                        ;  8 - Route 24
+	db 20, NIDORINA, WIGGLYTUFF, 0                      ;  9 - Route 24
+	db 23, NIDORINO, NIDORINA, 0                        ; 10 - Route 25
+	db 23, ODDISH, PIDGEOTTO, 0                         ; 11 - Route 25
+	db 25, PORYGON, NIDORINA, 0                         ; 12 - SS Anne 1F Rooms
+	db 25, RATTATA, PIKACHU, 0                          ; 13 - SS Anne 2F Rooms
+	db 36, NIDOQUEEN, 0                                 ; 14 - Route 8
+	db 36, PERSIAN, PIDGEOT, 0                          ; 15 - Route 8
+	db 36, DRAGONAIR, NIDOKING, PERSIAN, 0              ; 16 - Route 8
+	db 37, CLEFABLE, 0                                  ; 17 - Route 8
+	db 37, BELLSPROUT, WEEPINBELL, VICTREEBEL, 0        ; 18 - Celadon Gym
+	db 41, VILEPLUME, 0                                 ; 19 - Celadon Gym
 
 SailorData: ; COMPLETED
-	db 25, OMANYTE, KABUTO, 0                           ;  1 - SS Anne Stern
-	db 25, MACHOP, TENTACOOL, 0                         ;  2 - SS Anne Stern
-	db 25, SHELLDER, TENTACOOL, 0                       ;  3 - SS Anne B1F Rooms
-	db 26, HORSEA, SHELLDER, TENTACOOL, 0               ;  4 - SS Anne B1F Rooms
-	db 26, TENTACOOL, STARYU, HORSEA, 0                 ;  5 - SS Anne B1F Rooms
-	db 25, SQUIRTLE, TENTACOOL, 0                       ;  6 - SS Anne B1F Rooms
-	db 25, MACHOP, MANKEY, HITMONCHAN, 0                ;  7 - SS Anne B1F Rooms
-	db 35, RAICHU, 0                                    ;  8 - Vermilion Gym
+	db 35, RAICHU, 0                                    ;  1 - Vermilion Gym
+	db 25, OMANYTE, KABUTO, 0                           ;  2 - SS Anne Bow
+	db 25, MACHOP, TENTACOOL, 0                         ;  3 - SS Anne Bow
+	db 25, SHELLDER, TENTACOOL, 0                       ;  4 - SS Anne B1F Rooms
+	db 26, HORSEA, SHELLDER, TENTACOOL, 0               ;  5 - SS Anne B1F Rooms
+	db 26, TENTACOOL, STARYU, HORSEA, 0                 ;  6 - SS Anne B1F Rooms
+	db 25, SQUIRTLE, TENTACOOL, 0                       ;  7 - SS Anne B1F Rooms
+	db 25, MACHOP, MANKEY, HITMONCHAN, 0                ;  8 - SS Anne B1F Rooms
 
 JrTrainerMData: ; COMPLETED
 	db 14, DIGLETT, SANDSHREW, 0                        ;  1 - Pewter Gym
-	db 23, POLIWAG, GOLDEEN, 0                          ;  2 - Route 24/Route 25
+	db 23, POLIWAG, GOLDEEN, 0                          ;  2 - Route 24
 	db 20, PRIMEAPE, MACHOKE, 0                         ;  3 - Route 24
-	db 25, DITTO, MEOWTH, 0                             ;  4 - Unused
+	db 25, PIDGEOTTO, GLOOM, 0                          ;  4 - Route 25 ; luca
 	db 25, SPEAROW, DODUO, 0                            ;  5 - Route 6
-	db 18, DIGLETT, DIGLETT, SANDSHREW, 0               ;  6 - Unused
-	db 32, GROWLITHE, CHARMANDER, 0                     ;  7 - Unused
-	db 32, RATICATE, DUGTRIO, ARBOK, SANDSLASH, 0       ;  8 - Route 9
-	db 53, NIDOKING, 0                                  ;  9 - Route 12
-	db 23, WEEPINBELL, 0                                ; 10 - Route 12
+	db 23, WEEPINBELL, 0                                ;  6 - Route 6
+	db 32, RATICATE, DUGTRIO, ARBOK, SANDSLASH, 0       ;  7 - Route 9
+	db 53, NIDOKING, 0                                  ;  8 - Route 12
 
 JrTrainerFData: ; COMPLETED
 	db 25, GOLDEEN, 0                                   ;  1 - Cerulean Gym
-	db 25, RATTATA, PIKACHU, 0                          ;  2 - Unused
+	db 25, CUBONE, 0                                    ;  2 - Route 6
 	db 25, PIDGEY, SPEAROW, 0                           ;  3 - Route 6
-	db 22, IVYSAUR, 0                                   ;  4 - Unused
-	db 32, GLOOM, WEEPINBELL, 0                         ;  5 - Route 9
-	db 33, PERSIAN, 0                                   ;  6 - Route 9
-	db 36, RAICHU, CLEFABLE, 0                          ;  7 - Route 10
-	db 38, PERSIAN, PIDGEOT, 0                          ;  8 - Route 10
-	db 37, WIGGLYTUFF, PIDGEOT, 0                       ;  9 - Rock Tunnel B1F
-	db 36, GLOOM, IVYSAUR, 0                            ; 10 - Rock Tunnel B1F
-	db 42, BULBASAUR, IVYSAUR, VENUSAUR, 0              ; 11 - Celadon Gym
-	db 52, PIDGEOT, RAICHU, PERSIAN, 0                  ; 12 - Route 13
-	db 52, POLIWRATH, 0                                 ; 13 - Route 13
-	db 52, PIDGEOT, PIDGEOT, 0                          ; 14 - Route 13
-	db 52, SEAKING, SEADRA, 0                           ; 15 - Route 13
-	db 56, SEAKING, SEAKING, 0                          ; 16 - Route 20
-	db 36, WEEPINBELL, CLEFABLE, 0                      ; 17 - Rock Tunnel 1F
-	db 36, VILEPLUME, PERSIAN, 0                        ; 18 - Rock Tunnel 1F
-	db 36, PIDGEOT, RATICATE, 0                         ; 19 - Rock Tunnel 1F
-	db 54, VILEPLUME, 0                                 ; 20 - Route 15
-	db 54, RAICHU, 0                                    ; 21 - Route 15
-	db 54, CLEFABLE, 0                                  ; 22 - Route 15
-	db 54, VICTREEBEL, TANGELA, 0                       ; 23 - Route 15
-	db 56, TENTACRUEL, SEADRA, DEWGONG, 0               ; 24 - Route 20
-	db 25, CUBONE, 0                                    ; 25 - Route 6
+	db 32, GLOOM, WEEPINBELL, 0                         ;  4 - Route 9
+	db 33, PERSIAN, 0                                   ;  5 - Route 9
+	db 36, RAICHU, CLEFABLE, 0                          ;  6 - Route 10
+	db 38, PERSIAN, PIDGEOT, 0                          ;  7 - Route 10
+	db 36, WEEPINBELL, CLEFABLE, 0                      ;  8 - Rock Tunnel 1F
+	db 36, VILEPLUME, PERSIAN, 0                        ;  9 - Rock Tunnel 1F
+	db 36, PIDGEOT, RATICATE, 0                         ; 10 - Rock Tunnel 1F
+	db 37, WIGGLYTUFF, PIDGEOT, 0                       ; 11 - Rock Tunnel B1F
+	db 36, GLOOM, IVYSAUR, 0                            ; 12 - Rock Tunnel B1F
+	db 42, BULBASAUR, IVYSAUR, VENUSAUR, 0              ; 13 - Celadon Gym
+	db 52, PIDGEOT, RAICHU, PERSIAN, 0                  ; 14 - Route 13
+	db 52, POLIWRATH, 0                                 ; 15 - Route 13
+	db 52, PIDGEOT, PIDGEOT, 0                          ; 16 - Route 13
+	db 52, SEAKING, SEADRA, 0                           ; 17 - Route 13
+	db 54, VILEPLUME, 0                                 ; 18 - Route 15
+	db 54, RAICHU, 0                                    ; 19 - Route 15
+	db 54, CLEFABLE, 0                                  ; 20 - Route 15
+	db 54, VICTREEBEL, TANGELA, 0                       ; 21 - Route 15
+	db 56, TENTACRUEL, SEADRA, DEWGONG, 0               ; 22 - Route 20
+	db 56, SEAKING, SEAKING, 0                          ; 23 - Route 20
 
 PokemaniacData: ; COMPLETED
 	db 40, RHYHORN, LICKITUNG, 0                        ;  1 - Route 10
 	db 37, MAROWAK, SANDSLASH, 0                        ;  2 - Route 10
-	db 36, SLOWBRO, MAROWAK, 0                          ;  3 - Rock Tunnel B1F
-	db 36, CHARMELEON, MAROWAK, 0                       ;  4 - Rock Tunnel B1F
-	db 35, SLOWBRO, 0                                   ;  5 - Rock Tunnel B1F
-	db 65, CHARIZARD, LAPRAS, LICKITUNG, 0              ;  6 - Victory Road 2F
-	db 35, CUBONE, SLOWPOKE, 0                          ;  7 - Rock Tunnel 1F
+	db 35, CUBONE, SLOWPOKE, 0                          ;  3 - Rock Tunnel 1F
+	db 36, SLOWBRO, MAROWAK, 0                          ;  4 - Rock Tunnel B1F
+	db 36, CHARMELEON, MAROWAK, 0                       ;  5 - Rock Tunnel B1F
+	db 35, SLOWBRO, 0                                   ;  6 - Rock Tunnel B1F
+	db 65, CHARIZARD, LAPRAS, LICKITUNG, 0              ;  7 - Victory Road 2F
 
 SuperNerdData: ; COMPLETED
 	db 17, MAGNEMITE, VOLTORB, 0                        ;  1 - Mt. Moon 1F
@@ -174,62 +168,56 @@ SuperNerdData: ; COMPLETED
 	db 36, ELECTRODE, MAGNETON, ELECTABUZZ, 0           ;  3 - Route 8
 	db 36, MUK, 0                                       ;  4 - Route 8
 	db 36, WEEZING, 0                                   ;  5 - Route 8
-	db 22, KOFFING, MAGNEMITE, WEEZING, 0               ;  6 - Unused
-	db 20, MAGNEMITE, MAGNEMITE, KOFFING, MAGNEMITE, 0  ;  7 - Unused
-	db 24, MAGNEMITE, VOLTORB, 0                        ;  8 - Unused
-	db 60, NINETALES, 0                                 ;  9 - Cinnabar Gym
-	db 61, CHARIZARD, ARCANINE, 0                       ; 10 - Cinnabar Gym
-	db 61, RAPIDASH, 0                                  ; 11 - Cinnabar Gym
-	db 62, ARCANINE, RAPIDASH, 0                        ; 12 - Cinnabar Gym
+	db 60, NINETALES, 0                                 ;  6 - Cinnabar Gym
+	db 61, CHARIZARD, ARCANINE, 0                       ;  7 - Cinnabar Gym
+	db 61, RAPIDASH, 0                                  ;  8 - Cinnabar Gym
+	db 62, ARCANINE, RAPIDASH, 0                        ;  9 - Cinnabar Gym
 
 HikerData: ; COMPLETED
 	db 17, GEODUDE, MACHOP, ONIX, 0                     ;  1 - Mt. Moon 1F
 	db 22, MACHOP, GEODUDE, 0                           ;  2 - Route 25
 	db 23, GEODUDE, MANKEY, MACHOP, 0                   ;  3 - Route 25
 	db 23, GEODUDE, ONIX, 0                             ;  4 - Route 25
-	db 33, GRAVELER, ONIX, 0                            ;  5 - Route 9
+	db 34, MACHOKE, MACHOKE, 0                          ;  5 - Route 9
 	db 34, GRAVELER, MACHOKE, 0                         ;  6 - Route 9
-	db 36, MACHOKE, ONIX, 0                             ;  7 - Route 10
-	db 36, ONIX, GOLEM, 0                               ;  8 - Route 10
-	db 35, ONIX, GRAVELER, 0                            ;  9 - Rock Tunnel B1F
-	db 35, GRAVELER, MACHOKE, 0                         ; 10 - Rock Tunnel B1F
-	db 33, AERODACTYL, 0                                ; 11 - Route 9/Rock Tunnel B1F
-	db 36, MACHAMP, 0                                   ; 12 - Rock Tunnel 1F
-	db 36, KABUTO, OMANYTE, 0                           ; 13 - Rock Tunnel 1F
-	db 36, GOLEM, 0                                     ; 14 - Rock Tunnel 1F
+	db 33, GRAVELER, ONIX, 0                            ;  7 - Route 9
+	db 36, MACHOKE, ONIX, 0                             ;  8 - Route 10
+	db 36, ONIX, GOLEM, 0                               ;  9 - Route 10
+	db 36, MACHAMP, 0                                   ; 10 - Rock Tunnel 1F
+	db 36, KABUTO, OMANYTE, 0                           ; 11 - Rock Tunnel 1F
+	db 36, GOLEM, 0                                     ; 12 - Rock Tunnel 1F
+	db 35, ONIX, GRAVELER, 0                            ; 13 - Rock Tunnel B1F
+	db 35, GRAVELER, MACHOKE, 0                         ; 14 - Rock Tunnel B1F
+	db 35, AERODACTYL, 0                                ; 15 - Rock Tunnel B1F
 
 BikerData: ; COMPLETED
 	db 52, WEEZING, MUK, ARBOK, 0                       ;  1 - Route 13
-	db 53, RHYHORN, RHYDON, 0                           ;  2 - Route 14
-	db 54, WEEZING, MUK, 0                              ;  3 - Route 15
-	db 54, MUK, WEEZING, 0                              ;  4 - Route 15
-	db 52, MUK, WEEZING, 0                              ;  5 - Route 16
-	db 53, DITTO, 0                                     ;  6 - Route 16
-	db 52, MUK, MUK, 0                                  ;  7 - Route 16
-	db 53, WEEZING, WEEZING, 0                          ;  8 - Route 17
-	db 53, MUK, 0                                       ;  9 - Route 17
-	db 53, ELECTRODE, MAGNETON, 0                       ; 10 - Route 17
-	db 54, GROWLITHE, VULPIX, 0                         ; 11 - Route 17
-	db 54, WEEZING, WEEZING, 0                          ; 12 - Route 17
-	db 53, MUK, WEEZING, 0                              ; 13 - Route 14
-	db 53, KOFFING, WEEZING, 0                          ; 14 - Route 14
-	db 53, GRIMER, MUK, 0                               ; 15 - Route 14
+	db 53, MUK, WEEZING, 0                              ;  2 - Route 14
+	db 53, KOFFING, WEEZING, 0                          ;  3 - Route 14
+	db 53, GRIMER, MUK, 0                               ;  4 - Route 14
+	db 53, RHYHORN, RHYDON, 0                           ;  5 - Route 14
+	db 54, WEEZING, MUK, 0                              ;  6 - Route 15
+	db 54, MUK, WEEZING, 0                              ;  7 - Route 15
+	db 52, MUK, WEEZING, 0                              ;  8 - Route 16
+	db 53, DITTO, 0                                     ;  9 - Route 16
+	db 52, MUK, MUK, 0                                  ; 10 - Route 16
+	db 53, WEEZING, WEEZING, 0                          ; 11 - Route 17
+	db 53, MUK, 0                                       ; 12 - Route 17
+	db 53, ELECTRODE, MAGNETON, 0                       ; 13 - Route 17
+	db 54, GROWLITHE, VULPIX, 0                         ; 14 - Route 17
+	db 54, WEEZING, WEEZING, 0                          ; 15 - Route 17
 
 BurglarData: ; COMPLETED
-	db 29, GROWLITHE, VULPIX, 0                         ;  1 - Unused
-	db 33, GROWLITHE, 0                                 ;  2 - Unused
-	db 28, VULPIX, CHARMANDER, PONYTA, 0                ;  3 - Unused
-	db 60, ARCANINE, NINETALES, 0                       ;  4 - Cinnabar Gym
-	db 61, FLAREON, 0                                   ;  5 - Cinnabar Gym
-	db 61, NINETALES, ARCANINE, 0                       ;  6 - Cinnabar Gym
-	db 57, CHARIZARD, 0                                 ;  7 - Mansion 2F
-	db 58, NINETALES, 0                                 ;  8 - Mansion 3F
-	db 58, ARCANINE, RAPIDASH, 0                        ;  9 - Mansion B1F
+	db 60, ARCANINE, NINETALES, 0                       ;  1 - Cinnabar Gym
+	db 61, FLAREON, 0                                   ;  2 - Cinnabar Gym
+	db 61, NINETALES, ARCANINE, 0                       ;  3 - Cinnabar Gym
+	db 57, CHARIZARD, 0                                 ;  4 - Mansion 2F
+	db 58, NINETALES, 0                                 ;  5 - Mansion 3F
+	db 58, ARCANINE, RAPIDASH, 0                        ;  6 - Mansion B1F
 
 EngineerData: ; COMPLETED
-	db 21, VOLTORB, MAGNEMITE, 0                        ;  1 - Unused
-	db 23, MAGNETON, 0                                  ;  2 - Route 11
-	db 21, MAGNETON, RAICHU, 0                          ;  3 - Route 11
+	db 23, MAGNETON, 0                                  ;  1 - Route 11
+	db 21, MAGNETON, RAICHU, 0                          ;  2 - Route 11
 
 UnusedJugglerData:
 ; none
@@ -241,11 +229,11 @@ FisherData: ; COMPLETED
 	db 38, TENTACRUEL, SEAKING, 0                       ;  4 - Route 12
 	db 37, SEAKING, VAPOREON, 0                         ;  5 - Route 12
 	db 37, POLIWRATH, SEAKING, SEADRA, 0                ;  6 - Route 12
-	db 55, SEAKING, SEAKING, 0                          ;  7 - Route 21
-	db 56, CLOYSTER, 0                                  ;  8 - Route 21
+	db 52, GYARADOS, 0                                  ;  7 - Route 12
+	db 55, SEAKING, SEAKING, 0                          ;  8 - Route 21
 	db 55, GYARADOS, GYARADOS, GYARADOS, 0              ;  9 - Route 21
-	db 56, SEAKING, SEAKING, 0                          ; 10 - Route 21
-	db 52, GYARADOS, 0                                  ; 11 - Route 12
+	db 56, CLOYSTER, 0                                  ; 10 - Route 21
+	db 56, SEAKING, SEAKING, 0                          ; 11 - Route 21
 
 SwimmerData: ; COMPLETED
 	db 24, HORSEA, SHELLDER, 0                          ;  1 - Cerulean Gym
@@ -276,13 +264,12 @@ CueBallData: ; COMPLETED
 	db 56, HITMONCHAN, 0                                ;  9 - Route 21
 
 GamblerData: ; COMPLETED
-	db 26, POLIWHIRL, HORSEA, 0                         ;  1 - Route 11
-	db 25, WEEPINBELL, GLOOM, 0                         ;  2 - Route 11
-	db 26, VOLTORB, MAGNEMITE, 0                        ;  3 - Route 11
-	db 26, GROWLITHE, VULPIX, 0                         ;  4 - Route 11
-	db 36, POLIWAG, POLIWHIRL, POLIWRATH, 0             ;  5 - Route 8
-	db 34, ONIX, GEODUDE, GRAVELER, 0                   ;  6 - Unused
-	db 36, ARCANINE, NINETALES, 0                       ;  7 - Route 8
+	db 36, POLIWAG, POLIWHIRL, POLIWRATH, 0             ;  1 - Route 8
+	db 36, ARCANINE, NINETALES, 0                       ;  2 - Route 8
+	db 26, POLIWHIRL, HORSEA, 0                         ;  3 - Route 11
+	db 25, WEEPINBELL, GLOOM, 0                         ;  4 - Route 11
+	db 26, VOLTORB, MAGNEMITE, 0                        ;  5 - Route 11
+	db 26, GROWLITHE, VULPIX, 0                         ;  6 - Route 11
 
 BeautyData: ; COMPLETED
 	db 41, ODDISH, GLOOM, VILEPLUME, 0                  ;  1 - Celadon Gym
@@ -290,16 +277,15 @@ BeautyData: ; COMPLETED
 	db 42, EXEGGCUTE, EXEGGUTOR, 0                      ;  3 - Celadon Gym
 	db 52, RATICATE, 0                                  ;  4 - Route 13
 	db 52, PERSIAN, 0                                   ;  5 - Route 13
-	db 55, SEAKING, 0                                   ;  6 - Route 20
-	db 53, CLOYSTER, SEAKING, 0                         ;  7 - Route 20
-	db 55, POLIWRATH, SEAKING, 0                        ;  8 - Route 20
-	db 54, PIDGEOT, WIGGLYTUFF, 0                       ;  9 - Route 15
-	db 54, VENUSAUR, 0                                  ; 10 - Route 15
-	db 33, WEEPINBELL, BELLSPROUT, WEEPINBELL, 0        ; 11 - Unused
-	db 54, POLIWRATH, SEAKING, 0                        ; 12 - Route 19
-	db 55, SEAKING, SEAKING, 0                          ; 13 - Route 19
-	db 55, STARMIE, DEWGONG, 0                          ; 14 - Route 19
-	db 55, SEADRA, SEADRA, 0                            ; 15 - Route 20
+	db 54, PIDGEOT, WIGGLYTUFF, 0                       ;  6 - Route 15
+	db 54, VENUSAUR, 0                                  ;  7 - Route 15
+	db 54, POLIWRATH, SEAKING, 0                        ;  8 - Route 19
+	db 55, SEAKING, SEAKING, 0                          ;  9 - Route 19
+	db 55, STARMIE, DEWGONG, 0                          ; 10 - Route 19
+	db 55, SEADRA, SEADRA, 0                            ; 11 - Route 20
+	db 55, SEAKING, 0                                   ; 12 - Route 20
+	db 53, CLOYSTER, SEAKING, 0                         ; 13 - Route 20
+	db 55, POLIWRATH, SEAKING, 0                        ; 14 - Route 20
 
 PsychicData: ; COMPLETED
 	db 51, ABRA, KADABRA, ALAKAZAM, 0                   ;  1 - Saffron Gym
@@ -313,13 +299,12 @@ RockerData: ; COMPLETED
 
 JugglerData: ; COMPLETED
 	db 46, ALAKAZAM, MR_MIME, 0                         ;  1 - Silph Co. 5F
-	db 63, HYPNO, ALAKAZAM, 0                           ;  2 - Victory Road 2F
+	db 55, GOLBAT, MUK, 0                               ;  2 - Fuchsia Gym
 	db 56, MUK, WEEZING, MUK, 0                         ;  3 - Fuchsia Gym
-	db 56, MUK, TENTACRUEL, WEEZING, 0                  ;  4 - Fuchsia Gym
-	db 64, MR_MIME, 0                                   ;  5 - Victory Road 2F
-	db 33, HYPNO, 0                                     ;  6 - Unused
-	db 55, GOLBAT, MUK, 0                               ;  7 - Fuchsia Gym
-	db 55, GOLBAT, WEEZING, MUK, 0                      ;  8 - Fuchsia Gym
+	db 55, GOLBAT, WEEZING, MUK, 0                      ;  4 - Fuchsia Gym
+	db 56, MUK, TENTACRUEL, WEEZING, 0                  ;  5 - Fuchsia Gym
+	db 63, HYPNO, ALAKAZAM, 0                           ;  6 - Victory Road 2F
+	db 64, MR_MIME, 0                                   ;  7 - Victory Road 2F
 
 TamerData: ; COMPLETED
 	db 56, NIDOKING, ARBOK, 0                           ;  1 - Fuchsia Gym
@@ -327,26 +312,23 @@ TamerData: ; COMPLETED
 	db 62, RHYDON, 0                                    ;  3 - Viridian Gym
 	db 62, ARBOK, TAUROS, 0                             ;  4 - Viridian Gym
 	db 63, PERSIAN, GOLDUCK, 0                          ;  5 - Victory Road 2F
-	db 42, RHYHORN, PRIMEAPE, ARBOK, TAUROS, 0          ;  6 - Unused
 
 BirdKeeperData: ; COMPLETED
 	db 53, PIDGEOT, 0                                   ;  1 - Route 13
 	db 53, FEAROW, PIDGEOTTO, PIDGEOT, FEAROW, 0        ;  2 - Route 13
 	db 52, PIDGEOT, FEAROW, 0                           ;  3 - Route 13
-	db 53, FARFETCHD, 0                                 ;  4 - Route 14
-	db 54, FEAROW, 0                                    ;  5 - Route 14
-	db 54, PIDGEOT, FARFETCHD, DODRIO, 0                ;  6 - Route 15
-	db 53, DODRIO, DODRIO, 0                            ;  7 - Route 15
-	db 54, FEAROW, 0                                    ;  8 - Route 18
-	db 54, DODRIO, 0                                    ;  9 - Route 18
-	db 53, FEAROW, FEAROW, 0                            ; 10 - Route 18
-	db 55, FEAROW, FEAROW, PIDGEOT, 0                   ; 11 - Route 20
-	db 39, PIDGEOTTO, PIDGEOTTO, PIDGEY, PIDGEOTTO, 0   ; 12 - Unused
-	db 52, FARFETCHD, FEAROW, 0                         ; 13 - Unused
-	db 52, DODRIO, PIDGEOT, 0                           ; 14 - Route 14
-	db 52, SPEAROW, FEAROW, 0                           ; 15 - Route 14
-	db 53, PIDGEOT, FEAROW, 0                           ; 16 - Route 14
-	db 53, DODRIO, FEAROW, 0                            ; 17 - Route 14
+	db 52, DODRIO, PIDGEOT, 0                           ;  4 - Route 14
+	db 52, SPEAROW, FEAROW, 0                           ;  5 - Route 14
+	db 53, PIDGEOT, FEAROW, 0                           ;  6 - Route 14
+	db 53, DODRIO, FEAROW, 0                            ;  7 - Route 14
+	db 53, FARFETCHD, 0                                 ;  8 - Route 14
+	db 54, FEAROW, 0                                    ;  9 - Route 14
+	db 54, PIDGEOT, FARFETCHD, DODRIO, 0                ; 10 - Route 15
+	db 53, DODRIO, DODRIO, 0                            ; 11 - Route 15
+	db 54, FEAROW, 0                                    ; 12 - Route 18
+	db 54, DODRIO, 0                                    ; 13 - Route 18
+	db 53, FEAROW, FEAROW, 0                            ; 14 - Route 18
+	db 55, FEAROW, FEAROW, PIDGEOT, 0                   ; 15 - Route 20
 
 BlackbeltData: ; COMPLETED
 	db 50, HITMONLEE, HITMONCHAN, 0                     ;  1 - Fighting Dojo Leader
@@ -360,125 +342,97 @@ BlackbeltData: ; COMPLETED
 	db 63, MACHAMP, MACHAMP, 0                          ;  9 - Victory Road 2F
 
 ScientistData: ; COMPLETED
-	db 50, WEEZING, ELECTRODE, 0                        ;  1 - Unused
-	db 45, MUK, WEEZING, 0                              ;  2 - Silph Co. 2F
-	db 45, ELECTRODE, MAGNETON, 0                       ;  3 - Silph Co. 2F
-	db 45, MAGNETON, WEEZING, 0                         ;  4 - Silph Co. 3F/Mansion 1F
-	db 45, ELECTRODE, JOLTEON, 0                        ;  5 - Silph Co. 4F
-	db 46, ELECTRODE, MAGNETON, 0                       ;  6 - Silph Co. 5F
-	db 46, ELECTRODE, MAGNETON, WEEZING, 0              ;  7 - Silph Co. 6F
-	db 46, MAGNETON, MUK, 0                             ;  8 - Silph Co. 7F
-	db 47, MUK, ELECTRODE, 0                            ;  9 - Silph Co. 8F
-	db 47, JOLTEON, DRAGONITE, 0                        ; 10 - Silph Co. 9F
-	db 47, MAGNEMITE, ELECTABUZZ, 0                     ; 11 - Silph Co. 10F
+	db 45, MUK, WEEZING, 0                              ;  1 - Silph Co. 2F
+	db 45, ELECTRODE, MAGNETON, 0                       ;  2 - Silph Co. 2F
+	db 45, MAGNETON, WEEZING, 0                         ;  3 - Silph Co. 3F
+	db 45, ELECTRODE, JOLTEON, 0                        ;  4 - Silph Co. 4F
+	db 46, ELECTRODE, MAGNETON, 0                       ;  5 - Silph Co. 5F
+	db 46, ELECTRODE, MAGNETON, WEEZING, 0              ;  6 - Silph Co. 6F
+	db 46, MAGNETON, MUK, 0                             ;  7 - Silph Co. 7F
+	db 47, MUK, ELECTRODE, 0                            ;  8 - Silph Co. 8F
+	db 47, JOLTEON, DRAGONITE, 0                        ;  9 - Silph Co. 9F
+	db 47, MAGNEMITE, ELECTABUZZ, 0                     ; 10 - Silph Co. 10F
+	db 57, WEEZING, ELECTRODE, 0                        ; 11 - Mansion 1F
 	db 57, MAGNETON, JOLTEON, 0                         ; 12 - Mansion 3F
 	db 58, MAGNETON, ELECTRODE, 0                       ; 13 - Mansion B1F
 
 RocketData: ; COMPLETED
-	db 16, RATTATA, ZUBAT, 0                            ;  1 - Mt. Moon B2F
-	db 16, SANDSHREW, RATTATA, ZUBAT, 0                 ;  2 - Mt. Moon B2F
-	db 17, ZUBAT, EKANS, 0                              ;  3 - Mt. Moon B2F
-	db 17, RATICATE, 0                                  ;  4 - Unused
-	db 25, MACHOKE, DROWZEE, 0                          ;  5 - Cerulean City
-	db 21, RATICATE, GOLBAT, ARBOK, 0                   ;  6 - Route 24
-	db 40, RATICATE, GOLBAT, 0                          ;  7 - Game Corner
-	db 40, HYPNO, MACHOKE, 0                            ;  8 - Rocket Hideout B1F
-	db 40, RATICATE, RATICATE, 0                        ;  9 - Rocket Hideout B1F
-	db 40, WEEZING, MUK, 0                              ; 10 - Rocket Hideout B1F
-	db 41, RATICATE, RATICATE, 0                        ; 11 - Rocket Hideout B1F
-	db 41, MUK, WEEZING, 0                              ; 12 - Rocket Hideout B1F
-	db 41, GOLBAT, RATICATE, GOLBAT, 0                  ; 13 - Rocket Hideout B2F
-	db 42, RATICATE, HYPNO, 0                           ; 14 - Rocket Hideout B3F
-	db 42, MACHOKE, MACHOKE, 0                          ; 15 - Rocket Hideout B3F
-	db 43, ARBOK, SANDSLASH, 0                          ; 16 - Unused
-	db 43, SANDSLASH, ARBOK, 0                          ; 17 - Unused
-	db 43, WEEZING, GOLBAT, MUK, 0                      ; 18 - Rocket Hideout B4F
-	db 50, GOLBAT, GOLBAT, GOLBAT, 0                    ; 19 - Unused
-	db 50, WEEZING, HYPNO, 0                            ; 20 - Unused
-	db 50, GOLBAT, WEEZING, MUK, 0                      ; 21 - Unused
-	db 26, DROWZEE, KOFFING, 0                          ; 22 - Unused
-	db 45, MAROWAK, GOLBAT, 0                           ; 23 - Silph Co. 2F
-	db 45, GOLBAT,RATICATE, GOLBAT, 0                   ; 24 - Silph Co. 2F
-	db 45, RATICATE, HYPNO, RATICATE, 0                 ; 25 - Silph Co. 3F
-	db 45, MACHAMP, HYPNO, 0                            ; 26 - Silph Co. 4F
-	db 45, ARBOK, SANDSLASH, 0                          ; 27 - Silph Co. 4F
-	db 46, ARBOK, 0                                     ; 28 - Silph Co. 5F
-	db 46, HYPNO, 0                                     ; 29 - Silph Co. 5F
-	db 46, MACHOKE, MACHAMP, 0                          ; 30 - Silph Co. 6F
-	db 46, GOLBAT, GOLBAT, 0                            ; 31 - Silph Co. 6F
-	db 46, RATICATE, ARBOK, WEEZING, GOLBAT, 0          ; 32 - Silph Co. 7F
-	db 46, CUBONE, MAROWAK, 0                           ; 33 - Silph Co. 7F
-	db 46, SANDSHREW, SANDSLASH, 0                      ; 34 - Silph Co. 7F
-	db 47, RATICATE, GOLBAT, 0                          ; 35 - Silph Co. 8F
-	db 47, WEEZING, GOLBAT, 0                           ; 36 - Silph Co. 8F
-	db 47, HYPNO, MUK, 0                                ; 37 - Silph Co. 9F
-	db 47, GOLBAT, HYPNO, 0                             ; 38 - Silph Co. 9F
-	db 47, MACHAMP, 0                                   ; 39 - Silph Co. 10F
-	db 47, RATICATE, GOLBAT, ARBOK, 0                   ; 40 - Silph Co. 11F
-	db 50, HYPNO, MAROWAK, 0                            ; 41 - Unused
-	db 18, EKANS, MEOWTH, KOFFING, 0                    ; 42 - Jessie & James Mt. Moon B2F
-	db 44, WEEZING, MEOWTH, ARBOK, 0                    ; 43 - Jessie & James Rocket Hideout B4F
-	db 48, MEOWTH, ARBOK, WEEZING, 0                    ; 44 - Jessie & James Pokémon Tower 7F
-	db 50, WEEZING, ARBOK, MEOWTH, 0                    ; 45 - Jessie & James Silph Co. 11F
-	db 16, KOFFING, 0                                   ; 46 - Unused
-	db 27, KOFFING, 0                                   ; 47 - Unused
-	db 29, WEEZING, 0                                   ; 48 - Unused
-	db 33, WEEZING, 0                                   ; 49 - Unused
+	db 16, SANDSHREW, RATTATA, ZUBAT, 0                 ;  1 - Mt. Moon B2F
+	db 17, ZUBAT, EKANS, 0                              ;  2 - Mt. Moon B2F
+	db 16, RATTATA, ZUBAT, 0                            ;  3 - Mt. Moon B2F
+	db 25, MACHOKE, DROWZEE, 0                          ;  4 - Cerulean City
+	db 21, RATICATE, GOLBAT, ARBOK, 0                   ;  5 - Route 24
+	db 40, RATICATE, GOLBAT, 0                          ;  6 - Game Corner
+	db 40, HYPNO, MACHOKE, 0                            ;  7 - Rocket Hideout B1F
+	db 40, RATICATE, RATICATE, 0                        ;  8 - Rocket Hideout B1F
+	db 40, WEEZING, MUK, 0                              ;  9 - Rocket Hideout B1F
+	db 41, RATICATE, RATICATE, 0                        ; 10 - Rocket Hideout B1F
+	db 41, MUK, WEEZING, 0                              ; 11 - Rocket Hideout B1F
+	db 41, GOLBAT, RATICATE, GOLBAT, 0                  ; 12 - Rocket Hideout B2F
+	db 42, RATICATE, HYPNO, 0                           ; 13 - Rocket Hideout B3F
+	db 42, MACHOKE, MACHOKE, 0                          ; 14 - Rocket Hideout B3F
+	db 43, WEEZING, GOLBAT, MUK, 0                      ; 15 - Rocket Hideout B4F
+	db 45, MAROWAK, GOLBAT, 0                           ; 16 - Silph Co. 2F
+	db 45, GOLBAT,RATICATE, GOLBAT, 0                   ; 17 - Silph Co. 2F
+	db 45, RATICATE, HYPNO, RATICATE, 0                 ; 18 - Silph Co. 3F
+	db 45, MACHAMP, HYPNO, 0                            ; 19 - Silph Co. 4F
+	db 45, ARBOK, SANDSLASH, 0                          ; 20 - Silph Co. 4F
+	db 46, ARBOK, 0                                     ; 21 - Silph Co. 5F
+	db 46, HYPNO, 0                                     ; 22 - Silph Co. 5F
+	db 46, MACHOKE, MACHAMP, 0                          ; 23 - Silph Co. 6F
+	db 46, GOLBAT, GOLBAT, 0                            ; 24 - Silph Co. 6F
+	db 46, RATICATE, ARBOK, WEEZING, GOLBAT, 0          ; 25 - Silph Co. 7F
+	db 46, CUBONE, MAROWAK, 0                           ; 26 - Silph Co. 7F
+	db 46, SANDSHREW, SANDSLASH, 0                      ; 27 - Silph Co. 7F
+	db 47, RATICATE, GOLBAT, 0                          ; 28 - Silph Co. 8F
+	db 47, WEEZING, GOLBAT, 0                           ; 29 - Silph Co. 8F
+	db 47, HYPNO, MUK, 0                                ; 30 - Silph Co. 9F
+	db 47, GOLBAT, HYPNO, 0                             ; 31 - Silph Co. 9F
+	db 47, MACHAMP, 0                                   ; 32 - Silph Co. 10F
+	db 47, RATICATE, GOLBAT, ARBOK, 0                   ; 33 - Silph Co. 11F
+	db 18, EKANS, MEOWTH, KOFFING, 0                    ; 34 - Jessie & James Mt. Moon B2F
+	db 44, WEEZING, MEOWTH, ARBOK, 0                    ; 35 - Jessie & James Rocket Hideout B4F
+	db 48, MEOWTH, ARBOK, WEEZING, 0                    ; 36 - Jessie & James Pokémon Tower 7F
+	db 50, WEEZING, ARBOK, MEOWTH, 0                    ; 37 - Jessie & James Silph Co. 11F
 
 CooltrainerMData: ; COMPLETED
-	db 61, NIDORINO, NIDOKING, 0                        ;  1 - Viridian Gym
-	db 63, EXEGGUTOR, CLOYSTER, ARCANINE, 0             ;  2 - Victory Road 3F
-	db 63, KINGLER, TENTACRUEL, BLASTOISE, 0            ;  3 - Victory Road 3F
-	db 45, KINGLER, STARMIE, 0                          ;  4 - Unused
-	db 64, VENUSAUR, BLASTOISE, CHARIZARD, 0            ;  5 - Victory Road 1F
-	db 44, IVYSAUR, WARTORTLE, CHARMELEON, 0            ;  6 - Unused
-	db 49, NIDOKING, 0                                  ;  7 - Unused
-	db 44, KINGLER, CLOYSTER, 0                         ;  8 - Unused
-	db 60, SANDSLASH, DUGTRIO, 0                        ;  9 - Viridian Gym
-	db 61, RHYDON, 0                                    ; 10 - Viridian Gym
+	db 60, SANDSLASH, DUGTRIO, 0                        ;  1 - Viridian Gym
+	db 61, RHYDON, 0                                    ;  2 - Viridian Gym
+	db 61, NIDORINO, NIDOKING, 0                        ;  3 - Viridian Gym
+	db 64, VENUSAUR, BLASTOISE, CHARIZARD, 0            ;  4 - Victory Road 1F
+	db 63, EXEGGUTOR, CLOYSTER, ARCANINE, 0             ;  5 - Victory Road 3F
+	db 63, KINGLER, TENTACRUEL, BLASTOISE, 0            ;  6 - Victory Road 3F
 
 CooltrainerFData: ; COMPLETED
 	db 41, VICTREEBEL, VILEPLUME, VENUSAUR, 0           ;  1 - Celadon Gym
-	db 63, VENOMOTH, VILEPLUME, VICTREEBEL, 0           ;  2 - Victory Road 3F
-	db 63, PARASECT, DEWGONG, CHANSEY, 0                ;  3 - Victory Road 3F
-	db 46, VILEPLUME, BUTTERFREE, 0                     ;  4 - Unused
-	db 64, PERSIAN, NINETALES, 0                        ;  5 - Victory Road 1F
-	db 45, IVYSAUR, VENUSAUR, 0                         ;  6 - Unused
-	db 45, NIDORINA, NIDOQUEEN, 0                       ;  7 - Unused
-	db 43, PERSIAN, NINETALES, RAICHU, 0                ;  8 - Unused
+	db 64, PERSIAN, NINETALES, 0                        ;  2 - Victory Road 1F
+	db 63, VENOMOTH, VILEPLUME, VICTREEBEL, 0           ;  3 - Victory Road 3F
+	db 63, PARASECT, DEWGONG, CHANSEY, 0                ;  4 - Victory Road 3F
 
 GentlemanData: ; COMPLETED
-	db 26, GROWLITHE, PONYTA, CHARMANDER, 0             ;  1 - SS Anne 1F Rooms
-	db 25, NIDORINO, NIDORINA, 0                        ;  2 - SS Anne 1F Rooms
-	db 35, RAICHU, 0                                    ;  3 - SS Anne 2F Rooms/Vermilion Gym
-	db 48, PRIMEAPE, 0                                  ;  4 - Unused
+	db 35, MAGNEMITE, MAGNETON, 0                       ;  1 - Vermilion Gym
+	db 26, GROWLITHE, PONYTA, CHARMANDER, 0             ;  2 - SS Anne 1F Rooms
+	db 25, NIDORINO, NIDORINA, 0                        ;  3 - SS Anne 1F Rooms
+	db 35, RAICHU, 0                                    ;  4 - SS Anne 2F Rooms
 	db 25, GROWLITHE, PONYTA, 0                         ;  5 - SS Anne 2F Rooms
 
 ChannelerData: ; COMPLETED
-	db 38, GASTLY, 0                                    ;  1 - Unused
-	db 38, GASTLY, 0                                    ;  2 - Unused
-	db 38, GASTLY, GASTLY, 0                            ;  3 - Unused
-	db 38, GASTLY, 0                                    ;  4 - Unused
-	db 38, GASTLY, 0                                    ;  5 - Pokémon Tower 3F
-	db 39, GASTLY, 0                                    ;  6 - Pokémon Tower 3F
-	db 38, HAUNTER, 0                                   ;  7 - Unused
-	db 38, GASTLY, 0                                    ;  8 - Pokémon Tower 3F
-	db 39, GASTLY, 0                                    ;  9 - Pokémon Tower 4F
-	db 39, GASTLY, HAUNTER, 0                           ; 10 - Pokémon Tower 4F
-	db 39, GASTLY, 0                                    ; 11 - Unused
-	db 38, HAUNTER, 0                                   ; 12 - Pokémon Tower 4F
-	db 39, GASTLY, 0                                    ; 13 - Unused
-	db 39, HAUNTER, 0                                   ; 14 - Pokémon Tower 5F
-	db 39, GASTLY, 0                                    ; 15 - Unused
-	db 39, HAUNTER, 0                                   ; 16 - Pokémon Tower 5F
-	db 40, HAUNTER, 0                                   ; 17 - Pokémon Tower 5F
-	db 40, HAUNTER, 0                                   ; 18 - Pokémon Tower 5F
-	db 40, GASTLY, HAUNTER, GENGAR, 0                   ; 19 - Pokémon Tower 6F
-	db 39, GENGAR, 0                                    ; 20 - Pokémon Tower 6F
-	db 40, GENGAR, 0                                    ; 21 - Pokémon Tower 6F
-	db 51, HAUNTER, GENGAR, 0                           ; 22 - Saffron Gym
-	db 52, GENGAR, 0                                    ; 23 - Saffron Gym
-	db 53, GASTLY, HAUNTER, GENGAR, 0                   ; 24 - Saffron Gym
+	db 38, GASTLY, 0                                    ;  1 - Pokémon Tower 3F
+	db 39, GASTLY, 0                                    ;  2 - Pokémon Tower 3F
+	db 38, GASTLY, 0                                    ;  3 - Pokémon Tower 3F
+	db 39, GASTLY, 0                                    ;  4 - Pokémon Tower 4F
+	db 39, GASTLY, HAUNTER, 0                           ;  5 - Pokémon Tower 4F
+	db 38, HAUNTER, 0                                   ;  6 - Pokémon Tower 4F
+	db 39, HAUNTER, 0                                   ;  7 - Pokémon Tower 5F
+	db 39, HAUNTER, 0                                   ;  8 - Pokémon Tower 5F
+	db 40, HAUNTER, 0                                   ;  9 - Pokémon Tower 5F
+	db 40, HAUNTER, 0                                   ; 10 - Pokémon Tower 5F
+	db 40, GASTLY, HAUNTER, GENGAR, 0                   ; 11 - Pokémon Tower 6F
+	db 39, GENGAR, 0                                    ; 12 - Pokémon Tower 6F
+	db 40, GENGAR, 0                                    ; 13 - Pokémon Tower 6F
+	db 51, HAUNTER, GENGAR, 0                           ; 14 - Saffron Gym
+	db 52, GENGAR, 0                                    ; 15 - Saffron Gym
+	db 53, GASTLY, HAUNTER, GENGAR, 0                   ; 16 - Saffron Gym
 
 ProfOakData: ; Unused ;todo
 	db $FF, 66, TAUROS, 67, EXEGGUTOR, 68, ARCANINE, 69, BLASTOISE, 70, GYARADOS, 0

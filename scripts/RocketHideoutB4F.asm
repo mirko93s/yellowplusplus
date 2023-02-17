@@ -209,7 +209,7 @@ RocketHideout4Script10:
 	call SaveEndBattleTextPointers
 	ld a, OPP_ROCKET
 	ld [wCurOpponent], a
-	ld a, $2b
+	ld a, 35 ; jessie and james party index
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a
