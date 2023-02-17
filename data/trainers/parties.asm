@@ -70,7 +70,7 @@ YoungsterData: ; COMPLETED
 	db 26, RATTATA, RATICATE, 0													; Route 11
 	db 26, NIDORAN_M, NIDORINO, 0												; Route 11
 	db 17, SPEAROW, RATTATA, RATTATA, SPEAROW, 0								; Unused
-	db 24, SANDSHREW, 0															; Unused
+	db 33, SANDSLASH, 0															; Route 9
 
 BugCatcherData: ; COMPLETED
 	db  9, WEEDLE, CATERPIE, 0													; Viridian Forest
@@ -124,17 +124,17 @@ JrTrainerMData: ; COMPLETED
 	db 14, DIGLETT, SANDSHREW, 0												; Pewter Gym
 	db 23, POLIWAG, GOLDEEN, 0													; Route 24/Route 25
 	db 20, PRIMEAPE, MACHOKE, 0													; Route 24
-	db 25, DITTO, MEOWTH, 0														; Route 6
+	db 25, DITTO, MEOWTH, 0														; Unused
 	db 25, SPEAROW, DODUO, 0													; Route 6
 	db 18, DIGLETT, DIGLETT, SANDSHREW, 0										; Unused
-	db 32, GROWLITHE, CHARMANDER, 0												; Route 9
+	db 32, GROWLITHE, CHARMANDER, 0												; Unused
 	db 32, RATICATE, DUGTRIO, ARBOK, SANDSLASH, 0								; Route 9
 	db 53, NIDOKING, 0															; Route 12
 	db 23, WEEPINBELL, 0														; Route 12
 
 JrTrainerFData: ; COMPLETED
 	db 25, GOLDEEN, 0															; Cerulean Gym
-	db 25, RATTATA, PIKACHU, 0													; Route 6
+	db 25, RATTATA, PIKACHU, 0													; Unused
 	db 25, PIDGEY, SPEAROW, 0													; Route 6
 	db 22, IVYSAUR, 0															; Unused
 	db 32, GLOOM, WEEPINBELL, 0													; Route 9
@@ -157,7 +157,7 @@ JrTrainerFData: ; COMPLETED
 	db 54, CLEFABLE, 0															; Route 15
 	db 54, VICTREEBEL, TANGELA, 0												; Route 15
 	db 56, TENTACRUEL, SEADRA, DEWGONG, 0										; Route 20
-	db 56, MAROWAK, 0															; Route 20
+	db 25, CUBONE, 0															; Route 6
 
 PokemaniacData: ; COMPLETED
 	db 40, RHYHORN, LICKITUNG, 0												; Route 10
@@ -378,7 +378,7 @@ RocketData: ; COMPLETED
 	db 16, RATTATA, ZUBAT, 0													; Mt. Moon B2F
 	db 16, SANDSHREW, RATTATA, ZUBAT, 0											; Mt. Moon B2F
 	db 17, ZUBAT, EKANS, 0														; Mt. Moon B2F
-	db 17, RATICATE, 0															; Mt. Moon B2F
+	db 17, RATICATE, 0															; Unused
 	db 25, MACHOKE, DROWZEE, 0													; Cerulean City
 	db 21, RATICATE, GOLBAT, ARBOK, 0											; Route 24
 	db 40, RATICATE, GOLBAT, 0													; Game Corner
@@ -390,12 +390,12 @@ RocketData: ; COMPLETED
 	db 41, GOLBAT, RATICATE, GOLBAT, 0											; Rocket Hideout B2F
 	db 42, RATICATE, HYPNO, 0													; Rocket Hideout B3F
 	db 42, MACHOKE, MACHOKE, 0													; Rocket Hideout B3F
-	db 43, ARBOK, SANDSLASH, 0													; Rocket Hideout B4F
-	db 43, SANDSLASH, ARBOK, 0													; Rocket Hideout B4F
+	db 43, ARBOK, SANDSLASH, 0													; Unused
+	db 43, SANDSLASH, ARBOK, 0													; Unused
 	db 43, WEEZING, GOLBAT, MUK, 0												; Rocket Hideout B4F
-	db 50, GOLBAT, GOLBAT, GOLBAT, 0											; Pokémon Tower 7F
-	db 50, WEEZING, HYPNO, 0													; Pokémon Tower 7F
-	db 50, GOLBAT, WEEZING, MUK, 0												; Pokémon Tower 7F
+	db 50, GOLBAT, GOLBAT, GOLBAT, 0											; Unused
+	db 50, WEEZING, HYPNO, 0													; Unused
+	db 50, GOLBAT, WEEZING, MUK, 0												; Unused
 	db 26, DROWZEE, KOFFING, 0													; Unused
 	db 45, MAROWAK, GOLBAT, 0													; Silph Co. 2F
 	db 45, GOLBAT,RATICATE, GOLBAT, 0											; Silph Co. 2F
@@ -415,11 +415,11 @@ RocketData: ; COMPLETED
 	db 47, GOLBAT, HYPNO, 0														; Silph Co. 9F
 	db 47, MACHAMP, 0															; Silph Co. 10F
 	db 47, RATICATE, GOLBAT, ARBOK, 0											; Silph Co. 11F
-	db 50, HYPNO, MAROWAK, 0													; Silph Co. 11F executive???
-	db 18, EKANS, MEOWTH, KOFFING, 0											; Jessie & James Mt. Moon
-	db 44, WEEZING, MEOWTH, ARBOK, 0											; Jessie & James Rocket Hideout
-	db 48, MEOWTH, ARBOK, WEEZING, 0											; Jessie & James Pokémon Tower
-	db 50, WEEZING, ARBOK, MEOWTH, 0											; Jessie & James Silph Co.
+	db 50, HYPNO, MAROWAK, 0													; Unused
+	db 18, EKANS, MEOWTH, KOFFING, 0											; Jessie & James Mt. Moon B2F
+	db 44, WEEZING, MEOWTH, ARBOK, 0											; Jessie & James Rocket Hideout B4F
+	db 48, MEOWTH, ARBOK, WEEZING, 0											; Jessie & James Pokémon Tower 7F
+	db 50, WEEZING, ARBOK, MEOWTH, 0											; Jessie & James Silph Co. 11F
 	db 16, KOFFING, 0															; Unused
 	db 27, KOFFING, 0															; Unused
 	db 29, WEEZING, 0															; Unused
