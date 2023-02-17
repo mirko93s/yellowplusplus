@@ -6447,7 +6447,13 @@ LoadEnemyMonData:
 	ld a, ATKDEFDV_TRAINER
 	ld b, SPDSPCDV_TRAINER
 	jr z, .storeDVs
-; random DVs for wild mon
+	; if oak vs starter pikachu set pikachu dvs
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_PIKACHU
+	ld a, $ff
+	ld b, $ff
+	jr z, .storeDVs
+	; random DVs for wild mon
 	call BattleRandom
 	ld b, a
 	call BattleRandom

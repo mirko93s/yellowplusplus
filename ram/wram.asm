@@ -1403,6 +1403,8 @@ wCurOpponent:: db
 ; in normal battle, this is 0
 ; in old man battle, this is 1
 ; in safari battle, this is 2
+; run, this is 3
+; oak starter pikachu, this is 4
 wBattleType:: db
 
 ; bits 0-6: Effectiveness
