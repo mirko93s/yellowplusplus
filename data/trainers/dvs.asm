@@ -1,8 +1,7 @@
-dvs: MACRO
-	; atk, def, spd, spc
-		dn \1, \2
-		dn \3, \4
-	ENDM
+MACRO dvs
+	dn \1, \2
+	dn \3, \4
+ENDM
 	
 TrainerClassDVs:
 ; 	    Atk Def Spd Spc
