@@ -128,6 +128,12 @@ ReadTrainer:
 	ret
 
 	GetTrainerMonDVs:: ; called from engine/battle/core.asm
+	; returns trainer's DVs in wTempDVs
+	push hl
+	
+	call GetUniqueTrainerDVs
+	jr z, .done
+	
 	ld a, [wTrainerClass]
 	dec a
 	ld c, a
@@ -141,6 +147,61 @@ ReadTrainer:
 	inc de
 	ld a, [hl]
 	ld [de], a
+.done
+	pop hl
+	ret
+
+GetUniqueTrainerDVs:
+; returns z, and unique DVs in wTempDVs if DVs are unique
+; adapted from Polished Crystal
+	ld hl, UniqueDVTrainerPokemon
+.loop
+	ld a, [hli] ; TrainerClass
+	cp -1
+	jr z, .notunique
+	ld b, a
+	ld a, [wTrainerClass]
+	cp b
+	jr nz, .inc5andloop
+	ld a, [hli] ; TrainerID
+	ld b, a
+	ld a, [wTrainerNo]
+	cp b
+	jr nz, .inc4andloop
+	ld a, [hli] ; PartySpecies
+	ld b, a
+	ld a, [wd0b5] ; should always be mon's species, when called from AddPartyMon or LoadEnemyMonData
+	cp b
+	jr nz, .inc3andloop
+	ld a, [hli] ; Level
+	ld b, a
+	ld a, [wCurEnemyLVL]
+	cp b
+	jr nz, .inc2andloop
+.unique
+	ld de, wTempDVs
+	ld a, [hli]
+	ld [de], a
+	inc de
+	ld a, [hli]
+	ld [de], a
+	xor a
+	and a
+	ret
+.inc5andloop
+	inc hl
+.inc4andloop
+	inc hl
+.inc3andloop
+	inc hl
+.inc2andloop
+	inc hl
+	inc hl
+	jp .loop
+.notunique
+	ld a, 1
+	and a
 	ret
 
 INCLUDE "data/trainers/dvs.asm"
+INCLUDE "data/trainers/unique_dvs.asm"
