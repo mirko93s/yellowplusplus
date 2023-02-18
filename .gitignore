@@ -38,6 +38,7 @@
 *.rar
 *.sh
 *.bat
+*.bak
 
 #test folder
 /TEST
