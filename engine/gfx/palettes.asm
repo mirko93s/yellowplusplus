@@ -337,13 +337,15 @@ GetMonPalID:
 	push bc
 	predef IndexToPokedex
 	pop bc
-	ld hl, MonsterPalettes
+	
 	ld a, [wShinyMonFlag]
 	bit 0, a ; is mon supposed to be shiny?
-	jr z, GetPalID ; not shiny
-	ld hl, ShinyMonsterPalettes ; shiny
-GetPalID:
+	ld hl, MonsterPalettes
 	ld a, [wd11e]
+	jr z, GetPalID
+	ld hl, ShinyMonsterPalettes
+
+GetPalID:
 	ld e, a
 	ld d, 0
 	add hl, de
