@@ -214,10 +214,10 @@ EngineerData:
 	db  "BRAXTON@", 21, MAGNETON,   22, RAICHU,                                                                     end ;  2 - Route 11
 
 JessieAndJamesData:
-	db  "JAMES@",   18, EKANS,      19, MEOWTH,     18, KOFFING,                                    				end ;  1 - Jessie & James Mt. Moon B2F
-	db  "JAMES@",   44, WEEZING,    45, MEOWTH,     44, ARBOK,                                      				end ;  2 - Jessie & James Rocket Hideout B4F
-	db  "JAMES@",   49, MEOWTH,     48, ARBOK,      48, WEEZING,                                    				end ;  3 - Jessie & James Pokémon Tower 7F
-	db  "JAMES@",   50, WEEZING,    50, ARBOK,      52, MEOWTH,                                     				end ;  4 - Jessie & James Silph Co. 11F
+	db  "JAMES@",   18, EKANS,      19, MEOWTH,     18, KOFFING,                                                    end ;  1 - Jessie & James Mt. Moon B2F
+	db  "JAMES@",   44, WEEZING,    45, MEOWTH,     44, ARBOK,                                                      end ;  2 - Jessie & James Rocket Hideout B4F
+	db  "JAMES@",   49, MEOWTH,     48, ARBOK,      48, WEEZING,                                                    end ;  3 - Jessie & James Pokémon Tower 7F
+	db  "JAMES@",   50, WEEZING,    50, ARBOK,      52, MEOWTH,                                                     end ;  4 - Jessie & James Silph Co. 11F
 
 FisherData:
 	db  "BARNY@",   26, GOLDEEN,    25, TENTACOOL,  24, VAPOREON,                                                   end ;  1 - SS Anne 2F Rooms
@@ -354,39 +354,39 @@ ScientistData:
 	db  "TED@",     58, MAGNETON,   59, ELECTRODE,                                                                  end ; 13 - Mansion B1F
 
 RocketData:
-	db  "GRUNT@",   15, SANDSHREW,  16, RATTATA,    16, ZUBAT,                                      				end ;  1 - Mt. Moon B2F
-	db  "GRUNT@",   17, ZUBAT,      18, EKANS,                                                      				end ;  2 - Mt. Moon B2F
-	db  "GRUNT@",   16, RATTATA,    17, ZUBAT,                                                      				end ;  3 - Mt. Moon B2F
-	db  "GRUNT@",   25, MACHOKE,    24, DROWZEE,                                                    				end ;  4 - Cerulean City
-	db  "GRUNT@",   20, RATICATE,   21, GOLBAT,     22, ARBOK,                                      				end ;  5 - Route 24
-	db  "GRUNT@",   40, RATICATE,   38, GOLBAT,                                                     				end ;  6 - Game Corner
-	db  "GRUNT@",   40, HYPNO,      42, MACHOKE,                                                    				end ;  7 - Rocket Hideout B1F
-	db  "GRUNT@",   40, RATICATE,   41, RATICATE,                                                   				end ;  8 - Rocket Hideout B1F
-	db  "GRUNT@",   40, WEEZING,    40, MUK,                                                        				end ;  9 - Rocket Hideout B1F
-	db  "GRUNT@",   41, RATICATE,   43, RATICATE,                                                   				end ; 10 - Rocket Hideout B1F
-	db  "GRUNT@",   41, MUK,        42, WEEZING,                                                    				end ; 11 - Rocket Hideout B1F
-	db  "GRUNT@",   41, GOLBAT,     40, RATICATE,   41, GOLBAT,                                     				end ; 12 - Rocket Hideout B2F
-	db  "GRUNT@",   42, RATICATE,   43, HYPNO,                                                      				end ; 13 - Rocket Hideout B3F
-	db  "GRUNT@",   42, MACHOKE,    43, MACHOKE,                                                    				end ; 14 - Rocket Hideout B3F
-	db  "GRUNT@",   44, WEEZING,    41, GOLBAT,     43, MUK,                                        				end ; 15 - Rocket Hideout B4F
-	db  "GRUNT@",   45, MAROWAK,    46, GOLBAT,                                                     				end ; 16 - Silph Co. 2F
-	db  "GRUNT@",   45, GOLBAT,     43, RATICATE,   46, GOLBAT,                                     				end ; 17 - Silph Co. 2F
-	db  "GRUNT@",   41, RATICATE,   43, HYPNO,      45, RATICATE,                                   				end ; 18 - Silph Co. 3F
-	db  "GRUNT@",   44, MACHAMP,    46, HYPNO,                                                      				end ; 19 - Silph Co. 4F
-	db  "GRUNT@",   44, ARBOK,      46, SANDSLASH,                                                  				end ; 20 - Silph Co. 4F
-	db  "GRUNT@",   45, ARBOK,                                                                      				end ; 21 - Silph Co. 5F
-	db  "GRUNT@",   46, HYPNO,                                                                      				end ; 22 - Silph Co. 5F
-	db  "GRUNT@",   46, MACHOKE,    45, MACHAMP,                                                    				end ; 23 - Silph Co. 6F
-	db  "GRUNT@",   46, GOLBAT,     44, GOLBAT,                                                     				end ; 24 - Silph Co. 6F
-	db  "GRUNT@",   43, RATICATE,   45, ARBOK,      47, WEEZING,    49, GOLBAT,                     				end ; 25 - Silph Co. 7F
-	db  "GRUNT@",   45, CUBONE,     46, MAROWAK,                                                    				end ; 26 - Silph Co. 7F
-	db  "GRUNT@",   45, SANDSHREW,  47, SANDSLASH,                                                  				end ; 27 - Silph Co. 7F
-	db  "GRUNT@",   47, RATICATE,   46, GOLBAT,                                                     				end ; 28 - Silph Co. 8F
-	db  "GRUNT@",   47, WEEZING,    45, GOLBAT,                                                     				end ; 29 - Silph Co. 8F
-	db  "GRUNT@",   47, HYPNO,      45, MUK,                                                        				end ; 30 - Silph Co. 9F
-	db  "GRUNT@",   47, GOLBAT,     48, HYPNO,                                                      				end ; 31 - Silph Co. 9F
-	db  "GRUNT@",   47, MACHAMP,                                                                    				end ; 32 - Silph Co. 10F
-	db  "GRUNT@",   47, RATICATE,   45, GOLBAT,     48, ARBOK,                                      				end ; 33 - Silph Co. 11F
+	db  "GRUNT@",   15, SANDSHREW,  16, RATTATA,    16, ZUBAT,                                                      end ;  1 - Mt. Moon B2F
+	db  "GRUNT@",   17, ZUBAT,      18, EKANS,                                                                      end ;  2 - Mt. Moon B2F
+	db  "GRUNT@",   16, RATTATA,    17, ZUBAT,                                                                      end ;  3 - Mt. Moon B2F
+	db  "GRUNT@",   25, MACHOKE,    24, DROWZEE,                                                                    end ;  4 - Cerulean City
+	db  "GRUNT@",   20, RATICATE,   21, GOLBAT,     22, ARBOK,                                                      end ;  5 - Route 24
+	db  "GRUNT@",   40, RATICATE,   38, GOLBAT,                                                                     end ;  6 - Game Corner
+	db  "GRUNT@",   40, HYPNO,      42, MACHOKE,                                                                    end ;  7 - Rocket Hideout B1F
+	db  "GRUNT@",   40, RATICATE,   41, RATICATE,                                                                   end ;  8 - Rocket Hideout B1F
+	db  "GRUNT@",   40, WEEZING,    40, MUK,                                                                        end ;  9 - Rocket Hideout B1F
+	db  "GRUNT@",   41, RATICATE,   43, RATICATE,                                                                   end ; 10 - Rocket Hideout B1F
+	db  "GRUNT@",   41, MUK,        42, WEEZING,                                                                    end ; 11 - Rocket Hideout B1F
+	db  "GRUNT@",   41, GOLBAT,     40, RATICATE,   41, GOLBAT,                                                     end ; 12 - Rocket Hideout B2F
+	db  "GRUNT@",   42, RATICATE,   43, HYPNO,                                                                      end ; 13 - Rocket Hideout B3F
+	db  "GRUNT@",   42, MACHOKE,    43, MACHOKE,                                                                    end ; 14 - Rocket Hideout B3F
+	db  "GRUNT@",   44, WEEZING,    41, GOLBAT,     43, MUK,                                                        end ; 15 - Rocket Hideout B4F
+	db  "GRUNT@",   45, MAROWAK,    46, GOLBAT,                                                                     end ; 16 - Silph Co. 2F
+	db  "GRUNT@",   45, GOLBAT,     43, RATICATE,   46, GOLBAT,                                                     end ; 17 - Silph Co. 2F
+	db  "GRUNT@",   41, RATICATE,   43, HYPNO,      45, RATICATE,                                                   end ; 18 - Silph Co. 3F
+	db  "GRUNT@",   44, MACHAMP,    46, HYPNO,                                                                      end ; 19 - Silph Co. 4F
+	db  "GRUNT@",   44, ARBOK,      46, SANDSLASH,                                                                  end ; 20 - Silph Co. 4F
+	db  "GRUNT@",   45, ARBOK,                                                                                      end ; 21 - Silph Co. 5F
+	db  "GRUNT@",   46, HYPNO,                                                                                      end ; 22 - Silph Co. 5F
+	db  "GRUNT@",   46, MACHOKE,    45, MACHAMP,                                                                    end ; 23 - Silph Co. 6F
+	db  "GRUNT@",   46, GOLBAT,     44, GOLBAT,                                                                     end ; 24 - Silph Co. 6F
+	db  "GRUNT@",   43, RATICATE,   45, ARBOK,      47, WEEZING,    49, GOLBAT,                                     end ; 25 - Silph Co. 7F
+	db  "GRUNT@",   45, CUBONE,     46, MAROWAK,                                                                    end ; 26 - Silph Co. 7F
+	db  "GRUNT@",   45, SANDSHREW,  47, SANDSLASH,                                                                  end ; 27 - Silph Co. 7F
+	db  "GRUNT@",   47, RATICATE,   46, GOLBAT,                                                                     end ; 28 - Silph Co. 8F
+	db  "GRUNT@",   47, WEEZING,    45, GOLBAT,                                                                     end ; 29 - Silph Co. 8F
+	db  "GRUNT@",   47, HYPNO,      45, MUK,                                                                        end ; 30 - Silph Co. 9F
+	db  "GRUNT@",   47, GOLBAT,     48, HYPNO,                                                                      end ; 31 - Silph Co. 9F
+	db  "GRUNT@",   47, MACHAMP,                                                                                    end ; 32 - Silph Co. 10F
+	db  "GRUNT@",   47, RATICATE,   45, GOLBAT,     48, ARBOK,                                                      end ; 33 - Silph Co. 11F
 
 CooltrainerMData:
 	db  "SAMUEL@",  60, SANDSLASH,  62, DUGTRIO,                                                                    end ;  1 - Viridian Gym
