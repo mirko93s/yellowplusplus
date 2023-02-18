@@ -6443,10 +6443,14 @@ LoadEnemyMonData:
 	jr nz, .storeDVs
 	ld a, [wIsInBattle]
 	cp $2 ; is it a trainer battle?
-; fixed DVs for trainer mon
-	ld a, ATKDEFDV_TRAINER
-	ld b, SPDSPCDV_TRAINER
-	jr z, .storeDVs
+	jr nz, .notTrainer
+; Get trainer DVs from a table
+	callfar GetTrainerMonDVs
+	ld hl, wTempDVs
+	ld a, [hli]
+	ld b, [hl]
+	jr .storeDVs
+.notTrainer
 	; if oak vs starter pikachu set pikachu dvs
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
