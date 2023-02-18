@@ -387,9 +387,9 @@ SilphCo11Script11:
 	ld hl, SilphCo11Text_624c2
 	ld de, SilphCo11Text_624c2
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES
 	ld [wCurOpponent], a
-	ld a, 37 ; jessie and james party index
+	ld a, 4 ; jessie and james party index
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

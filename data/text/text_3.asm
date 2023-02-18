@@ -6,8 +6,10 @@ _EnemyAppearedText::
 
 _TrainerWantsToFightText::
 	text_ram wTrainerName
-	text " wants"
-	line "to fight!"
+	text " @"
+	text_ram wCurTrainerName
+	text ""
+	line "wants to fight!"
 	prompt
 
 _UnveiledGhostText::

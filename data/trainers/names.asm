@@ -3,18 +3,18 @@ TrainerNames::
 	db "BUG CATCHER@"
 	db "LASS@"
 	db "SAILOR@"
-	db "JR.TRAINER♂@"
-	db "JR.TRAINER♀@"
+	db "CAMPER@" ; JR.TRAINER M
+	db "PICNICKER@" ; JR.TRAINER F
 	db "POKéMANIAC@"
 	db "SUPER NERD@"
 	db "HIKER@"
 	db "BIKER@"
 	db "BURGLAR@"
 	db "ENGINEER@"
-	db "JUGGLER@"
+	db "JESSIE AND@" ; JAMES
 	db "FISHERMAN@"
 	db "SWIMMER@"
-	db "CUE BALL@"
+	db "ROUGHNECK@" ; CUEBALL
 	db "GAMBLER@"
 	db "BEAUTY@"
 	db "PSYCHIC@"
@@ -23,26 +23,26 @@ TrainerNames::
 	db "TAMER@"
 	db "BIRD KEEPER@"
 	db "BLACKBELT@"
-	db "RIVAL1@"
+	db "RIVAL@" ; RIVAL1
 	db "PROF.OAK@"
-	db "CHIEF@"
+	db "CHIEF@" ; Unused
 	db "SCIENTIST@"
-	db "GIOVANNI@"
-	db "ROCKET@"
-	db "COOLTRAINER♂@"
-	db "COOLTRAINER♀@"
-	db "BRUNO@"
-	db "BROCK@"
-	db "MISTY@"
-	db "LT.SURGE@"
-	db "ERIKA@"
-	db "KOGA@"
-	db "BLAINE@"
-	db "SABRINA@"
+	db "BOSS@" ; GIOVANNI
+	db "TEAM ROCKET@"
+	db "ACE TRAINER@" ; M
+	db "ACE TRAINER@" ; F
+	db "ELITE FOUR@" ; BRUNO
+	db "LEADER@" ; BROCK
+	db "LEADER@" ; MISTY
+	db "LEADER@" ; LT.SURGE
+	db "LEADER@" ; ERIKA
+	db "LEADER@" ; KOGA
+	db "LEADER@" ; BLAINE
+	db "LEADER@" ; SABRINA
 	db "GENTLEMAN@"
-	db "RIVAL2@"
-	db "RIVAL3@"
-	db "LORELEI@"
+	db "RIVAL@" ; RIVAL2
+	db "CHAMPION@" ; RIVAL3
+	db "ELITE FOUR@" ; LORELEI
 	db "CHANNELER@"
-	db "AGATHA@"
-	db "LANCE@"
+	db "ELITE FOUR@" ; AGATHA
+	db "ELITE FOUR@" ; LANCE

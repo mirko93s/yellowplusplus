@@ -380,7 +380,7 @@ GetSavedEndBattleTextPointer::
 	ret
 
 TrainerEndBattleText::
-	text_far _TrainerNameText
+	; text_far _TrainerNameText
 	text_asm
 	call GetSavedEndBattleTextPointer
 	call TextCommandProcessor

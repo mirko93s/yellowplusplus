@@ -2323,13 +2323,16 @@ wExtraFlags:: db
 wShinyMonFlag:: db; cc97
 wGameProgressFlagsEnd::
 
+; $00 = male
+; $01 = female
 wPlayerGender::
-	; $00 = male
-	; $01 = female
-		ds 1
+	ds 1
+; unused
+	ds 40
 
-	; unused
-		ds 53
+; individual trainer name
+wCurTrainerName::
+	ds 13
 		
 wNextEncounterLevel:: ; d3aa
 	ds 1

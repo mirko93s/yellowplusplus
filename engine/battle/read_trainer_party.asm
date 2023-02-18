@@ -40,6 +40,14 @@ ReadTrainer:
 	jr nz, .inner
 	jr .outer
 .foundTrainer
+	ld de, wCurTrainerName ; individual trainer names loop
+.nameLoop
+	ld a, [hli]
+	ld [de],a
+	inc de
+	cp "@"
+	jr nz, .nameLoop
+.partyLoop
 ; - if [wLoneAttackNo] != 0, one pokemon on the team has a special move
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
@@ -52,7 +60,7 @@ ReadTrainer:
 	push hl
 	call AddPartyMon
 	pop hl
-	jr .foundTrainer
+	jr .partyLoop
 .AddAdditionalMoveData
 ; does the trainer have additional move data?
 	ld a, [wTrainerClass]

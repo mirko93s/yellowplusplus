@@ -14,7 +14,7 @@ TrainerNamePointers:
 	dw wTrainerName
 	dw .BurglarName
 	dw .EngineerName
-	dw .UnusedJugglerName
+	dw .JessieAndJamesName
 	dw wTrainerName
 	dw .SwimmerName
 	dw wTrainerName
@@ -50,24 +50,24 @@ TrainerNamePointers:
 	dw wTrainerName
 	dw wTrainerName
 
-.YoungsterName:     db "YOUNGSTER@"
-.BugCatcherName:    db "BUG CATCHER@"
-.LassName:          db "LASS@"
-.JrTrainerMName:    db "JR.TRAINER♂@"
-.JrTrainerFName:    db "JR.TRAINER♀@"
-.PokemaniacName:    db "POKéMANIAC@"
-.SuperNerdName:     db "SUPER NERD@"
-.BurglarName:       db "BURGLAR@"
-.EngineerName:      db "ENGINEER@"
-.UnusedJugglerName: db "JUGGLER@"
-.SwimmerName:       db "SWIMMER@"
-.BeautyName:        db "BEAUTY@"
-.RockerName:        db "ROCKER@"
-.JugglerName:       db "JUGGLER@"
-.BlackbeltName:     db "BLACKBELT@"
-.ProfOakName:       db "PROF.OAK@"
-.ChiefName:         db "CHIEF@"
-.ScientistName:     db "SCIENTIST@"
-.RocketName:        db "ROCKET@"
-.CooltrainerMName:  db "COOLTRAINER♂@"
-.CooltrainerFName:  db "COOLTRAINER♀@"
+.YoungsterName:      db "YOUNGSTER@"
+.BugCatcherName:     db "BUG CATCHER@"
+.LassName:           db "LASS@"
+.JrTrainerMName:     db "CAMPER@"
+.JrTrainerFName:     db "PICNICKER@"
+.PokemaniacName:     db "POKéMANIAC@"
+.SuperNerdName:      db "SUPER NERD@"
+.BurglarName:        db "BURGLAR@"
+.EngineerName:       db "ENGINEER@"
+.JessieAndJamesName: db "JESSIE AND JAMES@"
+.SwimmerName:        db "SWIMMER@"
+.BeautyName:         db "BEAUTY@"
+.RockerName:         db "ROCKER@"
+.JugglerName:        db "JUGGLER@"
+.BlackbeltName:      db "BLACKBELT@"
+.ProfOakName:        db "PROF.OAK@"
+.ChiefName:          db "CHIEF@"
+.ScientistName:      db "SCIENTIST@"
+.RocketName:         db "TEAM ROCKET@"
+.CooltrainerMName:   db "ACE TRAINER@"
+.CooltrainerFName:   db "ACE TRAINER@"

@@ -331,9 +331,9 @@ MtMoon3Script12:
 	ld hl, MtMoon3JessieJamesEndBattleText
 	ld de, MtMoon3JessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES
 	ld [wCurOpponent], a
-	ld a, 34 ; jessie and james party index
+	ld a, 1 ; jessie and james party index
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

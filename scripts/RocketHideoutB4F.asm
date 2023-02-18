@@ -207,9 +207,9 @@ RocketHideout4Script10:
 	ld hl, RocketHideout4JessieJamesEndBattleText
 	ld de, RocketHideout4JessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES
 	ld [wCurOpponent], a
-	ld a, 35 ; jessie and james party index
+	ld a, 2 ; jessie and james party index
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a

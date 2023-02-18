@@ -153,9 +153,9 @@ PokemonTower7Script7:
 	ld hl, PokemonTower7JessieJamesEndBattleText
 	ld de, PokemonTower7JessieJamesEndBattleText
 	call SaveEndBattleTextPointers
-	ld a, OPP_ROCKET
+	ld a, OPP_JESSIE_AND_JAMES
 	ld [wCurOpponent], a
-	ld a, 36 ; jessie and james party index
+	ld a, 3 ; jessie and james party index
 	ld [wTrainerNo], a
 	xor a
 	ldh [hJoyHeld], a
