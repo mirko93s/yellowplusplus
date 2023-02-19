@@ -87,7 +87,7 @@ StatusScreen:
 	call LoadHpBarAndStatusTilePatterns
 	ld de, BattleHudTiles1  ; source
 	ld hl, vChars2 tile $6d ; dest
-	lb bc, BANK(BattleHudTiles1), 3
+	lb bc, BANK(BattleHudTiles1), 1
 	call CopyVideoDataDouble ; ·│ :L and halfarrow line end
 	ld de, BattleHudTiles2
 	ld hl, vChars2 tile $78

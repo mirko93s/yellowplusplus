@@ -36,6 +36,7 @@ DayCareMText1:
 	ld hl, DayCareAllRightThenText
 	jp c, .done
 	callfar KnowsHMMove
+	call ReloadTilesetTilePatterns
 	ld hl, DayCareCantAcceptMonWithHMText
 	jp c, .done
 	xor a
@@ -43,6 +44,7 @@ DayCareMText1:
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMonNicks
 	call GetPartyMonName
+	call ReloadTilesetTilePatterns
 	ld hl, DayCareWillLookAfterMonText
 	call PrintText
 	ld a, 1

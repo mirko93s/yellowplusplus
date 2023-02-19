@@ -1,9 +1,5 @@
 SECTION "Tilesets 1", ROMX
 
-Overworld_GFX::     INCBIN "gfx/tilesets/overworld.2bpp"
-	ds 32
-Overworld_Block::   INCBIN "gfx/blocksets/overworld.bst"
-
 RedsHouse1_GFX::
 RedsHouse2_GFX::    INCBIN "gfx/tilesets/reds_house.2bpp"
 RedsHouse1_Block::
@@ -65,6 +61,10 @@ Underground_Block:: INCBIN "gfx/blocksets/underground.bst"
 
 
 SECTION "Tilesets 4", ROMX
+
+Overworld_GFX::     INCBIN "gfx/tilesets/overworld.2bpp"
+	ds 32
+Overworld_Block::   INCBIN "gfx/blocksets/overworld.bst"
 
 BeachHouse_GFX::    INCBIN "gfx/tilesets/beach_house.2bpp"
 	ds 384

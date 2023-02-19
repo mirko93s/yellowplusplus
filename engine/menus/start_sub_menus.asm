@@ -27,6 +27,7 @@ StartMenu_Pokemon::
 	call GBPalWhiteOutWithDelay3
 	call RestoreScreenTilesAndReloadTilePatterns
 	call LoadGBPal
+	call ReloadMapData
 	jp RedisplayStartMenu
 .chosePokemon
 	call SaveScreenTilesToBuffer1
@@ -291,6 +292,7 @@ StartMenu_Pokemon::
 	text_end
 .goBackToMap
 	call RestoreScreenTilesAndReloadTilePatterns
+	call ReloadMapData
 	jp CloseTextDisplay
 .newBadgeRequired
 	ld hl, .newBadgeRequiredText
@@ -399,7 +401,7 @@ StartMenu_Item::
 	cp a, 2
 	jr z, .tossItem
 	cp a, 1
-	jr z, .infoItem
+	jp z, .infoItem
 	; and a
 	; jr nz, .tossItem
 ; use item
@@ -437,6 +439,7 @@ StartMenu_Item::
 	jp z, .partyMenuNotDisplayed
 	call GBPalWhiteOutWithDelay3
 	call RestoreScreenTilesAndReloadTilePatterns
+	call ReloadMapData
 	pop af
 	ld [wUpdateSpritesEnabled], a
 	jp StartMenu_Item

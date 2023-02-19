@@ -141,7 +141,7 @@ _DexSeenOwnedText::
 	text_end
 
 _DexRatingText::
-	text "#DEX Rating<COLON>"
+	text "#DEX Rating:"
 	done
 
 _GymStatueText1::
