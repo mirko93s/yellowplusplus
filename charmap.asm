@@ -141,8 +141,6 @@
 	charmap "_Z",		 $d7
 	charmap "_A",		 $d8
 	charmap "_T",		 $d9
-
-	charmap "⁂", 		$df ; shiny
 	
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
@@ -156,8 +154,8 @@
 	charmap "!",         $e7
 	charmap ".",         $e8
 
-	charmap "ァ",         $e9 ; katakana small a, unused
-	charmap "ゥ",         $ea ; katakana small u, unused
+	charmap "ァ",         $e9 ; pokeball unused
+	charmap "⁂",         $ea ; shiny
 	charmap "fullslash",  $eb
 
 	charmap "▷",         $ec
