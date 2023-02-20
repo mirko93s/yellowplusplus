@@ -606,7 +606,7 @@ ReturnToCableClubRoom:
 
 TradeCenter_DrawCancelBox:
 	hlcoord 11, 15
-	ld a, $7e
+	ld a, "┘"
 	ld bc, 2 * SCREEN_WIDTH + 9
 	call FillMemory
 	hlcoord 0, 15
@@ -954,7 +954,7 @@ CableClub_TextBoxBorder:
 	add hl, de
 .loop
 	push hl
-	ld a, $7b ; border left vertical line tile
+	ld a, "┐" ; border left vertical line tile
 	ld [hli], a
 	ld a, " "
 	call CableClub_DrawHorizontalLine
@@ -964,11 +964,11 @@ CableClub_TextBoxBorder:
 	add hl, de
 	dec b
 	jr nz, .loop
-	ld a, $7c ; border lower left corner tile
+	ld a, "│" ; border lower left corner tile
 	ld [hli], a
 	ld a, $76 ; border bottom horizontal line tile
 	call CableClub_DrawHorizontalLine
-	ld [hl], $7d ; border lower right corner tile
+	ld [hl], "└" ; border lower right corner tile
 	ret
 
 ; c = width

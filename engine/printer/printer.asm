@@ -921,15 +921,15 @@ PrintPCBox_PlaceBoxMonInfo:
 
 PrintPCBox_DrawTopBorder:
 	hlcoord 0, 0
-	ld a, $79
+	ld a, "┌"
 	ld [hli], a
-	ld a, $7a
+	ld a, "─"
 	ld c, SCREEN_WIDTH - 2
 .loop
 	ld [hli], a
 	dec c
 	jr nz, .loop
-	ld a, $7b
+	ld a, "┐"
 	ld [hl], a
 	ret
 
@@ -938,10 +938,10 @@ PrintPCBox_DrawLeftAndRightBorders:
 	ld de, SCREEN_WIDTH - 1
 	ld c, SCREEN_HEIGHT
 .loop
-	ld a, $7c
+	ld a, "│"
 	ld [hl], a
 	add hl, de
-	ld a, $7c
+	ld a, "│"
 	ld [hli], a
 	dec c
 	jr nz, .loop
@@ -950,15 +950,15 @@ PrintPCBox_DrawLeftAndRightBorders:
 PrintPCBox_DrawBottomBorder:
 	hlcoord 0, 17
 PrintPCBox_DrawBottomBorderAtHL:
-	ld a, $7d
+	ld a, "└"
 	ld [hli], a
-	ld a, $7a
+	ld a, "─"
 	ld c, SCREEN_WIDTH - 2
 .loop
 	ld [hli], a
 	dec c
 	jr nz, .loop
-	ld a, $7e
+	ld a, "┘"
 	ld [hl], a
 	ret
 

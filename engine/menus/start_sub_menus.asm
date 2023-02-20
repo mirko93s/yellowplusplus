@@ -595,7 +595,7 @@ DrawTrainerInfo:
 	ld de, wPlayTimeHours ; hours
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
-	ld [hl], $d6 ; colon tile ID
+	ld [hl], ":" ; colon tile ID
 	inc hl
 	ld de, wPlayTimeMinutes ; minutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -622,8 +622,8 @@ TrainerInfo_BadgesText:
 ; [wTrainerInfoTextBoxWidth] = width - 1
 ; [wTrainerInfoTextBoxNextRowOffset] = distance from the end of a text box row to the start of the next
 TrainerInfo_DrawTextBox:
-	ld a, $79 ; upper left corner tile ID
-	lb de, $7a, $7b ; top edge and upper right corner tile ID's
+	ld a, "┌" ; upper left corner tile ID
+	lb de, "─", "┐" ; top edge and upper right corner tile ID's
 	call TrainerInfo_DrawHorizontalEdge ; draw top edge
 	call TrainerInfo_NextTextBoxRow
 	ld a, [wTrainerInfoTextBoxWidthPlus1]
@@ -631,14 +631,14 @@ TrainerInfo_DrawTextBox:
 	ld d, 0
 	ld c, 6 ; height of the text box
 .loop
-	ld [hl], $7c ; left edge tile ID
+	ld [hl], "│" ; left edge tile ID
 	add hl, de
 	ld [hl], $78 ; right edge tile ID
 	call TrainerInfo_NextTextBoxRow
 	dec c
 	jr nz, .loop
-	ld a, $7d ; lower left corner tile ID
-	lb de, $77, $7e ; bottom edge and lower right corner tile ID's
+	ld a, "└" ; lower left corner tile ID
+	lb de, $77, "┘" ; bottom edge and lower right corner tile ID's
 
 TrainerInfo_DrawHorizontalEdge:
 	ld [hli], a ; place left corner tile
