@@ -2554,8 +2554,7 @@ PartyMenuOrRockOrRun:
 	ld hl, wPartyMon1
 	call ClearSprites
 ; display the two status screens
-	predef StatusScreen
-	predef StatusScreen2
+	predef StatusScreenLoop
 ; now we need to reload the enemy mon pic
 	ld a, 1
 	ldh [hWhoseTurn], a
