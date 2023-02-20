@@ -556,7 +556,7 @@ Text_f5728::
 Text_f575b::
 	db "3 Basic <PKMN>.LV25-30"
 	next "Sum of LVs:80 MAX"
-	next "6’8” and 44lb MAX@"
+	next "2m and 20kg MAX@"
 
 Text_f5791::
 	db "View"

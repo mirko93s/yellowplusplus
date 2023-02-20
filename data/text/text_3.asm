@@ -582,13 +582,13 @@ _ColosseumTotalL50Text::
 _ColosseumHeightText::
 	text_ram wcd6d
 	text " is over"
-	line "6’8” tall!"
+	line "2m tall!"
 	prompt
 
 _ColosseumWeightText::
 	text_ram wcd6d
 	text " weighs"
-	line "over 44 pounds!"
+	line "over 20kg pounds!"
 	prompt
 
 _ColosseumEvolvedText::
