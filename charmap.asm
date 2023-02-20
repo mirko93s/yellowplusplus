@@ -140,6 +140,7 @@
 	charmap "_F",		 $d6
 	charmap "_Z",		 $d7
 	charmap "_A",		 $d8
+	charmap "_T",		 $d9
 
 	charmap "⁂", 		$df ; shiny
 	
