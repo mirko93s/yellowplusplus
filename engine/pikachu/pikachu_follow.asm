@@ -1501,7 +1501,7 @@ WillPikachuSpawnOnTheScreen:
 	jr c, .not_on_screen
 .same_x
 	call .GetNPCCurrentTile
-	ld d, $60
+	ld d, $79 ; this is needed for pikachu collision with the extended overworld tileset
 	ld a, [hli]
 	ld e, a
 	cp d
