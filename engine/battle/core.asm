@@ -3186,13 +3186,13 @@ PrintMenuItem:
 	jp Delay3
 
 OtherText:
-	db "STAT@"
+	db " <oL><oR> @"
 
 PhysicalText: ; Added for PS Split
-	db "PHYS@"
+	db " <pL><pR> @"
 
 SpecialText: ; added for PS Split
-	db "SPEC@"
+	db " <sL><sR> @"
 
 DisabledText:
 	db "DSBL@"

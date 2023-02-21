@@ -141,6 +141,13 @@
 	charmap "_Z",		 $d7
 	charmap "_A",		 $d8
 	charmap "_T",		 $d9
+	; physical, special, status
+	charmap "<pL>",      $da ; physical left tile
+	charmap "<pR>",      $db ; physical right tile
+	charmap "<sL>",      $dc ; special left tile
+	charmap "<sR>",      $dd ; special right tile
+	charmap "<oL>",      $de ; status left tile
+	charmap "<oR>",      $df ; status right tile
 	
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
