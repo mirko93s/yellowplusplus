@@ -22,7 +22,7 @@ GetName::
 	push bc
 	ld b, a
 	ld a, [wNameListType]
-	cp ITEM_NAME
+	cp MOVE_NAME
 	ld a, b
 	pop bc
 	jr nz, .notMachine
