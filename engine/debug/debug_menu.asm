@@ -102,14 +102,14 @@ TestBattle:
 	hlcoord 0, 0
 	lb bc, 1, 18
 	call TextBoxBorder
-	hlcoord 6, 1
-	ld de, Text_fed18
+	hlcoord 5, 1
+	ld de, FightTestText
 	call PlaceString
-	hlcoord 4, 4
-	ld de, Text_fed21
+	hlcoord 1, 4
+	ld de, PlayerIdNameLvlText
 	call PlaceString
 	hlcoord 1, 6
-	ld de, Text_fed30
+	ld de, PlayerEmptyListText
 	call PlaceString
 	xor a
 	ld [wWhichPokemon], a
@@ -124,15 +124,15 @@ TestBattle:
 	ld hl, wPartyCount
 	call Func_fe809
 	ld de, wPartySpecies
-	hlcoord 4, 6
+	hlcoord 1, 6
 	; fallthrough
-Func_fe7ca:
+PlayerMonColumn: ; left column
 	push hl
 	push bc
 	dec hl
 	ld a, "▶"
 	ld [hl], a
-	ld bc, 11
+	ld bc, 15
 	add hl, bc
 	ld a, " "
 	ld [hl], a
@@ -141,7 +141,7 @@ Func_fe7ca:
 	pop bc
 	pop hl
 	; fallthrough
-Func_fe7db:
+LoopPlayerMonColumn:
 	push bc
 	push de
 	call JoypadLowSensitivity
@@ -149,20 +149,20 @@ Func_fe7db:
 	pop bc
 	ldh a, [hJoy5]
 	bit BIT_A_BUTTON, a
-	jp nz, Func_fe812
+	jp nz, IncreasePlayerMonID ; next mon id
 	bit BIT_B_BUTTON, a
-	jp nz, Func_fe850
+	jp nz, DecreasePlayerMonID ; previous mon id
 	bit BIT_SELECT, a
-	jp nz, DebugMenu
+	jp nz, DebugMenu ; go back to debug main menu
 	bit BIT_START, a
-	jp nz, Func_fe97f
+	jp nz, Func_fe97f ; check if there is 1 valid pokemon if so go to enemy/trainer selection
 	bit BIT_D_RIGHT, a
-	jp nz, Func_fe8a1
+	jp nz, PlayerLvlColumn ; go to right column
 	bit BIT_D_UP, a
-	jp nz, Func_fe85d
+	jp nz, PreviousPlayerMonSlot ; previous mon slot
 	bit BIT_D_DOWN, a
-	jp nz, Func_fe880
-	jr Func_fe7db
+	jp nz, NextPlayerMonSlot ; next mon slot
+	jr LoopPlayerMonColumn
 
 Func_fe809:
 	xor a
@@ -175,7 +175,7 @@ Func_fe809:
 	ld [hl], a
 	ret
 
-Func_fe812:
+IncreasePlayerMonID:
 	inc b
 	ld a, b
 	cp NUM_POKEMON_INDEXES + 1
@@ -193,17 +193,17 @@ Func_fe81a:
 	call PrintNumber
 	inc hl
 	push hl
-	ld de, Text_fed9c
+	ld de, ClearPlayerMonText
 	call PlaceString
 	ld bc, hSavedMapTextPtr
 	add hl, bc
-	ld de, Text_fed9c
+	ld de, ClearPlayerMonText
 	call PlaceString
 	pop hl
 	ld a, [wd11e]
 	and a
 	jr nz, .asm_fe845
-	ld de, Text_feda2
+	ld de, PlayerEmptySlotText
 	jr .asm_fe848
 .asm_fe845
 	call GetMonName
@@ -212,9 +212,9 @@ Func_fe81a:
 	pop de
 	pop hl
 	pop bc
-	jr Func_fe7db
+	jr LoopPlayerMonColumn
 
-Func_fe850:
+DecreasePlayerMonID:
 	dec b
 	ld a, b
 	cp OPP_ID_OFFSET + 1
@@ -223,11 +223,11 @@ Func_fe850:
 	ld b, a
 	jp Func_fe81a
 
-Func_fe85d:
+PreviousPlayerMonSlot:
 	ld a, [wWhichPokemon]
 	dec a
 	cp -1
-	jp z, Func_fe7db
+	jp z, LoopPlayerMonColumn
 	ld [wWhichPokemon], a
 	dec de
 	dec hl
@@ -243,13 +243,13 @@ Func_fe85d:
 	push hl
 	call Func_fe964
 	pop hl
-	jp Func_fe7db
+	jp LoopPlayerMonColumn
 
-Func_fe880:
+NextPlayerMonSlot:
 	ld a, [wWhichPokemon]
 	inc a
 	cp 6
-	jp nc, Func_fe7db
+	jp nc, LoopPlayerMonColumn
 	ld [wWhichPokemon], a
 	inc de
 	dec hl
@@ -263,22 +263,22 @@ Func_fe880:
 	push hl
 	call Func_fe964
 	pop hl
-	jp Func_fe7db
+	jp LoopPlayerMonColumn
 
-Func_fe8a1:
+PlayerLvlColumn: ; right coluumn aka lvl ???
 	push hl
 	push bc
 	dec hl
 	ld a, " "
 	ld [hl], a
-	ld bc, 11
+	ld bc, 15
 	add hl, bc
 	ld a, "▶"
 	ld [hl], a
 	pop bc
 	pop hl
 	; fallthrough
-Func_fe8b0:
+LoopPlayerLvlColumn:
 	push bc
 	push de
 	call JoypadLowSensitivity
@@ -286,20 +286,20 @@ Func_fe8b0:
 	pop bc
 	ldh a, [hJoy5]
 	bit BIT_A_BUTTON, a
-	jp nz, Func_fe8d9
+	jp nz, IncreasePlayerMonLvl
 	bit BIT_B_BUTTON, a
-	jp nz, Func_fe902
+	jp nz, DecreasePlayerMonLvl
 	bit BIT_START, a
 	jp nz, Func_fe97f
 	bit BIT_D_LEFT, a
-	jp nz, Func_fe7ca
+	jp nz, PlayerMonColumn
 	bit BIT_D_UP, a
-	jp nz, Func_fe912
+	jp nz, PreviousPlayerLvlSlot
 	bit BIT_D_DOWN, a
-	jp nz, Func_fe93b
-	jr Func_fe8b0
+	jp nz, NextPlayerLvlSlot
+	jr LoopPlayerLvlColumn
 
-Func_fe8d9:
+IncreasePlayerMonLvl:
 	inc c
 	ld a, c
 	cp MAX_LEVEL + 1
@@ -320,16 +320,16 @@ Func_fe8e2:
 	ld [de], a
 	push bc
 	push hl
-	ld bc, 11
+	ld bc, 15
 	add hl, bc
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	pop hl
 	pop bc
 	pop de
-	jp Func_fe8b0
+	jp LoopPlayerLvlColumn
 
-Func_fe902:
+DecreasePlayerMonLvl:
 	dec c
 	ld a, c
 	cp MAX_LEVEL + 1
@@ -341,15 +341,15 @@ Func_fe902:
 	ld c, a
 	jp Func_fe8e2
 
-Func_fe912:
+PreviousPlayerLvlSlot:
 	ld a, [wWhichPokemon]
 	dec a
 	cp -1
-	jp z, Func_fe8b0
+	jp z, LoopPlayerLvlColumn
 	ld [wWhichPokemon], a
 	dec de
 	push hl
-	ld bc, 10
+	ld bc, 14
 	add hl, bc
 	ld a, " "
 	ld [hl], a
@@ -357,23 +357,23 @@ Func_fe912:
 	ld bc, hMovingBGTilesCounter1
 	add hl, bc
 	push hl
-	ld bc, 10
+	ld bc, 14
 	add hl, bc
 	ld a, "▶"
 	ld [hl], a
 	call Func_fe964
 	pop hl
-	jp Func_fe8b0
+	jp LoopPlayerLvlColumn
 
-Func_fe93b:
+NextPlayerLvlSlot:
 	ld a, [wWhichPokemon]
 	inc a
 	cp 6
-	jp nc, Func_fe8b0
+	jp nc, LoopPlayerLvlColumn
 	ld [wWhichPokemon], a
 	inc de
 	push hl
-	ld bc, 10
+	ld bc, 14
 	add hl, bc
 	ld a, " "
 	ld [hl], a
@@ -381,13 +381,13 @@ Func_fe93b:
 	ld bc, SCREEN_WIDTH * 2
 	add hl, bc
 	push hl
-	ld bc, 10
+	ld bc, 14
 	add hl, bc
 	ld a, "▶"
 	ld [hl], a
 	call Func_fe964
 	pop hl
-	jp Func_fe8b0
+	jp LoopPlayerLvlColumn
 
 Func_fe964:
 	ld hl, wPartySpecies
@@ -467,18 +467,18 @@ Func_fe97f:
 	call DelayFrames
 	ld a, 1
 	ld [wIsInBattle], a
-	ld de, Text_feda8
+	ld de, MonText
 	ld a, [wGrassMons + 1]
 	cp MAX_LEVEL + 1
 	jr c, .asm_fe9fb
 	ld a, 2
 	ld [wIsInBattle], a
-	ld de, Text_fedb2
+	ld de, TrainerText
 .asm_fe9fb
 	hlcoord 1, 4
 	call PlaceString
 	hlcoord 1, 6
-	ld de, Text_fedbc
+	ld de, EnemyIdNameLvlText
 	call PlaceString
 	ld a, [wEnemyMon]
 	ld b, a
@@ -494,7 +494,7 @@ Func_fe97f:
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	hlcoord 5, 8
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	call GetTrainerName
 	hlcoord 5, 8
@@ -513,7 +513,7 @@ Func_fe97f:
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	hlcoord 5, 8
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	call GetMonName
 	hlcoord 5, 8
@@ -552,10 +552,10 @@ Func_fea85:
 
 Func_fea9d:
 	hlcoord 1, 8
-	ld de, Text_fedcf
+	ld de, EnemyEmptyLineText
 	call PlaceString
 	hlcoord 5, 7
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	xor a
 	ld b, a
@@ -566,9 +566,9 @@ Func_fea9d:
 	ld a, 2
 	ld [wIsInBattle], a
 	ld a, " "
-	ldcoord_a 4, 3
+	ldcoord_a 1, 3
 	hlcoord 1, 4
-	ld de, Text_fedb2
+	ld de, TrainerText
 	call PlaceString
 	jp Func_fea85
 .asm_feace
@@ -577,7 +577,7 @@ Func_fea9d:
 	ld a, " "
 	ldcoord_a 1, 3
 	hlcoord 1, 4
-	ld de, Text_feda8
+	ld de, MonText
 	call PlaceString
 	jp Func_fea85
 
@@ -608,10 +608,10 @@ Func_feaf1:
 Func_feb13:
 	push bc
 	hlcoord 5, 7
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	hlcoord 5, 8
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	pop bc
 	ld a, [wIsInBattle]
@@ -663,10 +663,10 @@ Func_feb64:
 Func_feb82:
 	push bc
 	hlcoord 5, 7
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	hlcoord 5, 8
-	ld de, Text_fede2
+	ld de, ClearEnemyMonText
 	call PlaceString
 	pop bc
 	ld a, [wIsInBattle]
@@ -775,6 +775,7 @@ Func_fec10:
 	ld bc, wPlayerNumAttacksLeft - wEnemyStatsToDouble
 	call FillMemory
 	call LoadFontTilePatterns
+	call LoadHpBarAndStatusTilePatterns
 	call ClearScreen
 	call ClearSprites
 	ld a, %11100100
@@ -787,21 +788,21 @@ Func_fec10:
 	hlcoord 0, 0
 	lb bc, 1, 18
 	call TextBoxBorder
-	hlcoord 6, 1
-	ld de, Text_fed18
+	hlcoord 5, 1
+	ld de, FightTestText
 	call PlaceString
-	hlcoord 4, 4
-	ld de, Text_fed21
+	hlcoord 1, 4
+	ld de, PlayerIdNameLvlText
 	call PlaceString
 	hlcoord 1, 6
-	ld de, Text_fed30
+	ld de, PlayerEmptyListText
 	call PlaceString
 	ld de, wPartyCount
 	xor a
 	ld [de], a
 	ld [wWhichPokemon], a
 	inc de
-	hlcoord 4, 6
+	hlcoord 1, 6
 	push de
 	push hl
 	; fallthrough
@@ -821,13 +822,13 @@ Func_fec9b:
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	inc hl
-	ld de, Text_fed9c
+	ld de, ClearPlayerMonText
 	call PlaceString
 	call GetMonName
 	call PlaceString
 	pop hl
 	push hl
-	ld bc, 11
+	ld bc, 15
 	add hl, bc
 	push hl
 	ld a, [wWhichPokemon]
@@ -867,44 +868,45 @@ Func_fed01:
 	ld c, a
 	xor a
 	ld [wWhichPokemon], a
-	jp Func_fe7ca
+	jp PlayerMonColumn
 
-Text_fed12:
+Text_fed12: ; unused ???
 	db   "けんしろう@" ; "KENSHIROU@"
 
-Text_fed18:
-	db   "テスト ファイト@" ; "FIGHT TEST@"
+FightTestText:
+	db   "TEST FIGHT@" ; "FIGHT TEST@"
 
-Text_fed21:
-	db   "№．  なまえ    レべル@" ; "№．  NAME  LEVEL@"
+PlayerIdNameLvlText:
+	db   "№．  NAME       LVL@" ; "№．  NAME  LEVEL@"
 
-Text_fed30:
-	db   "１．▶０００ ーーーーー  ０００"
-	next "２． ０００ ーーーーー  ０００"
-	next "３． ０００ ーーーーー  ０００"
-	next "４． ０００ ーーーーー  ０００"
-	next "５． ０００ ーーーーー  ０００"
-	next "６． ０００ ーーーーー  ０００@"
+PlayerEmptyListText:
+	db   "000 ーーーーーーーーーー 000"
+	next "000 ーーーーーーーーーー 000"
+	next "000 ーーーーーーーーーー 000"
+	next "000 ーーーーーーーーーー 000"
+	next "000 ーーーーーーーーーー 000"
+	next "000 ーーーーーーーーーー 000@"
 
-Text_fed9c:
-	db   "     @"
+ClearPlayerMonText:
+	db   "          @"
 
-Text_feda2:
-	db   "ーーーーー@"
+PlayerEmptySlotText:
+	db   "ーーーーーーーーーー@"
 
-Text_feda8:
-	db   "ワイルドモンスター@" ; "WILD #MON@"
+MonText:
+	db   "WILD #MON@" ; "WILD #MON@"
 
-Text_fedb2:
-	db   "ディーラー    @" ; "TRAINER      @"
+TrainerText:
+	db   "TRAINER     @" ; "TRAINER@"
 
-Text_fedbc:
-	db   "№．  なまえ        レべル" ; "№．  NAME     LABEL"
+EnemyIdNameLvlText:
+	db   "№．  NAME       LVL" ; "№．  NAME     LABEL"
 	next ""
-Text_fedcf:
-	db   "０００ ーーーーーーーーーー ０００@"
 
-Text_fede2:
+EnemyEmptyLineText:
+	db   "000 ーーーーーーーーーー 000@"
+
+ClearEnemyMonText:
 	db   "          @"
 
 Data_feded:
