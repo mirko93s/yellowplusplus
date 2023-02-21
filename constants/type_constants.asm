@@ -1,7 +1,6 @@
 ; TypeNames indexes (see data/types/names.asm)
 	const_def
 
-DEF PHYSICAL EQU const_value
 	const NORMAL       ; $00
 	const FIGHTING     ; $01
 	const FLYING       ; $02
@@ -16,7 +15,6 @@ DEF UNUSED_TYPES EQU const_value
 	const_next 20
 DEF UNUSED_TYPES_END EQU const_value
 
-DEF SPECIAL EQU const_value
 	const FIRE         ; $14
 	const WATER        ; $15
 	const GRASS        ; $16
@@ -26,3 +24,8 @@ DEF SPECIAL EQU const_value
 	const DRAGON       ; $1A
 
 DEF NUM_TYPES EQU const_value
+
+; These are for the Physical Special split
+PHYSICAL EQU $00
+SPECIAL  EQU $01
+OTHER_M  EQU $02

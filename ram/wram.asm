@@ -263,6 +263,7 @@ NEXTU
 wTempPic:: ds 7 * 7 tiles
 
 NEXTU
+wTempMoveID::
 wTempDVs::
 wGenderTemp::
 wPrinterData::
