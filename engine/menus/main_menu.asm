@@ -185,8 +185,7 @@ NewGameText:
 	next "OPTIONS@"
 
 VersionText:
-	db   "v0.0.1"
-	text_end
+	db   "  ◓ Early Access ◓@"
 
 DisplayContinueGameInfo:
 	xor a

@@ -161,7 +161,7 @@
 	charmap "!",         $e7
 	charmap ".",         $e8
 
-	charmap "ァ",         $e9 ; pokeball unused
+	charmap "◓",         $e9 ; pokeball
 	charmap "⁂",         $ea ; shiny
 	charmap "fullslash",  $eb
 
