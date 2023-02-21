@@ -3087,6 +3087,9 @@ ENDC
 	jp MoveSelectionMenu
 
 PrintMenuItem:
+	hlcoord 1, 13
+	lb bc, 4, 4
+	call ClearScreenArea
 	xor a
 	ldh [hAutoBGTransferEnabled], a
 	; hlcoord 0, 10
