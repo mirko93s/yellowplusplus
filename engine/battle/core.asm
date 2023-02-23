@@ -2714,10 +2714,10 @@ MoveSelectionMenu:
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
 	call .loadmoves
-	hlcoord 4, 7
-	lb bc, 4, 14
+	hlcoord 5, 7
+	lb bc, 4, 13
 	call TextBoxBorder
-	hlcoord 6, 8
+	hlcoord 7, 8
 	call .writemoves
 	ld b, $5
 	ld a, $7
