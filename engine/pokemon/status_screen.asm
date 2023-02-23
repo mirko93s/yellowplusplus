@@ -295,7 +295,7 @@ PrintGenderStatusScreen:
 	jr z, .ok
 	ld a, "♀"
 .ok
-	coord hl, 18, 2
+	coord hl, 19, 1
 	ld [hl], a
 	ret
 
