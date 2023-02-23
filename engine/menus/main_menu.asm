@@ -185,7 +185,7 @@ NewGameText:
 	next "OPTIONS@"
 
 VersionText:
-	db   "  ◓ Early Access ◓@"
+	INCLUDE "version_number.asm"
 
 DisplayContinueGameInfo:
 	xor a
