@@ -42,7 +42,7 @@ MainMenu:
 	jr .next2
 .noSaveFile
 	hlcoord 0, 0
-	lb bc, 4, 13
+	lb bc, 5, 9
 	call TextBoxBorder
 	hlcoord 2, 2
 	ld de, NewGameText
