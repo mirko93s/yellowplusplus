@@ -3,6 +3,11 @@ SetDebugTeam:
 	ld de, DebugTeam
 .loop
 	ld a, [de]
+	cp SNORLAX ; snorlax always shiny for testing purposes
+	jr nz, .continue
+	ld hl, wExtraFlags
+	set 1, [hl]
+.continue
 	cp -1
 	ret z
 	ld [wcf91], a
