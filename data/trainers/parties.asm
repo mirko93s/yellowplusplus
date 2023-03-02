@@ -464,13 +464,13 @@ Rival3Data:
 	db  "<RIVAL>@", 80, TAUROS,     79, ALAKAZAM,   81, EXEGGUTOR,  78, ARCANINE,   82, VAPOREON,   80, MEWTWO,     end
 
 BrockData:
-	db  "BROCK@",   12, AERODACTYL, 13, OMASTAR,    15, KABUTOPS,   14, ONIX,                                       end
+	db  "BROCK@",   13, AERODACTYL, 12, OMASTAR,    14, KABUTOPS,   15, ONIX,                                       end
 
 MistyData:
-	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, DEWGONG,    26, STARMIE,    25, ARTICUNO,                   end
+	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, BLASTOISE,  26, STARMIE,    25, ARTICUNO,                   end
 
 LtSurgeData:
-	db  "LT.SURGE@",35, MAGNETON,   34, JOLTEON,    35, ZAPDOS,     34, ELECTABUZZ, 36, RAICHU,                     end
+	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    35, ZAPDOS,     34, ELECTABUZZ, 36, RAICHU,                     end
 
 ErikaData:
 	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end
@@ -482,7 +482,7 @@ SabrinaData:
 	db  "SABRINA@", 55, JYNX,       54, SLOWBRO,    54, HYPNO,      55, ALAKAZAM,   56, MR_MIME,                    end
 
 BlaineData:
-	db  "BLAINE@",  65, CHARIZARD,  64, RAPIDASH,   64, FLAREON,    66, ARCANINE,   65, MOLTRES,                    end
+	db  "BLAINE@",  65, CHARIZARD,  64, MAGMAR,     64, FLAREON,    66, ARCANINE,   65, MOLTRES,                    end
 
 GiovanniData:
 	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, GENGAR,     46, TAUROS,     47, RHYDON,                     end ;  1 - Rocket Hideout B4F
@@ -493,7 +493,7 @@ LoreleiData:
 	db  "LORELEI@", 77, CLOYSTER,   78, VAPOREON,   76, SLOWBRO,    77, JYNX,       78, LAPRAS,                     end
 
 BrunoData:
-	db  "BRUNO@",   78, ONIX,       77, HITMONCHAN, 77, HITMONLEE,  78, PRIMEAPE,   77, MACHAMP,                    end
+	db  "BRUNO@",   78, PRIMEAPE,   77, HITMONCHAN, 77, HITMONLEE,  78, POLIWRATH,  77, MACHAMP,                    end
 
 AgathaData:
 	db  "AGATHA@",  79, GENGAR,     78, GOLBAT,     78, GENGAR,     78, ARBOK,      77, GENGAR,                     end
