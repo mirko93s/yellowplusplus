@@ -459,9 +459,9 @@ Rival2Data:
 	db  "<RIVAL>@", 68, RHYDON,     71, EXEGGUTOR,  73, TAUROS,     70, ARCANINE,   70, ALAKAZAM,   72, VAPOREON,   end
 
 Rival3Data:
-	db  "<RIVAL>@", 80, TAUROS,     79, ALAKAZAM,   81, ARCANINE,   78, GYARADOS,   82, JOLTEON,    80, MEWTWO,     end
-	db  "<RIVAL>@", 80, TAUROS,     79, ALAKAZAM,   81, EXEGGUTOR,  78, GYARADOS,   82, FLAREON,    80, MEWTWO,     end
-	db  "<RIVAL>@", 80, TAUROS,     79, ALAKAZAM,   81, EXEGGUTOR,  78, ARCANINE,   82, VAPOREON,   80, MEWTWO,     end
+	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, ARCANINE,   82, GYARADOS,   83, JOLTEON,    85, SLOWBRO,    end
+	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, GYARADOS,   83, FLAREON,    85, SLOWBRO,    end
+	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, ARCANINE,   83, VAPOREON,   85, SLOWBRO,    end
 
 BrockData:
 	db  "BROCK@",   13, AERODACTYL, 12, OMASTAR,    14, KABUTOPS,   15, ONIX,                                       end
@@ -470,7 +470,7 @@ MistyData:
 	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, BLASTOISE,  26, STARMIE,    25, ARTICUNO,                   end
 
 LtSurgeData:
-	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    35, ZAPDOS,     34, ELECTABUZZ, 36, RAICHU,                     end
+	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    36, RAICHU,     34, ELECTABUZZ, 35, ZAPDOS,                     end
 
 ErikaData:
 	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end
@@ -487,7 +487,7 @@ BlaineData:
 GiovanniData:
 	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, GENGAR,     46, TAUROS,     47, RHYDON,                     end ;  1 - Rocket Hideout B4F
 	db  "GIOVANNI@",54, PERSIAN,    54, DUGTRIO,    56, GENGAR,     55, TAUROS,     57, RHYDON,                     end ;  2 - Silph Co. 11F
-	db  "GIOVANNI@",66, PERSIAN,    67, TAUROS,     66, GENGAR,     68, RHYDON,     68, MEWTWO,                     end ;  3 - Viridian Gym
+	db  "GIOVANNI@",68, PERSIAN,    67, TAUROS,     69, GENGAR,     68, RHYDON,     70, MEWTWO,                     end ;  3 - Viridian Gym
 
 LoreleiData:
 	db  "LORELEI@", 77, CLOYSTER,   78, VAPOREON,   76, SLOWBRO,    77, JYNX,       78, LAPRAS,                     end
