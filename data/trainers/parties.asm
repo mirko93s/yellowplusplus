@@ -59,7 +59,7 @@ YoungsterData:
 	db  "BRET@",    23, SLOWPOKE,   24, SHELLDER,                                                                   end ;  6 - Route 25
 	db  "DENNIS@",  23, EKANS,      22, SANDSHREW,                                                                  end ;  7 - Route 25
 	db  "TYLER@",   25, NIDORINO,                                                                                   end ;  8 - SS Anne 1F Rooms
-	db  "A.J.@",    33, SANDSLASH,                                                                                  end ;  9 - Route 9
+	db  "A.J.@",    33, SANDSHREW,                                                                                  end ;  9 - Route 9
 	db  "EDDIE@",   25, EKANS,      24, KOFFING,                                                                    end ; 10 - Route 11
 	db  "ROBBY@",   26, SANDSHREW,  27, ZUBAT,                                                                      end ; 11 - Route 11
 	db  "RONNY@",   26, RATTATA,    25, RATICATE,                                                                   end ; 12 - Route 11
