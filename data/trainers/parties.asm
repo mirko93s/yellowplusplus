@@ -464,13 +464,13 @@ Rival3Data:
 	db  "<RIVAL>@", 80, TAUROS,     79, ALAKAZAM,   81, EXEGGUTOR,  78, ARCANINE,   82, VAPOREON,   80, MEWTWO,     end
 
 BrockData:
-	db  "BROCK@",   12, AERODACTYL, 13, OMASTAR,    15, KABUTOPS,                                                   end
+	db  "BROCK@",   12, AERODACTYL, 13, OMASTAR,    15, KABUTOPS,   14, ONIX,                                       end
 
 MistyData:
-	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, DEWGONG,    26, STARMIE,    25, LAPRAS,                     end
+	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, DEWGONG,    26, STARMIE,    25, ARTICUNO,                   end
 
 LtSurgeData:
-	db  "LT.SURGE@",35, ELECTRODE,  34, MAGNETON,   35, JOLTEON,    34, ELECTABUZZ, 36, RAICHU,                     end
+	db  "LT.SURGE@",35, MAGNETON,   34, JOLTEON,    35, ZAPDOS,     34, ELECTABUZZ, 36, RAICHU,                     end
 
 ErikaData:
 	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end
@@ -482,12 +482,12 @@ SabrinaData:
 	db  "SABRINA@", 55, JYNX,       54, SLOWBRO,    54, HYPNO,      55, ALAKAZAM,   56, MR_MIME,                    end
 
 BlaineData:
-	db  "BLAINE@",  65, CHARIZARD,  64, RAPIDASH,   64, FLAREON,    65, ARCANINE,   66, MAGMAR,                     end
+	db  "BLAINE@",  65, CHARIZARD,  64, RAPIDASH,   64, FLAREON,    66, ARCANINE,   65, MOLTRES,                    end
 
 GiovanniData:
 	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, GENGAR,     46, TAUROS,     47, RHYDON,                     end ;  1 - Rocket Hideout B4F
 	db  "GIOVANNI@",54, PERSIAN,    54, DUGTRIO,    56, GENGAR,     55, TAUROS,     57, RHYDON,                     end ;  2 - Silph Co. 11F
-	db  "GIOVANNI@",66, PERSIAN,    67, DUGTRIO,    66, GENGAR,     68, TAUROS,     68, RHYDON,                     end ;  3 - Viridian Gym
+	db  "GIOVANNI@",66, PERSIAN,    67, TAUROS,     66, GENGAR,     68, RHYDON,     68, MEWTWO,                     end ;  3 - Viridian Gym
 
 LoreleiData:
 	db  "LORELEI@", 77, CLOYSTER,   78, VAPOREON,   76, SLOWBRO,    77, JYNX,       78, LAPRAS,                     end
