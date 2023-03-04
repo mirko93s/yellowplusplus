@@ -80,6 +80,7 @@ HiddenObjectMaps:
 	dbw CINNABAR_GYM,                 CinnabarGymHiddenObjects
 	dbw CINNABAR_LAB_FOSSIL_ROOM,     CinnabarLab4HiddenObjects
 	dbw CINNABAR_POKECENTER,          CinnabarPokecenterHiddenObjects
+	dbw DAYCARE,                      DaycareHiddenObjects
 	db -1 ; end
 
 MACRO hidden_object
@@ -557,4 +558,8 @@ CinnabarLab4HiddenObjects:
 CinnabarPokecenterHiddenObjects:
 	hidden_object  0,  4, SPRITE_FACING_UP, PrintBenchGuyText
 	hidden_object 13,  3, SPRITE_FACING_UP, OpenPokemonCenterPC
+	db -1 ; end
+
+DaycareHiddenObjects:
+	hidden_object  7,  1, SPRITE_FACING_UP, OpenPokemonCenterPC
 	db -1 ; end
