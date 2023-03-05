@@ -1,6 +1,6 @@
 KeyItemFlags:
 	bit_array KeyItemFlags
-	dbit FALSE ; MASTER_BALL
+	dbit TRUE ; MASTER_BALL
 	dbit FALSE ; ULTRA_BALL
 	dbit FALSE ; GREAT_BALL
 	dbit FALSE ; POKE_BALL
