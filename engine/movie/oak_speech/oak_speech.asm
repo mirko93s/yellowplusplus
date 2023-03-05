@@ -46,9 +46,9 @@ ENDC
 
 OakSpeech:
 	call StopAllMusic ; stop music
-	ld a, BANK(Music_Routes2)
+	ld a, BANK(Music_YellowUnusedSong)
 	ld c, a
-	ld a, MUSIC_ROUTES2
+	ld a, MUSIC_YELLOW_UNUSED_SONG
 	call PlayMusic
 	call ClearScreen
 	call LoadTextBoxTilePatterns
@@ -68,8 +68,8 @@ OakSpeech:
 	ld a, [wd732]
 	bit 1, a ; possibly a debug mode bit
 	jp nz, .skipChoosingNames
-
-	farcall SendPikaPal ; mirko93s intro
+	;;;;;;;;;;;;;;;;;;; mirko93s intro
+	farcall SendShinyCaterpiePal
 	ld a, CATERPIE
 	ld [wd0b5], a
 	ld [wcf91], a
@@ -80,19 +80,21 @@ OakSpeech:
 	ld hl, MirkoIntroText
 	call PrintText
 	call MovePicLeft
-	farcall SendOakPal
-	call MovePicLeft
 	farcall SendPokeballPal
+	call MovePicLeft
+	farcall SendPikaPal
 	call MovePicLeft
 	farcall SendPlayerPal
 	call MovePicLeft
 	farcall SendRivalPal
 	call MovePicLeft
-	farcall SendPikaPal
+	farcall SendOakPal
+	call MovePicLeft
+	farcall SendShinyCaterpiePal
 	ld hl, MirkoIntroText2
 	call PrintText
-	call ClearScreen ; :)
-
+	call ClearScreen
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
 	call PrintText     ; show this text
 	call BoyGirlChoice ; added routine at the end of this file
@@ -265,6 +267,7 @@ BoyGirlText: ; This is new so we had to add a reference to get it to compile
     text_far _BoyGirlText
     text_end
 MirkoIntroText:
+	sound_cry_caterpie
 	text_far _MirkoIntroText
     text_end
 MirkoIntroText2:
