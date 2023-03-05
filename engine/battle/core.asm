@@ -4595,6 +4595,7 @@ GetDamageVarsForEnemyAttack:
 ; if the player has used Reflect, double the player's defense
 	sla c
 	rl b
+	call CapBCAt1023
 .physicalAttackCritCheck
 	ld hl, wEnemyMonAttack
 	ld a, [wCriticalHitOrOHKO]
@@ -4625,6 +4626,7 @@ GetDamageVarsForEnemyAttack:
 ; if the player has used Light Screen, double the player's special
 	sla c
 	rl b
+	call CapBCAt1023
 ; reflect and light screen boosts do not cap the stat at MAX_STAT_VALUE, so weird things will happen during stats scaling
 ; if a Pokemon with 512 or more Defense has used Reflect, or if a Pokemon with 512 or more Special has used Light Screen
 .specialAttackCritCheck
