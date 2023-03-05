@@ -19,6 +19,8 @@ Interior_GFX::      INCBIN "gfx/tilesets/interior.2bpp"
 Interior_Block::    INCBIN "gfx/blocksets/interior.bst"
 Plateau_GFX::       INCBIN "gfx/tilesets/plateau.2bpp"
 Plateau_Block::     INCBIN "gfx/blocksets/plateau.bst"
+Underground_GFX::   INCBIN "gfx/tilesets/underground.2bpp"
+Underground_Block:: INCBIN "gfx/blocksets/underground.bst"
 
 
 SECTION "Tilesets 2", ROMX
@@ -60,10 +62,8 @@ Lab_GFX::           INCBIN "gfx/tilesets/lab.2bpp"
 Lab_Block::         INCBIN "gfx/blocksets/lab.bst"
 Club_GFX::          INCBIN "gfx/tilesets/club.2bpp"
 Club_Block::        INCBIN "gfx/blocksets/club.bst"
-Underground_GFX::   INCBIN "gfx/tilesets/underground.2bpp"
-Underground_Block:: INCBIN "gfx/blocksets/underground.bst"
-
-
+	
+	
 SECTION "Tilesets 4", ROMX
 
 Overworld_GFX::     INCBIN "gfx/tilesets/overworld.2bpp"
