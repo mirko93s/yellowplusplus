@@ -231,13 +231,13 @@ VenusaurEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, PETAL_DANCE ; EVO
 	db 5, VINE_WHIP
 	db 9, LEECH_SEED
 	db 14, POISONPOWDER
 	db 14, SLEEP_POWDER
 	db 22, TAKE_DOWN
 	db 31, RAZOR_LEAF
-	db 32, PETAL_DANCE ; EVO
 	db 44, GROWTH
 	db 58, DOUBLE_EDGE
 	db 71, SOLARBEAM
@@ -277,13 +277,13 @@ CharizardEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, WING_ATTACK ; EVO
 	db 4, GROWL
 	db 9, SMOKESCREEN
 	db 13, EMBER
 	db 20, FURY_SWIPES
 	db 26, DRAGON_RAGE
 	db 33, FIRE_SPIN
-	db 36, WING_ATTACK ; EVO
 	db 43, SLASH
 	db 54, FLAMETHROWER
 	db 0
@@ -354,7 +354,7 @@ ButterfreeEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db 10, GUST ; EVO
+	db $FF, GUST ; EVO
 	db 13, POISONPOWDER
 	db 13, STUN_SPORE
 	db 13, SLEEP_POWDER
@@ -375,7 +375,7 @@ KakunaEvosMoves:
 	db EV_LEVEL, 10, BEEDRILL
 	db 0
 	; Learnset
-	db 7, HARDEN ; EVO
+	db $FF, HARDEN ; EVO
 	db 0
 
 BeedrillEvosMoves:
@@ -538,7 +538,7 @@ RaichuEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, THUNDERPUNCH ; EVO
+	db $FF, THUNDERPUNCH ; EVO
 	db 0
 
 SandshrewEvosMoves:
@@ -602,7 +602,7 @@ NidoqueenEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, BODY_SLAM ; EVO
+	db $FF, BODY_SLAM ; EVO
 	db 0
 
 NidoranMEvosMoves:
@@ -637,7 +637,7 @@ NidokingEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db 0, THRASH ; EVO
+	db $FF, THRASH ; EVO
 	db 0
 
 ClefairyEvosMoves:
@@ -658,7 +658,7 @@ ClefableEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, METRONOME ; EVO
+	db $FF, METRONOME ; EVO
 	db 0
 
 VulpixEvosMoves:
@@ -849,13 +849,13 @@ DugtrioEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, TRI_ATTACK ; EVO
 	db 4, SAND_ATTACK
 	db 8, GROWL
 	db 12, AGILITY
 	db 15, FURY_SWIPES
 	db 18, DIG
 	db 21, SLASH
-	db 26, TRI_ATTACK ; EVO
 	db 35, EARTHQUAKE
 	db 45, FISSURE
 	db 0
@@ -876,12 +876,12 @@ PersianEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, SWIFT ; EVO
 	db 3, BITE
 	db 12, PAY_DAY
 	db 19, FURY_SWIPES
 	db 23, SCREECH
 	db 27, SLASH
-	db 28, SWIFT ; EVO
 	db 0
 
 PsyduckEvosMoves:
@@ -935,12 +935,12 @@ PrimeapeEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, RAGE ; EVO
 	db 5, FOCUS_ENERGY
 	db 13, KARATE_CHOP
 	db 16, FURY_SWIPES
 	db 21, LOW_KICK
 	db 24, SEISMIC_TOSS
-	db 28, RAGE ; EVO
 	db 40, SCREECH
 	db 49, THRASH
 	db 0
@@ -997,7 +997,7 @@ PoliwrathEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, SUBMISSION ; EVO
+	db $FF, SUBMISSION ; EVO
 	db 0
 
 AbraEvosMoves:
@@ -1012,10 +1012,10 @@ KadabraEvosMoves:
 	db EV_TRADE, 1, ALAKAZAM
 	db 0
 	; Learnset
+	db $FF, KINESIS ; EVO
+	db $FF, PSYBEAM ; EVO
 	db 6, DISABLE
 	db 13, FLASH
-	db 16, KINESIS ; EVO
-	db 16, PSYBEAM ; EVO
 	db 19, NIGHT_SHADE
 	db 26, SUBSTITUTE
 	db 32, REFLECT
@@ -1064,7 +1064,7 @@ MachampEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, STRENGTH ; EVO
+	db $FF, STRENGTH ; EVO
 	db 4, FOCUS_ENERGY
 	db 8, BIDE
 	db 12, SEISMIC_TOSS
@@ -1205,6 +1205,7 @@ RapidashEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, FURY_ATTACK ; EVO
 	db 5, EMBER
 	db 10, QUICK_ATTACK
 	db 15, DOUBLE_KICK
@@ -1212,7 +1213,6 @@ RapidashEvosMoves:
 	db 26, FIRE_SPIN
 	db 32, AGILITY
 	db 38, FIRE_BLAST
-	db 40, FURY_ATTACK ; EVO
 	db 51, TAKE_DOWN
 	db 0
 
@@ -1235,13 +1235,13 @@ SlowbroEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, WITHDRAW ; EVO
 	db 6, GROWL
 	db 12, WATER_GUN
 	db 18, CONFUSION
 	db 24, DISABLE
 	db 30, REST
 	db 36, SURF
-	db 37, WITHDRAW ; EVO
 	db 49, PSYCHIC_M
 	db 62, AMNESIA
 	db 0
@@ -1264,12 +1264,12 @@ MagnetonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, TRI_ATTACK ; EVO
 	db 5, THUNDERSHOCK
 	db 10, THUNDER_WAVE
 	db 15, SONICBOOM
 	db 20, LIGHT_SCREEN
 	db 26, THUNDERBOLT
-	db 30, TRI_ATTACK ; EVO
 	db 36, SCREECH
 	db 56, THUNDER
 	db 0
@@ -1307,12 +1307,12 @@ DodrioEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, TRI_ATTACK ; EVO
 	db 5, QUICK_ATTACK
 	db 10, RAGE
 	db 16, FURY_ATTACK
 	db 22, AGILITY
 	db 27, DRILL_PECK
-	db 31, TRI_ATTACK ; EVO
 	db 37, SWORDS_DANCE
 	db 48, JUMP_KICK
 	db 59, THRASH
@@ -1390,7 +1390,7 @@ CloysterEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, SPIKE_CANNON ; EVO
+	db $FF, SPIKE_CANNON ; EVO
 	db 0
 
 GastlyEvosMoves:
@@ -1548,7 +1548,7 @@ ExeggutorEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, STOMP ; EVO
+	db $FF, STOMP ; EVO
 	db 0
 
 CuboneEvosMoves:
@@ -1571,6 +1571,7 @@ MarowakEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, SWORDS_DANCE ; EVO
 	db 2, TAIL_WHIP
 	db 6, LEER
 	db 12, BONE_CLUB
@@ -1578,7 +1579,6 @@ MarowakEvosMoves:
 	db 18, RAGE
 	db 24, FOCUS_ENERGY
 	db 26, BONEMERANG
-	db 28, SWORDS_DANCE ; EVO
 	db 36, THRASH
 	db 48, DOUBLE_EDGE
 	db 0
@@ -1912,10 +1912,10 @@ GyaradosEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, BITE ; EVO
 	db 6, LEER
 	db 11, DRAGON_RAGE
 	db 16, BIND
-	db 20, BITE ; EVO
 	db 21, RAGE
 	db 31, WATERFALL
 	db 46, HYDRO_PUMP
@@ -1963,7 +1963,7 @@ VaporeonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, WATER_GUN ; EVO
+	db $FF, WATER_GUN ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -1978,7 +1978,7 @@ JolteonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, THUNDERSHOCK ; EVO
+	db $FF, THUNDERSHOCK ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -1993,7 +1993,7 @@ FlareonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	; db 0, EMBER ; EVO
+	db $FF, EMBER ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -2037,13 +2037,13 @@ OmastarEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, SPIKE_CANNON ; EVO
 	db 4, WITHDRAW
 	db 11, LEER
 	db 15, WATER_GUN
 	db 22, BITE
 	db 26, ROCK_THROW
 	db 37, ROCK_SLIDE
-	db 50, SPIKE_CANNON ; EVO
 	db 50, HYDRO_PUMP
 	db 0
 
@@ -2065,12 +2065,12 @@ KabutopsEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, SLASH ; EVO
 	db 6, HARDEN
 	db 12, LEER
 	db 18, ABSORB
 	db 30, ROCK_THROW
 	db 36, SAND_ATTACK
-	db 40, SLASH ; EVO
 	db 45, ROCK_SLIDE
 	db 54, LEECH_LIFE
 	db 63, SWORDS_DANCE
@@ -2170,11 +2170,11 @@ DragoniteEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
+	db $FF, WING_ATTACK ; EVO
 	db 7, THUNDER_WAVE
 	db 14, DRAGON_RAGE
 	db 21, AGILITY
 	db 40, SLAM
-	db 55, WING_ATTACK ; EVO
 	db 70, HYPER_BEAM
 	db 0
 
