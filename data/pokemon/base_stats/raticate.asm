@@ -4,7 +4,7 @@
 	;   hp  atk  def  spd  spc
 
 	db NORMAL, NORMAL ; type
-	db 90 ; catch rate
+	db 127 ; catch rate
 	db 145 ; base exp
 
 	INCBIN "gfx/pokemon/front/raticate.pic", 0, 1 ; sprite dimensions
