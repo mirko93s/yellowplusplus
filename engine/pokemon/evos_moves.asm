@@ -202,6 +202,11 @@ Evolution_PartyMonLoop: ; loop over party mons
 	xor a
 	ld [wMonDataLocation], a
 	call LearnMoveFromLevelUp
+; mirko93s note: use $FF as level in evos_moves for evolution moves
+	ld a, $FF	; load lvl 255
+	ld [wCurEnemyLVL], a	; change current level to the evolution move level
+	call LearnMoveFromLevelUp ; if there is an evolution move try to learn it
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	pop hl
 	predef SetPartyMonTypes
 	ld a, [wIsInBattle]
