@@ -5,7 +5,7 @@
 
 	db ELECTRIC, ELECTRIC ; type
 	db 45 ; catch rate
-	db 156 ; base exp
+	db 172 ; base exp
 
 	INCBIN "gfx/pokemon/front/electabuzz.pic", 0, 1 ; sprite dimensions
 	dw ElectabuzzPicFront, ElectabuzzPicBack

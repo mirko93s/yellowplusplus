@@ -5,7 +5,7 @@
 
 	db WATER, WATER ; type
 	db 60 ; catch rate
-	db 170 ; base exp
+	db 158 ; base exp
 
 	INCBIN "gfx/pokemon/front/seaking.pic", 0, 1 ; sprite dimensions
 	dw SeakingPicFront, SeakingPicBack

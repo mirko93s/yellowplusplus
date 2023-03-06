@@ -5,7 +5,7 @@
 
 	db PSYCHIC_TYPE, PSYCHIC_TYPE ; type
 	db 190 ; catch rate
-	db 102 ; base exp
+	db 66 ; base exp
 
 	INCBIN "gfx/pokemon/front/drowzee.pic", 0, 1 ; sprite dimensions
 	dw DrowzeePicFront, DrowzeePicBack

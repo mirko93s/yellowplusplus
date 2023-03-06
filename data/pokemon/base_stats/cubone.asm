@@ -5,7 +5,7 @@
 
 	db GROUND, GROUND ; type
 	db 190 ; catch rate
-	db 87 ; base exp
+	db 64 ; base exp
 
 	INCBIN "gfx/pokemon/front/cubone.pic", 0, 1 ; sprite dimensions
 	dw CubonePicFront, CubonePicBack

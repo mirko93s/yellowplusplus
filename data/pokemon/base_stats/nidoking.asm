@@ -5,7 +5,7 @@
 
 	db POISON, GROUND ; type
 	db 45 ; catch rate
-	db 195 ; base exp
+	db 253 ; base exp
 
 	INCBIN "gfx/pokemon/front/nidoking.pic", 0, 1 ; sprite dimensions
 	dw NidokingPicFront, NidokingPicBack

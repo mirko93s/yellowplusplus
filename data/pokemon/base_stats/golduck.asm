@@ -5,7 +5,7 @@
 
 	db WATER, WATER ; type
 	db 75 ; catch rate
-	db 174 ; base exp
+	db 175 ; base exp
 
 	INCBIN "gfx/pokemon/front/golduck.pic", 0, 1 ; sprite dimensions
 	dw GolduckPicFront, GolduckPicBack

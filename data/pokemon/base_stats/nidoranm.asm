@@ -5,7 +5,7 @@
 
 	db POISON, POISON ; type
 	db 235 ; catch rate
-	db 60 ; base exp
+	db 55 ; base exp
 
 	INCBIN "gfx/pokemon/front/nidoranm.pic", 0, 1 ; sprite dimensions
 	dw NidoranMPicFront, NidoranMPicBack

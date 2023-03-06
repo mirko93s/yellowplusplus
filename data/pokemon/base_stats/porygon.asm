@@ -5,7 +5,7 @@
 
 	db NORMAL, NORMAL ; type
 	db 45 ; catch rate
-	db 130 ; base exp
+	db 79 ; base exp
 
 	INCBIN "gfx/pokemon/front/porygon.pic", 0, 1 ; sprite dimensions
 	dw PorygonPicFront, PorygonPicBack

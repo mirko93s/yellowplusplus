@@ -5,7 +5,7 @@
 
 	db WATER, WATER ; type
 	db 45 ; catch rate
-	db 196 ; base exp
+	db 184 ; base exp
 
 	INCBIN "gfx/pokemon/front/vaporeon.pic", 0, 1 ; sprite dimensions
 	dw VaporeonPicFront, VaporeonPicBack

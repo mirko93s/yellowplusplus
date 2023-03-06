@@ -5,7 +5,7 @@
 
 	db WATER, ICE ; type
 	db 75 ; catch rate
-	db 176 ; base exp
+	db 166 ; base exp
 
 	INCBIN "gfx/pokemon/front/dewgong.pic", 0, 1 ; sprite dimensions
 	dw DewgongPicFront, DewgongPicBack

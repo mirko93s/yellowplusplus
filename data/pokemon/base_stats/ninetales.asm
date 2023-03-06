@@ -5,7 +5,7 @@
 
 	db FIRE, FIRE ; type
 	db 75 ; catch rate
-	db 178 ; base exp
+	db 177 ; base exp
 
 	INCBIN "gfx/pokemon/front/ninetales.pic", 0, 1 ; sprite dimensions
 	dw NinetalesPicFront, NinetalesPicBack

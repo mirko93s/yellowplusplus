@@ -5,7 +5,7 @@
 
 	db WATER, WATER ; type
 	db 45 ; catch rate
-	db 66 ; base exp
+	db 63 ; base exp
 
 	INCBIN "gfx/pokemon/front/squirtle.pic", 0, 1 ; sprite dimensions
 	dw SquirtlePicFront, SquirtlePicBack

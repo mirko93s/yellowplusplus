@@ -5,7 +5,7 @@
 
 	db FIGHTING, FIGHTING ; type
 	db 75 ; catch rate
-	db 149 ; base exp
+	db 159 ; base exp
 
 	INCBIN "gfx/pokemon/front/primeape.pic", 0, 1 ; sprite dimensions
 	dw PrimeapePicFront, PrimeapePicBack

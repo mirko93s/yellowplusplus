@@ -5,7 +5,7 @@
 
 	db GROUND, GROUND ; type
 	db 75 ; catch rate
-	db 124 ; base exp
+	db 149 ; base exp
 
 	INCBIN "gfx/pokemon/front/marowak.pic", 0, 1 ; sprite dimensions
 	dw MarowakPicFront, MarowakPicBack

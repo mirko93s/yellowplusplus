@@ -5,7 +5,7 @@
 
 	db POISON, POISON ; type
 	db 190 ; catch rate
-	db 90 ; base exp
+	db 65 ; base exp
 
 	INCBIN "gfx/pokemon/front/grimer.pic", 0, 1 ; sprite dimensions
 	dw GrimerPicFront, GrimerPicBack
