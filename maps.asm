@@ -185,6 +185,9 @@ FuchsiaMart_Blocks: INCBIN "maps/FuchsiaMart.blk"
 INCLUDE "data/maps/headers/SaffronPidgeyHouse.asm"
 INCLUDE "scripts/SaffronPidgeyHouse.asm"
 INCLUDE "data/maps/objects/SaffronPidgeyHouse.asm"
+; Mateo's move relearner/deleter
+INCLUDE "scripts/move_deleter.asm"
+INCLUDE "scripts/move_relearner.asm"
 
 INCLUDE "data/maps/headers/MrPsychicsHouse.asm"
 INCLUDE "scripts/MrPsychicsHouse.asm"

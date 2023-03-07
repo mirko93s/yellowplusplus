@@ -12,5 +12,7 @@ SaffronPidgeyHouse_Object:
 	object_event  0,  4, SPRITE_BIRD, WALK, UP_DOWN, 2 ; person
 	object_event  4,  1, SPRITE_YOUNGSTER, STAY, DOWN, 3 ; person
 	object_event  3,  3, SPRITE_PAPER, STAY, NONE, 4 ; person
+	object_event  5,  4, SPRITE_LITTLE_GIRL, STAY, LEFT, 5 ; move deleter
+	object_event  5,  5, SPRITE_SCIENTIST, STAY, DOWN, 6 ; move relearner
 
 	def_warps_to SAFFRON_PIDGEY_HOUSE

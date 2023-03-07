@@ -6,6 +6,8 @@ SaffronPidgeyHouse_TextPointers:
 	dw SaffronHouse1Text2
 	dw SaffronHouse1Text3
 	dw SaffronHouse1Text4
+	dw MoveDeleterText ; text 5
+	dw MoveRelearnerText ; text 6
 
 SaffronHouse1Text1:
 	text_far _SaffronHouse1Text1
@@ -25,3 +27,11 @@ SaffronHouse1Text3:
 SaffronHouse1Text4:
 	text_far _SaffronHouse1Text4
 	text_end
+
+MoveDeleterText:
+	text_far MoveDeleterText1
+	db "@"
+
+MoveRelearnerText:
+	text_far MoveRelearnerText1
+	db "@"

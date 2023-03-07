@@ -234,6 +234,9 @@ INCLUDE "text/SaffronMart.asm"
 INCLUDE "text/SilphCo1F.asm"
 INCLUDE "text/SaffronPokecenter.asm"
 INCLUDE "text/MrPsychicsHouse.asm"
+; Mateo's move relearner/deleter
+INCLUDE "text/move_deleter.asm"
+INCLUDE "text/move_relearner.asm"
 
 INCLUDE "data/text/text_7.asm"
 
