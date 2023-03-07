@@ -7,7 +7,7 @@ UniqueDVTrainerPokemon:
 	db YOUNGSTER,       9, SANDSHREW,   33,     $AA,    $AA     ; A.J.
 	db JR_TRAINER_M,    6, WEEPINBELL,  24,     $AA,    $AA     ; JOE
 	db JR_TRAINER_F,    2, CUBONE,      25,     $AA,    $AA     ; GISELLE
-	db LANCE,           1, DRAGONITE,   62,     $FA,    $FF     ; LANCE
+	db LANCE,           1, DRAGONITE,   62,     $FA,    $AA     ; LANCE
 
 	;other
 	; db LANCE, 1, DRAGONITE, 62, $FF, $FF
