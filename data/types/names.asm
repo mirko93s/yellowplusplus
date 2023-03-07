@@ -7,7 +7,7 @@ TypeNames:
 	dw .Poison
 	dw .Ground
 	dw .Rock
-	dw .Bird
+	dw .Typeless
 	dw .Bug
 	dw .Ghost
 
@@ -37,7 +37,7 @@ ENDR
 .Ice:      db "ICE@"
 .Ground:   db "GROUND@"
 .Rock:     db "ROCK@"
-.Bird:     db "BIRD@" ; unused only appears with some missingnos
+.Typeless: db "???@" ; used for struggle so it is typeless
 .Bug:      db "BUG@"
 .Ghost:    db "GHOST@"
 .Dragon:   db "DRAGON@"
@@ -51,7 +51,7 @@ TypeNamesShort:
 	dw .Poison
 	dw .Ground
 	dw .Rock
-	dw .Bird
+	dw .Typeless
 	dw .Bug
 	dw .Ghost
 
@@ -81,7 +81,7 @@ ENDR
 .Ice:      db "Ice@"
 .Ground:   db "Grnd@"
 .Rock:     db "Rock@"
-.Bird:     db "Bird@" ; unused only appears with some missingnos
+.Typeless: db "????@" ; used for struggle so it is typeless
 .Bug:      db "Bug@"
 .Ghost:    db "Ghst@"
 .Dragon:   db "Drgn@"

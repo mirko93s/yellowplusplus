@@ -7,19 +7,21 @@ RecoilEffect_:
 	ld a, [wEnemyMoveNum]
 	ld hl, wEnemyMonMaxHP
 .recoilEffect
-	ld d, a
+	cp STRUGGLE ; check if the move is STRUGGLE, it deals 50% of users's max HP
 	ld a, [wDamage]
 	ld b, a
 	ld a, [wDamage + 1]
 	ld c, a
+	jr nz, .notStruggle ; jump if the move is not struggle
+	ld a, [wBattleMonMaxHP]
+	ld b, a
+	ld a, [wBattleMonMaxHP + 1]
+	ld c, a
+.notStruggle
 	srl b
 	rr c
-	ld a, d
-	cp STRUGGLE ; struggle deals 50% recoil damage
-	jr z, .gotRecoilDamage
 	srl b
 	rr c
-.gotRecoilDamage
 	ld a, b
 	or c
 	jr nz, .updateHP
