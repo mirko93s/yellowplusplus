@@ -12,7 +12,7 @@ TextBoxCoordTable:
 	db MENU_TEMPLATE_07,  0,  0, 11,  6
 	db LIST_MENU_BOX,     4,  2, 19, 12
 	db MENU_TEMPLATE_10,  7,  0, 19, 17
-	db MON_SPRITE_POPUP,  6,  4, 14, 13
+	db MON_SPRITE_POPUP,  6,  4, 14, 12
 	db -1 ; end
 
 MACRO text_box_text
