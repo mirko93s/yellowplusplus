@@ -231,7 +231,6 @@ VenusaurEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, PETAL_DANCE ; EVO
 	db 5, VINE_WHIP
 	db 9, LEECH_SEED
 	db 14, POISONPOWDER
@@ -241,6 +240,7 @@ VenusaurEvosMoves:
 	db 44, GROWTH
 	db 58, DOUBLE_EDGE
 	db 71, SOLARBEAM
+	db $FF, PETAL_DANCE ; EVO
 	db 0
 
 CharmanderEvosMoves:
@@ -277,7 +277,6 @@ CharizardEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, WING_ATTACK ; EVO
 	db 4, GROWL
 	db 9, SMOKESCREEN
 	db 13, EMBER
@@ -286,6 +285,7 @@ CharizardEvosMoves:
 	db 33, FIRE_SPIN
 	db 43, SLASH
 	db 54, FLAMETHROWER
+	db $FF, WING_ATTACK ; EVO
 	db 0
 
 SquirtleEvosMoves:
@@ -354,13 +354,13 @@ ButterfreeEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, GUST ; EVO
 	db 13, POISONPOWDER
 	db 13, STUN_SPORE
 	db 13, SLEEP_POWDER
 	db 16, PSYBEAM
 	db 19, SUPERSONIC
 	db 25, WHIRLWIND
+	db $FF, GUST ; EVO
 	db 0
 
 WeedleEvosMoves:
@@ -849,7 +849,6 @@ DugtrioEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, TRI_ATTACK ; EVO
 	db 4, SAND_ATTACK
 	db 8, GROWL
 	db 12, AGILITY
@@ -858,6 +857,7 @@ DugtrioEvosMoves:
 	db 21, SLASH
 	db 35, EARTHQUAKE
 	db 45, FISSURE
+	db $FF, TRI_ATTACK ; EVO
 	db 0
 
 MeowthEvosMoves:
@@ -876,12 +876,12 @@ PersianEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, SWIFT ; EVO
 	db 3, BITE
 	db 12, PAY_DAY
 	db 19, FURY_SWIPES
 	db 23, SCREECH
 	db 27, SLASH
+	db $FF, SWIFT ; EVO
 	db 0
 
 PsyduckEvosMoves:
@@ -935,7 +935,6 @@ PrimeapeEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, RAGE ; EVO
 	db 5, FOCUS_ENERGY
 	db 13, KARATE_CHOP
 	db 16, FURY_SWIPES
@@ -943,6 +942,7 @@ PrimeapeEvosMoves:
 	db 24, SEISMIC_TOSS
 	db 40, SCREECH
 	db 49, THRASH
+	db $FF, RAGE ; EVO
 	db 0
 
 GrowlitheEvosMoves:
@@ -1012,8 +1012,6 @@ KadabraEvosMoves:
 	db EV_TRADE, 1, ALAKAZAM
 	db 0
 	; Learnset
-	db $FF, KINESIS ; EVO
-	db $FF, PSYBEAM ; EVO
 	db 6, DISABLE
 	db 13, FLASH
 	db 19, NIGHT_SHADE
@@ -1021,6 +1019,8 @@ KadabraEvosMoves:
 	db 32, REFLECT
 	db 39, RECOVER
 	db 45, PSYCHIC_M
+	db $FF, KINESIS ; EVO
+	db $FF, PSYBEAM ; EVO
 	db 0
 
 AlakazamEvosMoves:
@@ -1064,12 +1064,12 @@ MachampEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, STRENGTH ; EVO
 	db 4, FOCUS_ENERGY
 	db 8, BIDE
 	db 12, SEISMIC_TOSS
 	db 16, KARATE_CHOP
 	db 26, SUBMISSION
+	db $FF, STRENGTH ; EVO
 	db 0
 
 BellsproutEvosMoves:
@@ -1205,7 +1205,6 @@ RapidashEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, FURY_ATTACK ; EVO
 	db 5, EMBER
 	db 10, QUICK_ATTACK
 	db 15, DOUBLE_KICK
@@ -1214,6 +1213,7 @@ RapidashEvosMoves:
 	db 32, AGILITY
 	db 38, FIRE_BLAST
 	db 51, TAKE_DOWN
+	db $FF, FURY_ATTACK ; EVO
 	db 0
 
 SlowpokeEvosMoves:
@@ -1235,7 +1235,6 @@ SlowbroEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, WITHDRAW ; EVO
 	db 6, GROWL
 	db 12, WATER_GUN
 	db 18, CONFUSION
@@ -1244,6 +1243,7 @@ SlowbroEvosMoves:
 	db 36, SURF
 	db 49, PSYCHIC_M
 	db 62, AMNESIA
+	db $FF, WITHDRAW ; EVO
 	db 0
 
 MagnemiteEvosMoves:
@@ -1264,7 +1264,6 @@ MagnetonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, TRI_ATTACK ; EVO
 	db 5, THUNDERSHOCK
 	db 10, THUNDER_WAVE
 	db 15, SONICBOOM
@@ -1272,6 +1271,7 @@ MagnetonEvosMoves:
 	db 26, THUNDERBOLT
 	db 36, SCREECH
 	db 56, THUNDER
+	db $FF, TRI_ATTACK ; EVO
 	db 0
 
 FarfetchdEvosMoves:
@@ -1307,7 +1307,6 @@ DodrioEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, TRI_ATTACK ; EVO
 	db 5, QUICK_ATTACK
 	db 10, RAGE
 	db 16, FURY_ATTACK
@@ -1316,6 +1315,7 @@ DodrioEvosMoves:
 	db 37, SWORDS_DANCE
 	db 48, JUMP_KICK
 	db 59, THRASH
+	db $FF, TRI_ATTACK ; EVO
 	db 0
 
 SeelEvosMoves:
@@ -1571,7 +1571,6 @@ MarowakEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, SWORDS_DANCE ; EVO
 	db 2, TAIL_WHIP
 	db 6, LEER
 	db 12, BONE_CLUB
@@ -1581,6 +1580,7 @@ MarowakEvosMoves:
 	db 26, BONEMERANG
 	db 36, THRASH
 	db 48, DOUBLE_EDGE
+	db $FF, SWORDS_DANCE ; EVO
 	db 0
 
 HitmonleeEvosMoves:
@@ -1912,7 +1912,6 @@ GyaradosEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, BITE ; EVO
 	db 6, LEER
 	db 11, DRAGON_RAGE
 	db 16, BIND
@@ -1920,6 +1919,7 @@ GyaradosEvosMoves:
 	db 31, WATERFALL
 	db 46, HYDRO_PUMP
 	db 51, HYPER_BEAM
+	db $FF, BITE ; EVO
 	db 0
 
 LaprasEvosMoves:
@@ -1963,7 +1963,6 @@ VaporeonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, WATER_GUN ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -1972,13 +1971,13 @@ VaporeonEvosMoves:
 	db 21, HAZE
 	db 24, ACID_ARMOR
 	db 31, HYDRO_PUMP
+	db $FF, WATER_GUN ; EVO
 	db 0
 
 JolteonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, THUNDERSHOCK ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -1987,13 +1986,13 @@ JolteonEvosMoves:
 	db 21, THUNDER_WAVE
 	db 24, AGILITY
 	db 31, THUNDER
+	db $FF, THUNDERSHOCK ; EVO
 	db 0
 
 FlareonEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, EMBER ; EVO
 	db 3, TAIL_WHIP
 	db 6, QUICK_ATTACK
 	db 10, DOUBLE_KICK
@@ -2002,6 +2001,7 @@ FlareonEvosMoves:
 	db 21, SMOG
 	db 24, FOCUS_ENERGY
 	db 31, FIRE_BLAST ; FLARE BLITZ in Let's go Pikachu, changed so the eeveelutions all have their type move at lvl 31
+	db $FF, EMBER ; EVO
 	db 0
 
 PorygonEvosMoves:
@@ -2037,7 +2037,6 @@ OmastarEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, SPIKE_CANNON ; EVO
 	db 4, WITHDRAW
 	db 11, LEER
 	db 15, WATER_GUN
@@ -2045,6 +2044,7 @@ OmastarEvosMoves:
 	db 26, ROCK_THROW
 	db 37, ROCK_SLIDE
 	db 50, HYDRO_PUMP
+	db $FF, SPIKE_CANNON ; EVO
 	db 0
 
 KabutoEvosMoves:
@@ -2065,7 +2065,6 @@ KabutopsEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, SLASH ; EVO
 	db 6, HARDEN
 	db 12, LEER
 	db 18, ABSORB
@@ -2074,6 +2073,7 @@ KabutopsEvosMoves:
 	db 45, ROCK_SLIDE
 	db 54, LEECH_LIFE
 	db 63, SWORDS_DANCE
+	db $FF, SLASH ; EVO
 	db 0
 
 AerodactylEvosMoves:
@@ -2170,12 +2170,12 @@ DragoniteEvosMoves:
 	; Evolutions
 	db 0
 	; Learnset
-	db $FF, WING_ATTACK ; EVO
 	db 7, THUNDER_WAVE
 	db 14, DRAGON_RAGE
 	db 21, AGILITY
 	db 40, SLAM
 	db 70, HYPER_BEAM
+	db $FF, WING_ATTACK ; EVO
 	db 0
 
 MewtwoEvosMoves:
