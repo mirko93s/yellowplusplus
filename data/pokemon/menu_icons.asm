@@ -151,4 +151,4 @@ MonPartyData:
 	nybble ICON_SNAKE     ; Dragonite
 	nybble ICON_MON       ; Mewtwo
 	nybble ICON_MON       ; Mew
-	end_nybble_array NUM_POKEMON
+	end_nybble_array NUM_POKEMON_INDEXES

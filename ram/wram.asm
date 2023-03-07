@@ -1920,10 +1920,10 @@ SECTION "Main Data", WRAM0
 
 wMainDataStart::
 
-wPokedexOwned:: flag_array NUM_POKEMON
+wPokedexOwned:: flag_array NUM_POKEMON_INDEXES
 wPokedexOwnedEnd::
 
-wPokedexSeen:: flag_array NUM_POKEMON
+wPokedexSeen:: flag_array NUM_POKEMON_INDEXES
 wPokedexSeenEnd::
 
 wNumBagItems:: db
@@ -2372,7 +2372,7 @@ wPlayerJumpingYScreenCoordsIndex:: db
 wRivalStarter:: db
 
 IF DEF(_DEBUG)
-; this byte gets set to NUM_POKEMON by DebugStart
+; this byte gets set to NUM_POKEMON_INDEXES by DebugStart
 wUnknownDebugByte:: db
 ELSE
 	ds 1

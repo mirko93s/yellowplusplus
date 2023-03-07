@@ -92,10 +92,6 @@ _AddPartyMon::
 ; If the mon is being added to the player's party, update the pokedex.
 	ld a, [wcf91]
 	ld [wd11e], a
-	push de
-	predef IndexToPokedex
-	pop de
-	ld a, [wd11e]
 	dec a
 	ld c, a
 	ld b, FLAG_TEST
@@ -370,8 +366,6 @@ _AddEnemyMonToPlayerParty::
 	call CopyData    ; write new mon's nickname (from an enemy mon)
 	ld a, [wcf91]
 	ld [wd11e], a
-	predef IndexToPokedex
-	ld a, [wd11e]
 	dec a
 	ld c, a
 	ld b, FLAG_SET

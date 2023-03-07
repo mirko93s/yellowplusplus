@@ -333,11 +333,7 @@ DeterminePaletteIDOutOfBattle:
 	ld a, [wTrainerClass]
 	ld hl, TrainerPalettes
 	jr z, GetPalID ; if so, this is a trainer
-GetMonPalID:
-	push bc
-	predef IndexToPokedex
-	pop bc
-	
+GetMonPalID:	
 	ld a, [wShinyMonFlag]
 	bit 0, a ; is mon supposed to be shiny?
 	ld hl, MonsterPalettes

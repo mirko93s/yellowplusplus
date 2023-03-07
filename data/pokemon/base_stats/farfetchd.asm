@@ -1,4 +1,4 @@
-	db DEX_FARFETCHD ; pokedex id
+	db FARFETCHD ; pokedex id
 
 	db  52,  90,  55,  60,  58
 	;   hp  atk  def  spd  spc

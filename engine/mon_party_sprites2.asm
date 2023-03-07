@@ -33,7 +33,6 @@ LoadPartyMonSprites:
 LoadPartyMonSprite:
 	push de
 	ld [wd11e], a
-	predef IndexToPokedex
 	xor a
 	ld [hMultiplicand], a
 	ld [hMultiplicand + 1], a

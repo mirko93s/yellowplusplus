@@ -54,7 +54,6 @@ Printer_GetMonStats:
 	hlcoord 9, 3
 	call PlaceString
 
-	predef IndexToPokedex
 	hlcoord 2, 8
 	ld [hl], "№"
 	inc hl

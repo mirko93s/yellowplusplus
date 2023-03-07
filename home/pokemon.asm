@@ -96,20 +96,10 @@ LoadFlippedFrontSpriteByMonIndex::
 	ld [wSpriteFlipped], a
 
 LoadFrontSpriteByMonIndex::
-	push hl
-	ld a, [wd11e]
-	push af
 	ld a, [wcf91]
-	ld [wd11e], a
-	predef IndexToPokedex
-	ld hl, wd11e
-	ld a, [hl]
-	pop bc
-	ld [hl], b
 	and a
-	pop hl
 	jr z, .invalidDexNumber ; dex #0 invalid
-	cp NUM_POKEMON + 1
+	cp NUM_POKEMON_INDEXES + 1
 	jr c, .validDexNumber   ; dex >#151 invalid
 .invalidDexNumber
 	ld a, RHYDON ; $1
@@ -423,7 +413,6 @@ GetMonHeader::
 	ld b, $77 ; size of Aerodactyl fossil sprite
 	cp FOSSIL_AERODACTYL ; Aerodactyl fossil
 	jr z, .specialID
-	predef IndexToPokedex   ; convert pokemon ID in [wd11e] to pokedex number
 	ld a, [wd11e]
 	dec a
 	ld bc, BASE_DATA_SIZE

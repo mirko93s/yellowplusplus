@@ -80,7 +80,6 @@ HandlePokedexSideMenu:
 	call IsPokemonBitSet
 	ld b, 2
 	jr z, .exitSideMenu
-	call PokedexToIndex
 	ld hl, wTopMenuItemY
 	ld a, 8
 	ld [hli], a ; top menu item Y
@@ -401,7 +400,6 @@ Pokedex_PlacePokemonList:
 .dashedLine ; for unseen pokemon in the list
 	db "----------@"
 .getPokemonName
-	call PokedexToIndex
 	call GetMonName
 .skipGettingName
 	pop hl
@@ -554,7 +552,6 @@ DrawDexEntryOnScreen:
 	push de
 	ld a, [wd11e]
 	push af
-	call IndexToPokedex
 
 	hlcoord 2, 8
 	ld a, "№"
@@ -709,9 +706,3 @@ DrawTileLine:
 	ret
 
 INCLUDE "data/pokemon/dex_entries.asm"
-
-PokedexToIndex:
-IndexToPokedex:
-	ret
-
-INCLUDE "data/pokemon/dex_order.asm"

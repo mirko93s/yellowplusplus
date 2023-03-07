@@ -212,7 +212,6 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld a, [wIsInBattle]
 	and a
 	call z, Evolution_ReloadTilesetTilePatterns
-	predef IndexToPokedex
 	ld a, [wd11e]
 	dec a
 	ld c, a

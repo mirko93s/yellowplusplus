@@ -961,16 +961,16 @@ Func_fee49:
 	ld hl, wcf91
 	inc [hl]
 	ld a, [hl]
-	cp NUM_POKEMON + 1
+	cp NUM_POKEMON_INDEXES + 1
 	jr c, Func_fee23
-	ld [hl], DEX_BULBASAUR
+	ld [hl], BULBASAUR
 	jr Func_fee23
 
 Func_fee56:
 	ld hl, wcf91
 	dec [hl]
 	jr nz, Func_fee23
-	ld [hl], DEX_MEW
+	ld [hl], MEW
 	jr Func_fee23
 
 Func_fee60:
@@ -985,7 +985,6 @@ Func_fee60:
 	push hl
 	ld a, [wcf91]
 	ld [wd11e], a
-	callfar PokedexToIndex
 	call GetMonName
 	pop hl
 	call PlaceString
@@ -1056,7 +1055,6 @@ Func_feeef:
 	ld bc, NUM_MOVES
 	ld a, BANK(BaseStats)
 	call FarCopyData
-	callfar PokedexToIndex
 	ld a, [wd11e]
 	ld [wcf91], a
 	xor a
@@ -1209,9 +1207,6 @@ Func_ff006:
 	push hl
 	ld a, [wcf91]
 	ld [wd11e], a
-	callfar PokedexToIndex
-	ld a, [wd11e]
-	ld [wcf91], a
 	pop hl
 	pop af
 	ld [wd11e], a
@@ -1371,9 +1366,6 @@ Func_ff12c:
 	ld [wEnemyMonLevel], a
 	ld a, [wcf91]
 	ld [wd11e], a
-	callfar PokedexToIndex
-	ld a, [wd11e]
-	ld [wcf91], a
 	ld [wd0b5], a
 	call GetMonHeader
 	ld hl, wEnemyMon
@@ -1513,8 +1505,6 @@ Func_ff236:
 	push de
 	ld a, c
 	ld [wd11e], a
-	callfar PokedexToIndex
-	ld a, [wd11e]
 	ld [wEnemyMonSpecies2], a
 	ld [wcf91], a
 	xor a
@@ -1526,7 +1516,7 @@ Func_ff236:
 	pop de
 	pop bc
 	ld a, c
-	cp NUM_POKEMON
+	cp NUM_POKEMON_INDEXES
 	jr z, Func_ff286
 	dec b
 	jr nz, .asm_ff247

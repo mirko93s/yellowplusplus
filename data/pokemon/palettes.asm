@@ -152,7 +152,7 @@ MonsterPalettes:
 	db PAL_DRAGONITE        ; DRAGONITE
 	db PAL_MEWTWO           ; MEWTWO
 	db PAL_MEW              ; MEW
-	assert_table_length NUM_POKEMON + 1
+	assert_table_length NUM_POKEMON_INDEXES + 1
 
 ShinyMonsterPalettes    : 
 	table_width 1, ShinyMonsterPalettes
@@ -308,7 +308,7 @@ ShinyMonsterPalettes    :
 	db PAL_SHINY_DRAGONITE  ; DRAGONITE
 	db PAL_SHINY_CHANSEY    ; MEWTWO
 	db PAL_DRAGONAIR        ; MEW
-	assert_table_length NUM_POKEMON + 1
+	assert_table_length NUM_POKEMON_INDEXES + 1
 
 TrainerPalettes:
 	db PAL_HERO

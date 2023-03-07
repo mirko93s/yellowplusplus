@@ -1,4 +1,4 @@
-	db DEX_NIDOKING ; pokedex id
+	db NIDOKING ; pokedex id
 
 	db  81, 102,  77,  85,  75
 	;   hp  atk  def  spd  spc
