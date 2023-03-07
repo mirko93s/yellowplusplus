@@ -5,7 +5,7 @@
 
 	db DRAGON, FLYING ; type
 	db 45 ; catch rate
-	db 300 ; base exp
+	db 255 ; base exp
 
 	INCBIN "gfx/pokemon/front/dragonite.pic", 0, 1 ; sprite dimensions
 	dw DragonitePicFront, DragonitePicBack
