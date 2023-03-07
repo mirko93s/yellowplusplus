@@ -61,7 +61,7 @@ InitBattleCommon:
 
 LoadGhostPic:
     ld hl, wMonHSpriteDim
-	ld a, $66
+	ld a, $77
 	ld [hli], a   ; write sprite dimensions
 	ld bc, GhostPic
 	ld a, c
