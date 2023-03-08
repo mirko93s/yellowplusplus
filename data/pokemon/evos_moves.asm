@@ -791,6 +791,7 @@ VenomothEvosMoves:
 	db 24, SLEEP_POWDER
 	db 28, LEECH_LIFE
 	db 37, PSYCHIC_M
+	db $FF, GUST ; EVO
 	db 0
 
 DiglettEvosMoves:
