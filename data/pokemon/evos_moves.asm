@@ -350,6 +350,7 @@ BeedrillEvosMoves:
 	db 19, FOCUS_ENERGY
 	db 25, AGILITY
 	db 28, PIN_MISSILE
+	db $FF, TWINEEDLE
 	db 0
 
 PidgeyEvosMoves:
