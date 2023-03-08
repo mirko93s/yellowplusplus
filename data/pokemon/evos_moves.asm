@@ -309,6 +309,7 @@ MetapodEvosMoves:
 	db 0
 	; Learnset
 	db 7, HARDEN
+	db $FF, HARDEN ; EVO
 	db 0
 
 ButterfreeEvosMoves:
