@@ -76,8 +76,8 @@ Moves:
 		move HYPER_BEAM,   HYPER_BEAM_EFFECT,          150, NORMAL,        90,  5
 		move PECK,         NO_ADDITIONAL_EFFECT,        35, FLYING,       100, 35
 		move DRILL_PECK,   NO_ADDITIONAL_EFFECT,        80, FLYING,       100, 20
-		move SUBMISSION,   RECOIL_EFFECT,               80, FIGHTING,     100, 20 ; DEPENDS ON ENEMY POKEMON WEIGHT
-		move LOW_KICK,     FLINCH_SIDE_EFFECT2,         50, FIGHTING,      90, 20
+		move SUBMISSION,   RECOIL_EFFECT,               80, FIGHTING,     100, 20
+		move LOW_KICK,     FLINCH_SIDE_EFFECT2,         50, FIGHTING,     100, 20 ; depends on enemy pokemon weight in newer gens
 		move COUNTER,      NO_ADDITIONAL_EFFECT,         1, FIGHTING,     100, 20
 		move SEISMIC_TOSS, SPECIAL_DAMAGE_EFFECT,        1, FIGHTING,     100, 20
 		move STRENGTH,     NO_ADDITIONAL_EFFECT,        80, NORMAL,       100, 15
