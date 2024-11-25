@@ -6611,7 +6611,8 @@ LoadEnemyMonData:
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
 	call IsGhostBattle
-	jr nz, .noMarkSeen
+	jr z, .noMarkSeen
+	ld a, [wd11e]
 	dec a
 	ld c, a
 	ld b, FLAG_SET
