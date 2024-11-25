@@ -326,36 +326,36 @@ _MaxElixerDescription::
 _HM01Description::
 	text "HM-01"
 	line "CUT"
-	text "Cuts using claws,"
-	next "scythes, etc."
+	para "Cuts using claws,"
+	line "scythes, etc."
 	prompt
 
 _HM02Description::
 	text "HM-02"
 	line "FLY"
-	text "1st turn: Fly"
-	next "2nd turn: Attack"
+	para "1st turn: Fly"
+	line "2nd turn: Attack"
 	prompt
 
 _HM03Description::
 	text "HM-03"
 	line "SURF"
-	text "A strong water-"
-	next "type attack."
+	para "A strong water-"
+	line "type attack."
 	prompt
 
 _HM04Description::
 	text "HM-04"
 	line "STRENGTH"
-	text "A powerful physi-"
-	next "cal attack."
+	para "A powerful physi-"
+	line "cal attack."
 	prompt
 
 _HM05Description::
 	text "HM-05"
 	line "FLASH"
-	text "Blinds the foe to"
-	next "reduce accuracy."
+	para "Blinds the foe to"
+	line "reduce accuracy."
 	prompt
 
 _TM01Description::
