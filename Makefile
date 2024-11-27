@@ -52,6 +52,7 @@ yellow_debug: pokeyellow_debug.gbc
 yellow_vc:    pokeyellow.patch
 
 rename_files: pokeyellow.gbc pokeyellow_debug.gbc
+	rm -f ypp_*.gbc ypp_debug_*.gbc
 	mv pokeyellow.gbc ypp_$(COMMIT_HASH).gbc
 	mv pokeyellow_debug.gbc ypp_debug_$(COMMIT_HASH).gbc
 
