@@ -301,7 +301,7 @@ JugglerData:
 	db  "HORTON@",  55, GOLBAT,     54, WEEZING,    55, MUK,                                                        end ;  4 - Fuchsia Gym
 	db  "FRITZ@",   56, MUK,        55, TENTACRUEL, 57, WEEZING,                                                    end ;  5 - Fuchsia Gym
 	db  "NELSON@",  63, HYPNO,      62, ALAKAZAM,                                                                   end ;  6 - Victory Road 2F
-	db  "GREGORY",  64, MR_MIME,                                                                                    end ;  7 - Victory Road 2F
+	db  "GREGORY@", 64, MR_MIME,                                                                                    end ;  7 - Victory Road 2F
 
 TamerData:
 	db  "EDGAR@",   56, NIDOKING,   57, ARBOK,                                                                      end ;  1 - Fuchsia Gym
