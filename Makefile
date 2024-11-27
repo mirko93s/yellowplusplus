@@ -55,7 +55,7 @@ update_version_number:
 	echo 'db   "$(COMMIT_HASH)@"' > version_number.asm
 
 rename_files: pokeyellow.gbc pokeyellow_debug.gbc
-	rm -f ypp_*.gbc ypp_debug_*.gbc
+	rm -f ypp_*.gbc ypp_*.sav ypp_*.sgm
 	mv pokeyellow.gbc ypp_$(COMMIT_HASH).gbc
 	mv pokeyellow_debug.gbc ypp_debug_$(COMMIT_HASH).gbc
 
