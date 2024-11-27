@@ -44,12 +44,15 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all yellow yellow_debug clean tidy compare tools
+.PHONY: all update_version_number yellow yellow_debug clean tidy compare tools
 
-all: $(roms) rename_files
+all: update_version_number $(roms) rename_files
 yellow:       pokeyellow.gbc
 yellow_debug: pokeyellow_debug.gbc
 yellow_vc:    pokeyellow.patch
+
+update_version_number:
+	echo 'db   "$(COMMIT_HASH)@"' > version_number.asm
 
 rename_files: pokeyellow.gbc pokeyellow_debug.gbc
 	rm -f ypp_*.gbc ypp_debug_*.gbc
