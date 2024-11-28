@@ -80,12 +80,6 @@ _DayCareOnlyHaveOneMonText::
 	line "#MON with you."
 	done
 
-_DayCareCantAcceptMonWithHMText::
-	text "I can't accept a"
-	line "#MON that"
-	cont "knows an HM move."
-	done
-
 _DayCareHeresYourMonText::
 	text "Thank you! Here's"
 	line "your #MON!"

@@ -35,10 +35,6 @@ DayCareMText1:
 	pop af
 	ld hl, DayCareAllRightThenText
 	jp c, .done
-	callfar KnowsHMMove
-	call ReloadTilesetTilePatterns
-	ld hl, DayCareCantAcceptMonWithHMText
-	jp c, .done
 	xor a
 	ld [wPartyAndBillsPCSavedMenuItem], a
 	ld a, [wWhichPokemon]
@@ -324,10 +320,6 @@ DayCareNoRoomForMonText:
 
 DayCareOnlyHaveOneMonText:
 	text_far _DayCareOnlyHaveOneMonText
-	text_end
-
-DayCareCantAcceptMonWithHMText:
-	text_far _DayCareCantAcceptMonWithHMText
 	text_end
 
 DayCareHeresYourMonText:
