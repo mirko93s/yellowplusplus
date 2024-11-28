@@ -1474,8 +1474,43 @@ ItemUseMedicine:
 	push hl
 	ld bc, wPartyMon1Level - wPartyMon1
 	add hl, bc ; hl now points to level
+	;;;;;;;;;;;;;;; HARD MODE START
+	ld b, MAX_LEVEL
+	ld a, [wExtraFlags]
+	bit 2, a
+	jr z, .continueUseRareCandy ; jump if we are in normal mode
+	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	jr nz, .continueUseRareCandy
+	ld a, [wObtainedBadges]
+	bit BIT_EARTHBADGE, a
+	ld b, LEVEL_CAP_CHAMPION ; Rival's level
+	jr nz, .continueUseRareCandy
+	bit BIT_VOLCANOBADGE, a
+	ld b, LEVEL_CAP_GYM_8 ; Giovanni's level
+	jr nz, .continueUseRareCandy
+	bit BIT_MARSHBADGE, a
+	ld b, LEVEL_CAP_GYM_7 ; Blaine's level
+	jr nz, .continueUseRareCandy
+	bit BIT_SOULBADGE, a
+	ld b, LEVEL_CAP_GYM_6 ; Sabrina's level
+	jr nz, .continueUseRareCandy
+    bit BIT_RAINBOWBADGE, a
+	ld b, LEVEL_CAP_GYM_5 ; Koga's level
+	jr nz, .continueUseRareCandy
+	bit BIT_THUNDERBADGE, a
+	ld b, LEVEL_CAP_GYM_4 ; Erika's level
+	jr nz, .continueUseRareCandy
+	bit BIT_CASCADEBADGE, a
+    ld b, LEVEL_CAP_GYM_3 ; Lt.Surge's level
+	jr nz, .continueUseRareCandy
+	bit BIT_BOULDERBADGE, a
+	ld b, LEVEL_CAP_GYM_2 ; Misty's level
+	jr nz, .continueUseRareCandy
+	ld b, LEVEL_CAP_GYM_1 ; Brock's level
+.continueUseRareCandy
 	ld a, [hl] ; a = level
-	cp MAX_LEVEL
+	cp b ; MAX_LEVEL on normal mode, level cap on hard mode
+	;;;;;;;;;;;;;;; HARD MODE END
 	jr z, .vitaminNoEffect ; can't raise level above 100
 	inc a
 	ld [hl], a ; store incremented level

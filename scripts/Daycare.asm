@@ -78,11 +78,49 @@ DayCareMText1:
 	ld [wMonDataLocation], a
 	call LoadMonData
 	callfar CalcLevelFromExperience
-	ld a, d
-	cp MAX_LEVEL
+
+	push bc
+	ld a, [wExtraFlags]
+	bit 2, a
+	jr z, .continueDayCareInUse ; jump if we are in normal mode
+	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	jr nz, .continueDayCareInUse
+	ld a, [wObtainedBadges]
+	bit BIT_EARTHBADGE, a
+	ld b, LEVEL_CAP_CHAMPION ; Rival's level
+	jr nz, .continueDayCareInUse
+	bit BIT_VOLCANOBADGE, a
+	ld b, LEVEL_CAP_GYM_8 ; Giovanni's level
+	jr nz, .continueDayCareInUse
+	bit BIT_MARSHBADGE, a
+	ld b, LEVEL_CAP_GYM_7 ; Blaine's level
+	jr nz, .continueDayCareInUse
+	bit BIT_SOULBADGE, a
+	ld b, LEVEL_CAP_GYM_6 ; Sabrina's level
+	jr nz, .continueDayCareInUse
+    bit BIT_RAINBOWBADGE, a
+	ld b, LEVEL_CAP_GYM_5 ; Koga's level
+	jr nz, .continueDayCareInUse
+	bit BIT_THUNDERBADGE, a
+	ld b, LEVEL_CAP_GYM_4 ; Erika's level
+	jr nz, .continueDayCareInUse
+	bit BIT_CASCADEBADGE, a
+    ld b, LEVEL_CAP_GYM_3 ; Lt.Surge's level
+	jr nz, .continueDayCareInUse
+	bit BIT_BOULDERBADGE, a
+	ld b, LEVEL_CAP_GYM_2 ; Misty's level
+	jr nz, .continueDayCareInUse
+	ld b, LEVEL_CAP_GYM_1 ; Brock's level
+.continueDayCareInUse
+	ld a, b
+	ld [wMaxDaycareLevel], a
+	ld a, d ; d = current pokemon level
+	cp b
+	pop bc
 	jr c, .skipCalcExp
 
-	ld d, MAX_LEVEL
+	ld a, [wMaxDaycareLevel]
+	ld d, a
 	callfar CalcExperience
 	ld hl, wDayCareMonExp
 	ldh a, [hExperience]
@@ -91,7 +129,8 @@ DayCareMText1:
 	ld [hli], a
 	ldh a, [hExperience + 2]
 	ld [hl], a
-	ld d, MAX_LEVEL
+	ld a, [wMaxDaycareLevel]
+	ld d, a
 
 .skipCalcExp
 	xor a

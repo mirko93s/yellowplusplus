@@ -2303,10 +2303,11 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	ds 1 ; unused
-
 	ds 8 ; unused
-	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; index in party of currently battling mon
+wMaxDaycareLevel:: db
+
 ; Used to store a random shiny atk/def DVs (xx1x1010 "x" bits are randomized)
 wRandomShinyATK:: db
 
@@ -2320,6 +2321,7 @@ wStatusScreenHPDVs::
 	
 ; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
 ; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
+; Bit 2 is set if the difficulty is set in hard mode
 wExtraFlags:: db
 	
 ; Bit 0 is set if the mon should be shiny

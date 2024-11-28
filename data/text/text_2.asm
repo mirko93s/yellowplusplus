@@ -1012,6 +1012,11 @@ _ItemsCantBeUsedHereText::
 	line "used here."
 	prompt
 
+_ItemsCantBeUsedInHardModeText::
+	text "Items can't be"
+	line "used in hard mode"
+	prompt
+
 _AlreadyOutText::
 	text_ram wBattleMonNick
 	text " is"
@@ -1351,3 +1356,11 @@ _MirkoIntroText2::
 	para "It's a feature."
 	line ".-."
 	prompt
+
+_DifficultyText::
+   text "Select Difficulty"
+   done
+
+_AreYouSureText::
+	text "Are you sure?"
+	done

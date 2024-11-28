@@ -457,33 +457,33 @@ Rival2Data:
 	db  "<RIVAL>@", 68, RHYDON,     71, ARCANINE,   73, TAUROS,     70, GYARADOS,   70, ALAKAZAM,   72, JOLTEON,    end
 	db  "<RIVAL>@", 68, RHYDON,     71, EXEGGUTOR,  73, TAUROS,     70, GYARADOS,   70, ALAKAZAM,   72, FLAREON,    end
 	db  "<RIVAL>@", 68, RHYDON,     71, EXEGGUTOR,  73, TAUROS,     70, ARCANINE,   70, ALAKAZAM,   72, VAPOREON,   end
-
+;;;;;;;;;; remember to set hard mode level cap
 Rival3Data:
 	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, ARCANINE,   82, GYARADOS,   83, JOLTEON,    85, SLOWBRO,    end
 	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, GYARADOS,   83, FLAREON,    85, SLOWBRO,    end
 	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, ARCANINE,   83, VAPOREON,   85, SLOWBRO,    end
-
+;;;;;;;;;; remember to set hard mode level cap
 BrockData:
 	db  "BROCK@",   13, AERODACTYL, 12, OMASTAR,    14, KABUTOPS,   15, ONIX,                                       end
-
+;;;;;;;;;; remember to set hard mode level cap
 MistyData:
 	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, BLASTOISE,  26, STARMIE,    25, ARTICUNO,                   end
-
+;;;;;;;;;; remember to set hard mode level cap
 LtSurgeData:
 	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    36, RAICHU,     34, ELECTABUZZ, 35, ZAPDOS,                     end
-
+;;;;;;;;;; remember to set hard mode level cap
 ErikaData:
 	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end
-
+;;;;;;;;;; remember to set hard mode level cap
 KogaData:
-	db  "KOGA@",    60, VENOMOTH,   59, WEEZING,    60, NIDOKING,   59, TENTACRUEL, 61, GENGAR,                     end
-
+	db  "KOGA@",    55, VENOMOTH,   54, WEEZING,    54, NIDOKING,   55, TENTACRUEL, 56, GENGAR,                     end
+;;;;;;;;;; remember to set hard mode level cap
 SabrinaData:
-	db  "SABRINA@", 55, JYNX,       54, SLOWBRO,    54, HYPNO,      55, ALAKAZAM,   56, MR_MIME,                    end
-
+	db  "SABRINA@", 60, JYNX,       59, SLOWBRO,    60, HYPNO,      59, ALAKAZAM,   61, MR_MIME,                    end
+;;;;;;;;;; remember to set hard mode level cap
 BlaineData:
 	db  "BLAINE@",  65, CHARIZARD,  64, MAGMAR,     64, FLAREON,    66, ARCANINE,   65, MOLTRES,                    end
-
+;;;;;;;;;; remember to set hard mode level cap
 GiovanniData:
 	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, GENGAR,     46, TAUROS,     47, RHYDON,                     end ;  1 - Rocket Hideout B4F
 	db  "GIOVANNI@",54, PERSIAN,    54, DUGTRIO,    56, GENGAR,     55, TAUROS,     57, RHYDON,                     end ;  2 - Silph Co. 11F

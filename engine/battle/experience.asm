@@ -117,6 +117,41 @@ GainExperience:
 	ld [wd0b5], a
 	call GetMonHeader
 	ld d, MAX_LEVEL
+;;;;;;;;;;;;;;;;;;;;;; HARD MODE START
+	ld a, [wExtraFlags]
+	bit 2, a
+	jr z, .continueCalcExperience ; jump if we are in normal mode
+	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	ld d, MAX_LEVEL ; no level cap after we beat champion
+	jr nz, .continueCalcExperience
+	ld a, [wObtainedBadges]
+	bit BIT_EARTHBADGE, a
+	ld d, LEVEL_CAP_CHAMPION ; Rival's level
+	jr nz, .continueCalcExperience
+	bit BIT_VOLCANOBADGE, a
+	ld d, LEVEL_CAP_GYM_8 ; Giovanni's level
+	jr nz, .continueCalcExperience
+	bit BIT_MARSHBADGE, a
+	ld d, LEVEL_CAP_GYM_7 ; Blaine's level
+	jr nz, .continueCalcExperience
+	bit BIT_SOULBADGE, a
+	ld d, LEVEL_CAP_GYM_6 ; Sabrina's level
+	jr nz, .continueCalcExperience
+    bit BIT_RAINBOWBADGE, a
+	ld d, LEVEL_CAP_GYM_5 ; Koga's level
+	jr nz, .continueCalcExperience
+	bit BIT_THUNDERBADGE, a
+	ld d, LEVEL_CAP_GYM_4 ; Erika's level
+	jr nz, .continueCalcExperience
+	bit BIT_CASCADEBADGE, a
+    ld d, LEVEL_CAP_GYM_3 ; Lt.Surge's level
+	jr nz, .continueCalcExperience
+	bit BIT_BOULDERBADGE, a
+	ld d, LEVEL_CAP_GYM_2 ; Misty's level
+	jr nz, .continueCalcExperience
+	ld d, LEVEL_CAP_GYM_1 ; Brock's level
+.continueCalcExperience
+;;;;;;;;;;;;;;;;;;;;;; HARD MODE END
 	callfar CalcExperience ; get max exp
 ; compare max exp with current exp
 	ldh a, [hExperience]

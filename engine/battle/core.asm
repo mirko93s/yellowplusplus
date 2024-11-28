@@ -1419,6 +1419,10 @@ EnemySendOutFirstMon:
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jr z, .next4
+	; hard mode check
+	ld a, [wExtraFlags]
+	bit 2, a
+	jr nz, .next4 ; if in hard mode force set mode
 	ld a, [wOptions]
 	bit BIT_BATTLE_SHIFT, a
 	jr nz, .next4
@@ -2405,6 +2409,19 @@ BagWasSelected:
 	jr z, .simulatedInputBattle
 	cp BATTLE_TYPE_PIKACHU ; is it the prof oak battle with pikachu?
 	jr z, .simulatedInputBattle
+
+	ld a, [wIsInBattle] ; Check if this is a wild battle or trainer battle
+	dec a
+	jr z, .normalMode ; Not a trainer battle
+
+	ld a, [wExtraFlags] ; jump if we are in normal mode
+	bit 2, a
+	jr nz, .normalMode
+
+	ld hl, ItemsCantBeUsedInHardModeText ; items can't be used during trainer battles in hard mode
+	call PrintText
+	jp DisplayBattleMenu
+.normalMode
 	jr DisplayPlayerBag
 .simulatedInputBattle
 	ld hl, SimulatedInputBattleItemList
@@ -2501,6 +2518,10 @@ UseBagItem:
 
 ItemsCantBeUsedHereText:
 	text_far _ItemsCantBeUsedHereText
+	text_end
+
+ItemsCantBeUsedInHardModeText:
+	text_far _ItemsCantBeUsedInHardModeText
 	text_end
 	
 PartyMenuOrRockOrRun:
@@ -4281,6 +4302,41 @@ CheckForDisobedience:
 	ld a, [wPlayerID]
 	cp [hl]
 	jr nz, .monIsTraded
+
+	ld a, [wExtraFlags]
+	bit 2, a
+	jr z, .normalMode2 ; jump if we are in normal mode
+	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	ld a, 101 ; always obey ; MAX_LEVEL + 1
+	jr nz, .next
+	ld hl, wObtainedBadges
+	bit BIT_EARTHBADGE, [hl]
+	ld a, LEVEL_CAP_CHAMPION ; Rival's level
+	jr nz, .next
+	bit BIT_VOLCANOBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_8 ; Giovanni's level
+	jr nz, .next
+	bit BIT_MARSHBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_7 ; Blaine's level
+	jr nz, .next
+	bit BIT_SOULBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_6 ; Sabrina's level
+	jr nz, .next
+    bit BIT_RAINBOWBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_5 ; Koga's level
+	jr nz, .next
+	bit BIT_THUNDERBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_4 ; Erika's level
+	jr nz, .next
+	bit BIT_CASCADEBADGE, [hl]
+    ld a, LEVEL_CAP_GYM_3 ; Lt.Surge's level
+	jr nz, .next
+	bit BIT_BOULDERBADGE, [hl]
+	ld a, LEVEL_CAP_GYM_2 ; Misty's level
+	jr nz, .next
+	ld a, LEVEL_CAP_GYM_1 ; Brock's level
+	jr .next
+.normalMode2
 	inc hl
 	ld a, [wPlayerID + 1]
 	cp [hl]
