@@ -234,7 +234,24 @@ DisplayChooseQuantityMenu::
 	jr nz, .incrementQuantity
 	bit BIT_D_DOWN, a
 	jr nz, .decrementQuantity
+	bit BIT_D_RIGHT, a
+	jr nz, .incrementQuantityLarge
+	bit BIT_D_LEFT, a
+	jr nz, .decrementQuantityLarge
 	jr .waitForKeyPressLoop
+.incrementQuantityLarge
+	ld a, [wMaxItemQuantity]
+	ld b, a
+	ld a, [wItemQuantity]
+    add a, 10
+    cp b
+    jr nc, .maxQuantity
+    ld [wItemQuantity], a
+    jr .handleNewQuantity
+.maxQuantity
+	ld a, b ; Set quantity to wMaxItemQuantity if adding 10 exceeds it       
+    ld [wItemQuantity], a ; Store the max quantity back at the location
+	jr .handleNewQuantity
 .incrementQuantity
 	ld a, [wMaxItemQuantity]
 	inc a
@@ -248,12 +265,22 @@ DisplayChooseQuantityMenu::
 	ld a, 1
 	ld [hl], a
 	jr .handleNewQuantity
+.decrementQuantityLarge
+	ld hl, wItemQuantity
+	ld a, [hl]
+	sub 10
+	jr z, .setTo1 ; if quantity is 0, set to 1
+	jr nc, .storeNewQuantity
+.setTo1
+	ld a, 1 ; If underflow occurred, set to 1
+	jr .storeNewQuantity
 .decrementQuantity
 	ld hl, wItemQuantity ; current quantity
 	dec [hl]
 	jr nz, .handleNewQuantity
 ; wrap to the max quantity if the player goes below 1
 	ld a, [wMaxItemQuantity]
+.storeNewQuantity:
 	ld [hl], a
 .handleNewQuantity
 	hlcoord 17, 10
