@@ -76,6 +76,7 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	jp z, StartMenu_SaveReset
 	cp 5
 	jp z, StartMenu_Option
+	jr CloseStartMenu
 .selectPressed
 	CheckEvent EVENT_GOT_POKEDEX
 	jp z, .loop
