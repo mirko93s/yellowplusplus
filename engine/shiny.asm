@@ -67,14 +67,14 @@ _EvolutionSetWholeScreenPalette:
 
 PlayShinySparkleAnimation:
 	; flash the screen
-	ld a, [rBGP]
+	ldh a, [rBGP]
 	push af ; save initial palette
 	ld a, %00011011 ; 0, 1, 2, 3 (inverted colors)
-	ld [rBGP], a
+	ldh [rBGP], a
 	ld c, 4
 	call DelayFrames
 	pop af
-	ld [rBGP], a ; restore initial palette
+	ldh [rBGP], a ; restore initial palette
 	; play animation
 	ld b, 11 + 1
 .loop
