@@ -16,7 +16,7 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	ld b, a
 .checkIfUpPressed
 	bit BIT_SELECT, a
-	jp nz, .selectPressed ; NEW: if pressing SELECT while the cursor is over the SAVE option - we can change PC boxes.
+	jp nz, .selectPressed ; NEW: if pressing SELECT while the cursor is over the POKEMON option - we can change PC boxes.
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
 	ld a, [wCurrentMenuItem] ; menu selection
@@ -80,7 +80,7 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	CheckEvent EVENT_GOT_POKEDEX
 	jp z, .loop
 	ld a, [wCurrentMenuItem]
-	cp 1 ; are we currently on SAVE menu index? (need to be to do the below action)
+	cp 1 ; are we currently on POKEMON menu index? (need to be to do the below action)
 	jp nz, .loop
 	jp StartMenu_SelectPressed
 
