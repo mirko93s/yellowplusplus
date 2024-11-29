@@ -1,4 +1,4 @@
-AnimateBoulderDust:
+AnimateBoulderDust::
 	ld a, $1
 	ld [wWhichAnimationOffsets], a ; select the boulder dust offsets
 	ld a, [wUpdateSpritesEnabled]
