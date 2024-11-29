@@ -295,9 +295,9 @@ TruckCheck:
 	ret nz
 	
 	xor a
-	ld [$ff8c], a
+	ldh [$ff8c], a
 	ld a, $8
-	ld [$ff8d], a
+	ldh [$ff8d], a
 	call SetSpriteFacingDirection
 	ld a, $ff
 	ld [wJoyIgnore], a
