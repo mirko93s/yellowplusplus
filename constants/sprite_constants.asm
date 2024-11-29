@@ -6,11 +6,11 @@
 	const SPRITE_BLUE                    ; $02
 	const SPRITE_OAK                     ; $03
 	const SPRITE_YOUNGSTER               ; $04
-	const SPRITE_MONSTER                 ; $05
+	const SPRITE_MONSTER                 ; $05 ;;;;;; THIS
 	const SPRITE_COOLTRAINER_F           ; $06
 	const SPRITE_COOLTRAINER_M           ; $07
 	const SPRITE_LITTLE_GIRL             ; $08
-	const SPRITE_BIRD                    ; $09
+	const SPRITE_BIRD                    ; $09 ;;;;;; THIS
 	const SPRITE_MIDDLE_AGED_MAN         ; $0a
 	const SPRITE_GAMBLER                 ; $0b
 	const SPRITE_SUPER_NERD              ; $0c
@@ -57,12 +57,12 @@
 	const SPRITE_LITTLE_BOY              ; $35
 	const SPRITE_LTSURGE            	 ; $36
 	const SPRITE_GAMEBOY_KID             ; $37
-	const SPRITE_FAIRY                   ; $38
+	const SPRITE_FAIRY                   ; $38 ;;;;;; THIS
 	const SPRITE_AGATHA                  ; $39
 	const SPRITE_BRUNO                   ; $3a
 	const SPRITE_LORELEI                 ; $3b
-	const SPRITE_SEEL                    ; $3c
-	const SPRITE_PIKACHU                 ; $3d
+	const SPRITE_SEEL                    ; $3c ;;;;;; THIS
+	const SPRITE_PIKACHU                 ; $3d ;;;;;; THIS
 	const SPRITE_OFFICER_JENNY           ; $3e
 	const SPRITE_SANDSHREW               ; $3f
 	const SPRITE_ODDISH                  ; $40
@@ -72,7 +72,37 @@
 	const SPRITE_CHANSEY                 ; $44
 	const SPRITE_JESSIE                  ; $45
 	const SPRITE_JAMES                   ; $46
-DEF FIRST_STILL_SPRITE EQU const_value
+	const SPRITE_ARTICUNO ; seafom island
+	const SPRITE_MOLTRES ; victory road
+	const SPRITE_ZAPDOS ; power plany
+	const SPRITE_MEWTWO ; cerulean cave
+	const SPRITE_MEW ; mew event under the truck
+	const SPRITE_KABUTO ; used for bill in bill's house
+	const SPRITE_POLIWRATH ; celadon city
+	const SPRITE_MEOWTH ; celadon mansion 1f
+	const SPRITE_NIDORANF ; celadon mansion 1f
+	; clefairy in celadon mansion 1f uses sprite_fairy
+	; SPRITE_FAIRY is just SPRITE_CLEFAIRY but with walk frames added can we just use the clefairy one and remove fairy?
+	const SPRITE_DODUO ; copycat house in saffron city
+	const SPRITE_KANGASKHAN ; fuchsia city
+	const SPRITE_SLOWPOKE ; fuchsia city
+	const SPRITE_LAPRAS ; fuchsia city
+	; fuchsia city has a fossil which is kabuto or omanyte, depending on which one we took at mt moon
+	const SPRITE_CUBONE ; cubone house in lavender town
+	const SPRITE_PSYDUCK ; mr fuji house in lavender town
+	const SPRITE_NIDORINO ; mr fuji house in lavender town
+	const SPRITE_NIDORANM ; nidoran house in pewter city
+	const SPRITE_MACHOKE ; ss anne b1f
+	const SPRITE_MACHOP ; vermilion city
+	const SPRITE_FEAROW ; fly house in route 16
+	const SPRITE_PIDGEOT ; saffron city
+	const SPRITE_PIDGEY ; pidgey houses in saffron city and vermilion city
+	const SPRITE_SPEAROW ; viridian nickname house
+	const SPRITE_SEEL2 ; pokemon fan club in vermilion city, SPRITE_SEEL is still used for surfing
+    DEF FIRST_STILL_SPRITE EQU const_value
+	const SPRITE_VOLTORB ; fuchsia city
+	const SPRITE_ELECTRODE ; cerulean city
+    const SPRITE_WIGGLYTUFF ; ss anne 1f
 	const SPRITE_POKE_BALL               ; $47
 	const SPRITE_FOSSIL                  ; $48
 	const SPRITE_BOULDER                 ; $49

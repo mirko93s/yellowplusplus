@@ -9,6 +9,6 @@ CeladonMansionRoofHouse_Object:
 
 	def_object_events
 	object_event  2,  2, SPRITE_HIKER, STAY, DOWN, 1 ; person
-	object_event  4,  3, SPRITE_POKE_BALL, STAY, NONE, 2 ; person
+	object_event  4,  3, SPRITE_POKE_BALL, STAY, NONE, 2 ; person ; get eevee
 
 	def_warps_to CELADON_MANSION_ROOF_HOUSE

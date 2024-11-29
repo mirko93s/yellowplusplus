@@ -9,7 +9,7 @@ OaksLab_Object:
 
 	def_object_events
 	object_event  4,  3, SPRITE_BLUE, STAY, NONE, 1, OPP_RIVAL1, 1
-	object_event  7,  3, SPRITE_POKE_BALL, STAY, NONE, 2 ; person
+	object_event  7,  3, SPRITE_POKE_BALL, STAY, NONE, 2 ; person ; eevee starter taken by the rival
 	object_event  5,  2, SPRITE_OAK, STAY, DOWN, 3 ; person
 	object_event  2,  1, SPRITE_POKEDEX, STAY, NONE, 4 ; person
 	object_event  3,  1, SPRITE_POKEDEX, STAY, NONE, 5 ; person

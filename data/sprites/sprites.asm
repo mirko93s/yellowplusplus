@@ -77,6 +77,34 @@ SpriteSheetPointerTable:
 	overworld_sprite ChanseySprite, 12          ; SPRITE_CHANSEY
 	overworld_sprite JessieSprite, 12           ; SPRITE_JESSIE
 	overworld_sprite JamesSprite, 12            ; SPRITE_JAMES
+	overworld_sprite ArticunoSprite, 12         ; SPRITE_ARTICUNO
+	overworld_sprite MoltresSprite, 12          ; SPRITE_MOLTRES
+	overworld_sprite ZapdosSprite, 12           ; SPRITE_ZAPDOS
+	overworld_sprite MewtwoSprite, 12           ; SPRITE_MEWTWO
+	overworld_sprite MewSprite, 12              ; SPRITE_MEW
+	overworld_sprite KabutoSprite, 12
+	overworld_sprite PoliwrathSprite, 12
+	overworld_sprite MeowthSprite, 12
+	overworld_sprite NidoranfSprite, 12
+	overworld_sprite DoduoSprite, 12
+	overworld_sprite KangaskhanSprite, 12
+	overworld_sprite SlowpokeSprite, 12
+	overworld_sprite LaprasSprite, 12
+	overworld_sprite CuboneSprite, 12
+	overworld_sprite PsyduckSprite, 12
+	overworld_sprite NidorinoSprite, 12
+	overworld_sprite NidoranmSprite, 12
+	overworld_sprite MachokeSprite, 12
+	overworld_sprite MachopSprite, 12
+	overworld_sprite FearowSprite, 12
+	overworld_sprite PidgeotSprite, 12
+	overworld_sprite PidgeySprite, 12
+	overworld_sprite SpearowSprite, 12
+	overworld_sprite Seel2Sprite, 12
+	; still sprites
+	overworld_sprite VoltorbSprite, 4
+	overworld_sprite ElectrodeSprite, 4
+	overworld_sprite WigglytuffSprite, 4
 	overworld_sprite PokeBallSprite, 4          ; SPRITE_POKE_BALL
 	overworld_sprite FossilSprite, 4            ; SPRITE_FOSSIL
 	overworld_sprite BoulderSprite, 4           ; SPRITE_BOULDER
