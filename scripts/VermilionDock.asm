@@ -264,9 +264,16 @@ RedLeftOAMTable:
 
 TruckSpriteGFX: INCBIN  "gfx/sprites/truck_sprite.2bpp"
 
+NoTruckAction:
+	ld hl, wCurrentMapScriptFlags
+	res 7, [hl]
+	ret
+
 TruckCheck:
 	CheckEventHL EVENT_FOUND_MEW
 	jp nz, ChangeTruckTile
+	ld hl, wCurrentMapScriptFlags
+	res 5, [hl]
 	ld c, HS_MEW_VERMILION_DOCK
 	ld b, $2
 	ld hl, wMissableObjectFlags
@@ -280,32 +287,33 @@ TruckCheck:
 .skiphidingmew
 	ld a, [wd728]
 	bit 0, a ; using Strength?
-	ret z
-	; the position for moving truck is $00, $15
+	jr z, NoTruckAction
+	; the position for moving the truck is 22,0
 	ld hl, wYCoord
 	ld a, [hli]
 	and a
-	ret nz
+	jr nz, NoTruckAction
 	ld a, [hl]
-	cp $16
-	ret nz
+	cp 22
+	jr nz, NoTruckAction
 	; if the player is trying to walk left
-	ld a, [wPlayerDirection]
-	cp 2
-	ret nz
-	
-	xor a
-	ldh [$ff8c], a
-	ld a, $8
-	ldh [$ff8d], a
-	call SetSpriteFacingDirection
+	ld a, [wPlayerMovingDirection]
+	bit PLAYER_DIR_BIT_LEFT, a
+	jr z, NoTruckAction
+	ld hl, wCurrentMapScriptFlags
+	bit 7, [hl]
+	set 7, [hl] ; wait until the next time the player presses left
+	ret z
+	ldh a, [hJoyHeld]
+	bit BIT_D_LEFT, a ; is player pressing left
+	ret z
+	res 7, [hl]
 	ld a, $ff
 	ld [wJoyIgnore], a
 	ld [wUpdateSpritesEnabled], a
+	; make it look like the player bumped into the truck
+	call VermilionDockRedLeftAnimate
 	xor a
-	ld bc, $4c48
-	ld de, RedLeftOAMTable
-	call WriteOAMBlock
 	ld bc, (Bank(TruckSpriteGFX) << 8) | 8
 	ld hl, vChars1 + $400
 	ld de, TruckSpriteGFX
@@ -341,8 +349,12 @@ TruckCheck:
 	predef ReplaceTileBlock
 	callfar AnimateBoulderDust
 	call ShowMew
-	jp FinishShowMew
-	; show mew and print its dialogue
+	ld c, 20
+	call DelayFrames
+	xor a
+	ld [wJoyIgnore], a
+	SetEvent EVENT_FOUND_MEW
+	ret
 ShowMew:	
 	ld a, 1
 	ld [wUpdateSpritesEnabled], a
@@ -350,15 +362,13 @@ ShowMew:
 	ld [wMissableObjectIndex], a
 	predef ShowObject
 	ret
-FinishShowMew:
-	ld c, 60
-	call DelayFrames
-	xor a
-	ld [wJoyIgnore], a
-	SetEvent EVENT_FOUND_MEW
-	ret
 
 ChangeTruckTile:
+	ld hl, wCurrentMapScriptFlags
+	bit 5, [hl]
+	res 5, [hl]
+	res 7, [hl]
+	ret z
 	ld bc, $9
 	call GetOWCoord
 	ld a, [hl]
@@ -391,3 +401,27 @@ GetOWCoord:
 	dec c
 	jr nz, .cloop
 	ret
+
+VermilionDockRedLeftAnimate:
+	ld a, [wWalkBikeSurfState]
+	ld de, RedSprite tile 20
+	lb bc, BANK(RedSprite), 4
+	and a
+	jr z, .load
+	ld de, RedBikeSprite tile 20
+	lb bc, BANK(RedBikeSprite), 4
+.load
+	ld hl, vSprites tile 8
+	call CopyVideoData
+	ld c, 10
+	call DelayFrames
+	ld a, [wWalkBikeSurfState]
+	ld de, RedSprite tile 8
+	lb bc, BANK(RedSprite), 4
+	and a
+	jr z, .load2
+	ld de, RedBikeSprite tile 8
+	lb bc, BANK(RedBikeSprite), 4
+.load2
+	ld hl, vSprites tile 8
+	jp CopyVideoData
