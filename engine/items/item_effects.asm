@@ -2675,7 +2675,7 @@ DontHavePokemonText:
 ;add a reminder that the box is full
 BoxFullReminderTXT:
 	text_far _BoxIsFullReminderText
-	db "@"
+	text_end
 
 ItemUseText00:
 	text_far _ItemUseText001
