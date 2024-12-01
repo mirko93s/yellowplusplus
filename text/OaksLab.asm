@@ -86,7 +86,9 @@ _OaksLabAroundWorldText::
 	done
 
 _OaksLabGivePokeballsText1::
-	text "OAK: You can't get"
+	text "I almost forgot!"
+
+	para "You can't get"
 	line "detailed data on"
 	cont "#MON by just"
 	cont "seeing them."
@@ -102,14 +104,14 @@ _OaksLabGivePokeballsText1::
 
 _OaksLabGivePokeballsText2::
 	text_start
-	para "When a wild"
+	para "OAK: When a wild"
 	line "#MON appears,"
 	cont "it's fair game."
 
 	para "Just like I showed"
 	line "you, throw a #"
-	cont "BALL at it and try"
-	cont "to catch it!"
+	cont "BALL at it and"
+	cont "try to catch it!"
 
 	para "This won't always"
 	line "work, though."

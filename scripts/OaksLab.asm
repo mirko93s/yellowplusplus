@@ -571,13 +571,20 @@ OaksLabScript20:
 	ld a, $18
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
+	; give 5 pokeballs with the pokedex. too lazy to get back after the rival battle in viridian city
+	CheckAndSetEvent EVENT_GOT_POKEBALLS_FROM_OAK
+	lb bc, POKE_BALL, 5
+	call GiveItem
+	ld a, 28 ; give 5 pokeballs text pointer
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
 	ld a, $1
 	ldh [hSpriteIndex], a
 	ld a, SPRITE_FACING_RIGHT
 	ldh [hSpriteFacingDirection], a
 	call SetSpriteFacingDirectionAndDelay
 	call Delay3
-	ld a, $19
+	ld a, $19 ; rival leave it all to me dialog, then it goes away
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	SetEvent EVENT_GOT_POKEDEX
@@ -728,6 +735,7 @@ OaksLab_TextPointers:
 	dw OaksLabText25
 	dw OaksLabText26
 	dw OaksLabText27
+	dw OaksLabGivePokeballsText
 
 OaksLab_TextPointers2:
 	dw OaksLabText1
@@ -813,19 +821,14 @@ OaksLabText3:
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	predef DisplayDexRating
-	jp .asm_1ca6f
+	jp .done
 .asm_1c9ec
-	ld b, POKE_BALL
-	call IsItemInBag
-	jr nz, .asm_1ca69
 	ld hl, wPokedexOwned
 	ld b, wPokedexOwnedEnd - wPokedexOwned
 	call CountSetBits
 	ld a, [wNumSetBits]
 	cp 2
 	jr nc, .asm_1ca69
-	CheckEvent EVENT_BEAT_ROUTE22_RIVAL_1ST_BATTLE
-	jr nz, .asm_1ca52
 	CheckEvent EVENT_GOT_POKEDEX
 	jr nz, .asm_1ca4a
 	CheckEventReuseA EVENT_BATTLED_RIVAL_IN_OAKS_LAB
@@ -835,41 +838,33 @@ OaksLabText3:
 	jr nz, .asm_1ca23
 	ld hl, OaksLabText_1ca72
 	call PrintText
-	jr .asm_1ca6f
+	jr .done
 .asm_1ca23
 	ld hl, OaksLabText_1ca77
 	call PrintText
-	jr .asm_1ca6f
+	jr .done
 .asm_1ca2b
 	ld b, OAKS_PARCEL
 	call IsItemInBag
 	jr nz, .asm_1ca3a
 	ld hl, OaksLabText_1ca7c
 	call PrintText
-	jr .asm_1ca6f
+	jr .done
 .asm_1ca3a
 	ld hl, OaksLabDeliverParcelText
 	call PrintText
 	call OaksLabScript_RemoveParcel
 	ld a, $13
 	ld [wOaksLabCurScript], a
-	jr .asm_1ca6f
+	jr .done
 .asm_1ca4a
 	ld hl, OaksLabAroundWorldText
 	call PrintText
-	jr .asm_1ca6f
-.asm_1ca52
-	CheckAndSetEvent EVENT_GOT_POKEBALLS_FROM_OAK
-	jr nz, .asm_1ca69
-	lb bc, POKE_BALL, 5
-	call GiveItem
-	ld hl, OaksLabGivePokeballsText
-	call PrintText
-	jr .asm_1ca6f
+	jr .done
 .asm_1ca69
 	ld hl, OaksLabPleaseVisitText
 	call PrintText
-.asm_1ca6f
+.done
 	jp TextScriptEnd
 
 OaksLabText_1ca72:
