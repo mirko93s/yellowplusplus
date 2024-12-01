@@ -110,6 +110,8 @@ SpriteSheetPointerTable:
 	overworld_sprite BoulderSprite, 4           ; SPRITE_BOULDER
 	overworld_sprite PaperSprite, 4             ; SPRITE_PAPER
 	overworld_sprite PokedexSprite, 4           ; SPRITE_POKEDEX
+	overworld_sprite MapSprite, 4               ; SPRITE_MAP
+	overworld_sprite BookSprite, 4              ; SPRITE_BOOK
 	overworld_sprite ClipboardSprite, 4         ; SPRITE_CLIPBOARD
 	overworld_sprite SnorlaxSprite, 4           ; SPRITE_SNORLAX
 	overworld_sprite BlaineSprite, 12           ; SPRITE_BLAINE

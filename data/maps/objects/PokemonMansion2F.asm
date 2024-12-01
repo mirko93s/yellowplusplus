@@ -12,7 +12,7 @@ PokemonMansion2F_Object:
 	def_object_events
 	object_event  3, 17, SPRITE_SUPER_NERD, WALK, LEFT_RIGHT, 1, OPP_BURGLAR, 4
 	object_event 28,  7, SPRITE_POKE_BALL, STAY, NONE, 2, CALCIUM
-	object_event 18,  2, SPRITE_POKEDEX, STAY, NONE, 3 ; person
-	object_event  3, 22, SPRITE_POKEDEX, STAY, NONE, 4 ; person
+	object_event 18,  2, SPRITE_BOOK, STAY, NONE, 3 ; person
+	object_event  3, 22, SPRITE_BOOK, STAY, NONE, 4 ; person
 
 	def_warps_to POKEMON_MANSION_2F

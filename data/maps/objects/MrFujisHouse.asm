@@ -13,6 +13,6 @@ MrFujisHouse_Object:
 	object_event  6,  4, SPRITE_PSYDUCK, STAY, UP, 3 ; person
 	object_event  1,  3, SPRITE_NIDORINO, STAY, NONE, 4 ; person
 	object_event  3,  1, SPRITE_MR_FUJI, STAY, NONE, 5 ; person
-	object_event  3,  3, SPRITE_POKEDEX, STAY, NONE, 6 ; person
+	object_event  3,  3, SPRITE_BOOK, STAY, NONE, 6 ; person ; monthly grand prize ticket
 
 	def_warps_to MR_FUJIS_HOUSE
