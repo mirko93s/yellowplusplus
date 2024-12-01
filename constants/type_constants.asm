@@ -26,6 +26,6 @@ DEF UNUSED_TYPES_END EQU const_value
 DEF NUM_TYPES EQU const_value
 
 ; These are for the Physical Special split
-PHYSICAL EQU $00
-SPECIAL  EQU $01
-OTHER_M  EQU $02
+DEF PHYSICAL EQU $00
+DEF SPECIAL  EQU $01
+DEF OTHER_M  EQU $02
