@@ -4986,77 +4986,76 @@ JumpToOHKOMoveEffect:
 INCLUDE "data/battle/unused_critical_hit_moves.asm"
 
 ; determines if attack is a critical hit
-; Azure Heights claims "the fastest pokémon (who are, not coincidentally,
-; among the most popular) tend to CH about 20 to 25% of the time."
+; updated to use gen 7 critical mechanics with stages
+; stage 0 = 1/24 ~4.17%
+; stage 1 = 1/8 12.5%
+; stage 2 = 1/2 50%
+; stage 3+ = 100% (we don't have more than 3 stages anyway in gen1)
+; since high crit moves add +2 and focus energy adds +1
 CriticalHitTest:
-	xor a
+	xor a                               ; set critical flag to 0
+    ld b, a                             ; set critical stage to 0
 	ld [wCriticalHitOrOHKO], a
-	ldh a, [hWhoseTurn]
+	ldh a, [hWhoseTurn]                 ; check whose turn is this, player or enemy
 	and a
-	ld a, [wEnemyMonSpecies]
-	jr nz, .handleEnemy
 	ld a, [wBattleMonSpecies]
-.handleEnemy
-	ld [wd0b5], a
-	call GetMonHeader
-	ld a, [wMonHBaseSpeed]
-	ld b, a
-	; srl b                        ; (effective (base speed/2))
-	ldh a, [hWhoseTurn]
-	and a
-	ld hl, wPlayerMovePower
+    ld hl, wPlayerMovePower
 	ld de, wPlayerBattleStatus2
-	jr z, .calcCriticalHitProbability
-	ld hl, wEnemyMovePower
+	jr z, .checkIfDamageMove            ; if player's turn jump
+	ld a, [wEnemyMonSpecies]
+    ld hl, wEnemyMovePower
 	ld de, wEnemyBattleStatus2
-.calcCriticalHitProbability
-	ld a, [hld]                  ; read base power from RAM
+.checkIfDamageMove
+	ld a, [hld]                         ; read base power from RAM
 	and a
-	ret z                        ; do nothing if zero
+	ret z                               ; do nothing if zero (status moves)
 	dec hl
-	ld c, [hl]                   ; read move id
-	ld hl, HighCriticalMoves     ; table of high critical hit moves
-.Loop
-	ld a, [hli]                  ; read move from move table
-	cp c                         ; does it match the move about to be used?
-	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
-	inc a                        ; move on to the next move, FF terminates loop
-	jr nz, .Loop                 ; check the next move in HighCriticalMoves
-	srl b                        ; /2 for regular move
-	jr .SkipHighCritical         ; continue as a normal move
-.HighCritical
-	sla b                        ; *2 for high critical hit moves
-	jr nc, .noCarry
-	ld b, $ff                    ; cap at 255/256
-.noCarry
-	sla b                        ; *4 for high critical move
-	jr nc, .SkipHighCritical
-	ld b, $ff
-.SkipHighCritical
+	ld c, [hl]                          ; read move id
+	ld hl, HighCriticalMoves            ; table of high critical hit moves
+.checkIfHighCritMoveLoop
+	ld a, [hli]                         ; read move from move table
+	cp c                                ; does it match the move about to be used?
+	jr z, .highCriticalMove             ; if so, the move about to be used is a high critical hit ratio move
+	inc a                               ; move on to the next move, FF terminates loop
+	jr nz, .checkIfHighCritMoveLoop     ; check the next move in HighCriticalMoves
+	jr .checkForFocusEnergy             ; continue as a normal move
+.highCriticalMove
+	inc b                               ; +2 stages for high crit moves
+	inc b
+.checkForFocusEnergy
 	ld a, [de]
-	bit GETTING_PUMPED, a        ; test for focus energy
+	bit GETTING_PUMPED, a               ; test for focus energy
 	jr z, .noFocusEnergyUsed
-	sla b                        ; (effective (base speed*2))
-	jr nc, .focusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
-	jr .noFocusEnergyUsed
-.focusEnergyUsed
-	sla b                        ; (effective ((base speed*2)*2))
-	jr nc, .noFocusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
+	inc b                               ; focus energy +1 stage
 .noFocusEnergyUsed
 	ld a, b
-	inc a ; optimization of "cp $ff"
-	jr z, .guaranteedCriticalHit
-	call BattleRandom            ; generates a random value, in "a"
-	rlc a
-	rlc a
-	rlc a
-	cp b                         ; check a against calculated crit rate
-	ret nc                       ; no critical hit if no borrow
-.guaranteedCriticalHit
+	cp 3                                ; stage 3+ 100% chance
+	jr z, .criticalHit
+	cp 2 
+	ld b, 128                           ; stage 2 1/2 chance 50%
+	jr z, .rng
+	cp 1
+	ld b, 32                            ; stage 1 1/8 chance 12.5%
+	jr z, .rng
+	ld b, 11                            ; stage 0 1/24 chance ~4.17%
+.rng
+	call BattleRandom                   ; generates a random value, in "a"
+	cp b                                ; check a against calculated crit rate
+	ret nc                              ; no critical hit if no borrow
+; code below is a special case for stage 0 and a == 10
+; in this case only about 2/3 of the 10s are critical hits
+; doing this we get exactly 1/24 chance for stage 0
+; which is exactly how it works in gen7+
+    cp 11                               ; check if this is stage 0
+    jr nz, .criticalHit                 ; if not stage 0 skip and apply crit
+    cp 10                               ; check if rng is 10
+    jr nz, .criticalHit                 ; if rng is not 10 we skip all the code below and apply crit
+    call BattleRandom                   ; generates a random value, in "a"
+    cp 170                              ; check against 170 ~2/3 chance
+    ret nc                              ; no critical hit if borrow
+.criticalHit
 	ld a, $1
-	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
+	ld [wCriticalHitOrOHKO], a          ; set critical hit flag
 	ret
 
 INCLUDE "data/battle/critical_hit_moves.asm"
