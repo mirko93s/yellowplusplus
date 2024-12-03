@@ -32,7 +32,7 @@ MapSpriteSets:
 	db SPLITSET_ROUTE_16         ; ROUTE_16
 	db SPRITESET_CYCLING_ROAD    ; ROUTE_17
 	db SPLITSET_ROUTE_18         ; ROUTE_18
-	db SPRITESET_FUCHSIA         ; ROUTE_19
+	db SPRITESET_INDIGO         ; ROUTE_19 ; route 19 has only cooltrainer_m and swimmer, both indigo and pallet are good
 	db SPLITSET_ROUTE_20         ; ROUTE_20
 	db SPRITESET_PALLET_VIRIDIAN ; ROUTE_21
 	db SPRITESET_PALLET_VIRIDIAN ; ROUTE_22
@@ -88,8 +88,8 @@ SpriteSets:
 	db SPRITE_OFFICER_JENNY
 	db SPRITE_COOLTRAINER_F
 	db SPRITE_COOLTRAINER_M
+	db SPRITE_POKE_BALL
 	db SPRITE_ELECTRODE
-	db SPRITE_UNUSED_GAMBLER_ASLEEP_2
 
 ; SPRITESET_LAVENDER
 	db SPRITE_PIKACHU
@@ -184,7 +184,7 @@ SpriteSets:
 
 ; SPRITESET_FUCHSIA
 	db SPRITE_PIKACHU
-	db SPRITE_COOLTRAINER_M
+	db SPRITE_COOLTRAINER_M ; unused in fuchsia, we can use this to alternate which fossil to show, see below
 	db SPRITE_CHANSEY
 	db SPRITE_FISHER
 	db SPRITE_GAMBLER
