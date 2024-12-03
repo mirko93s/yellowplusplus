@@ -4994,16 +4994,16 @@ INCLUDE "data/battle/unused_critical_hit_moves.asm"
 ; since high crit moves add +2 and focus energy adds +1
 CriticalHitTest:
 	xor a                               ; set critical flag to 0
-    ld b, a                             ; set critical stage to 0
+	ld b, a                             ; set critical stage to 0
 	ld [wCriticalHitOrOHKO], a
 	ldh a, [hWhoseTurn]                 ; check whose turn is this, player or enemy
 	and a
 	ld a, [wBattleMonSpecies]
-    ld hl, wPlayerMovePower
+	ld hl, wPlayerMovePower
 	ld de, wPlayerBattleStatus2
 	jr z, .checkIfDamageMove            ; if player's turn jump
 	ld a, [wEnemyMonSpecies]
-    ld hl, wEnemyMovePower
+	ld hl, wEnemyMovePower
 	ld de, wEnemyBattleStatus2
 .checkIfDamageMove
 	ld a, [hld]                         ; read base power from RAM
@@ -5046,13 +5046,13 @@ CriticalHitTest:
 ; in this case only about 2/3 of the 10s are critical hits
 ; doing this we get exactly 1/24 chance for stage 0
 ; which is exactly how it works in gen7+
-    cp 11                               ; check if this is stage 0
-    jr nz, .criticalHit                 ; if not stage 0 skip and apply crit
-    cp 10                               ; check if rng is 10
-    jr nz, .criticalHit                 ; if rng is not 10 we skip all the code below and apply crit
-    call BattleRandom                   ; generates a random value, in "a"
-    cp 170                              ; check against 170 ~2/3 chance
-    ret nc                              ; no critical hit if borrow
+	cp 11                               ; check if this is stage 0
+	jr nz, .criticalHit                 ; if not stage 0 skip and apply crit
+	cp 10                               ; check if rng is 10
+	jr nz, .criticalHit                 ; if rng is not 10 we skip all the code below and apply crit
+	call BattleRandom                   ; generates a random value, in "a"
+	cp 170                              ; check against 170 ~2/3 chance
+	ret nc                              ; no critical hit if borrow
 .criticalHit
 	ld a, $1
 	ld [wCriticalHitOrOHKO], a          ; set critical hit flag
