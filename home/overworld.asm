@@ -552,6 +552,8 @@ CheckMapConnections::
 	cp $ff
 	jr nz, .checkEastMap
 	ld a, [wWestConnectedMap]
+	cp $ff ; is the west connection set to $FF?
+	jr z, .checkEastMap ; if so, branch
 	ld [wCurMap], a
 	ld a, [wWestConnectedMapXAlignment] ; new X coordinate upon entering west map
 	ld [wXCoord], a
@@ -589,6 +591,8 @@ CheckMapConnections::
 	cp b
 	jr nz, .checkNorthMap
 	ld a, [wEastConnectedMap]
+	cp $ff ; is the east connection set to $FF?
+	jr z, .checkNorthMap ; if so, branch
 	ld [wCurMap], a
 	ld a, [wEastConnectedMapXAlignment] ; new X coordinate upon entering east map
 	ld [wXCoord], a
@@ -625,6 +629,8 @@ CheckMapConnections::
 	cp $ff
 	jr nz, .checkSouthMap
 	ld a, [wNorthConnectedMap]
+	cp $ff ; is the north connection set to $FF?
+	jr z, .checkSouthMap ; if so, branch
 	ld [wCurMap], a
 	ld a, [wNorthConnectedMapYAlignment] ; new Y coordinate upon entering north map
 	ld [wYCoord], a
@@ -653,6 +659,8 @@ CheckMapConnections::
 	cp b
 	jr nz, .didNotEnterConnectedMap
 	ld a, [wSouthConnectedMap]
+	cp $ff ; is the south connection set to $FF?
+	jr z, .didNotEnterConnectedMap ; if so, it's not worth crashing the game, so branch
 	ld [wCurMap], a
 	ld a, [wSouthConnectedMapYAlignment] ; new Y coordinate upon entering south map
 	ld [wYCoord], a
