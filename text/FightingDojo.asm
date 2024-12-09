@@ -112,17 +112,17 @@ _FightingDojoAfterBattleText4::
 	cont "train here."
 	done
 
-; _WantHitmonleeText::
-; 	text "You want the"
-; 	line "hard-kicking"
-; 	cont "HITMONLEE?"
-; 	done
+_WantHitmonleeText::
+	text "You want the"
+	line "hard-kicking"
+	cont "HITMONLEE?"
+	done
 
-; _WantHitmonchanText::
-; 	text "You want the"
-; 	line "piston-punching"
-; 	cont "HITMONCHAN?"
-; 	done
+_WantHitmonchanText::
+	text "You want the"
+	line "piston-punching"
+	cont "HITMONCHAN?"
+	done
 
 ; _OtherHitmonText::
 ; 	text "Better not get"

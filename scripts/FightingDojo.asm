@@ -233,12 +233,12 @@ FightingDojoText6:
 ; .GetMon
 	ld a, HITMONLEE
 	call DisplayPokedex
-	; ld hl, WantHitmonleeText
-	; call PrintText
-	; call YesNoChoice
-	; ld a, [wCurrentMenuItem]
-	; and a
-	; jr nz, .done
+	ld hl, WantHitmonleeText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .done
 	ld a, [wcf91]
 	ld b, a
 	ld c, 35
@@ -253,9 +253,9 @@ FightingDojoText6:
 .done
 	jp TextScriptEnd
 
-; WantHitmonleeText:
-; 	text_far _WantHitmonleeText
-; 	text_end
+WantHitmonleeText:
+	text_far _WantHitmonleeText
+	text_end
 
 FightingDojoText7:
 ; Hitmonchan Poké Ball
@@ -268,12 +268,12 @@ FightingDojoText7:
 ; .GetMon
 	ld a, HITMONCHAN
 	call DisplayPokedex
-	; ld hl, WantHitmonchanText
-	; call PrintText
-	; call YesNoChoice
-	; ld a, [wCurrentMenuItem]
-	; and a
-	; jr nz, .done
+	ld hl, WantHitmonchanText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .done
 	ld a, [wcf91]
 	ld b, a
 	ld c, 35
@@ -288,9 +288,9 @@ FightingDojoText7:
 .done
 	jp TextScriptEnd
 
-; WantHitmonchanText:
-; 	text_far _WantHitmonchanText
-; 	text_end
+WantHitmonchanText:
+	text_far _WantHitmonchanText
+	text_end
 
 ; OtherHitmonText:
 ; 	text_far _OtherHitmonText
