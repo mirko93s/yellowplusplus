@@ -2421,7 +2421,7 @@ BagWasSelected:
 
 	ld a, [wExtraFlags] ; jump if we are in normal mode
 	bit 2, a
-	jr nz, .normalMode
+	jr z, .normalMode
 
 	ld hl, ItemsCantBeUsedInHardModeText ; items can't be used during trainer battles in hard mode
 	call PrintText
