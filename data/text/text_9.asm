@@ -209,6 +209,16 @@ _ItemUseNoEffectText::
 	line "effect."
 	prompt
 
+_NoRevivesNuzlockeEffectText::
+	text "You can't revive"
+	line "in nuzlocke mode."
+	prompt
+
+_AlreadyEncounteredNuzlockeText::
+	text "You already got"
+	line "a #MON here."
+	prompt
+
 _ThrowBallAtTrainerMonText1::
 	text "The trainer"
 	line "blocked the BALL!"

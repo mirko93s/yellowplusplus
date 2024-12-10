@@ -15,6 +15,12 @@ CeladonMansion5Text2:
 	lb bc, EEVEE, 30
 	call GivePokemon
 	jr nc, .party_full
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld hl, wNuzlockeRegions
+	set CELADON_CITY, [hl]
+.normalMode
 	ld a, HS_CELADON_MANSION_EEVEE_GIFT
 	ld [wMissableObjectIndex], a
 	predef HideObject

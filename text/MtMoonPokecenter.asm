@@ -46,3 +46,11 @@ _MagikarpSalesmanText2::
 	text "MAN: Well, I don't"
 	line "give refunds!"
 	done
+
+_MagikarpSalesmanNoPokemon::
+	text "What do I look"
+	line "like? A MAGIKARP"
+	cont "salesman?"
+
+	para "Get outa' here!"
+	done

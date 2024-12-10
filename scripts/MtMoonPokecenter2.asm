@@ -1,6 +1,16 @@
 MagikarpSalesman::
 	CheckEvent EVENT_BOUGHT_MAGIKARP, 1
 	jp c, .alreadyBoughtMagikarp
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .skip1
+	; Since our current position is not in one of the regions defined 
+	; in checkNuzlockeStatus, we manually check the status.
+	ld hl, wNuzlockeRegions
+	inc hl
+	bit ROUTE_3_NUZ, [hl] 
+	jp nz, .noPokemon
+.skip1
 	ld hl, .Text1
 	call PrintText
 	ld a, MONEY_BOX
@@ -26,6 +36,14 @@ MagikarpSalesman::
 	set 1, [hl]
 	pop hl
 	lb bc, MAGIKARP, 15
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .skip2
+	; Hard set Route 3 when purchasing Pokemon.
+	ld hl, wNuzlockeRegions
+	inc hl
+	set ROUTE_3_NUZ, [hl]   
+.skip2
 	call GivePokemon
 	jr nc, .done
 	; $000500
@@ -45,6 +63,9 @@ MagikarpSalesman::
 	jr .done
 .choseNo
 	ld hl, .RefuseText
+	jr .printText
+.noPokemon
+	ld hl, .noPokemonText
 	jr .printText
 .alreadyBoughtMagikarp
 	ld hl, .Text2
@@ -67,4 +88,8 @@ MagikarpSalesman::
 
 .Text2
 	text_far _MagikarpSalesmanText2
+	text_end
+
+.noPokemonText
+	text_far _MagikarpSalesmanNoPokemon
 	text_end

@@ -244,7 +244,17 @@ FightingDojoText6:
 	ld c, 35
 	call GivePokemon
 	jr nc, .done
-
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld hl, wNuzlockeRegions
+	inc hl
+	set SAFFRON_CITY_NUZ, [hl]
+	; if nuzlocke hide the other pokemon
+	ld a, HS_FIGHTING_DOJO_GIFT_2
+	ld [wMissableObjectIndex], a
+	predef HideObject
+.normalMode
 	; once Poké Ball is taken, hide sprite
 	ld a, HS_FIGHTING_DOJO_GIFT_1
 	ld [wMissableObjectIndex], a
@@ -279,12 +289,22 @@ FightingDojoText7:
 	ld c, 35
 	call GivePokemon
 	jr nc, .done
-	SetEvents EVENT_GOT_HITMONCHAN, EVENT_DEFEATED_FIGHTING_DOJO
-
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld hl, wNuzlockeRegions
+	inc hl
+	set SAFFRON_CITY_NUZ, [hl]
+	; if nuzlocke hide the other pokemon
+	ld a, HS_FIGHTING_DOJO_GIFT_1
+	ld [wMissableObjectIndex], a
+	predef HideObject
+.normalMode
 	; once Poké Ball is taken, hide sprite
 	ld a, HS_FIGHTING_DOJO_GIFT_2
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	SetEvents EVENT_GOT_HITMONCHAN, EVENT_DEFEATED_FIGHTING_DOJO
 .done
 	jp TextScriptEnd
 

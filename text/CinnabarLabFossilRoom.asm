@@ -76,3 +76,10 @@ _Lab4Text_610bd::
 	text "Aiyah! You come"
 	line "again!"
 	done
+
+_NuzlockeCinnabarLabText::
+	text "Sorry, the"
+	line "Resurrection"
+	cont "machine is out of"
+	cont "order."
+	done

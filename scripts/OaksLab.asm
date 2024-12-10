@@ -612,6 +612,13 @@ OaksLabScript20:
 	call MoveSprite
 	ld a, $15
 	ld [wOaksLabCurScript], a
+	; reset routes 1 and 2 nuzlocke bits in case we encountered pokemons, since nuzlocke start only when we first get pokeballs
+	ld hl, wNuzlockeRegions
+	inc hl ; increment to byte 2 for route1
+	res ROUTE_1_NUZ, [hl] ; Reset Route 1 Nuzlocke flag
+	inc hl ; increment to byte 4 for route22
+	inc hl
+	res ROUTE_22_NUZ, [hl] ; Reset Route 2 Nuzlocke flag
 	ret
 
 OaksLabScript21:

@@ -111,3 +111,61 @@ DEF LEVEL_CAP_GYM_6 EQU 61
 DEF LEVEL_CAP_GYM_7 EQU 66
 DEF LEVEL_CAP_GYM_8 EQU 70
 DEF LEVEL_CAP_CHAMPION EQU 85
+
+; wNuzlockeRegions
+	const_def ; First byte 
+	const RESET_ROUTES_NUZ    ; 0 ; unused
+	const PALLET_TOWN_NUZ     ; 1
+	const VIRIDIAN_CITY_NUZ   ; 2
+	const CERULEAN_CITY_NUZ   ; 3
+	const VERMILION_CITY_NUZ  ; 4
+	const CELADON_CITY_NUZ    ; 5
+	const FUCHSIA_CITY_NUZ    ; 6
+	const CINNABAR_ISLAND_NUZ ; 7
+	
+	const_def ; Second byte
+	const SAFFRON_CITY_NUZ    ; 0
+	const ROUTE_1_NUZ         ; 1
+	const ROUTE_2_NUZ         ; 2
+	const ROUTE_3_NUZ         ; 3
+	const ROUTE_4_NUZ         ; 4
+	const ROUTE_5_NUZ         ; 5
+	const ROUTE_6_NUZ         ; 6
+	const ROUTE_7_NUZ         ; 7
+		
+	const_def ; Third byte
+	const ROUTE_8_NUZ         ; 0
+	const ROUTE_9_NUZ         ; 1
+	const ROUTE_10_NUZ        ; 2
+	const ROUTE_11_NUZ        ; 3
+	const ROUTE_12_NUZ        ; 4
+	const ROUTE_13_NUZ        ; 5
+	const ROUTE_14_NUZ        ; 6
+	const ROUTE_15_NUZ        ; 7
+	
+	const_def ; Fourth byte
+	const ROUTE_16_NUZ        ; 0
+	const ROUTE_17_NUZ        ; 1
+	const ROUTE_18_NUZ        ; 2
+	const ROUTE_19_NUZ        ; 3
+	const ROUTE_20_NUZ        ; 4
+	const ROUTE_21_NUZ        ; 5
+	const ROUTE_22_NUZ        ; 6
+	const ROUTE_23_NUZ        ; 7
+		
+	const_def ; Fifth byte
+	const ROUTE_24_NUZ        ; 0
+	const ROUTE_25_NUZ        ; 1
+	const VIRIDIAN_FOREST_NUZ ; 2
+	const MT_MOON_NUZ         ; 3
+	const ROCK_TUNNEL_NUZ     ; 4
+	const POWER_PLANT_NUZ     ; 5
+	const VICTORY_ROAD_NUZ    ; 6
+	const POKEMON_TOWER_NUZ   ; 7
+
+	const_def ; Sixth byte
+	const SEAFOAM_ISLANDS_NUZ ; 0
+	const DIGLETTS_CAVE_NUZ   ; 1
+	const POKEMON_MANSION_NUZ ; 2
+	const SAFARI_ZONE_NUZ     ; 3
+	const CERULEAN_CAVE_NUZ   ; 4

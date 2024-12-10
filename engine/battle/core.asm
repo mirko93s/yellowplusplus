@@ -262,6 +262,11 @@ StartBattle:
 ; wild mon or link battle enemy ran from battle
 EnemyRan:
 	call LoadScreenTilesFromBuffer1
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar setNuzlockeFlag
+.noNuzlocke
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ld hl, WildRanText
@@ -800,6 +805,11 @@ FaintEnemyPokemon:
 	jr .sfxplayed
 .wild_win
 	call EndLowHealthAlarm
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar setNuzlockeFlag
+.noNuzlocke
 	pop af
 	push af
 	ld a, MUSIC_DEFEATED_WILD_MON
@@ -1654,6 +1664,11 @@ TryRunningFromBattle:
 	and a ; reset carry
 	ret
 .canEscape
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar setNuzlockeFlag
+.noNuzlocke
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ld a, $2

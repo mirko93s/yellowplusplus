@@ -48,6 +48,13 @@ FossilsList:
 
 Lab4Text1:
 	text_asm
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld hl, wNuzlockeRegions
+	bit CINNABAR_ISLAND_NUZ, [hl]
+	jr nz, .nuzlockeCinnabarText
+.normalMode
 	CheckEvent EVENT_GAVE_FOSSIL_TO_LAB
 	jr nz, .asm_75d96
 	ld hl, Lab4Text_75dc6
@@ -57,18 +64,18 @@ Lab4Text1:
 	and a
 	jr z, .asm_75d8d
 	farcall GiveFossilToCinnabarLab
-	jr .asm_75d93
+	jr .done
 .asm_75d8d
 	ld hl, Lab4Text_75dcb
 	call PrintText
-.asm_75d93
+.done
 	jp TextScriptEnd
 .asm_75d96
 	CheckEventAfterBranchReuseA EVENT_LAB_STILL_REVIVING_FOSSIL, EVENT_GAVE_FOSSIL_TO_LAB
 	jr z, .asm_75da2
 	ld hl, Lab4Text_75dd0
 	call PrintText
-	jr .asm_75d93
+	jr .done
 .asm_75da2
 	call LoadFossilItemAndMonNameBank1D
 	ld hl, Lab4Text_75dd5
@@ -78,9 +85,23 @@ Lab4Text1:
 	ld b, a
 	ld c, 30
 	call GivePokemon
-	jr nc, .asm_75d93
+	jr nc, .done
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode2
+	ld hl, wNuzlockeRegions
+	set CINNABAR_ISLAND_NUZ, [hl]
+.normalMode2
 	ResetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL, EVENT_LAB_HANDING_OVER_FOSSIL_MON
-	jr .asm_75d93
+	jr .done
+.nuzlockeCinnabarText
+	ld hl, NuzlockeCinnabarLabText
+	call PrintText
+	jr .done
+
+NuzlockeCinnabarLabText:
+	text_far _NuzlockeCinnabarLabText
+	text_end
 
 Lab4Text_75dc6:
 	text_far _Lab4Text_75dc6

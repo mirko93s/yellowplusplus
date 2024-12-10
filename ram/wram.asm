@@ -2306,7 +2306,9 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
-	ds 8 ; unused
+	ds 2 ; unused
+; keep track of area where we had an encounter in nuzlocke mode
+wNuzlockeRegions:: ds 6
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; index in party of currently battling mon
 wMaxDaycareLevel:: db
@@ -2325,6 +2327,8 @@ wStatusScreenHPDVs::
 ; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
 ; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
 ; Bit 2 is set if the difficulty is set in hard mode
+; Bit 3 is set if the nuzlocke mode is enabled
+; NOTE: nuzlocke and hard mode can be combined into a "nuzlocke-hard" mode
 wExtraFlags:: db
 	
 ; Bit 0 is set if the mon should be shiny

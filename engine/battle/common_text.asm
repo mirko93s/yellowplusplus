@@ -6,7 +6,7 @@ PrintBeginningBattleText:
 	cp POKEMON_TOWER_3F
 	jr c, .notPokemonTower
 	cp POKEMON_TOWER_7F + 1
-	jr c, .pokemonTower
+	jp c, .pokemonTower
 .notPokemonTower
 	; play animation if mon is shiny
 	ld de, wEnemyMonDVs
@@ -57,7 +57,24 @@ PrintBeginningBattleText:
 	pop hl
 .doNotDrawPokeballs
 	call PrintText
-	jr .done
+	ld a, [wExtraFlags]
+	bit 3, a
+	ret z ; if not in nuzlocke mode skip	
+	ld a, [wIsInBattle]
+	dec a 
+	ret nz ; Check if trainer battle or not
+	callfar checkNuzlockeStatus
+	ret nz
+
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_OLD_MAN ; don't say the pokemon is catchable in the old man battle
+	ret z
+	cp BATTLE_TYPE_PIKACHU ; don't say the pokemon is catchable in the pikachu battle
+	ret z
+
+	ld hl, WildMonCatchableText
+	call PrintText	
+	ret
 .pokemonTower
 	ld b, SILPH_SCOPE
 	call IsItemInBag
@@ -102,6 +119,10 @@ PrintBeginningBattleText:
 
 WildMonAppearedText:
 	text_far _WildMonAppearedText
+	text_end
+
+WildMonCatchableText:
+	text_far _WildMonCatchableText
 	text_end
 
 HookedMonAttackedText:

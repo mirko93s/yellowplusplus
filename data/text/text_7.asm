@@ -199,3 +199,25 @@ _CableClubNPCPleaseApplyHereHaveToSaveText::
 	line "the link, we have"
 	cont "to save the game."
 	done
+
+_DeadMon1Text::
+       text "Come on man."	
+       para "Trying to trade"
+       line "a dead #MON?"
+       done
+
+_DeadMon2Text::
+       text "Wow. You don't"
+       line "have any shame!"
+       para "Trading dead"
+       line "#MON!"
+       done
+
+_DeadMon3Text::
+       text "I can't believe"
+       line "you would try to"
+       cont "trade a dead"
+       cont "#MON!"
+       para "You don't deserve"
+       line "those badges!"
+       done

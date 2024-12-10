@@ -246,3 +246,100 @@ INCLUDE "data/player_names_list.asm"
 
 LinkMenuEmptyText:
 	text_end
+
+ChooseGameDifficulty:
+	ld de, DifficultyEntries
+	call DisplayDifficultyTextBox
+	ld a, [wCurrentMenuItem]
+	ld hl, wExtraFlags
+	bit 0, a ; check if any of the hard modes since they will both have the last bit set (%01 for 2nd item, %11 for 4th item)
+	jr z, .checkNuzlocke
+	set 2, [hl] ; set hard mode
+.checkNuzlocke
+	cp 2 ; check if wCurrentMenuItem >= 2 (nuzlocke or hard-nuzlocke)
+	jr c, .done
+	set 3, [hl] ; set nuzlocke mode
+	; set route 1 and 22 to already encountered so we dont see nuzlocke text/icon until we get pokeballs and bits get reset
+	ld hl, wNuzlockeRegions
+	inc hl ; increment to byte 2 for route1
+	set ROUTE_1_NUZ, [hl]
+	inc hl ; increment to byte 4 for route22
+	inc hl
+	set ROUTE_22_NUZ, [hl]
+	jr .done
+.done
+	ret
+	
+DifficultyEntries:
+	db   "NORMAL"
+	next "HARD"
+	next "NUZLOCKE"
+	next "HARD-NUZLOCKE"
+	db   "@"
+
+DisplayDifficultyTextBox:
+	push de
+	hlcoord 0, 0
+	lb bc, 8, 15
+	call TextBoxBorder
+	hlcoord 3, 0
+	ld de, .namestring
+	call PlaceString
+	pop de
+	hlcoord 2, 2
+	call PlaceString
+	call UpdateSprites
+	xor a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
+	inc a
+	ld [wTopMenuItemX], a
+	ld [wMenuWatchedKeys], a ; A_BUTTON
+	inc a
+	ld [wTopMenuItemY], a
+	inc a
+	ld [wMaxMenuItem], a
+	; write brief explanation
+	hlcoord 0, 10
+	ld de, .hard1
+	call PlaceString
+	hlcoord 0, 11
+	ld de, .hard2
+	call PlaceString
+	hlcoord 0, 12
+	ld de, .hard3
+	call PlaceString
+	hlcoord 0, 13
+	ld de, .hard4
+	call PlaceString
+	hlcoord 0, 14
+	ld de, .nuz1
+	call PlaceString
+	hlcoord 0, 15
+	ld de, .nuz2
+	call PlaceString
+	hlcoord 0, 16
+	ld de, .nuz3
+	call PlaceString
+	hlcoord 0, 17
+	ld de, .nuz4
+	call PlaceString
+	jp HandleMenuInput
+.namestring
+	db "DIFFICULTY@"
+.hard1:
+	db   "◓ HARD@"
+.hard2:
+	db   "-Set mode@"
+.hard3:
+	db   "-No items in battle@"
+.hard4:
+	db   "-Gym level caps@"
+.nuz1:
+	db   "◓ NUZLOCKE@"
+.nuz2:
+	db   "-Can't revive #MON@"
+.nuz3:
+	db   "-Catch 1 <PKMN> per area@"
+.nuz4:
+	db   "-Nickname all <PKMN>@"

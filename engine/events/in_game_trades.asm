@@ -95,6 +95,15 @@ InGameTrade_DoTrade:
 	cp b
 	ld a, $2
 	jr nz, .tradeFailed ; jump if the selected mon's species is not the required one
+	; check for dead mon
+	ld a, [wWhichPokemon]
+	ld hl, wPartyMon1HP
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes ; iterate to the selected mon
+	ld a, [hli]    ; load current HP
+	or a, [hl]     ; check if zero HP
+	ld a, $5       ; load indicator for dead mon dialog
+	jr z, .tradeFailed
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Level
 	ld bc, wPartyMon2 - wPartyMon1
@@ -264,6 +273,7 @@ TradeTextPointers1:
 	dw WrongMon1Text
 	dw Thanks1Text
 	dw AfterTrade1Text
+	dw DeadMon1Text
 
 TradeTextPointers2:
 	dw WannaTrade2Text
@@ -271,6 +281,7 @@ TradeTextPointers2:
 	dw WrongMon2Text
 	dw Thanks2Text
 	dw AfterTrade2Text
+	dw DeadMon2Text
 
 TradeTextPointers3:
 	dw WannaTrade3Text
@@ -278,6 +289,7 @@ TradeTextPointers3:
 	dw WrongMon3Text
 	dw Thanks3Text
 	dw AfterTrade3Text
+	dw DeadMon3Text
 
 ConnectCableText:
 	text_far _ConnectCableText
@@ -347,4 +359,16 @@ Thanks3Text:
 
 AfterTrade3Text:
 	text_far _AfterTrade3Text
+	text_end
+
+DeadMon1Text:
+	text_far _DeadMon1Text
+	text_end
+
+DeadMon2Text:
+	text_far _DeadMon2Text
+	text_end
+
+DeadMon3Text:
+	text_far _DeadMon3Text
 	text_end

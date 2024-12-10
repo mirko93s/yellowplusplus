@@ -41,6 +41,11 @@ CeladonPrizeMenu::
 	res 6, [hl]
 	ret
 
+NuzlockeNoPrizeTextPtr:
+	text_far _NuzlockeNoPrizeText
+	text_waitbutton
+	text_end
+
 RequireCoinCaseTextPtr:
 	text_far _RequireCoinCaseText
 	text_waitbutton
@@ -200,6 +205,15 @@ HandlePrizeChoice:
 	call GetItemName
 	jr .givePrize
 .getMonName
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlockeOrNoPokemonYet
+	ld hl, wNuzlockeRegions
+	bit CELADON_CITY, [hl]
+	jr z, .noNuzlockeOrNoPokemonYet
+	ld hl, NuzlockeNoPrizeTextPtr
+	jp PrintText
+.noNuzlockeOrNoPokemonYet
 	call GetMonName
 .givePrize
 	ld hl, SoYouWantPrizeTextPtr
@@ -241,6 +255,15 @@ HandlePrizeChoice:
 ; If the mon couldn't be given to the player (because both the party and box
 ; were full), return without subtracting coins.
 	ret nc
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .subtractCoins
+	ld hl, wNuzlockeRegions
+	set CELADON_CITY, [hl]
+	; hide eevee
+	ld a, HS_CELADON_MANSION_EEVEE_GIFT
+	ld [wMissableObjectIndex], a
+	predef HideObject
 
 .subtractCoins
 	call LoadCoinsToSubtract

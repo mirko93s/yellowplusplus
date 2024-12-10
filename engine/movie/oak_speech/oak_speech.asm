@@ -94,40 +94,8 @@ OakSpeech:
 	ld hl, MirkoIntroText2
 	call PrintText
 	call ClearScreen
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;;;;;;;;;;;;;;;;;;; hard mode selection screen
-.MenuCursorLoop ; difficulty menu
-	ld hl, DifficultyText
- 	call PrintText
- 	call DifficultyChoice
-	ld a, [wCurrentMenuItem]
-	; ld [wDifficulty], a
-	cp 0 ; normal
-	jr z, .SelectedNormalMode
-	cp 1 ; hard
-	jr z, .SelectedHardMode
-	; space for more game modes down the line
-.SelectedNormalMode
-	ld hl, wExtraFlags
-	res 2, [hl] ; set hard mode bit
-	ld hl, NormalModeText
-	call PrintText
-	jp .YesNoNormalHard
-.SelectedHardMode
-	ld hl, wExtraFlags
-	set 2, [hl] ; set hard mode bit
-	ld hl, HardModeText
-	call PrintText
-.YesNoNormalHard ; Give the player a brief description of each game mode and make sure that's what they want
-  	call YesNoNormalHardChoice
-	ld a, [wCurrentMenuItem]
-	cp 0
-	jr z, .doneLoop
-	jp .MenuCursorLoop ; If player says no, back to difficulty selection
-.doneLoop
-   	call ClearScreen ; clear the screen before resuming normal intro
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+	call ChooseGameDifficulty
+	call ClearScreen	
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
 	call PrintText     ; show this text
 	call BoyGirlChoice ; added routine at the end of this file
@@ -306,18 +274,6 @@ MirkoIntroText:
 MirkoIntroText2:
 	text_far _MirkoIntroText2
     text_end
-NormalModeText:
-	text_far _NormalModeText
-	text_end
-HardModeText:
-	text_far _HardModeText
-	text_end
-DifficultyText:
-	text_far _DifficultyText
-	text_end
-YesNoNormalHardText:
-	text_far _AreYouSureText
-	text_end
 
 FadeInIntroPic:
 	ld hl, IntroFadePalettes
@@ -404,42 +360,3 @@ DisplayBoyGirlChoice::
 	  ld [wTextBoxID], a
 	  call DisplayTextBoxID
 	  jp LoadScreenTilesFromBuffer1
-
-;;;;;;;;;;;;;;;;;;;;;;; displays difficulty choice
-DifficultyChoice::
-	call SaveScreenTilesToBuffer1
-	call InitDifficultyTextBoxParameters
-	jr DisplayDifficultyChoice
-
-InitDifficultyTextBoxParameters::
-  	ld a, $8 ; loads the value for the difficulty menu
-	ld [wTwoOptionMenuID], a
-	coord hl, 5, 5
-	ld bc, $606 ; Cursor Pos
-	ret
-	
-DisplayDifficultyChoice::
-	ld a, $14
-	ld [wTextBoxID], a
-	call DisplayTextBoxID
-	jp LoadScreenTilesFromBuffer1
-
-; display yes/no choice
-YesNoNormalHardChoice::
-	call SaveScreenTilesToBuffer1
-	call InitYesNoNormalHardTextBoxParameters
-	jr DisplayYesNoNormalHardChoice
-
-InitYesNoNormalHardTextBoxParameters::
-  	ld a, $0 ; loads the value for the difficulty menu
-	ld [wTwoOptionMenuID], a
-	coord hl, 7, 5
-	ld bc, $608 ; Cursor Pos
-	ret
-	
-DisplayYesNoNormalHardChoice::
-	ld a, $14
-	ld [wTextBoxID], a
-	call DisplayTextBoxID
-	jp LoadScreenTilesFromBuffer1
-;;;;;;;;;;;;;;;;;;;;;;;

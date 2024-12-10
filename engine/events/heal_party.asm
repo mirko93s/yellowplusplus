@@ -62,11 +62,29 @@ HealParty:
 
 	ld hl, wPartyMon1MaxHP - wPartyMon1HP
 	add hl, de
+	; Check if current mon is fainted
+	; nuzlocke mode check
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode ; if in nuzlocke mode revives have no effect
+	CheckEvent EVENT_BATTLED_RIVAL_IN_OAKS_LAB
+	jr z, .normalMode ; if nuzlocke mode we still want to revive pikachu in the first rival battle
+	push hl     ; need to work on the hl register 
+	ld h, d
+	ld l, e
+	ld a, [hli] ; load current HP
+	or a, [hl]  ; check if zero HP
+	pop hl
+	jr z, .noHealIfFainted     
+	; heal current mon if not fainted
+.normalMode
 	ld a, [hli]
 	ld [de], a
 	inc de
 	ld a, [hl]
 	ld [de], a
+
+.noHealIfFainted
 
 	pop de
 	pop hl

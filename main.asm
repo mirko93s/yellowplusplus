@@ -626,6 +626,7 @@ INCLUDE "engine/debug/debug_menu.asm"
 SECTION "bank3B",ROMX,BANK[$3B]
 
 INCLUDE "engine/shiny.asm"
+INCLUDE "engine/nuzlocke.asm"
 
 SECTION "bank40", ROMX, BANK[$40]
 

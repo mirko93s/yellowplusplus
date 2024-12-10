@@ -10,6 +10,12 @@ AskName:
 	ld a, [wcf91]
 	ld [wd11e], a
 	call GetMonName
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	pop hl
+	jr .forceNicknamingIfNuzlocke
+.normalMode
 	ld hl, DoYouWantToNicknameText
 	call PrintText
 	hlcoord 14, 7
@@ -21,6 +27,7 @@ AskName:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .declinedNickname
+.forceNicknamingIfNuzlocke
 	ld a, [wUpdateSpritesEnabled]
 	push af
 	xor a
@@ -202,6 +209,13 @@ DisplayNamingScreen:
 	ret
 
 .pressedStart
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld a, [wNamingScreenNameLength]
+	and a
+	ret z
+.normalMode
 	ld a, 1
 	ld [wNamingScreenSubmitName], a
 	ret

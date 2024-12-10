@@ -103,6 +103,9 @@ ItemUsePtrTable:
 
 ItemUseBall:
 
+	callfar checkNuzlockeStatus
+	jp nz, AlreadyEncounteredNuzlocke
+
 ; Balls can't be used out of battle.
 	ld a, [wIsInBattle]
 	and a
@@ -336,6 +339,12 @@ ItemUseBall:
 	jr c, .failedToCapture
 
 .captured
+	; set area flag if we catch a pokemon in nuzlocke mode
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar setNuzlockeFlag
+.noNuzlocke
 	jr .skipShakeCalculations
 
 .failedToCapture
@@ -966,7 +975,13 @@ ItemUseMedicine:
 .checkItemType
 	ld a, [wcf91]
 	cp REVIVE
-	jr nc, .healHP ; if it's a Revive or Max Revive
+	jr c, .noRevives
+	; nuzlocke mode check
+	ld a, [wExtraFlags]
+	bit 3, a
+	jp nz, .noRevivesNuzlockeEffect ; if in nuzlocke mode revives have no effect
+	jr .healHP ; if it's a Revive or Max Revive
+.noRevives
 	cp FULL_HEAL
 	jr z, .cureStatusAilment ; if it's a Full Heal
 	cp HP_UP
@@ -1035,6 +1050,10 @@ ItemUseMedicine:
 	or b
 	jr nz, .notFainted
 .fainted
+	; nuzlocke mode check
+	ld a, [wExtraFlags]
+	bit 3, a
+	jp nz, .noRevivesNuzlockeEffect ; if in nuzlocke mode revives have no effect
 	ld a, [wcf91]
 	cp REVIVE
 	jr z, .updateInBattleFaintedData
@@ -1319,6 +1338,9 @@ ItemUseMedicine:
 
 .healingItemNoEffect
 	call ItemUseNoEffect
+	jp .done
+.noRevivesNuzlockeEffect
+	call NoRevivesNuzlockeEffect
 	jp .done
 
 .doneHealing
@@ -2593,6 +2615,14 @@ ItemUseNoEffect:
 	ld hl, ItemUseNoEffectText
 	jr ItemUseFailed
 
+NoRevivesNuzlockeEffect:
+	ld hl, NoRevivesNuzlockeEffectText
+	jr ItemUseFailed
+
+AlreadyEncounteredNuzlocke:
+	ld hl, AlreadyEncounteredNuzlockeText
+	jr ItemUseFailed
+
 ItemUseNotTime:
 	ld hl, ItemUseNotTimeText
 	jr ItemUseFailed
@@ -2646,6 +2676,14 @@ ItemUseNotYoursToUseText:
 
 ItemUseNoEffectText:
 	text_far _ItemUseNoEffectText
+	text_end
+
+NoRevivesNuzlockeEffectText:
+	text_far _NoRevivesNuzlockeEffectText
+	text_end
+
+AlreadyEncounteredNuzlockeText:
+	text_far _AlreadyEncounteredNuzlockeText
 	text_end
 
 ThrowBallAtTrainerMonText1:

@@ -169,6 +169,25 @@ PlaceEnemyHUDTiles:
 	ld [hl], $E9
 .notOwned
 	pop hl
+	; print a pokeball in the top right corner if we are in nuzlocke mode and we can catch a pokemon in this area
+	push af
+	push hl
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_OLD_MAN ; don't draw if this is the old man battle
+	jr z, .noNuzlocked
+	cp BATTLE_TYPE_PIKACHU ; don't draw if this is the pikachu battle
+	jr z, .noNuzlocked
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocked ; skip if nuzlocke mode is not enabled
+	callfar checkNuzlockeStatus
+	jr nz, .noNuzlocked ; skip if pokemon is not catchable
+	coord hl, 19, 0
+	ld a, "◓"
+	ld [hl], a
+.noNuzlocked
+	pop hl
+	pop af
 
 EnemyBattleHUDGraphicsTiles:
 ; The tile numbers for specific parts of the battle display for the enemy

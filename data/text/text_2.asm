@@ -1357,10 +1357,14 @@ _MirkoIntroText2::
 	line ".-."
 	prompt
 
-_DifficultyText::
-   text "Select Difficulty"
-   done
+_WildMonCatchableText::
+	text "@"
+	text_ram wEnemyMonNick
+	text_start
+	line "is catchable!"
+	prompt
 
-_AreYouSureText::
-	text "Are you sure?"
-	done
+_NuzlockeNoPrizeText::
+	text "Sorry, prizes are" 
+	line "unavailable.@"
+	text_end

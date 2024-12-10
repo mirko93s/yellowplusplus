@@ -989,6 +989,13 @@ SwitchAndTeleportEffect:
 	jr z, .printText
 	ld hl, WasBlownAwayText
 .printText
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	push hl
+	callfar setNuzlockeFlag
+	pop hl
+.noNuzlocke
 	jp PrintText
 
 RanFromBattleText:

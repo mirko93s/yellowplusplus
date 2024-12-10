@@ -283,12 +283,21 @@ SilphCo7Text1:
 	ld a, [wd72e]
 	bit 0, a ; got lapras?
 	jr z, .givelapras
+.noLapras
 	CheckEvent EVENT_BEAT_SILPH_CO_GIOVANNI
 	jr nz, .savedsilph
 	ld hl, .LaprasGuyText
 	call PrintText
 	jr .done
 .givelapras
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode
+	ld hl, wNuzlockeRegions
+	inc hl ; Saffron City is in byte 2
+	bit SAFFRON_CITY_NUZ, [hl]
+	jr nz, .noLapras
+.normalMode
 	ld hl, .MeetLaprasGuyText
 	call PrintText
 	lb bc, LAPRAS, 40
@@ -298,6 +307,20 @@ SilphCo7Text1:
 	and a
 	call z, WaitForTextScrollButtonPress
 	call EnableAutoTextBoxDrawing
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .normalMode2
+	ld hl, wNuzlockeRegions
+	inc hl ; Saffron city is in byte 2
+	set SAFFRON_CITY_NUZ, [hl]
+	; hide hitmonchan and hitmonlee if we get lapras
+	ld a, HS_FIGHTING_DOJO_GIFT_1
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	ld a, HS_FIGHTING_DOJO_GIFT_2
+	ld [wMissableObjectIndex], a
+	predef HideObject
+.normalMode2
 	ld hl, .HeresYourLaprasText
 	call PrintText
 	ld hl, wd72e
