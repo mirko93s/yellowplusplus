@@ -271,7 +271,7 @@ ChooseGameDifficulty:
 	ret
 	
 DifficultyEntries:
-	db   "NORMAL"
+	db   "CLASSIC"
 	next "HARD"
 	next "NUZLOCKE"
 	next "HARD-NUZLOCKE"
