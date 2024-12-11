@@ -563,6 +563,7 @@ DrawTrainerInfo:
 	ld [hli], a
 	ld [hl], 1
 	hlcoord 0, 0
+	; ld c, 6 ; height of the trainer info text box
 	call TrainerInfo_DrawTextBox
 	ld hl, wTrainerInfoTextBoxWidthPlus1
 	ld a, 16 + 1
@@ -570,27 +571,60 @@ DrawTrainerInfo:
 	dec a
 	ld [hli], a
 	ld [hl], 3
-	hlcoord 1, 10
+	hlcoord 1, 9
+	; ld c, 6 ; height of the badges text box
 	call TrainerInfo_DrawTextBox
-	hlcoord 0, 10
+	hlcoord 0, 9
 	ld a, $d7
 	call TrainerInfo_DrawVerticalLine
-	hlcoord 19, 10
+	hlcoord 19, 9
 	call TrainerInfo_DrawVerticalLine
-	hlcoord 6, 9
+	hlcoord 6, 10
 	ld de, TrainerInfo_BadgesText
 	call PlaceString
-	hlcoord 2, 2
+
+	; print trainer info (name,money,time) with added gamemode if the gamemode is not the normal one
+	ld a, [wExtraFlags]
+	rrca
+	rrca
+	and %11
+	cp 3
+	ld de, HardNuzlockeText
+	jr z, .printGamemode
+	cp 2
+	ld de, NuzlockeText
+	jr z, .printGamemode
+	cp 1
+	ld de, HardText
+	jr nz, .printGamemodeNormal
+.printGamemode
+	hlcoord 1, 7
+	call PlaceString
+	hlcoord 1, 1
 	ld de, TrainerInfo_NameMoneyTimeText
 	call PlaceString
-	hlcoord 7, 2
+	hlcoord 6, 1
 	ld de, wPlayerName
 	call PlaceString
-	hlcoord 8, 4
+	hlcoord 7, 3
 	ld de, wPlayerMoney
 	ld c, $e3
 	call PrintBCDNumber
-	hlcoord 9, 6
+	hlcoord 6, 5
+	jr .printHours
+.printGamemodeNormal
+	hlcoord 1, 2
+	ld de, TrainerInfo_NameMoneyTimeText
+	call PlaceString
+	hlcoord 6, 2
+	ld de, wPlayerName
+	call PlaceString
+	hlcoord 7, 4
+	ld de, wPlayerMoney
+	ld c, $e3
+	call PrintBCDNumber
+	hlcoord 6, 6
+.printHours
 	ld de, wPlayTimeHours ; hours
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
@@ -600,14 +634,18 @@ DrawTrainerInfo:
 	lb bc, LEADING_ZEROES | 1, 2
 	jp PrintNumber
 
+HardNuzlockeText: 	db "HARD-NUZLOCKE@"
+NuzlockeText: 		db "NUZLOCKE@"
+HardText: 			db "HARD@"
+
 TrainerInfo_FarCopyData:
 	ld a, BANK(TrainerInfoTextBoxTileGraphics)
 	jp FarCopyData
 
 TrainerInfo_NameMoneyTimeText:
-	db   "NAME/"
-	next "MONEY/"
-	next "TIME/@"
+	db   "Name/",
+	next "Money/",
+	next "Time/@",
 
 ; $76 is a circle tile
 TrainerInfo_BadgesText:
@@ -628,7 +666,7 @@ TrainerInfo_DrawTextBox:
 	ld a, [wTrainerInfoTextBoxWidthPlus1]
 	ld e, a
 	ld d, 0
-	ld c, 6 ; height of the text box
+	ld c, 7 ; height of the text box
 .loop
 	ld [hl], "│" ; left edge tile ID
 	add hl, de
@@ -666,7 +704,7 @@ TrainerInfo_NextTextBoxRow:
 ; a = tile ID
 TrainerInfo_DrawVerticalLine:
 	ld de, SCREEN_WIDTH
-	ld c, 8
+	ld c, 9
 .loop
 	ld [hl], a
 	add hl, de
