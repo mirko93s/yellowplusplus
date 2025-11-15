@@ -14,7 +14,7 @@ PrintMonType:
 	cp b
 	pop hl
 	jr z, EraseType2Text
-	ld bc, SCREEN_WIDTH * 2
+	ld bc, SCREEN_WIDTH * 1
 	add hl, bc
 
 ; a = type
@@ -27,7 +27,7 @@ PrintType:
 ; erase "TYPE2/" if the mon only has 1 type
 EraseType2Text:
 	ld a, " "
-	ld bc, $13
+	ld bc, $14
 	add hl, bc
 	ld bc, $6
 	jp FillMemory

@@ -105,29 +105,31 @@ StatusScreen:
 	push af
 	xor a
 	ldh [hTileAnimations], a
+
 	hlcoord 19, 5
-	lb bc, 2, 10
+	lb bc, 2, 18
 	call DrawLineBox ; Draws the box around name, HP and status
-	ld de, -6
-	add hl, de
-	ld [hl], "<DOT>"
-	dec hl
-	ld [hl], "№"
-	hlcoord 19, 9
-	lb bc, 8, 6
-	call DrawLineBox ; Draws the box around types, ID No. and OT
-	hlcoord 10, 9
+	; hlcoord 19, 8
+	; lb bc, 9, 8
+	; call DrawLineBox ; Draws the box around types, ID No. and OT
+
+	hlcoord 11, 9
 	ld de, Type1Text
-	call PlaceString ; "TYPE1/"
-	hlcoord 11, 3
+	call PlaceString ; "TYPE/"
+
+	ld b, 10
+	hlcoord 10, 8
+	call DrawVerticalLine
+
+	hlcoord 8, 3
 	predef DrawHP
 ; print hp dvs
 	call DVParse
-	hlcoord 15, 5
+	hlcoord 16, 4
 	ld bc, 0
 	ld de, HPDVText
 	call PlaceString 
-	hlcoord 16, 5
+	hlcoord 17, 4
 	lb bc, 1, 2
 	ld de, wStatusScreenHPDVs
 	call PrintNumber
@@ -155,22 +157,25 @@ StatusScreen:
 	hlcoord 9, 6
 	ld de, StatusText
 	call PlaceString ; "STATUS/"
-	hlcoord 14, 2
+	hlcoord 14, 0
 	call PrintLevel ; Pokémon level
 	ld a, [wMonHIndex]
 	ld [wd11e], a
 	ld [wd0b5], a
-	hlcoord 3, 7
+	hlcoord 10, 0
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber ; Pokémon no.
-	hlcoord 11, 10
+	ld de, NumText ; #
+	hlcoord 9, 0
+	call PlaceString
+	hlcoord 12, 10
 	predef PrintMonType
 	ld hl, NamePointers2
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	hlcoord 9, 1
+	hlcoord 9, 2
 	call PlaceString ; Pokémon name
 	ld hl, OTPointers
 	call .GetStringPointer
@@ -242,11 +247,8 @@ NamePointers2:
 	dw wDayCareMonName
 
 Type1Text:
-	db   "TYPE1/"
+	db   "TYPE/"
 	next ""
-	; fallthrough
-Type2Text:
-	db   "TYPE2/"
 	next ""
 	; fallthrough
 IDNoText:
@@ -260,8 +262,21 @@ OTText:
 StatusText:
 	db "STATUS/@"
 
+NumText:
+	db "№@"
+
 OKText:
 	db "OK@"
+
+; Draws a vertical line starting from hl high b
+DrawVerticalLine:
+	ld de, SCREEN_WIDTH ; New line
+.PrintVerticalLine	
+	ld [hl], $7c ; │
+	add hl, de
+	dec b
+	jr nz, .PrintVerticalLine
+	ret
 
 ; Draws a line starting from hl high b and wide c
 DrawLineBox:
@@ -294,7 +309,7 @@ PrintGenderStatusScreen:
 	jr z, .ok
 	ld a, "♀"
 .ok
-	coord hl, 19, 1
+	coord hl, 18, 0
 	ld [hl], a
 	ret
 
@@ -302,7 +317,7 @@ PrintShinySymbol:
 	ld de, wLoadedMonDVs
 	callfar IsMonShiny
 	ret z
-	coord hl, 19, 2
+	coord hl, 19, 0
 	ld [hl], "⁂"
 	ret
 
@@ -317,7 +332,7 @@ PrintStatsBox:
 
 	; Don't draw a border; status screen needs every line it can get here
 	hlcoord 1, 8 ; Start printing stats from here
-	ld bc, $19 ; Number offset
+	ld bc, $14 ; Number offset
 	jr PrintDVs
 .DifferentBox
 	hlcoord 9, 0
@@ -336,6 +351,7 @@ PrintNormalStats:
 	add hl, bc
 	ld de, wLoadedMonAttack
 	lb bc, 2, 3
+	set 6, b ; left aligned
 	call PrintStat
 	ld de, wLoadedMonDefense
 	call PrintStat
@@ -348,11 +364,11 @@ PrintNormalStats:
 
 PrintDVs:
 	call PrintNormalStats
-	hlcoord 1, 9 ; Start printing dv text from here
-	ld bc, 20 ; Number offset
-	ld de, DVText
-	call PlaceString
-	hlcoord 2, 9 ; Start printing dv from here
+	; hlcoord 1, 9 ; Start printing dv text from here
+	; ld bc, 20 ; Number offset
+	; ld de, DVText
+	; call PlaceString
+	hlcoord 8, 9 ; Start printing dv from here
 	lb bc, 1, 2
 	ld de, wStatusScreenDVs ; atk
 	call PrintStat
@@ -384,11 +400,11 @@ DVText:
 	next "(  )@"
 	
 StatsText:
-	db   "ATTACK"
+	db   "ATTACK DV"
 	next "DEFENSE"
 	next "SPEED"
-	next "SPCL.ATK"
-	next "SPCL.DEF@"
+	next "SP.ATK"
+	next "SP.DEF@"
 
 StatusScreen2:
 	ldh a, [hTileAnimations]
@@ -498,7 +514,7 @@ StatusScreen2:
 	hlcoord 14, 6
 	ld [hl], "<to>"
 	inc hl
-	inc hl
+	; inc hl
 	call PrintLevel
 	pop af
 	ld [wLoadedMonLevel], a
