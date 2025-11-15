@@ -1,7 +1,7 @@
 	db SHELLDER ; pokedex id
 
-	db  30,  65, 100,  40,  45
-	;   hp  atk  def  spd  spc
+	db  30,  65, 100,  40,  45,  25
+	;   hp  atk  def  spd  sat  sdf
 
 	db WATER, WATER ; type
 	db 190 ; catch rate

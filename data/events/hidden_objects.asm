@@ -179,7 +179,7 @@ SSAnne6HiddenObjects:
 
 UndergroundPathNsHiddenObjects:
 	hidden_object  3,  4, FULL_RESTORE, HiddenItems
-	hidden_object  4, 34, X_SPECIAL, HiddenItems
+	hidden_object  4, 34, X_SP_ATK, HiddenItems
 	db -1 ; end
 
 UndergroundPathWeHiddenObjects:

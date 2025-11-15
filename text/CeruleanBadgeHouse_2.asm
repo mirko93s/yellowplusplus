@@ -18,7 +18,8 @@ _CeruleanHouse2Text_74eaf::
 
 _CeruleanHouse2Text_74eb4::
 	text "Your #MON's"
-	line "SPECIAL abilities"
+	line "SPCL.ATK and"
+	cont "SPCL.DEF"
 	cont "increase a bit."
 	prompt
 

@@ -1,7 +1,7 @@
 	db NIDORINA ; pokedex id
 
-	db  70,  62,  67,  56,  55
-	;   hp  atk  def  spd  spc
+	db  70,  62,  67,  56,  55,  55
+	;   hp  atk  def  spd  sat  sdf
 
 	db POISON, POISON ; type
 	db 120 ; catch rate

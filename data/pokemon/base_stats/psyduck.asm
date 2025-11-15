@@ -1,7 +1,7 @@
 	db PSYDUCK ; pokedex id
 
-	db  50,  52,  48,  55,  50
-	;   hp  atk  def  spd  spc
+	db  50,  52,  48,  55,  65,  50
+	;   hp  atk  def  spd  sat  sdf
 
 	db WATER, WATER ; type
 	db 190 ; catch rate

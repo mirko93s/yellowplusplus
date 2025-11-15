@@ -39,11 +39,11 @@ ItemPrices::
 	bcd3 10000 ; IRON
 	bcd3 10000 ; CARBOS
 	bcd3 10000 ; CALCIUM
+	bcd3 10000 ; ZINC
 	bcd3 10000 ; RARE_CANDY
 	bcd3 0     ; DOME_FOSSIL
 	bcd3 0     ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
-	bcd3 0     ; XXX ; unused
 	bcd3 0     ; BIKE_VOUCHER
 	bcd3 1000  ; X_ACCURACY
 	bcd3 3000  ; LEAF_STONE
@@ -67,7 +67,8 @@ ItemPrices::
 	bcd3 1000  ; X_ATTACK
 	bcd3 2000  ; X_DEFEND
 	bcd3 1000  ; X_SPEED
-	bcd3 1000  ; X_SPECIAL
+	bcd3 1000   ; X_SP_ATK
+	bcd3 1000   ; X_SP_DEF
 	bcd3 0     ; COIN_CASE
 	bcd3 0     ; OAKS_PARCEL
 	bcd3 0     ; ITEMFINDER

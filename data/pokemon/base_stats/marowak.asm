@@ -1,7 +1,7 @@
 	db MAROWAK ; pokedex id
 
-	db  60,  80, 110,  45,  50
-	;   hp  atk  def  spd  spc
+	db  60,  80, 110,  45,  50,  80
+	;   hp  atk  def  spd  sat  sdf
 
 	db GROUND, GROUND ; type
 	db 75 ; catch rate

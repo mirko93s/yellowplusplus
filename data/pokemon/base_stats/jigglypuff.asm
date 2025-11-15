@@ -1,7 +1,7 @@
 	db JIGGLYPUFF ; pokedex id
 
-	db 115,  45,  20,  20,  25
-	;   hp  atk  def  spd  spc
+	db 115,  45,  20,  20,  45,  25
+	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, NORMAL ; type
 	db 170 ; catch rate

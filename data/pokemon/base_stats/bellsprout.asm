@@ -1,7 +1,7 @@
 	db BELLSPROUT ; pokedex id
 
-	db  50,  75,  35,  40,  70
-	;   hp  atk  def  spd  spc
+	db  50,  75,  35,  40,  70,  30
+	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, POISON ; type
 	db 255 ; catch rate

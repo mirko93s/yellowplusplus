@@ -35,7 +35,8 @@ _BlaineVolcanoBadgeInfoText::
 
 	para "The VOLCANOBADGE"
 	line "heightens the"
-	cont "SPECIAL abilities"
+	cont "SPCL.ATK and"
+	cont "SPCL.DEF"
 	cont "of your #MON!"
 
 	para "Here, you can"

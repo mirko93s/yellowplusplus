@@ -1,7 +1,7 @@
 	db CHARMELEON ; pokedex id
 
-	db  58,  64,  58,  80,  65
-	;   hp  atk  def  spd  spc
+	db  58,  64,  58,  80,  80,  65
+	;   hp  atk  def  spd  sat  sdf
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate

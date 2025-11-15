@@ -1,7 +1,7 @@
 	db FARFETCHD ; pokedex id
 
-	db  52,  90,  55,  60,  58
-	;   hp  atk  def  spd  spc
+	db  52,  90,  55,  60,  58,  62
+	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, FLYING ; type
 	db 45 ; catch rate

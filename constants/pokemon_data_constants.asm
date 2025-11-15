@@ -7,7 +7,8 @@ DEF BASE_HP          rb
 DEF BASE_ATK         rb
 DEF BASE_DEF         rb
 DEF BASE_SPD         rb
-DEF BASE_SPC         rb
+DEF BASE_SAT         rb
+DEF BASE_SDF         rb
 DEF BASE_TYPES       rw
 rsset BASE_TYPES
 DEF BASE_TYPE_1      rb
@@ -41,7 +42,8 @@ DEF MON_HP_EXP     rw
 DEF MON_ATK_EXP    rw
 DEF MON_DEF_EXP    rw
 DEF MON_SPD_EXP    rw
-DEF MON_SPC_EXP    rw
+DEF MON_SAT_EXP    rw
+DEF MON_SDF_EXP    rw
 DEF MON_DVS        rw
 DEF MON_PP         rb NUM_MOVES
 DEF BOXMON_STRUCT_LENGTH EQU _RS
@@ -52,12 +54,13 @@ DEF MON_MAXHP      rw
 DEF MON_ATK        rw
 DEF MON_DEF        rw
 DEF MON_SPD        rw
-DEF MON_SPC        rw
+DEF MON_SAT        rw
+DEF MON_SDF        rw
 DEF PARTYMON_STRUCT_LENGTH EQU _RS
 
 DEF PARTY_LENGTH EQU 6
 
-DEF MONS_PER_BOX EQU 20
+DEF MONS_PER_BOX EQU 18 ; Adding special defense means boxed mons will take up more space. Decreased this value from 20 so that the Stack can still have the same size (see ram/wram.asm).
 DEF NUM_BOXES    EQU 12
 
 DEF HOF_MON           EQU $10

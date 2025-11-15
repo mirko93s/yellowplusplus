@@ -1,7 +1,7 @@
 	db GENGAR ; pokedex id
 
-	db  60,  65,  60, 110, 130
-	;   hp  atk  def  spd  spc
+	db  60,  65,  60, 110, 130,  75
+	;   hp  atk  def  spd  sat  sdf
 
 	db GHOST, POISON ; type
 	db 45 ; catch rate

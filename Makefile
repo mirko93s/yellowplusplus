@@ -57,7 +57,7 @@ update_version_number:
 rename_files: pokeyellow.gbc pokeyellow_debug.gbc
 	rm -f ypp_*.gbc ypp_*.sav ypp_*.sgm
 	mv pokeyellow.gbc ypp_$(COMMIT_HASH).gbc
-	mv pokeyellow_debug.gbc ypp_debug.gbc
+	mv pokeyellow_debug.gbc ypp_debug_$(COMMIT_HASH).gbc
 
 clean: tidy
 	find gfx \

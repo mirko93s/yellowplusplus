@@ -1,7 +1,7 @@
 	db CLEFABLE ; pokedex id
 
-	db  95,  70,  73,  60,  90
-	;   hp  atk  def  spd  spc
+	db  95,  70,  73,  60,  95,  90
+	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, NORMAL ; type
 	db 25 ; catch rate

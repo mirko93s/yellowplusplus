@@ -1,7 +1,7 @@
 	db MACHAMP ; pokedex id
 
-	db  90, 130,  80,  55,  65
-	;   hp  atk  def  spd  spc
+	db  90, 130,  80,  55,  65,  85
+	;   hp  atk  def  spd  sat  sdf
 
 	db FIGHTING, FIGHTING ; type
 	db 45 ; catch rate

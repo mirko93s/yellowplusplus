@@ -8,7 +8,8 @@ DEF NUM_MOVES EQU 4
 	const STAT_ATTACK
 	const STAT_DEFENSE
 	const STAT_SPEED
-	const STAT_SPECIAL
+	const STAT_SPCLATK
+	const STAT_SPCLDEF
 DEF NUM_STATS EQU const_value
 
 ; StatModTextStrings indexes (see data/battle/stat_mod_names.asm)
@@ -16,7 +17,8 @@ DEF NUM_STATS EQU const_value
 	const MOD_ATTACK
 	const MOD_DEFENSE
 	const MOD_SPEED
-	const MOD_SPECIAL
+	const MOD_SPCLATK
+	const MOD_SPCLDEF
 	const MOD_ACCURACY
 	const MOD_EVASION
 	const_skip 2

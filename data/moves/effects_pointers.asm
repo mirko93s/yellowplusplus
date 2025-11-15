@@ -13,7 +13,8 @@ MoveEffectPointerTable:
 	dw StatModifierUpEffect      ; ATTACK_UP1_EFFECT
 	dw StatModifierUpEffect      ; DEFENSE_UP1_EFFECT
 	dw StatModifierUpEffect      ; SPEED_UP1_EFFECT
-	dw StatModifierUpEffect      ; SPECIAL_UP1_EFFECT
+	dw StatModifierUpEffect      ; SPCLATK_UP1_EFFECT
+	dw StatModifierUpEffect      ; SPCLDEF_UP1_EFFECT
 	dw StatModifierUpEffect      ; ACCURACY_UP1_EFFECT
 	dw StatModifierUpEffect      ; EVASION_UP1_EFFECT
 	dw PayDayEffect              ; PAY_DAY_EFFECT
@@ -21,7 +22,8 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN1_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN1_EFFECT
+	dw StatModifierDownEffect    ; SPCLATK_DOWN1_EFFECT
+	dw StatModifierDownEffect    ; SPCLDEF_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN1_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN1_EFFECT
 	dw ConversionEffect          ; CONVERSION_EFFECT
@@ -30,7 +32,7 @@ MoveEffectPointerTable:
 	dw ThrashPetalDanceEffect    ; THRASH_PETAL_DANCE_EFFECT
 	dw SwitchAndTeleportEffect   ; SWITCH_AND_TELEPORT_EFFECT
 	dw TwoToFiveAttacksEffect    ; TWO_TO_FIVE_ATTACKS_EFFECT
-	dw TwoToFiveAttacksEffect    ; EFFECT_1E
+	dw TwoToFiveAttacksEffect    ; EFFECT_20
 	dw FlinchSideEffect          ; FLINCH_SIDE_EFFECT1
 	dw SleepEffect               ; SLEEP_EFFECT
 	dw PoisonEffect              ; POISON_SIDE_EFFECT2
@@ -53,7 +55,8 @@ MoveEffectPointerTable:
 	dw StatModifierUpEffect      ; ATTACK_UP2_EFFECT
 	dw StatModifierUpEffect      ; DEFENSE_UP2_EFFECT
 	dw StatModifierUpEffect      ; SPEED_UP2_EFFECT
-	dw StatModifierUpEffect      ; SPECIAL_UP2_EFFECT
+	dw StatModifierUpEffect      ; SPCALTK_UP2_EFFECT
+	dw StatModifierUpEffect      ; SPCLDEF_UP2_EFFECT
 	dw StatModifierUpEffect      ; ACCURACY_UP2_EFFECT
 	dw StatModifierUpEffect      ; EVASION_UP2_EFFECT
 	dw HealEffect                ; HEAL_EFFECT
@@ -61,7 +64,8 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN2_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN2_EFFECT
+	dw StatModifierDownEffect    ; SPCLATK_DOWN2_EFFECT
+	dw StatModifierDownEffect    ; SPCLDEF_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; ACCURACY_DOWN2_EFFECT
 	dw StatModifierDownEffect    ; EVASION_DOWN2_EFFECT
 	dw ReflectLightScreenEffect  ; LIGHT_SCREEN_EFFECT
@@ -71,7 +75,8 @@ MoveEffectPointerTable:
 	dw StatModifierDownEffect    ; ATTACK_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; DEFENSE_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; SPEED_DOWN_SIDE_EFFECT
-	dw StatModifierDownEffect    ; SPECIAL_DOWN_SIDE_EFFECT
+	dw StatModifierDownEffect    ; SPCLATK_DOWN_SIDE_EFFECT
+	dw StatModifierDownEffect    ; SPCLDEF_DOWN_SIDE_EFFECT
 	dw StatModifierDownEffect    ; unused effect
 	dw StatModifierDownEffect    ; unused effect
 	dw StatModifierDownEffect    ; unused effect

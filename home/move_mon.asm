@@ -30,7 +30,7 @@ AddPartyMon::
 	pop hl
 	ret
 
-; calculates all 5 stats of current mon and writes them to [de]
+; calculates all 6 stats of current mon and writes them to [de]
 CalcStats::
 	ld c, $0
 .statsLoop
@@ -48,7 +48,7 @@ CalcStats::
 	ret
 
 ; calculates stat c of current mon
-; c: stat to calc (HP=1,Atk=2,Def=3,Spd=4,Spc=5)
+; c: stat to calc (HP=1,Atk=2,Def=3,Spd=4,Sat=5,Sdf=6)
 ; b: consider stat exp?
 ; hl: base ptr to stat exp values ([hl + 2*c - 1] and [hl + 2*c])
 CalcStat::
@@ -106,6 +106,8 @@ CalcStat::
 	jr z, .getSpeedIV
 	cp $5
 	jr z, .getSpecialIV
+	cp $6
+	jr z, .getSpecialIV ; Like Gen 2, special attack and special defense share an "IV" (DV)
 .getHpIV
 	push bc
 	ld a, [hl]  ; Atk IV

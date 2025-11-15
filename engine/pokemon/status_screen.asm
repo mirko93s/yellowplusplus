@@ -310,17 +310,20 @@ PrintStatsBox:
 	ld a, d
 	and a ; a is 0 from the status screen
 	jr nz, .DifferentBox
-	hlcoord 0, 8
-	lb bc, 8, 8
-	call TextBoxBorder ; Draws the box
-	hlcoord 1, 9 ; Start printing stats from here
+	; hlcoord 0, 8
+	; lb bc, 8, 8
+	; call TextBoxBorder ; Draws the box
+	; hlcoord 1, 9 ; Start printing stats from here
+
+	; Don't draw a border; status screen needs every line it can get here
+	hlcoord 1, 8 ; Start printing stats from here
 	ld bc, $19 ; Number offset
 	jr PrintDVs
 .DifferentBox
-	hlcoord 9, 2
-	lb bc, 8, 9
+	hlcoord 9, 0
+	lb bc, 10, 9
 	call TextBoxBorder
-	hlcoord 11, 3
+	hlcoord 11, 1
 	ld bc, $18
 	; fall through
 PrintNormalStats:
@@ -338,24 +341,28 @@ PrintNormalStats:
 	call PrintStat
 	ld de, wLoadedMonSpeed
 	call PrintStat
-	ld de, wLoadedMonSpecial
+	ld de, wLoadedMonSpclAtk
+	call PrintStat
+	ld de, wLoadedMonSpclDef
 	jp PrintNumber
 
 PrintDVs:
 	call PrintNormalStats
-	hlcoord 1, 10 ; Start printing dv text from here
+	hlcoord 1, 9 ; Start printing dv text from here
 	ld bc, 20 ; Number offset
 	ld de, DVText
 	call PlaceString
-	hlcoord 2, 10 ; Start printing dv from here
+	hlcoord 2, 9 ; Start printing dv from here
 	lb bc, 1, 2
-	ld de, wStatusScreenDVs
+	ld de, wStatusScreenDVs ; atk
 	call PrintStat
-	ld de, wStatusScreenDVs + 1
+	ld de, wStatusScreenDVs + 1 ; def
 	call PrintStat
-	ld de, wStatusScreenDVs + 2
+	ld de, wStatusScreenDVs + 2 ; spd
 	call PrintStat
-	ld de, wStatusScreenDVs + 3
+	ld de, wStatusScreenDVs + 3 ; sp.atk
+	call PrintStat
+	ld de, wStatusScreenDVs + 3 ; sp.def
 	jp PrintNumber
 
 PrintStat:
@@ -373,13 +380,15 @@ DVText:
 	db   "(  )"
 	next "(  )"
 	next "(  )"
+	next "(  )"
 	next "(  )@"
 	
 StatsText:
 	db   "ATTACK"
 	next "DEFENSE"
 	next "SPEED"
-	next "SPECIAL@"
+	next "SPCL.ATK"
+	next "SPCL.DEF@"
 
 StatusScreen2:
 	ldh a, [hTileAnimations]

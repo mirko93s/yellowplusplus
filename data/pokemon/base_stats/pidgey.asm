@@ -1,7 +1,7 @@
 	db PIDGEY ; pokedex id
 
-	db  40,  45,  40,  56,  35
-	;   hp  atk  def  spd  spc
+	db  40,  45,  40,  56,  35,  35
+	;   hp  atk  def  spd  sat  sdf
 
 	db NORMAL, FLYING ; type
 	db 255 ; catch rate

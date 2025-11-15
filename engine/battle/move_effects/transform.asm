@@ -82,14 +82,14 @@ TransformEffect_:
 	ld a, [hli]
 	ld [de], a
 	inc de
-; Attack, Defense, Speed, and Special stats
+; Attack, Defense, Speed, Spcl.Atk, and Spcl.Def stats
 	inc hl
 	inc hl
 	inc hl
 	inc de
 	inc de
 	inc de
-	ld bc, $8
+	ld bc, $a
 	call CopyData
 	ld bc, wBattleMonMoves - wBattleMonPP
 	add hl, bc ; ld hl, wBattleMonMoves
@@ -129,7 +129,7 @@ TransformEffect_:
 	ld l, e
 	pop de
 .gotStatsOrModsToCopy
-	ld bc, $8
+	ld bc, $a
 	jp CopyData
 
 .failed

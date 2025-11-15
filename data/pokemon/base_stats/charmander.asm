@@ -1,7 +1,7 @@
 	db CHARMANDER ; pokedex id
 
-	db  39,  52,  43,  65,  50
-	;   hp  atk  def  spd  spc
+	db  39,  52,  43,  65,  60,  50
+	;   hp  atk  def  spd  sat  sdf
 
 	db FIRE, FIRE ; type
 	db 45 ; catch rate

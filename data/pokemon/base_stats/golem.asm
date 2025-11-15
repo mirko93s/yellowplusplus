@@ -1,7 +1,7 @@
 	db GOLEM ; pokedex id
 
-	db  80, 120, 130,  45,  55
-	;   hp  atk  def  spd  spc
+	db  80, 120, 130,  45,  55,  65
+	;   hp  atk  def  spd  sat  sdf
 
 	db ROCK, GROUND ; type
 	db 45 ; catch rate

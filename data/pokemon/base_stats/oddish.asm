@@ -1,7 +1,7 @@
 	db ODDISH ; pokedex id
 
-	db  45,  50,  55,  30,  75
-	;   hp  atk  def  spd  spc
+	db  45,  50,  55,  30,  75,  65
+	;   hp  atk  def  spd  sat  sdf
 
 	db GRASS, POISON ; type
 	db 255 ; catch rate

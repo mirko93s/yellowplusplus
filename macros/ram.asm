@@ -4,8 +4,9 @@ MACRO flag_array
 	ds ((\1) + 7) / 8
 ENDM
 
-DEF BOX_STRUCT_LENGTH EQU 25 + NUM_MOVES * 2
+DEF BOX_STRUCT_LENGTH EQU 27 + NUM_MOVES * 2
 
+; The distance from HPExp to DVs used to be 11 bytes, but is now 13
 MACRO box_struct
 \1Species::    db
 \1HP::         dw
@@ -22,7 +23,8 @@ MACRO box_struct
 \1AttackExp::  dw
 \1DefenseExp:: dw
 \1SpeedExp::   dw
-\1SpecialExp:: dw
+\1SpclAtkExp:: dw
+\1SpclDefExp:: dw
 \1DVs::        ds 2
 \1PP::         ds NUM_MOVES
 ENDM
@@ -35,9 +37,11 @@ MACRO party_struct
 \1Attack::     dw
 \1Defense::    dw
 \1Speed::      dw
-\1Special::    dw
+\1SpclAtk::    dw
+\1SpclDef::    dw
 ENDM
 
+; The distance from HP to DVs is still 11 bytes
 MACRO battle_struct
 \1Species::    db
 \1HP::         dw
@@ -56,7 +60,8 @@ MACRO battle_struct
 \1Attack::     dw
 \1Defense::    dw
 \1Speed::      dw
-\1Special::    dw
+\1SpclAtk::    dw
+\1SpclDef::    dw
 \1PP::         ds NUM_MOVES
 ENDM
 
