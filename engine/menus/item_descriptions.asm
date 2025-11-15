@@ -89,6 +89,8 @@ ItemDescriptionPointers:
 	db "@"
 	text_far _CalciumDescription
 	db "@"
+	text_far _ZincDescription
+	db "@"
 	text_far _RareCandyDescription
 	db "@"
 	text_far _DomeFossilDescription
@@ -96,8 +98,6 @@ ItemDescriptionPointers:
 	text_far _HelixFossilDescription
 	db "@"
 	text_far _SecretKeyDescription
-	db "@"
-	text_far _TeruSamaDescription
 	db "@"
 	text_far _BikeVoucherDescription
 	db "@"
@@ -145,7 +145,9 @@ ItemDescriptionPointers:
 	db "@"
 	text_far _XSpeedDescription
 	db "@"
-	text_far _XSpecialDescription
+	text_far _XSpecialAttackDescription
+	db "@"
+	text_far _XSpecialDefenseDescription
 	db "@"
 	text_far _CoinCaseDescription
 	db "@"

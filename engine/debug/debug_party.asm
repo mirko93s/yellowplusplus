@@ -156,6 +156,9 @@ DebugItemsList:
 	db TM_DREAM_EATER, 10
 	db TM_REST, 10
 	db TM_SUBSTITUTE, 10
+	db ZINC, 10
+	db X_SP_ATK, 10
+	db X_SP_DEF, 10
 	db -1 ; end
 
 DebugUnusedList:

@@ -124,7 +124,12 @@ _CarbosDescription::
 	prompt
 
 _CalciumDescription::
-	text "Raises SPECIAL"
+	text "Raises SPECIAL ATK"
+	next "of one #MON."
+	prompt
+
+_ZincDescription::
+	text "Raises SPECIAL DEF"
 	next "of one #MON."
 	prompt
 
@@ -243,9 +248,14 @@ _XSpeedDescription::
 	next "(1 BTL)"
 	prompt
 
-_XSpecialDescription::
-	text "Raises SPECIAL."
-	next "(1 BTL)"
+_XSpecialAttackDescription::
+	text "Raises SPECIAL"
+	next "ATTACK (1 BTL)"
+	prompt
+
+_XSpecialDefenseDescription::
+	text "Raises SPECIAL"
+	next "DEFENSE (1 BTL)"
 	prompt
 
 _CoinCaseDescription::
