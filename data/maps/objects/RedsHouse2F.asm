@@ -8,6 +8,7 @@ IF DEF(_DEBUG)
 	warp_event  7,  3, ROCKET_HIDEOUT_ELEVATOR, 1
 	warp_event  7,  4, POKEMON_TOWER_7F, 1
 	warp_event  7,  5, SILPH_CO_11F, 4
+	warp_event  7,  6, CHAMPIONS_ROOM, 4
 ENDC
 
 	def_bg_events

@@ -23,6 +23,7 @@ DebugTeam:
 	db PERSIAN, 80
 	db JIGGLYPUFF, 15
 	db STARTER_PIKACHU, 5
+	db TENTACOOL, 100
 	db -1 ; end
 
 DebugStart:
