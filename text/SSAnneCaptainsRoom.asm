@@ -33,7 +33,7 @@ _ReceivingHM01Text::
 
 _ReceivedHM01Text::
 	text "<PLAYER> got"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end

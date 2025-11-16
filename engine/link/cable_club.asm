@@ -488,7 +488,7 @@ TradeCenter_SelectMon:
 	ld a, 16
 	ld [wTopMenuItemY], a
 .selectStatsMenuItem
-	ld a, " "
+	ld a, ' '
 	ldcoord_a 11, 16
 	ld a, D_RIGHT | B_BUTTON | A_BUTTON
 	ld [wMenuWatchedKeys], a
@@ -505,7 +505,7 @@ TradeCenter_SelectMon:
 	call LoadScreenTilesFromBuffer1
 	jp .playerMonMenu
 .selectTradeMenuItem
-	ld a, " "
+	ld a, ' '
 	ldcoord_a 1, 16
 	ld a, D_LEFT | B_BUTTON | A_BUTTON
 	ld [wMenuWatchedKeys], a
@@ -553,10 +553,10 @@ TradeCenter_SelectMon:
 	ld l, a
 	ld a, [wMenuCursorLocation + 1]
 	ld h, a
-	ld a, " "
+	ld a, ' '
 	ld [hl], a
 .cancelMenuItem_Loop
-	ld a, "▶" ; filled arrow cursor
+	ld a, '▶' ; filled arrow cursor
 	ldcoord_a 1, 16
 .cancelMenuItem_JoypadLoop
 	call JoypadLowSensitivity
@@ -568,14 +568,14 @@ TradeCenter_SelectMon:
 	bit BIT_D_UP, a
 	jr z, .cancelMenuItem_JoypadLoop
 ; if Up pressed
-	ld a, " "
+	ld a, ' '
 	ldcoord_a 1, 16
 	ld a, [wPartyCount]
 	dec a
 	ld [wCurrentMenuItem], a
 	jp .playerMonMenu
 .cancelMenuItem_APressed
-	ld a, "▷" ; unfilled arrow cursor
+	ld a, '▷' ; unfilled arrow cursor
 	ldcoord_a 1, 16
 	ld a, $f
 	ld [wSerialExchangeNybbleSendData], a
@@ -606,7 +606,7 @@ ReturnToCableClubRoom:
 
 TradeCenter_DrawCancelBox:
 	hlcoord 11, 15
-	ld a, "┘"
+	ld a, '┘'
 	ld bc, 2 * SCREEN_WIDTH + 9
 	call FillMemory
 	hlcoord 0, 15
@@ -624,7 +624,7 @@ TradeCenter_PlaceSelectedEnemyMonMenuCursor:
 	hlcoord 1, 9
 	ld bc, SCREEN_WIDTH
 	call AddNTimes
-	ld [hl], "▷" ; cursor
+	ld [hl], '▷' ; cursor
 	ret
 
 TradeCenter_DisplayStats:
@@ -953,9 +953,9 @@ CableClub_TextBoxBorder:
 	add hl, de
 .loop
 	push hl
-	ld a, "┐" ; border left vertical line tile
+	ld a, '┐' ; border left vertical line tile
 	ld [hli], a
-	ld a, " "
+	ld a, ' '
 	call CableClub_DrawHorizontalLine
 	ld [hl], $77 ; border right vertical line tile
 	pop hl
@@ -963,11 +963,11 @@ CableClub_TextBoxBorder:
 	add hl, de
 	dec b
 	jr nz, .loop
-	ld a, "│" ; border lower left corner tile
+	ld a, '│' ; border lower left corner tile
 	ld [hli], a
 	ld a, $76 ; border bottom horizontal line tile
 	call CableClub_DrawHorizontalLine
-	ld [hl], "└" ; border lower right corner tile
+	ld [hl], '└' ; border lower right corner tile
 	ret
 
 ; c = width

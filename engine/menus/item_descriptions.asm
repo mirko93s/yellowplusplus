@@ -12,280 +12,280 @@ DisplayItemDescription::
 
 ItemDescriptionPointers:
 	text_far _MasterBallDescription
-	db "@"
+	db '@'
 	text_far _UltraBallDescription
-	db "@"
+	db '@'
 	text_far _GreatBallDescription
-	db "@"
+	db '@'
 	text_far _PokeBallDescription
-	db "@"
+	db '@'
 	text_far _TownMapDescription
-	db "@"
+	db '@'
 	text_far _BicycleDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _MoonStoneDescription
-	db "@"
+	db '@'
 	text_far _AntidoteDescription
-	db "@"
+	db '@'
 	text_far _BurnHealDescription
-	db "@"
+	db '@'
 	text_far _IceHealDescription
-	db "@"
+	db '@'
 	text_far _AwakeningDescription
-	db "@"
+	db '@'
 	text_far _ParlyzHealDescription
-	db "@"
+	db '@'
 	text_far _FullRestoreDescription
-	db "@"
+	db '@'
 	text_far _MaxPotionDescription
-	db "@"
+	db '@'
 	text_far _HyperPotionDescription
-	db "@"
+	db '@'
 	text_far _SuperPotionDescription
-	db "@"
+	db '@'
 	text_far _PotionDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _EscapeRopeDescription
-	db "@"
+	db '@'
 	text_far _RepelDescription
-	db "@"
+	db '@'
 	text_far _OldAmberDescription
-	db "@"
+	db '@'
 	text_far _FireStoneDescription
-	db "@"
+	db '@'
 	text_far _ThunderStoneDescription
-	db "@"
+	db '@'
 	text_far _WaterStoneDescription
-	db "@"
+	db '@'
 	text_far _HPUpDescription
-	db "@"
+	db '@'
 	text_far _ProteinDescription
-	db "@"
+	db '@'
 	text_far _IronDescription
-	db "@"
+	db '@'
 	text_far _CarbosDescription
-	db "@"
+	db '@'
 	text_far _CalciumDescription
-	db "@"
+	db '@'
 	text_far _ZincDescription
-	db "@"
+	db '@'
 	text_far _RareCandyDescription
-	db "@"
+	db '@'
 	text_far _DomeFossilDescription
-	db "@"
+	db '@'
 	text_far _HelixFossilDescription
-	db "@"
+	db '@'
 	text_far _SecretKeyDescription
-	db "@"
+	db '@'
 	text_far _BikeVoucherDescription
-	db "@"
+	db '@'
 	text_far _XAccuracyDescription
-	db "@"
+	db '@'
 	text_far _LeafStoneDescription
-	db "@"
+	db '@'
 	text_far _CardKeyDescription
-	db "@"
+	db '@'
 	text_far _NuggetDescription
-	db "@"
+	db '@'
 	text_far _HeartStoneDescription
-	db "@"
+	db '@'
 	text_far _PokeDollDescription
-	db "@"
+	db '@'
 	text_far _FullHealDescription
-	db "@"
+	db '@'
 	text_far _ReviveDescription
-	db "@"
+	db '@'
 	text_far _MaxReviveDescription
-	db "@"
+	db '@'
 	text_far _GuardSpecDescription
-	db "@"
+	db '@'
 	text_far _SuperRepelDescription
-	db "@"
+	db '@'
 	text_far _MaxRepelDescription
-	db "@"
+	db '@'
 	text_far _DireHitDescription
-	db "@"
+	db '@'
 	text_far _TeruSamaDescription
-	db "@"
+	db '@'
 	text_far _FreshWaterDescription
-	db "@"
+	db '@'
 	text_far _SodaPopDescription
-	db "@"
+	db '@'
 	text_far _LemonadeDescription
-	db "@"
+	db '@'
 	text_far _SSTicketDescription
-	db "@"
+	db '@'
 	text_far _GoldTeethDescription
-	db "@"
+	db '@'
 	text_far _XAttackDescription
-	db "@"
+	db '@'
 	text_far _XDefendDescription
-	db "@"
+	db '@'
 	text_far _XSpeedDescription
-	db "@"
+	db '@'
 	text_far _XSpecialAttackDescription
-	db "@"
+	db '@'
 	text_far _XSpecialDefenseDescription
-	db "@"
+	db '@'
 	text_far _CoinCaseDescription
-	db "@"
+	db '@'
 	text_far _OaksParcelDescription
-	db "@"
+	db '@'
 	text_far _ItemfinderDescription
-	db "@"
+	db '@'
 	text_far _SilphScopeDescription
-	db "@"
+	db '@'
 	text_far _PokeFluteDescription
-	db "@"
+	db '@'
 	text_far _LiftKeyDescription
-	db "@"
+	db '@'
 	text_far _ExpAllDescription
-	db "@"
+	db '@'
 	text_far _OldRodDescription
-	db "@"
+	db '@'
 	text_far _GoodRodDescription
-	db "@"
+	db '@'
 	text_far _SuperRodDescription
-	db "@"
+	db '@'
 	text_far _PPUpDescription
-	db "@"
+	db '@'
 	text_far _EtherDescription
-	db "@"
+	db '@'
 	text_far _MaxEtherDescription
-	db "@"
+	db '@'
 	text_far _ElixerDescription
-	db "@"
+	db '@'
 	text_far _MaxElixerDescription
-	db "@"
+	db '@'
 	text_far _HM01Description
-	db "@"
+	db '@'
 	text_far _HM02Description
-	db "@"
+	db '@'
 	text_far _HM03Description
-	db "@"
+	db '@'
 	text_far _HM04Description
-	db "@"
+	db '@'
 	text_far _HM05Description
-	db "@"
+	db '@'
 	text_far _TM01Description
-	db "@"
+	db '@'
 	text_far _TM02Description
-	db "@"
+	db '@'
 	text_far _TM03Description
-	db "@"
+	db '@'
 	text_far _TM04Description
-	db "@"
+	db '@'
 	text_far _TM05Description
-	db "@"
+	db '@'
 	text_far _TM06Description
-	db "@"
+	db '@'
 	text_far _TM07Description
-	db "@"
+	db '@'
 	text_far _TM08Description
-	db "@"
+	db '@'
 	text_far _TM09Description
-	db "@"
+	db '@'
 	text_far _TM10Description
-	db "@"
+	db '@'
 	text_far _TM11Description
-	db "@"
+	db '@'
 	text_far _TM12Description
-	db "@"
+	db '@'
 	text_far _TM13Description
-	db "@"
+	db '@'
 	text_far _TM14Description
-	db "@"
+	db '@'
 	text_far _TM15Description
-	db "@"
+	db '@'
 	text_far _TM16Description
-	db "@"
+	db '@'
 	text_far _TM17Description
-	db "@"
+	db '@'
 	text_far _TM18Description
-	db "@"
+	db '@'
 	text_far _TM19Description
-	db "@"
+	db '@'
 	text_far _TM20Description
-	db "@"
+	db '@'
 	text_far _TM21Description
-	db "@"
+	db '@'
 	text_far _TM22Description
-	db "@"
+	db '@'
 	text_far _TM23Description
-	db "@"
+	db '@'
 	text_far _TM24Description
-	db "@"
+	db '@'
 	text_far _TM25Description
-	db "@"
+	db '@'
 	text_far _TM26Description
-	db "@"
+	db '@'
 	text_far _TM27Description
-	db "@"
+	db '@'
 	text_far _TM28Description
-	db "@"
+	db '@'
 	text_far _TM29Description
-	db "@"
+	db '@'
 	text_far _TM30Description
-	db "@"
+	db '@'
 	text_far _TM31Description
-	db "@"
+	db '@'
 	text_far _TM32Description
-	db "@"
+	db '@'
 	text_far _TM33Description
-	db "@"
+	db '@'
 	text_far _TM34Description
-	db "@"
+	db '@'
 	text_far _TM35Description
-	db "@"
+	db '@'
 	text_far _TM36Description
-	db "@"
+	db '@'
 	text_far _TM37Description
-	db "@"
+	db '@'
 	text_far _TM38Description
-	db "@"
+	db '@'
 	text_far _TM39Description
-	db "@"
+	db '@'
 	text_far _TM40Description
-	db "@"
+	db '@'
 	text_far _TM41Description
-	db "@"
+	db '@'
 	text_far _TM42Description
-	db "@"
+	db '@'
 	text_far _TM43Description
-	db "@"
+	db '@'
 	text_far _TM44Description
-	db "@"
+	db '@'
 	text_far _TM45Description
-	db "@"
+	db '@'
 	text_far _TM46Description
-	db "@"
+	db '@'
 	text_far _TM47Description
-	db "@"
+	db '@'
 	text_far _TM48Description
-	db "@"
+	db '@'
 	text_far _TM49Description
-	db "@"
+	db '@'
 	text_far _TM50Description
-	db "@"
+	db '@'

@@ -246,9 +246,9 @@ _WithdrawHowManyText::
 
 _WithdrewItemText::
 	text "Withdrew"
-	line "@"
+	line '@'
 	text_ram wcd6d
-	text "."
+	text '.'
 	prompt
 
 _NothingStoredText::
@@ -301,7 +301,7 @@ _MonWasStoredText::
 	text " was"
 	line "stored in Box @"
 	text_ram wBoxNumString
-	text "."
+	text '.'
 	prompt
 
 _CantDepositLastMonText::
@@ -320,7 +320,7 @@ _MonIsTakenOutText::
 	line "taken out."
 	cont "Got @"
 	text_ram wStringBuffer
-	text "."
+	text '.'
 	prompt
 
 _NoMonText::
@@ -349,7 +349,7 @@ _ReleaseWhichMonText::
 
 _OnceReleasedText::
 	text "Once released,"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text " is"
 	cont "gone forever. OK?"
@@ -385,7 +385,7 @@ _HereYouGoText::
 
 _SoYouWantPrizeText::
 	text "So, you want"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "?"
 	done
@@ -426,7 +426,7 @@ _ExpressionText::
 	text "This expression is"
 	line "No. @"
 	text_decimal wExpressionNumber, 1, 2
-	text "."
+	text '.'
 	prompt
 
 _NotEnoughMemoryText::
@@ -513,7 +513,7 @@ _HisNameIsText::
 _WillBeTradedText::
 	text_ram wNameOfPlayerMonToBeTraded
 	text " and"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text " will"
 	cont "be traded."

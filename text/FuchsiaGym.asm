@@ -53,7 +53,7 @@ _KogaSoulBadgeInfoText::
 
 _ReceivedTM06Text::
 	text "<PLAYER> received"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end

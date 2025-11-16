@@ -52,7 +52,7 @@ DrawHP_:
 	ld de, wLoadedMonHP
 	lb bc, 2, 3
 	call PrintNumber
-	ld a, "/"
+	ld a, '/'
 	ld [hli], a
 	ld de, wLoadedMonMaxHP
 	lb bc, 2, 3
@@ -257,7 +257,7 @@ IDNoText:
 	; fallthrough
 OTText:
 	db   "OT/"
-	next "@"
+	next '@'
 
 StatusText:
 	db "STATUS/@"
@@ -305,9 +305,9 @@ PrintGenderStatusScreen:
 	and a
 	ret z
 	dec a
-	ld a, "♂"
+	ld a, '♂'
 	jr z, .ok
-	ld a, "♀"
+	ld a, '♀'
 .ok
 	coord hl, 18, 0
 	ld [hl], a
@@ -318,7 +318,7 @@ PrintShinySymbol:
 	callfar IsMonShiny
 	ret z
 	coord hl, 19, 0
-	ld [hl], "⁂"
+	ld [hl], '⁂'
 	ret
 
 PrintStatsBox:
@@ -441,13 +441,13 @@ StatusScreen2:
 	ld b, a ; Number of moves ?
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
-	ld a, "<BOLD_P>"
+	ld a, '<BOLD_P>'
 	call StatusScreen_PrintPP ; Print "PP"
 	ld a, b
 	and a
 	jr z, .InitPP
 	ld c, a
-	ld a, "-"
+	ld a, '-'
 	call StatusScreen_PrintPP ; Fill the rest with --
 .InitPP
 	ld hl, wLoadedMonMoves
@@ -484,7 +484,7 @@ StatusScreen2:
 	ld de, wStatusScreenCurrentPP
 	lb bc, 1, 2
 	call PrintNumber
-	ld a, "/"
+	ld a, '/'
 	ld [hli], a
 	ld de, wMaxPP
 	lb bc, 1, 2
@@ -512,7 +512,7 @@ StatusScreen2:
 	ld [wLoadedMonLevel], a ; Increase temporarily if not 100
 .Level100
 	hlcoord 14, 6
-	ld [hl], "<to>"
+	ld [hl], '<to>'
 	inc hl
 	; inc hl
 	call PrintLevel
@@ -574,7 +574,7 @@ StatusScreenExpText:
 
 StatusScreen_ClearName:
 	ld bc, 10
-	ld a, " "
+	ld a, ' '
 	jp FillMemory
 
 StatusScreen_PrintPP:

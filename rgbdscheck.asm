@@ -1,6 +1,6 @@
-IF !DEF(__RGBDS_MAJOR__) || !DEF(__RGBDS_MINOR__) || !DEF(__RGBDS_PATCH__)
-	fail "yellowplusplus requires rgbds v0.8.0 or newer."
+IF !DEF(__RGBDS_MAJOR__)
+	fail "yellowplusplus requires rgbds v1.0.0 or newer."
 ENDC
-IF __RGBDS_MAJOR__ == 0 && __RGBDS_MINOR__ <  8
-	fail "yellowplusplus requires rgbds v0.8.0 or newer."
+IF __RGBDS_MAJOR__ < 1
+	fail "yellowplusplus requires rgbds v1.0.0 or newer."
 ENDC

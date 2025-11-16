@@ -151,28 +151,28 @@ PrepareDeletableMoveList:
 
 MoveDeleterGreetingText:
 	text_far _MoveDeleterGreetingText
-	db "@"
+	db '@'
 
 MoveDeleterSaidYesText:
 	text_far _MoveDeleterSaidYesText
-	db "@"
+	db '@'
 
 MoveDeleterWhichMoveText:
 	text_far _MoveDeleterWhichMoveText
-	db "@"
+	db '@'
 
 MoveDeleterConfirmText:
 	text_far _MoveDeleterConfirmText
-	db "@"
+	db '@'
 
 MoveDeleterForgotText:
 	text_far _MoveDeleterForgotText
-	db "@"
+	db '@'
 
 MoveDeleterByeText:
 	text_far _MoveDeleterByeText
-	db "@"
+	db '@'
 
 MoveDeleterOneMoveText:
 	text_far _MoveDeleterOneMoveText
-	db "@"
+	db '@'

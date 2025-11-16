@@ -307,7 +307,7 @@ ErasePartyMenuCursors::
 	ld bc, 2 * 20 ; menu cursor positions are 2 rows apart
 	ld a, 6 ; 6 menu cursor positions
 .loop
-	ld [hl], " "
+	ld [hl], ' '
 	add hl, bc
 	dec a
 	jr nz, .loop
@@ -347,7 +347,7 @@ StartMenu_Item::
 	jp RedisplayStartMenu
 .choseItem
 ; erase menu cursor (blank each tile in front of an item name)
-	ld a, " "
+	ld a, ' '
 	ldcoord_a 5, 4
 	ldcoord_a 5, 6
 	ldcoord_a 5, 8
@@ -517,7 +517,7 @@ DrawTrainerInfo:
 	predef DisplayPicCenteredOrUpperRight
 	call DisableLCD
 	hlcoord 0, 2
-	ld a, " "
+	ld a, ' '
 	call TrainerInfo_DrawVerticalLine
 	hlcoord 1, 2
 	call TrainerInfo_DrawVerticalLine
@@ -628,7 +628,7 @@ DrawTrainerInfo:
 	ld de, wPlayTimeHours ; hours
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
-	ld [hl], ":" ; colon tile ID
+	ld [hl], ':' ; colon tile ID
 	inc hl
 	ld de, wPlayTimeMinutes ; minutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -649,7 +649,7 @@ TrainerInfo_NameMoneyTimeText:
 
 ; $76 is a circle tile
 TrainerInfo_BadgesText:
-	db $76,"BADGES",$76,"@"
+	db $76,"BADGES",$76,'@'
 
 ; draws a text box on the trainer info screen
 ; height is always 6
@@ -659,8 +659,8 @@ TrainerInfo_BadgesText:
 ; [wTrainerInfoTextBoxWidth] = width - 1
 ; [wTrainerInfoTextBoxNextRowOffset] = distance from the end of a text box row to the start of the next
 TrainerInfo_DrawTextBox:
-	ld a, "┌" ; upper left corner tile ID
-	lb de, "─", "┐" ; top edge and upper right corner tile ID's
+	ld a, '┌' ; upper left corner tile ID
+	lb de, '─', '┐' ; top edge and upper right corner tile ID's
 	call TrainerInfo_DrawHorizontalEdge ; draw top edge
 	call TrainerInfo_NextTextBoxRow
 	ld a, [wTrainerInfoTextBoxWidthPlus1]
@@ -668,14 +668,14 @@ TrainerInfo_DrawTextBox:
 	ld d, 0
 	ld c, 7 ; height of the text box
 .loop
-	ld [hl], "│" ; left edge tile ID
+	ld [hl], '│' ; left edge tile ID
 	add hl, de
 	ld [hl], $78 ; right edge tile ID
 	call TrainerInfo_NextTextBoxRow
 	dec c
 	jr nz, .loop
-	ld a, "└" ; lower left corner tile ID
-	lb de, $77, "┘" ; bottom edge and lower right corner tile ID's
+	ld a, '└' ; lower left corner tile ID
+	lb de, $77, '┘' ; bottom edge and lower right corner tile ID's
 
 TrainerInfo_DrawHorizontalEdge:
 	ld [hli], a ; place left corner tile
@@ -745,7 +745,7 @@ SwitchPartyMon_ClearGfx:
 	ld bc, SCREEN_WIDTH * 2
 	call AddNTimes
 	ld c, SCREEN_WIDTH * 2
-	ld a, " "
+	ld a, ' '
 .clearMonBGLoop ; clear the mon's row in the party menu
 	ld [hli], a
 	dec c

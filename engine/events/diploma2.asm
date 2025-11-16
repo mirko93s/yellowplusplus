@@ -52,7 +52,7 @@ _DisplayDiploma:
 	ret
 
 DiplomaText:
-	db CIRCLE_TILE_ID, "Diploma", CIRCLE_TILE_ID, "@"
+	db CIRCLE_TILE_ID, "Diploma", CIRCLE_TILE_ID, '@'
 
 DiplomaPlayer:
 	db "Player@"

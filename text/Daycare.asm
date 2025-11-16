@@ -47,7 +47,7 @@ _DayCareOweMoneyText::
 
 _DayCareGotMonBackText::
 	text "<PLAYER> got"
-	line "@"
+	line '@'
 	text_ram wDayCareMonName
 	text " back!"
 	done
@@ -63,7 +63,7 @@ _DayCareMonNeedsMoreTimeText::
 
 _DayCareAllRightThenText::
 	text "All right then,"
-	line "@"
+	line '@'
 	text_end
 
 _DayCareComeAgainText::

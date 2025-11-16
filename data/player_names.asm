@@ -4,7 +4,7 @@ DefaultNamesPlayer:
 	next "ASH"
 	next "JACK"
 	next "MIRKO"
-	db   "@"
+	db   '@'
 
 DefaultNamesGirl:
 	db   "NEW NAME"
@@ -12,7 +12,7 @@ DefaultNamesGirl:
  	next "LEAF"
  	next "AMANDA"
 	next "FEDE"
-	db   "@"
+	db   '@'
 
 DefaultNamesRival:
 	db   "NEW NAME"
@@ -20,4 +20,4 @@ DefaultNamesRival:
 	next "GARY"
 	next "JOHN"
 	next "MALFA"
-	db   "@"
+	db   '@'

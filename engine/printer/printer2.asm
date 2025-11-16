@@ -32,10 +32,10 @@ Printer_GetMonStats:
 	hlcoord 2, 10
 	ld a, $6e
 	ld [hli], a
-	ld [hl], " "
+	ld [hl], ' '
 
 	hlcoord 2, 11
-	ld [hl], "'"
+	ld [hl], charval("'")
 
 	hlcoord 4, 11
 	ld de, wLoadedMonMaxHP
@@ -55,7 +55,7 @@ Printer_GetMonStats:
 	call PlaceString
 
 	hlcoord 2, 8
-	ld [hl], "№"
+	ld [hl], '№'
 	inc hl
 	ld [hl], $f2
 	inc hl

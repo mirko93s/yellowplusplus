@@ -134,7 +134,7 @@ ENDC
 	push bc
 	hlcoord 0, 3
 	ld de, 20
-	lb bc, " ", 13
+	lb bc, ' ', 13
 	call DrawTileLine ; cover up the menu cursor in the pokemon list
 	pop bc
 	ret
@@ -143,7 +143,7 @@ ENDC
 	push bc
 	hlcoord 15, 8
 	ld de, 20
-	lb bc, " ", 9
+	lb bc, ' ', 9
 	call DrawTileLine ; cover up the menu cursor in the side menu
 	pop bc
 	jr .exitSideMenu
@@ -264,7 +264,7 @@ Pokedex_DrawInterface:
 	ldh [hAutoBGTransferEnabled], a
 ; draw the horizontal line separating the seen and owned amounts from the menu
 	hlcoord 15, 6
-	ld a, "─"
+	ld a, '─'
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -386,7 +386,7 @@ Pokedex_PlacePokemonList:
 	ld hl, wPokedexOwned
 	call IsPokemonBitSet
 	pop hl
-	ld a, " "
+	ld a, ' '
 	jr z, .writeTile
 	ld a, $72 ; pokeball tile
 .writeTile
@@ -489,7 +489,7 @@ PokeText:
 PokedexDataDividerLine:
 	db $68, $69, $6B, $69, $6B, $69, $6B, $69, $6B, $6B
 	db $6B, $6B, $69, $6B, $69, $6B, $69, $6B, $69, $6A
-	db "@"
+	db '@'
 
 DrawDexEntryOnScreen:
 	call ClearScreen
@@ -554,9 +554,9 @@ DrawDexEntryOnScreen:
 	push af
 
 	hlcoord 2, 8
-	ld a, "№"
+	ld a, '№'
 	ld [hli], a
-	ld a, "<DOT>"
+	ld a, '<DOT>'
 	ld [hli], a
 	ld de, wd11e
 	lb bc, LEADING_ZEROES | 1, 3
@@ -597,14 +597,14 @@ DrawDexEntryOnScreen:
 	hlcoord 13, 6
 	lb bc, 1, 2
 	call PrintNumber ; print decimeters (height)
-	ld a, "."
+	ld a, '.'
 	ld [hl], a
 	inc de
 	inc de ; de = address of decimeters (height)
 	hlcoord 15, 6
 	; lb bc, LEADING_ZEROES | 1, 2
 	call PrintNumber ; print decimeters (height)
-	ld a, "m"
+	ld a, 'm'
 	ld [hl], a
 ; now print the weight (note that weight is stored in tenths of kilograms internally)
 	inc de
@@ -632,12 +632,12 @@ DrawDexEntryOnScreen:
 	ldh a, [hDexWeight]
 	sbc 0
 	jr nc, .next
-	ld [hl], "0" ; if the weight is less than 10, put a 0 before the decimal point
+	ld [hl], '0' ; if the weight is less than 10, put a 0 before the decimal point
 .next
 	inc hl
 	ld a, [hli]
 	ld [hld], a ; make space for the decimal point by moving the last digit forward one tile
-	ld [hl], "<DOT>" ; decimal point tile
+	ld [hl], '<DOT>' ; decimal point tile
 	pop af
 	ldh [hDexWeight + 1], a ; restore original value of [hDexWeight + 1]
 	pop af

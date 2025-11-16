@@ -1688,7 +1688,7 @@ _AnimationSquishMonPic:
 	call AnimCopyRowRight
 	inc hl
 .next
-	ld [hl], " "
+	ld [hl], ' '
 	pop hl
 	ld de, SCREEN_WIDTH
 	add hl, de
@@ -1828,8 +1828,7 @@ AnimationMinimizeMon:
 
 MinimizedMonSprite:
 ; 8x5 partial tile graphic
-pusho
-opt b.X ; . = 0, X = 1
+pusho b.X ; . = 0, X = 1
 	db %...XX...
 	db %..XXXX..
 	db %.XXXXXX.
@@ -1921,7 +1920,7 @@ _AnimationSlideMonOff:
 	add 7
 	cp $62
 	ret c
-	ld a, " "
+	ld a, ' '
 	ret
 
 .EnemyNextTile
@@ -1929,7 +1928,7 @@ _AnimationSlideMonOff:
 	sub 7
 	cp $31
 	ret c
-	ld a, " "
+	ld a, ' '
 	ret
 
 AnimationSlideMonHalfOff:

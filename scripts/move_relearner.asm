@@ -209,26 +209,26 @@ PrepareRelearnableMoveList:
 
 MoveRelearnerGreetingText:
 	text_far _MoveRelearnerGreetingText
-	db "@"
+	db '@'
 
 MoveRelearnerSaidYesText:
 	text_far _MoveRelearnerSaidYesText
-	db "@"
+	db '@'
 
 MoveRelearnerNotEnoughMoneyText:
 	text_far _MoveRelearnerNotEnoughMoneyText
-	db "@"
+	db '@'
 
 MoveRelearnerWhichMoveText:
 	text_far _MoveRelearnerWhichMoveText
-	db "@"
+	db '@'
 
 MoveRelearnerByeText:
 	text_far _MoveRelearnerByeText
-	db "@"
+	db '@'
 
 MoveRelearnerNoMovesText:
 	text_far _MoveRelearnerNoMovesText
-	db "@"
+	db '@'
 
 INCLUDE "data/pokemon/evos_moves.asm"

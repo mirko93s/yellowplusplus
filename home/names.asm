@@ -16,7 +16,7 @@ GetMonName::
 	ld bc, 10
 	call CopyData
 	ld hl, wcd6d + 10
-	ld [hl], "@"
+	ld [hl], '@'
 	pop de
 	pop af
 	ldh [hLoadedROMBank], a
@@ -75,7 +75,7 @@ GetMachineName::
 ; now get the machine number and convert it to text
 	ld a, [wd11e]
 	sub TM01 - 1
-	ld b, "0"
+	ld b, '0'
 .FirstDigit
 	sub 10
 	jr c, .SecondDigit
@@ -88,11 +88,11 @@ GetMachineName::
 	ld [de], a
 	inc de
 	pop af
-	ld b, "0"
+	ld b, '0'
 	add b
 	ld [de], a
 	inc de
-	ld a, "@"
+	ld a, '@'
 	ld [de], a
 	pop af
 	ld [wd11e], a

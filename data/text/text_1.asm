@@ -59,7 +59,7 @@ _PokeCenterSignText::
 
 _FoundItemText::
 	text "<PLAYER> found"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end
@@ -80,7 +80,7 @@ _OaksAideHiText::
 	line "kinds of #MON,"
 	cont "I'm supposed to"
 	cont "give you an"
-	cont "@"
+	cont '@'
 	text_ram wOaksAideRewardItemName
 	text "!"
 
@@ -104,9 +104,9 @@ _OaksAideUhOhText::
 	text_decimal hOaksAideRequirement, 1, 3
 	text " kinds"
 	line "if you want the"
-	cont "@"
+	cont '@'
 	text_ram wOaksAideRewardItemName
-	text "."
+	text '.'
 	done
 
 _OaksAideComeBackText::
@@ -118,7 +118,7 @@ _OaksAideComeBackText::
 	line "kinds, come back"
 	cont "for @"
 	text_ram wOaksAideRewardItemName
-	text "."
+	text '.'
 	done
 
 _OaksAideHereYouGoText::
@@ -134,7 +134,7 @@ _OaksAideHereYouGoText::
 
 _OaksAideGotItemText::
 	text "<PLAYER> got the"
-	line "@"
+	line '@'
 	text_ram wOaksAideRewardItemName
 	text "!@"
 	text_end
@@ -143,9 +143,9 @@ _OaksAideNoRoomText::
 	text "Oh! I see you"
 	line "don't have any"
 	cont "room for the"
-	cont "@"
+	cont '@'
 	text_ram wOaksAideRewardItemName
-	text "."
+	text '.'
 	done
 
 _NurseChanseyText::

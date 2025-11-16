@@ -2,10 +2,10 @@ _DexCompletionText::
 	text "#DEX comp-"
 	line "letion is:"
 
-	para "@"
+	para '@'
 	text_decimal hDexRatingNumMonsSeen, 1, 3
 	text " #MON seen"
-	line "@"
+	line '@'
 	text_decimal hDexRatingNumMonsOwned, 1, 3
 	text " #MON owned"
 

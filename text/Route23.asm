@@ -6,7 +6,7 @@ _VictoryRoadGuardText1::
 	text "!"
 
 	para "You don't have the"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text " yet!"
 
@@ -23,7 +23,7 @@ _VictoryRoadGuardText2::
 	text "!"
 
 	para "Oh! That is the"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!@"
 	text_end

@@ -32,7 +32,7 @@ ChoosePlayerName:
 	ld [wNamingScreenType], a
 	call DisplayNamingScreen
 	ld a, [wStringBuffer]
-	cp "@"
+	cp '@'
 	jr z, .customName
 	call ClearScreen
 	farcall SendPlayerPal
@@ -76,7 +76,7 @@ ChooseRivalName:
 	ld [wNamingScreenType], a
 	call DisplayNamingScreen
 	ld a, [wStringBuffer]
-	cp "@"
+	cp '@'
 	jr z, .customName
 	call ClearScreen
 	farcall SendRivalPal
@@ -228,7 +228,7 @@ GetDefaultName:
 	ld e, l
 .innerLoop
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	jr nz, .innerLoop
 	ld a, b
 	cp c
@@ -275,7 +275,7 @@ DifficultyEntries:
 	next "HARD"
 	next "NUZLOCKE"
 	next "HARD-NUZLOCKE"
-	db   "@"
+	db   '@'
 
 DisplayDifficultyTextBox:
 	push de

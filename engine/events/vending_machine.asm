@@ -93,7 +93,7 @@ DrinkPriceText:
 	db   "¥200"
 	next "¥300"
 	next "¥350"
-	next "@"
+	next '@'
 
 VendingMachineText4:
 	text_far _VendingMachineText4

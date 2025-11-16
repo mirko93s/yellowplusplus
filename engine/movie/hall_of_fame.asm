@@ -8,7 +8,7 @@ AnimateHallOfFame:
 	call DisableLCD
 	ld hl, vBGMap0
 	ld bc, $800
-	ld a, " "
+	ld a, ' '
 	call FillMemory
 	call EnableLCD
 	ld hl, rLCDC
@@ -255,7 +255,7 @@ HoFDisplayPlayerStats:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], ":"
+	ld [hl], ':'
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2

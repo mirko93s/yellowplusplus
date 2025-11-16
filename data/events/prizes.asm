@@ -7,34 +7,34 @@ PrizeMenuMon1Entries:
 	db DITTO
 	db PINSIR
 	db SCYTHER
-	db "@"
+	db '@'
 
 PrizeMenuMon1Cost:
 	bcd2 1337
 	bcd2 2500
 	bcd2 2500
-	db "@"
+	db '@'
 
 PrizeMenuMon2Entries:
 	db EEVEE
 	db DRATINI
 	db PORYGON
-	db "@"
+	db '@'
 
 PrizeMenuMon2Cost:
 	bcd2 4600
 	bcd2 6500
 	bcd2 9999
-	db "@"
+	db '@'
 
 PrizeMenuTMsEntries:
 	db TM_DRAGON_RAGE
 	db TM_HYPER_BEAM
 	db TM_SUBSTITUTE
-	db "@"
+	db '@'
 
 PrizeMenuTMsCost:
 	bcd2 3300
 	bcd2 5500
 	bcd2 7700
-	db "@"
+	db '@'

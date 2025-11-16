@@ -626,7 +626,7 @@ ItemUseBall:
 	jp RemoveItemFromInventory
 
 .emptyString
-	db "@"
+	db '@'
 
 ItemUseBallText00:
 ;"It dodged the thrown ball!"

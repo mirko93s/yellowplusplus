@@ -12,7 +12,7 @@ FarPrintText::
 PrintNumber::
 ; Print the c-digit, b-byte value at de.
 ; Allows 2 to 7 digits. For 1-digit numbers, add
-; the value to char "0" instead of calling PrintNumber.
+; the value to char '0' instead of calling PrintNumber.
 ; Flags LEADING_ZEROES and LEFT_ALIGN can be given
 ; in bits 7 and 6 of b respectively.
 	push bc
@@ -118,14 +118,14 @@ ENDM
 	call .PrintLeadingZero
 	jr .next
 .past
-	ld a, "0"
+	ld a, '0'
 	add c
 	ld [hl], a
 .next
 
 	call .NextDigit
 .ones
-	ld a, "0"
+	ld a, '0'
 	add b
 	ld [hli], a
 	pop de
@@ -202,7 +202,7 @@ ENDM
 	or c
 	jr z, .PrintLeadingZero
 
-	ld a, "0"
+	ld a, '0'
 	add c
 	ld [hl], a
 	ldh [hPastLeadingZeros], a
@@ -211,7 +211,7 @@ ENDM
 .PrintLeadingZero:
 	bit BIT_LEADING_ZEROES, d
 	ret z
-	ld [hl], "0"
+	ld [hl], '0'
 	ret
 
 .NextDigit:

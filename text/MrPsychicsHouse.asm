@@ -7,7 +7,7 @@ _TM29PreReceiveText::
 
 _ReceivedTM29Text::
 	text "<PLAYER> received"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end

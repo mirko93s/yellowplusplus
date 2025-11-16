@@ -30,8 +30,8 @@ SaffronHouse1Text4:
 
 MoveDeleterText:
 	text_far MoveDeleterText1
-	db "@"
+	db '@'
 
 MoveRelearnerText:
 	text_far MoveRelearnerText1
-	db "@"
+	db '@'

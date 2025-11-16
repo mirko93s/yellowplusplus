@@ -41,7 +41,7 @@ _TM41PreText::
 
 _ReceivedTM41Text::
 	text "<PLAYER> received"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end

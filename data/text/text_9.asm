@@ -28,7 +28,7 @@ _ItemUseBallText04::
 
 _ItemUseBallText05::
 	text "All right!"
-	line "@"
+	line '@'
 	text_ram wEnemyMonNick
 	text " was"
 	cont "caught!@"
@@ -51,14 +51,14 @@ _ItemUseBallText08::
 _ItemUseBallText06::
 	text "New #DEX data"
 	line "will be added for"
-	cont "@"
+	cont '@'
 	text_ram wEnemyMonNick
 	text "!@"
 	text_end
 
 _SurfingGotOnText::
 	text "<PLAYER> got on"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!"
 	prompt
@@ -77,7 +77,7 @@ _RefusingText::
 _VitaminStatRoseText::
 	text_ram wcd6d
 	text "'s"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text " rose."
 	prompt
@@ -117,9 +117,9 @@ _PlayedFluteHadEffectText::
 
 _CoinCaseNumCoinsText::
 	text "Coins"
-	line "@"
+	line '@'
 	text_bcd wPlayerCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
-	text " "
+	text ' '
 	prompt
 
 _ItemfinderFoundItemText::
@@ -169,7 +169,7 @@ _BootedUpHMText::
 
 _TeachMachineMoveText::
 	text "It contained"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!"
 
@@ -183,14 +183,14 @@ _MonCannotLearnMachineMoveText::
 	text_ram wcd6d
 	text " is not"
 	line "compatible with"
-	cont "@"
+	cont '@'
 	text_ram wStringBuffer
-	text "."
+	text '.'
 
 	para "It can't learn"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
-	text "."
+	text '.'
 	prompt
 
 _ItemUseNotTimeText::
@@ -235,7 +235,7 @@ _NoCyclingAllowedHereText::
 
 _NoSurfingHereText::
 	text "No SURFing on"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text " here!"
 	prompt
@@ -276,19 +276,19 @@ _GotOffBicycleText1::
 _GotOffBicycleText2::
 	text "the @"
 	text_ram wStringBuffer
-	text "."
+	text '.'
 	prompt
 
 _ThrewAwayItemText::
 	text "Threw away"
-	line "@"
+	line '@'
 	text_ram wcd6d
-	text "."
+	text '.'
 	prompt
 
 _IsItOKToTossItemText::
 	text "Is it OK to toss"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "?"
 	prompt
@@ -301,7 +301,7 @@ _TooImportantToTossText::
 _AlreadyKnowsText::
 	text_ram wcd6d
 	text " knows"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!"
 	prompt
@@ -313,22 +313,22 @@ _ConnectCableText::
 
 _TradedForText::
 	text "<PLAYER> traded"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
 	text " for"
-	cont "@"
+	cont '@'
 	text_ram wInGameTradeReceiveMonName
 	text "!@"
 	text_end
 
 _WannaTrade1Text::
 	text "I'm looking for"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
 	text "! Wanna"
 
 	para "trade one for"
-	line "@"
+	line '@'
 	text_ram wInGameTradeReceiveMonName
 	text "? "
 	done
@@ -340,7 +340,7 @@ _NoTrade1Text::
 
 _WrongMon1Text::
 	text "What? That's not"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
 	text "!"
 
@@ -354,7 +354,7 @@ _Thanks1Text::
 
 _AfterTrade1Text::
 	text "Isn't my old"
-	line "@"
+	line '@'
 	text_ram wInGameTradeReceiveMonName
 	text " great?"
 	done
@@ -378,9 +378,9 @@ _NoTrade2Text::
 
 _WrongMon2Text::
 	text "Hmmm? This isn't"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
-	text "."
+	text '.'
 
 	para "Think of me when"
 	line "you get one."
@@ -400,7 +400,7 @@ _AfterTrade2Text::
 
 _WannaTrade3Text::
 	text "Hi! Do you have"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
 	text "?"
 
@@ -416,9 +416,9 @@ _NoTrade3Text::
 
 _WrongMon3Text::
 	text "...This is no"
-	line "@"
+	line '@'
 	text_ram wInGameTradeGiveMonName
-	text "."
+	text '.'
 
 	para "If you get one,"
 	line "trade it with me!"
@@ -430,7 +430,7 @@ _Thanks3Text::
 
 _AfterTrade3Text::
 	text "How is my old"
-	line "@"
+	line '@'
 	text_ram wInGameTradeReceiveMonName
 	text "?"
 

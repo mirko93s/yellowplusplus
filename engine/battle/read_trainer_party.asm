@@ -45,7 +45,7 @@ ReadTrainer:
 	ld a, [hli]
 	ld [de],a
 	inc de
-	cp "@"
+	cp '@'
 	jr nz, .nameLoop
 .partyLoop
 ; - if [wLoneAttackNo] != 0, one pokemon on the team has a special move

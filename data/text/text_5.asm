@@ -42,9 +42,9 @@ _FireDefrostedText::
 
 _MonsStatsRoseText::
 	text "<USER>'s"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
-	text "@"
+	text '@'
 	text_end
 
 _GreatlyRoseText::
@@ -57,9 +57,9 @@ _RoseText::
 
 _MonsStatsFellText::
 	text "<TARGET>'s"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
-	text "@"
+	text '@'
 	text_end
 
 _GreatlyFellText::
@@ -127,14 +127,14 @@ _BecameConfusedText::
 _MimicLearnedMoveText::
 	text "<USER>"
 	line "learned"
-	cont "@"
+	cont '@'
 	text_ram wcd6d
 	text "!"
 	prompt
 
 _MoveWasDisabledText::
 	text "<TARGET>'s"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text " was"
 	cont "disabled!"
@@ -232,7 +232,7 @@ _RegainedHealthText::
 _TransformedText::
 	text "<USER>"
 	line "transformed into"
-	cont "@"
+	cont '@'
 	text_ram wcd6d
 	text "!"
 	prompt

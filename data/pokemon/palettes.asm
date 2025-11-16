@@ -154,7 +154,7 @@ MonsterPalettes:
 	db PAL_MEW              ; MEW
 	assert_table_length NUM_POKEMON_INDEXES + 1
 
-ShinyMonsterPalettes    : 
+ShinyMonsterPalettes: 
 	table_width 1, ShinyMonsterPalettes
 	db PAL_MEWMON
 	db PAL_SHINY_KAKUNA     ; BULBASAUR

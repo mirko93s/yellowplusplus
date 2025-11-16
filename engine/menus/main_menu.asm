@@ -264,7 +264,7 @@ PrintPlayTime:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], ":"
+	ld [hl], ':'
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -293,7 +293,7 @@ CheckForPlayerNameInSRAM:
 	ld hl, sPlayerName
 .loop
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	jr z, .found
 	dec b
 	jr nz, .loop

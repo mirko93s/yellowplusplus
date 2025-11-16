@@ -88,7 +88,7 @@ _PokemartAnythingElseText::
 _LearnedMove1Text::
 	text_ram wLearnMoveMonName
 	text " learned"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "!@"
 	text_end
@@ -100,7 +100,7 @@ _WhichMoveToForgetText::
 
 _AbandonLearningText::
 	text "Abandon learning"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text "?"
 	done
@@ -109,7 +109,7 @@ _DidNotLearnText::
 	text_ram wLearnMoveMonName
 	text_start
 	line "did not learn"
-	cont "@"
+	cont '@'
 	text_ram wStringBuffer
 	text "!"
 	prompt
@@ -118,7 +118,7 @@ _TryingToLearnText::
 	text_ram wLearnMoveMonName
 	text " is"
 	line "trying to learn"
-	cont "@"
+	cont '@'
 	text_ram wStringBuffer
 	text "!"
 
@@ -145,10 +145,10 @@ _PoofText::
 
 _ForgotAndText::
 	text_start
-	para "@"
+	para '@'
 	text_ram wLearnMoveMonName
 	text " forgot"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!"
 

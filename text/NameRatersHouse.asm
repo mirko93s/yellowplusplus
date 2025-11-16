@@ -34,7 +34,7 @@ _NameRaterText_1dac2::
 _NameRaterText_1dac7::
 	text "OK! This #MON"
 	line "has been renamed"
-	cont "@"
+	cont '@'
 	text_ram wBuffer
 	text "!"
 
@@ -54,7 +54,7 @@ _NameRaterText_1dad1::
 	cont "impeccable name!"
 
 	para "Take good care of"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!"
 	done

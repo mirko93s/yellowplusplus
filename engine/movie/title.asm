@@ -49,7 +49,7 @@ DisplayTitleScreen:
 	callfar LoadYellowTitleScreenGFX
 	ld hl, vBGMap0
 	ld bc, (vBGMap1 tile $40) - vBGMap0
-	ld a, " "
+	ld a, ' '
 	call FillMemory
 	callfar TitleScreen_PlacePokemonLogo
 	call FillSpriteBuffer0WithAA
@@ -261,7 +261,7 @@ CopyrightTextString:
 	db   $60,$61,$62,$63,$61,$62,$7c,$7f,$65,$66,$67,$68,$69,$6a             ; ©1995-1999  Nintendo
 	next $60,$61,$62,$63,$61,$62,$7c,$7f,$6b,$6c,$6d,$6e,$6f,$70,$71,$72     ; ©1995-1999  Creatures inc.
 	next $60,$61,$62,$63,$61,$62,$7c,$7f,$73,$74,$75,$76,$77,$78,$79,$7a,$7b ; ©1995-1999  GAME FREAK inc.
-	db   "@"
+	db   '@'
 
 TitleScreen_PlayPikachuPCM:
 	callfar PlayPikachuSoundClip

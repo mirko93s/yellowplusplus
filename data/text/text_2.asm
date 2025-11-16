@@ -1,10 +1,10 @@
 _AIBattleWithdrawText::
 	text_ram wTrainerName
-	text "@"
+	text '@'
 	text_ram wCurTrainerName
 	text ""
 	line "withdrew"
-	cont "@"
+	cont '@'
 	text_ram wEnemyMonNick
 	text "!"
 	prompt
@@ -36,12 +36,12 @@ _TradeWentToText::
 	text " went"
 	line "to @"
 	text_ram wLinkEnemyTrainerName
-	text "."
+	text '.'
 	done
 
 _TradeForText::
 	text "For <PLAYER>'s"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text ","
 	done
@@ -49,9 +49,9 @@ _TradeForText::
 _TradeSendsText::
 	text_ram wLinkEnemyTrainerName
 	text " sends"
-	line "@"
+	line '@'
 	text_ram wcd6d
-	text "."
+	text '.'
 	done
 
 _TradeWavesFarewellText::
@@ -68,9 +68,9 @@ _TradeTransferredText::
 
 _TradeTakeCareText::
 	text "Take good care of"
-	line "@"
+	line '@'
 	text_ram wcd6d
-	text "."
+	text '.'
 	done
 
 _TradeWillTradeText::
@@ -83,9 +83,9 @@ _TradeWillTradeText::
 
 _TradeforText::
 	text "for <PLAYER>'s"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
-	text "."
+	text '.'
 	done
 
 _PlaySlotMachineText::
@@ -800,7 +800,7 @@ _VermilionGymTrashFailText::
 
 _FoundHiddenItemText::
 	text "<PLAYER> found"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!@"
 	text_end
@@ -813,14 +813,14 @@ _HiddenItemBagFullText::
 
 _FoundHiddenCoinsText::
 	text "<PLAYER> found"
-	line "@"
+	line '@'
 	text_bcd hCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
 	text " coins!@"
 	text_end
 
 _FoundHiddenCoins2Text::
 	text "<PLAYER> found"
-	line "@"
+	line '@'
 	text_bcd hCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
 	text " coins!@"
 	text_end
@@ -954,7 +954,7 @@ _PlayerBlackedOutText2::
 
 _LinkBattleLostText::
 	text "<PLAYER> lost to"
-	line "@"
+	line '@'
 	text_ram wTrainerName
 	text "!"
 	prompt
@@ -965,7 +965,7 @@ _TrainerAboutToUseText::
 	text_ram wCurTrainerName
 	text ""
 	line "is about to use"
-	cont "@"
+	cont '@'
 	text_ram wEnemyMonNick
 	text "!"
 
@@ -979,7 +979,7 @@ _TrainerSentOutText::
 	text_ram wCurTrainerName
 	text ""
 	line "sent out"
-	cont "@"
+	cont '@'
 	text_ram wEnemyMonNick
 	text "!"
 	done
@@ -1041,7 +1041,7 @@ _NoMovesLeftText::
 
 _MultiHitText::
 	text "Hit the enemy"
-	line "@"
+	line '@'
 	text_decimal wPlayerNumHits,1,1
 	text " times!"
 	prompt
@@ -1134,7 +1134,7 @@ _CantMoveText::
 
 _MoveIsDisabledText::
 	text "<USER>'s"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text " is"
 	cont "disabled!"
@@ -1156,12 +1156,12 @@ _Used2Text::
 
 _InsteadText::
 	text "instead,"
-	cont "@"
+	cont '@'
 	text_end
 
 _MoveNameText::
 	text_ram wStringBuffer
-	text "@"
+	text '@'
 
 _ExclamationPoint1Text::
 	text "!"
@@ -1272,17 +1272,17 @@ _HitXTimesText::
 _GainedText::
 	text_ram wcd6d
 	text " gained"
-	line "@"
+	line '@'
 	text_end
 
 _WithExpAllText::
 	text "with EXP.ALL,"
-	cont "@"
+	cont '@'
 	text_end
 
 _BoostedText::
 	text "a boosted"
-	cont "@"
+	cont '@'
 	text_end
 
 _ExpPointsText::
@@ -1331,7 +1331,7 @@ _WildMonAppearedText::
 
 _HookedMonAttackedText::
 	text "The hooked"
-	line "@"
+	line '@'
 	text_ram wEnemyMonNick
 	text_start
 	cont "attacked!"
@@ -1358,7 +1358,7 @@ _MirkoIntroText2::
 	prompt
 
 _WildMonCatchableText::
-	text "@"
+	text '@'
 	text_ram wEnemyMonNick
 	text_start
 	line "is catchable!"

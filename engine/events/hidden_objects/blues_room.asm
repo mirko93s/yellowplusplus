@@ -2,7 +2,7 @@
 	ret ; unused
 
 UnusedPredefText::
-	db "@"
+	db '@'
 
 PrintBookcaseText:
 	call EnableAutoTextBoxDrawing

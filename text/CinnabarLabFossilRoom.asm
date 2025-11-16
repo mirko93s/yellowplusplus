@@ -37,12 +37,12 @@ _Lab4Text_75dd5::
 
 _Lab4Text_610ae::
 	text "Oh! That is"
-	line "@"
+	line '@'
 	text_ram wcd6d
 	text "!"
 
 	para "It is fossil of"
-	line "@"
+	line '@'
 	text_ram wStringBuffer
 	text ", a"
 	cont "#MON that is"

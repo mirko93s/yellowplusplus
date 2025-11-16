@@ -183,7 +183,7 @@ PlaceEnemyHUDTiles:
 	callfar checkNuzlockeStatus
 	jr nz, .noNuzlocked ; skip if pokemon is not catchable
 	coord hl, 19, 0
-	ld a, "◓"
+	ld a, '◓'
 	ld [hl], a
 .noNuzlocked
 	pop hl
