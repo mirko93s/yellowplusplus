@@ -2345,8 +2345,11 @@ wGameProgressFlagsEnd::
 ; $01 = female
 wPlayerGender::
 	ds 1
+; used to track menu pages
+; currently used just for status screen pages
+wCurrentPage:: db
 ; unused
-	ds 40
+	ds 39
 
 ; individual trainer name
 wCurTrainerName::

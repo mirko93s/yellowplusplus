@@ -45,7 +45,6 @@ ROMX $3
 	"bank3"
 ROMX $4
 	"bank4"
-	"NPC Sprites 1"
 	"Battle Engine 1"
 ROMX $5
 	"bank5"
@@ -208,6 +207,7 @@ ROMX $39
 	"Pikachu Graphics 1"
 ROMX $3A
 	"bank3A"
+	"NPC Sprites 1"
 ; bank $3B WAS empty u.u
 ROMX $3B
 	"NPC Sprites 3"
