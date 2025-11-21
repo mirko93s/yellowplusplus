@@ -44,8 +44,9 @@ jobs:
           make
 
           # Rename debug ROM and symbol files
-          cp ypp_${SHORT_SHA}.gbc ypp_latest.gbc   # convenience copy for download badge
-          mv ypp_debug.gbc "ypp_${SHORT_SHA}_debug.gbc"
+          cp pokeyellow.gbc ypp_latest.gbc   # convenience copy for download badge
+          mv pokeyellow.gbc "ypp_${SHORT_SHA}_debug.gbc"
+          mv pokeyellow_debug.gbc "ypp_${SHORT_SHA}_debug.gbc"
           mv pokeyellow.sym "ypp_${SHORT_SHA}.sym"
           mv pokeyellow_debug.sym "ypp_${SHORT_SHA}_debug.sym"
 
@@ -129,6 +130,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SHORT_SHA: ${{ env.SHORT_SHA }}
+
       - name: Upload ROM and symbol files
         uses: softprops/action-gh-release@v1
         with:

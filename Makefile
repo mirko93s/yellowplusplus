@@ -51,7 +51,8 @@ RGBGFXFLAGS  ?= -Weverything
 .SECONDARY:
 .PHONY: all update_version_number yellow yellow_debug clean tidy compare tools
 
-all: update_version_number $(roms) rename_files
+all: update_version_number $(roms)
+dev: update_version_number $(roms) rename_files
 yellow:       pokeyellow.gbc
 yellow_debug: pokeyellow_debug.gbc
 yellow_vc:    pokeyellow.patch
