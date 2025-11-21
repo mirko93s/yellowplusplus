@@ -1,77 +1,141 @@
-name: CI
+name: Rolling Release
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  ROLLING_TAG: "ypp-rolling"
+  ROLLING_NAME: "Yellow++ Rolling Release"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Checkout rgbds
-        uses: actions/checkout@master
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison gcc git make libpng-dev
+
+      - name: Checkout RGBDS
+        uses: actions/checkout@v4
         with:
           path: rgbds
           ref: v1.0.0
           repository: gbdev/rgbds
 
-      - name: Install rgbds
+      - name: Install RGBDS
         working-directory: rgbds
-        run: |
-          sudo make install
+        run: sudo make install
 
-      - name: Remove rgbds
-        run: |
-          rm -rf rgbds
+      - name: Remove RGBDS folder
+        run: rm -rf rgbds
 
-      - name: Compare
-        if: ${{ github.repository_owner == 'pret' }}
+      - name: Set SHORT_SHA
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Build ROMs
         run: |
-          make DEBUG=1 -j$(nproc) compare
-          if ! git diff-index --quiet HEAD --; then
-            echo 'Uncommitted changes detected:'
-            git diff-index HEAD --
-            return 1
+          make clean || true
+          make
+
+          # Rename debug ROM and symbol files
+          cp ypp_${SHORT_SHA}.gbc ypp_latest.gbc   # convenience copy for download badge
+          mv ypp_debug.gbc "ypp_${SHORT_SHA}_debug.gbc"
+          mv pokeyellow.sym "ypp_${SHORT_SHA}.sym"
+          mv pokeyellow_debug.sym "ypp_${SHORT_SHA}_debug.sym"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ypp-build
+          path: .
+          retention-days: 7
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Load SHORT_SHA
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ypp-build
+          path: .
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          git fetch --tags
+
+          PREV_TAG=$(git tag --sort=-creatordate | grep ypp-rolling | head -n 1)
+
+          if [ -z "$PREV_TAG" ]; then
+            LOG="Initial build"
+          else
+            LOG=$(git log --pretty=format:"- %s" ${PREV_TAG}..HEAD)
+            [ -z "$LOG" ] && LOG="- No changes"
           fi
 
-      - name: Make
-        if: ${{ github.repository_owner != 'pret' }}
-        run: |
-          make -j$(nproc)
-          if ! git diff-index --quiet HEAD --; then
-            echo 'Uncommitted changes detected:'
-            git diff-index HEAD --
-            return 1
-          fi
+          # Multi-line output for GitHub Actions
+          echo "changes<<EOF" >> $GITHUB_OUTPUT
+          echo "$LOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Discord webhook
-        if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
+      - name: Delete previous rolling release
+        uses: cb80/delrel@latest
+        with:
+          tag: ${{ env.ROLLING_TAG }}
+
+      - name: Update rolling tag
+        run: |
+          git tag -f ${{ env.ROLLING_TAG }}
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ env.ROLLING_TAG }}
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          .github/webhook.sh
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout symbols
-        if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
-        uses: actions/checkout@master
+      - name: Create prerelease
+        uses: softprops/action-gh-release@v1
         with:
-          path: symbols
-          ref: symbols
+          tag_name: ${{ env.ROLLING_TAG }}
+          name: "${{ env.ROLLING_NAME }}"
+          body: |
+            ## Build: ${{ env.SHORT_SHA }}
 
-      - name: Move symbols
-        if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
-        run: |
-          cp -v *.sym symbols/
+            ### **ROM to play:** `ypp_${{ env.SHORT_SHA }}.gbc`  
 
-      - name: Update symbols
-        if: ${{ github.event_name == 'push' && github.repository_owner == 'pret' }}
-        uses: EndBug/add-and-commit@v7
+            **Debug/testing files:**  
+            - `ypp_${{ env.SHORT_SHA }}_debug.gbc` (rom for testing/debugging, **NOT** intended for regular play!)  
+            - `ypp_${{ env.SHORT_SHA }}.sym`  
+            - `ypp_${{ env.SHORT_SHA }}_debug.sym`  
+            - `ypp_latest.gbc` (same as ypp_${{ env.SHORT_SHA }}.gbc, used as a direct download link)  
+            
+
+            **Changelog since last rolling build:**  
+            ${{ steps.changelog.outputs.changes }}
+          prerelease: true
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHORT_SHA: ${{ env.SHORT_SHA }}
+      - name: Upload ROM and symbol files
+        uses: softprops/action-gh-release@v1
         with:
-          branch: symbols
-          cwd: "./symbols"
-          add: "*.sym"
-          message: ${{ github.event.commits[0].message }}
+          tag_name: ${{ env.ROLLING_TAG }}
+          files: |
+            ypp_${{ env.SHORT_SHA }}.gbc
+            ypp_${{ env.SHORT_SHA }}_debug.gbc
+            ypp_${{ env.SHORT_SHA }}.sym
+            ypp_${{ env.SHORT_SHA }}_debug.sym
+            ypp_latest.gbc
