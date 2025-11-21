@@ -1,6 +1,9 @@
 # Pokémon Yellow++
 
-A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-of-life improvements, while preserving the classic story and gameplay.
+A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-of-life improvements, while preserving the classic story and gameplay.  
+
+[![DOWNLOAD ROM](https://img.shields.io/badge/DOWNLOAD_LATEST_ROM-brightgreen?style=for-the-badge&logo=github&logoColor=white&labelColor=blue)](https://github.com/mirko93s/yellowplusplus/releases/download/ypp-rolling/ypp_latest.gbc)  
+*More in the [latest release](https://github.com/mirko93s/yellowplusplus/releases/tag/ypp-rolling) page*  
 
 ## ⭐ Features
 
