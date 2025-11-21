@@ -45,7 +45,7 @@ jobs:
 
           # Rename debug ROM and symbol files
           cp pokeyellow.gbc ypp_latest.gbc   # convenience copy for download badge
-          mv pokeyellow.gbc "ypp_${SHORT_SHA}_debug.gbc"
+          mv pokeyellow.gbc "ypp_${SHORT_SHA}.gbc"
           mv pokeyellow_debug.gbc "ypp_${SHORT_SHA}_debug.gbc"
           mv pokeyellow.sym "ypp_${SHORT_SHA}.sym"
           mv pokeyellow_debug.sym "ypp_${SHORT_SHA}_debug.sym"
@@ -114,13 +114,13 @@ jobs:
           body: |
             ## Build: ${{ env.SHORT_SHA }}
 
-            ### **ROM to play:** `ypp_${{ env.SHORT_SHA }}.gbc`  
+            ### **ROM to play:** `ypp_latest.gbc`  
 
             **Debug/testing files:**  
+            - `ypp_${{ env.SHORT_SHA }}.gbc` (same as ypp_latest.gbc)  
             - `ypp_${{ env.SHORT_SHA }}_debug.gbc` (rom for testing/debugging, **NOT** intended for regular play!)  
             - `ypp_${{ env.SHORT_SHA }}.sym`  
             - `ypp_${{ env.SHORT_SHA }}_debug.sym`  
-            - `ypp_latest.gbc` (same as ypp_${{ env.SHORT_SHA }}.gbc, used as a direct download link)  
             
 
             **Changelog since last rolling build:**  
