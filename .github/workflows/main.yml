@@ -83,9 +83,9 @@ jobs:
           PREV_TAG=$(git tag --sort=-creatordate | grep ypp-rolling | head -n 1)
 
           if [ -z "$PREV_TAG" ]; then
-            LOG="Initial build"
+            LOG="- Initial build"
           else
-            LOG=$(git log --pretty=format:"- %s" ${PREV_TAG}..HEAD)
+            LOG=$(git log --pretty=format:"- [%h](https://github.com/${GITHUB_REPOSITORY}/commit/%H) %s" ${PREV_TAG}..HEAD)
             [ -z "$LOG" ] && LOG="- No changes"
           fi
 
@@ -114,7 +114,7 @@ jobs:
           body: |
             ## Build: ${{ env.SHORT_SHA }}
 
-            ### **ROM to play:** `ypp_latest.gbc`  
+            ### **ROM to play:** [`ypp_latest.gbc`](https://github.com/mirko93s/yellowplusplus/releases/download/ypp-rolling/ypp_latest.gbc)  
 
             **Debug/testing files:**  
             - `ypp_${{ env.SHORT_SHA }}.gbc` (same as ypp_latest.gbc)  
@@ -136,8 +136,8 @@ jobs:
         with:
           tag_name: ${{ env.ROLLING_TAG }}
           files: |
+            ypp_latest.gbc
             ypp_${{ env.SHORT_SHA }}.gbc
             ypp_${{ env.SHORT_SHA }}_debug.gbc
             ypp_${{ env.SHORT_SHA }}.sym
             ypp_${{ env.SHORT_SHA }}_debug.sym
-            ypp_latest.gbc
