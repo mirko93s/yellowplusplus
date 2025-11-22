@@ -8,14 +8,24 @@ PayDayEffect_:
 	jr z, .payDayEffect
 	ld a, [wEnemyMonLevel]
 .payDayEffect
-; level * 2
-	add a
+; level * 5
+	push hl
+	ld l, a
+	ld h, 0
+	ld e, l
+	ld d, h
+	add hl, hl
+	add hl, hl
+	add hl, de
+	ld a, l
 	ldh [hDividend + 3], a
-	xor a
-	ldh [hDividend], a
-	ldh [hDividend + 1], a
+	ld a, h
 	ldh [hDividend + 2], a
-; convert to BCD
+	xor a
+	ldh [hDividend + 1], a
+	ldh [hDividend], a
+	pop hl
+	; convert to BCD
 	ld a, 100
 	ldh [hDivisor], a
 	ld b, $4
