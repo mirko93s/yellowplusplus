@@ -6,7 +6,7 @@ Route12SuperRodHouse_TextPointers:
 
 Route12HouseText1:
 	text_asm
-	ld a, [wd728]
+	ld a, [wStatusFlags1]
 	bit 5, a ; received super rod?
 	jr nz, .got_item
 	ld hl, Route12HouseText_564c0
@@ -18,7 +18,7 @@ Route12HouseText1:
 	lb bc, SUPER_ROD, 1
 	call GiveItem
 	jr nc, .bag_full
-	ld hl, wd728
+	ld hl, wStatusFlags1
 	set 5, [hl] ; received super rod
 	ld hl, Route12HouseText_564c5
 	jr .done

@@ -218,7 +218,7 @@ LoadTownMap_Fly::
 	call PlaySound
 	ld a, [hl]
 	ld [wDestinationMap], a
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	set 3, [hl]
 	inc hl
 	set 7, [hl]

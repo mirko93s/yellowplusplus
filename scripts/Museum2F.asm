@@ -29,7 +29,7 @@ Museum2FText4:
 
 Museum2FText5:
 	text_asm
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 7, a
 	jr nz, .asm_5c1f6
 	ld hl, Museum2FText_5c20e

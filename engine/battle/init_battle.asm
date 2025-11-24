@@ -5,12 +5,12 @@ InitBattle::
 
 InitOpponent:
 	ld a, [wCurOpponent]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld [wEnemyMonSpecies2], a
 	jr InitBattleCommon
 
 DetermineWildOpponent:
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 1, a
 	jr z, .notDebug
 	ldh a, [hJoyHeld]
@@ -79,14 +79,14 @@ LoadGhostPic:
 	ld a, 'T'
 	ld [hli], a
 	ld [hl], '@'
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	push af
 	ld a, MON_GHOST
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load ghost sprite
 	pop af
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
     ret
 
 InitWildBattle:
@@ -178,7 +178,7 @@ LoadMonBackPic:
 ; Assumes the monster's attributes have
 ; been loaded with GetMonHeader.
 	ld a, [wBattleMonSpecies2]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	hlcoord 1, 5
 	lb bc, 7, 8
 	call ClearScreenArea

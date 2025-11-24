@@ -44,7 +44,7 @@ OaksLabScript0:
 	ld a, HS_OAKS_LAB_OAK_2
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	res 4, [hl]
 
 	ld a, $1
@@ -68,7 +68,7 @@ OakEntryMovement:
 	db -1 ; end
 
 OaksLabScript2:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, HS_OAKS_LAB_OAK_2
@@ -120,7 +120,7 @@ OaksLabScript4:
 	ld a, SPRITE_FACING_UP
 	ldh [hSpriteFacingDirection], a
 	call SetSpriteFacingDirectionAndDelay
-	ld hl, wFlags_D733
+	ld hl, wStatusFlags7
 	res 1, [hl]
 	call DelayFrame
 	call PlayDefaultMusic
@@ -216,7 +216,7 @@ OaksLabScript8:
 	db $FF
 
 OaksLabScript9:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	jr nz, .asm_1c564
 	ld a, HS_STARTER_BALL_1
@@ -230,7 +230,7 @@ OaksLabScript9:
 	ld a, RIVAL_STARTER_JOLTEON
 	ld [wRivalStarter], a
 	ld a, EEVEE
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld a, ~(A_BUTTON | B_BUTTON)
 	ld [wJoyIgnore], a
@@ -338,7 +338,7 @@ OaksLabScript12:
 	ret
 
 OaksLabScript13:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $1
@@ -351,7 +351,7 @@ OaksLabScript13:
 	ld hl, OaksLabRivalDefeatedText
 	ld de, OaksLabRivalBeatYouText
 	call SaveEndBattleTextPointers
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	xor a
@@ -433,7 +433,7 @@ OaksLabScript15:
 	db -1 ; end
 
 OaksLabScript16:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	jr nz, .checkRivalPosition
 	ld a, ~(A_BUTTON | B_BUTTON)
@@ -535,7 +535,7 @@ OaksLabScript_1c78e:
 	ret
 
 OaksLabScript20:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	call EnableAutoTextBoxDrawing
@@ -622,7 +622,7 @@ OaksLabScript20:
 	ret
 
 OaksLabScript21:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	call PlayDefaultMusic
@@ -709,9 +709,9 @@ OaksLabScript_1c8b9:
 OaksLabScript_1d076:
 	ld hl, OaksLab_TextPointers2
 	ld a, l
-	ld [wMapTextPtr], a
+	ld [wCurMapTextPtr], a
 	ld a, h
-	ld [wMapTextPtr + 1], a
+	ld [wCurMapTextPtr + 1], a
 	ret
 
 OaksLab_TextPointers:
@@ -840,7 +840,7 @@ OaksLabText3:
 	jr nz, .asm_1ca4a
 	CheckEventReuseA EVENT_BATTLED_RIVAL_IN_OAKS_LAB
 	jr nz, .asm_1ca2b
-	ld a, [wd72e]
+	ld a, [wStatusFlags4]
 	bit 3, a
 	jr nz, .asm_1ca23
 	ld hl, OaksLabText_1ca72
@@ -1014,7 +1014,7 @@ OaksLabText18:
 	text_asm
 	ld a, STARTER_PIKACHU
 	ld [wPlayerStarter], a
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
@@ -1025,16 +1025,16 @@ OaksLabText18:
 	xor a
 	ld [wMonDataLocation], a
 	ld a, 5
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, STARTER_PIKACHU
-	ld [wd11e], a
-	ld [wcf91], a
+	ld [wPokedexNum], a
+	ld [wCurPartySpecies], a
 	call AddPartyMon
 	ld a, LIGHT_BALL_GSC
 	ld [wPartyMon1CatchRate], a
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	set 3, [hl]
 	jp TextScriptEnd
 

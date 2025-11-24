@@ -5,7 +5,7 @@ SSAnneCaptainsRoom_Script:
 SSAnne7Script_6189b:
 	CheckEvent EVENT_GOT_HM01
 	ret nz
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 5, [hl]
 	ret
 
@@ -28,7 +28,7 @@ SSAnne7Text1:
 	ld hl, ReceivedHM01Text
 	call PrintText
 	SetEvent EVENT_GOT_HM01
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	res 5, [hl]
 	jr .done
 .bag_full
@@ -61,7 +61,7 @@ SSAnne7RubText:
 	jr z, .asm_61910
 	call PlayDefaultMusic
 	SetEvent EVENT_RUBBED_CAPTAINS_BACK
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	res 5, [hl]
 	jp TextScriptEnd
 

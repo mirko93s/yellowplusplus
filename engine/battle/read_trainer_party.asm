@@ -52,9 +52,9 @@ ReadTrainer:
 	ld a, [hli]
 	and a ; have we reached the end of the trainer data?
 	jr z, .AddAdditionalMoveData
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, [hli]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld a, ENEMY_PARTY_DATA
 	ld [wMonDataLocation], a
 	push hl
@@ -112,7 +112,7 @@ ReadTrainer:
 	ld [de], a
 	inc de
 	ld [de], a
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	ld b, a
 .LastLoop
 ; update wAmountMoneyWon addresses (money to win) based on enemy's level
@@ -125,7 +125,7 @@ ReadTrainer:
 	inc de
 	inc de ; increment de one more time to prevent the previous memory address (wEscapedFromBattle) from being affected
 	dec b
-	jr nz, .LastLoop ; repeat wCurEnemyLVL times
+	jr nz, .LastLoop ; repeat wCurEnemyLevel times
 	ret
 
 	GetTrainerMonDVs:: ; called from engine/battle/core.asm
@@ -171,12 +171,12 @@ GetUniqueTrainerDVs:
 	jr nz, .inc4andloop
 	ld a, [hli] ; PartySpecies
 	ld b, a
-	ld a, [wd0b5] ; should always be mon's species, when called from AddPartyMon or LoadEnemyMonData
+	ld a, [wCurSpecies] ; should always be mon's species, when called from AddPartyMon or LoadEnemyMonData
 	cp b
 	jr nz, .inc3andloop
 	ld a, [hli] ; Level
 	ld b, a
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	cp b
 	jr nz, .inc2andloop
 .unique

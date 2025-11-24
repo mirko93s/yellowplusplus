@@ -122,7 +122,7 @@ CeruleanCityScript_1955d:
 	jp SetSpriteFacingDirectionAndDelay ; face object
 
 CeruleanCityScript1:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a
@@ -130,7 +130,7 @@ CeruleanCityScript1:
 	ld a, $1
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, CeruleanCityText_1966d
@@ -199,7 +199,7 @@ CeruleanCityMovement4:
 	db -1 ; end
 
 CeruleanCityScript3:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, HS_CERULEAN_RIVAL
@@ -268,7 +268,7 @@ CeruleanCityText2:
 	jr nz, .beatRocketThief
 	ld hl, CeruleanCityText_196d9
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, CeruleanCityText_196ee

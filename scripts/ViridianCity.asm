@@ -100,7 +100,7 @@ ViridianCityScript_190db:
 	ld a, BATTLE_TYPE_OLD_MAN
 	ld [wBattleType], a
 	ld a, 255
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, MEW
 	ld [wCurOpponent], a
 	ret
@@ -242,7 +242,7 @@ ViridianCityOldManMovementData2:
 	db $ff
 
 ViridianCityScript10:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $3

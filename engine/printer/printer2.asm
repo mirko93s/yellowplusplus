@@ -43,8 +43,8 @@ Printer_GetMonStats:
 	call PrintNumber
 
 	ld a, [wMonHeader]
-	ld [wPokeBallAnimData], a
-	ld [wd0b5], a
+	ld [wPokedexNum], a
+	ld [wCurSpecies], a
 	ld hl, wPartyMonNicks
 	call .GetNamePointer
 	hlcoord 8, 2

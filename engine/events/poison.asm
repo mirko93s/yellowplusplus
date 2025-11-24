@@ -1,11 +1,11 @@
 ApplyOutOfBattlePoisonDamage:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	add a
 	jp c, .noBlackOut ; no black out if joypad states are being simulated
 	ld a, [wd492]
 	bit 7, a
 	jp nz, .noBlackOut
-	ld a, [wd72e]
+	ld a, [wStatusFlags4]
 	bit 6, a
 	jp nz, .noBlackOut
 	ld a, [wPartyCount]
@@ -50,7 +50,7 @@ ApplyOutOfBattlePoisonDamage:
 ; 	inc hl
 ; 	ld [hl], a
 ; 	ld a, [de]
-; 	ld [wd11e], a
+; 	ld [wPokedexNum], a
 ; 	push de
 ; 	ld a, [wWhichPokemon]
 ; 	ld hl, wPartyMonNicks
@@ -114,7 +114,7 @@ ApplyOutOfBattlePoisonDamage:
 ; 	ld a, TEXT_BLACKED_OUT
 ; 	ldh [hSpriteIndexOrTextID], a
 ; 	call DisplayTextID
-; 	ld hl, wd72e
+; 	ld hl, wStatusFlags4
 ; 	set 5, [hl]
 ; 	ld a, $ff
 ; 	jr .done
@@ -147,5 +147,5 @@ Func_c4c7:
 	ret nz
 .asm_c4ef
 	xor a
-	ld [wd49c], a
+	ld [wd49b], a
 	ret

@@ -147,7 +147,7 @@ RocketHideout4Script4:
 RocketHideout4Script5:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 RocketHideout4Script6:
@@ -181,7 +181,7 @@ RocketHideout4Script7:
 RocketHideout4Script8:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $fc
@@ -201,7 +201,7 @@ RocketHideout4Script9:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 RocketHideout4Script10:
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, RocketHideout4JessieJamesEndBattleText
@@ -349,7 +349,7 @@ RocketHideout4Text0:
 	jp nz, .asm_457fb
 	ld hl, RocketHideout4Text_45804
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, RocketHideout4Text_45809

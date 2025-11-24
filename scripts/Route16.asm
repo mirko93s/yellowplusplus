@@ -32,7 +32,7 @@ Route16Script0:
 	ld a, SNORLAX
 	ld [wCurOpponent], a
 	ld a, 40
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, HS_ROUTE_16_SNORLAX
 	ld [wMissableObjectIndex], a
 	predef HideObject

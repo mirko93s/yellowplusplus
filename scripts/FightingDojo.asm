@@ -31,7 +31,7 @@ FightingDojoScript1:
 	ret nz
 	xor a
 	ldh [hJoyHeld], a
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a
 	ld a, [wYCoord]
 	cp 3
 	ret nz
@@ -39,7 +39,7 @@ FightingDojoScript1:
 	cp 4
 	ret nz
 	ld a, $1
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a
 	ld a, PLAYER_DIR_RIGHT
 	ld [wPlayerMovingDirection], a
 	ld a, $1
@@ -56,7 +56,7 @@ FightingDojoScript3:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, FightingDojoScript_5cd70
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	and a
 	jr z, .asm_5cde4
 	ld a, PLAYER_DIR_RIGHT
@@ -110,7 +110,7 @@ FightingDojoText1:
 	jp nz, .continue2
 	ld hl, FightingDojoText_5ce8e
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, FightingDojoText_5ce93
@@ -239,7 +239,7 @@ FightingDojoText6:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .done
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	ld b, a
 	ld c, 35
 	call GivePokemon
@@ -284,7 +284,7 @@ FightingDojoText7:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .done
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	ld b, a
 	ld c, 35
 	call GivePokemon

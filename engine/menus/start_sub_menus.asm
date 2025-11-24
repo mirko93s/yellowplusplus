@@ -142,11 +142,11 @@ StartMenu_Pokemon::
 	jp .loop
 .canFly
 	call ChooseFlyDestination
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 3, a ; did the player decide to fly?
 	jr nz, .asm_5d4c
 	call LoadFontTilePatterns
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	set 1, [hl]
 	jp StartMenu_Pokemon
 .asm_5d4c
@@ -164,11 +164,11 @@ StartMenu_Pokemon::
 	bit BIT_SOULBADGE, a
 	jp z, .newBadgeRequired
 	farcall IsSurfingAllowed
-	ld hl, wd728
+	ld hl, wStatusFlags1
 	bit 1, [hl]
 	res 1, [hl]
 	jp z, .loop
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp STARTER_PIKACHU
 	jr z, .surfingPikachu
 	ld a, $1
@@ -176,9 +176,9 @@ StartMenu_Pokemon::
 .surfingPikachu
 	ld a, $2
 .continue
-	ld [wd473], a
+	ld [wd471], a
 	ld a, SURFBOARD
-	ld [wcf91], a
+	ld [wCurItem], a
 	ld [wPseudoItemID], a
 	call UseItem
 	ld a, [wActionResultOrTookBattleTurn]
@@ -188,7 +188,7 @@ StartMenu_Pokemon::
 	jp .goBackToMap
 .reloadNormalSprite
 	xor a
-	ld [wd473], a
+	ld [wd471], a
 	jp .loop
 .strength
 	bit BIT_RAINBOWBADGE, a
@@ -210,7 +210,7 @@ StartMenu_Pokemon::
 	text_end
 .dig
 	ld a, ESCAPE_ROPE
-	ld [wcf91], a
+	ld [wCurItem], a
 	ld [wPseudoItemID], a
 	call UseItem
 	ld a, [wActionResultOrTookBattleTurn]
@@ -230,11 +230,11 @@ StartMenu_Pokemon::
 .canTeleport
 	ld hl, .warpToLastPokemonCenterText
 	call PrintText
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	set 3, [hl]
 	set 6, [hl]
 	call Func_1510
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	set 1, [hl]
 	res 4, [hl]
 	ld c, 60
@@ -276,7 +276,7 @@ StartMenu_Pokemon::
 	ld a, [wPartyAndBillsPCSavedMenuItem]
 	push af
 	ld a, POTION
-	ld [wcf91], a
+	ld [wCurItem], a
 	ld [wPseudoItemID], a
 	call UseItem
 	pop af
@@ -355,7 +355,7 @@ StartMenu_Item::
 	call PlaceUnfilledArrowMenuCursor
 	xor a
 	ld [wMenuItemToSwap], a
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp BICYCLE
 	jp z, .useOrTossItem
 .notBicycle1
@@ -382,14 +382,14 @@ StartMenu_Item::
 	jr z, .useOrTossItem
 	jp ItemMenuLoop
 .useOrTossItem ; if the player made the choice to use or toss the item
-	ld a, [wcf91]
-	ld [wd11e], a
+	ld a, [wCurItem]
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	call CopyToStringBuffer
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp BICYCLE
 	jr nz, .notBicycle2
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 5, a
 	jr z, .useItem_closeMenu
 	ld hl, CannotGetOffHereText
@@ -407,14 +407,14 @@ StartMenu_Item::
 	; ld [wPseudoItemID], a ; a must be 0 due to above conditional jump
 	xor a
 	ld [wPseudoItemID], a
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp HM01
 	jr nc, .useItem_partyMenu
 	ld hl, UsableItems_CloseMenu
 	ld de, 1
 	call IsInArray
 	jr c, .useItem_closeMenu
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	ld hl, UsableItems_PartyMenu
 	ld de, 1
 	call IsInArray
@@ -451,7 +451,7 @@ StartMenu_Item::
 	ld a, [wIsKeyItem]
 	and a
 	jr nz, .skipAskingQuantity
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	call IsItemHM
 	jr c, .skipAskingQuantity
 	call DisplayChooseQuantityMenu
@@ -713,7 +713,7 @@ TrainerInfo_DrawVerticalLine:
 	ret
 
 StartMenu_SaveReset::
-	ld a, [wd72e]
+	ld a, [wStatusFlags4]
 	bit 6, a ; is the player using the link feature?
 	jp nz, Init
 	predef SaveSAV ; save the game
@@ -884,9 +884,9 @@ SwitchPartyMon_InitVarOrSwapData:
 StartMenu_SelectPressed::
 	ld a, [wCurrentMenuItem]
 	ld [wBattleAndStartSavedMenuItem], a ; save current menu selection
-	ld a, [wMapTextPtr]
+	ld a, [wCurMapTextPtr]
 	ld b, a
-	ld a, [wMapTextPtr + 1]
+	ld a, [wCurMapTextPtr + 1]
 	ld c, a
 	push bc ; save the current maptextptr for later because that property can be modified by changing boxes
 	call SaveScreenTilesToBuffer2 ; copy background from wTileMap to wTileMapBackup2
@@ -906,8 +906,8 @@ StartMenu_SelectPressed::
 	call UpdateSprites
 	pop bc ; recover the original maptextptr in case we changed the value by changing boxes
 	ld a, b
-	ld [wMapTextPtr], a 
+	ld [wCurMapTextPtr], a 
 	ld a, c
-	ld [wMapTextPtr + 1], a
+	ld [wCurMapTextPtr + 1], a
 .done
 	jp RedisplayStartMenu

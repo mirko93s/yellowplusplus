@@ -1,5 +1,5 @@
 IsPlayerTalkingToPikachu::
-	ld a, [wd436]
+	ld a, [wd435]
 	and a
 	ret z
 	ldh a, [hSpriteIndexOrTextID]
@@ -8,7 +8,7 @@ IsPlayerTalkingToPikachu::
 	call InitializePikachuTextID
 	xor a
 	ldh [hSpriteIndexOrTextID], a
-	ld [wd436], a
+	ld [wd435], a
 	ret
 
 InitializePikachuTextID::
@@ -166,7 +166,7 @@ StarterPikachuEmotionCommand_subcmd:
 StarterPikachuEmotionCommand_nop2:
 IF DEF(_DEBUG)
 	push hl
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	bit 1, [hl]
 	pop hl
 	ret z
@@ -213,7 +213,7 @@ REPT 5
 ENDR
 IF DEF(_DEBUG)
 	push hl
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	bit 1, [hl]
 	pop hl
 	ret z
@@ -343,7 +343,7 @@ MapSpecificPikachuExpression:
 	ldpikaemotion a, PikachuEmotion22
 	jr c, .play_emotion
 .notInLavenderTower
-	ld a, [wd49c]
+	ld a, [wd49b]
 	and a
 	jr z, .mood_based_emotion
 	dec a

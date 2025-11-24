@@ -114,7 +114,7 @@ SilphCo11Script_621c5:
 	call ArePlayerCoordsInArray
 	jp nc, CheckFightingMapTrainers
 	ld a, [wCoordIndex]
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a
 	xor a
 	ldh [hJoyHeld], a
 	ld a, $f0
@@ -154,7 +154,7 @@ SilphCo11Script3:
 	ld a, [wIsInBattle]
 	cp $ff
 	jp z, SilphCo11Script_62185
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr z, .asm_6223c
 	ld a, PLAYER_DIR_LEFT
@@ -181,13 +181,13 @@ SilphCo11Script3:
 	jp SilphCo11Script_62189
 
 SilphCo11Script4:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $3
 	ldh [hSpriteIndex], a
 	call SetSpriteMovementBytesToFF
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr z, .asm_62284
 	ld a, PLAYER_DIR_LEFT
@@ -201,7 +201,7 @@ SilphCo11Script4:
 	call Delay3
 	xor a
 	ld [wJoyIgnore], a
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, SilphCo10Text_62528
@@ -323,7 +323,7 @@ SilphCo11Script5:
 SilphCo11Script6:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 SilphCo11Script7:
@@ -361,7 +361,7 @@ SilphCo11Script8:
 SilphCo11Script9:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $fc
@@ -381,7 +381,7 @@ SilphCo11Script10:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 SilphCo11Script11:
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, SilphCo11Text_624c2

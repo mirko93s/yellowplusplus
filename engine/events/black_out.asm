@@ -1,7 +1,7 @@
 ResetStatusAndHalveMoneyOnBlackout::
 ; Reset player status on blackout.
 	xor a
-	ld [wd435], a
+	ld [wPikachuCollisionCounter], a
 	xor a ; gamefreak copypasting functions (double xor a)
 	ld [wBattleResult], a
 	ld [wWalkBikeSurfState], a
@@ -10,7 +10,7 @@ ResetStatusAndHalveMoneyOnBlackout::
 	ld [wNPCMovementScriptFunctionNum], a
 	ldh [hJoyHeld], a
 	ld [wNPCMovementScriptPointerTableNum], a
-	ld [wFlags_0xcd60], a
+	ld [wMiscFlags], a
 
 	ldh [hMoney], a
 	ldh [hMoney + 1], a
@@ -39,7 +39,7 @@ ResetStatusAndHalveMoneyOnBlackout::
 	ld [wPlayerMoney + 2], a
 
 .lostmoney
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	set 2, [hl]
 	res 3, [hl]
 	set 6, [hl]

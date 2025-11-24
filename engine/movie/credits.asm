@@ -117,8 +117,8 @@ GetNextCreditsMon:
 	ld hl, CreditsMons
 	add hl, bc
 	ld a, [hl]
-	ld [wcf91], a
-	ld [wd0b5], a
+	ld [wCurPartySpecies], a
+	ld [wCurSpecies], a
 	hlcoord 8, 6
 	call GetMonHeader
 	call LoadFrontSpriteByMonIndex

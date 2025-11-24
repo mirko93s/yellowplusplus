@@ -54,7 +54,7 @@ PalletTownScript1:
 	ld a, ~(A_BUTTON | B_BUTTON)
 	ld [wJoyIgnore], a
 	xor a
-	ld [wcf0d], a
+	ld [wOakWalkedToPlayer], a
 	ld a, 1
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -102,13 +102,13 @@ PalletTownScript2:
 	ret
 
 PalletTownScript3:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, ~(A_BUTTON | B_BUTTON)
 	ld [wJoyIgnore], a
 	ld a, 1
-	ld [wcf0d], a
+	ld [wOakWalkedToPlayer], a
 	ld a, $2
 	ld [wSprite01StateData1MovementStatus], a
 	ld a, SPRITE_FACING_UP
@@ -144,7 +144,7 @@ PalletTownScript4:
 	ld a, STARTER_PIKACHU
 	ld [wCurOpponent], a
 	ld a, 5
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 
 	; trigger the next script
 	ld a, 5
@@ -153,7 +153,7 @@ PalletTownScript4:
 
 PalletTownScript5:
 	ld a, $2
-	ld [wcf0d], a
+	ld [wOakWalkedToPlayer], a
 	ld a, $1
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
@@ -230,7 +230,7 @@ PalletTown_TextPointers:
 
 PalletTownText1:
 	text_asm
-	ld a, [wcf0d]
+	ld a, [wOakWalkedToPlayer]
 	and a
 	jr nz, .next
 	ld a, 1

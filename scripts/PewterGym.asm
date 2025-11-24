@@ -110,7 +110,7 @@ BrockText:
 .beforeBeat
 	ld hl, BrockPreBattleText
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, ReceivedBoulderBadgeText
@@ -187,7 +187,7 @@ PewterGymGuideText:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .PewterGymGuideBeginAdviceText
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 7, a
 	jp nz, .asm_5c3fa
 	ld hl, PewterGymGuideBeginAdviceText

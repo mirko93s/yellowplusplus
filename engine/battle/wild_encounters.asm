@@ -4,7 +4,7 @@ TryDoWildEncounter:
 	ld a, [wNPCMovementScriptPointerTableNum]
 	and a
 	ret nz
-	ld a, [wd736]
+	ld a, [wMovementFlags]
 	and a
 	ret nz
 	callfar IsPlayerStandingOnDoorTileOrWarpTile
@@ -114,9 +114,9 @@ TryDoWildEncounter:
 	jr c, .CantEncounter2 ; repel prevents encounters if the leading party mon's level is higher than the wild mon
 .willEncounter
 	ld a, [wNextEncounterLevel]
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, [wNextEncounterSpecies]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld [wEnemyMonSpecies2], a
 	xor a
 	ret

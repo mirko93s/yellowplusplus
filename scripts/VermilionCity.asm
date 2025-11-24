@@ -61,7 +61,7 @@ VermilionCityScript0:
 	jr nc, .return
 	xor a
 	ldh [hJoyHeld], a
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a ; unnecessary
 	ld a, $3
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID

@@ -5,7 +5,7 @@ CeladonPrizeMenu::
 	ld hl, RequireCoinCaseTextPtr
 	jp PrintText
 .havingCoinCase
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl] ; disable letter-printing delay
 	ld hl, ExchangeCoinsForPrizesTextPtr
 	call PrintText
@@ -37,7 +37,7 @@ CeladonPrizeMenu::
 	jr z, .noChoice
 	call HandlePrizeChoice
 .noChoice
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	ret
 
@@ -95,34 +95,34 @@ GetPrizeMenuId:
 	cp 2        ;is TM_menu?
 	jr nz, .putMonName
 	ld a, [wPrize1]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	hlcoord 2, 4
 	call PlaceString
 	ld a, [wPrize2]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	hlcoord 2, 6
 	call PlaceString
 	ld a, [wPrize3]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	hlcoord 2, 8
 	call PlaceString
 	jr .putNoThanksText
 .putMonName
 	ld a, [wPrize1]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	hlcoord 2, 4
 	call PlaceString
 	ld a, [wPrize2]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	hlcoord 2, 6
 	call PlaceString
 	ld a, [wPrize3]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	hlcoord 2, 8
 	call PlaceString
@@ -198,7 +198,7 @@ HandlePrizeChoice:
 	ld hl, wPrize1
 	add hl, de
 	ld a, [hl]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	ld a, [wWhichPrizeWindow]
 	cp 2 ; is prize a TM?
 	jr nz, .getMonName
@@ -228,7 +228,7 @@ HandlePrizeChoice:
 	ld a, [wWhichPrizeWindow]
 	cp $02
 	jr nz, .giveMon
-	ld a, [wd11e]
+	ld a, [wNamedObjectIndex]
 	ld b, a
 	ld a, 1
 	ld c, a
@@ -236,8 +236,8 @@ HandlePrizeChoice:
 	jr nc, .bagFull
 	jr .subtractCoins
 .giveMon
-	ld a, [wd11e]
-	ld [wcf91], a
+	ld a, [wNamedObjectIndex]
+	ld [wCurPartySpecies], a
 	push af
 	call GetPrizeMonLevel
 	ld c, a
@@ -311,7 +311,7 @@ OhFineThenTextPtr:
 	text_end
 
 GetPrizeMonLevel:
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	ld b, a
 	ld hl, PrizeMonLevelDictionary
 .loop
@@ -322,7 +322,7 @@ GetPrizeMonLevel:
 	jr .loop
 .matchFound
 	ld a, [hl]
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ret
 
 INCLUDE "data/events/prize_mon_levels.asm"

@@ -1,6 +1,6 @@
 SeafoamIslandsB3F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, wFlags_0xcd60
+	ld hl, wMiscFlags
 	bit 7, [hl]
 	res 7, [hl]
 	jr z, .asm_465dc
@@ -36,7 +36,7 @@ SeafoamIslandsB3F_Script:
 	ld [wDungeonWarpDestinationMap], a
 	ld hl, Seafoam4HolesCoords
 	call IsPlayerOnDungeonWarp
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 4, a
 	ret nz
 .asm_465ed
@@ -70,7 +70,7 @@ SeafoamIslands4Script0:
 	dec a
 	ld [wSimulatedJoypadStatesIndex], a
 	call StartSimulatingJoypadStates
-	ld hl, wFlags_D733
+	ld hl, wStatusFlags7
 	set 2, [hl]
 	ld a, $1
 	ld [wSeafoamIslandsB3FCurScript], a
@@ -110,9 +110,9 @@ SeafoamIslands4Script2:
 	ld [wSimulatedJoypadStatesIndex], a
 	xor a
 	ld [wSpritePlayerStateData2MovementByte1], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 7, [hl]
-	ld hl, wFlags_D733
+	ld hl, wStatusFlags7
 	set 2, [hl]
 	ld a, $3
 .asm_4667b

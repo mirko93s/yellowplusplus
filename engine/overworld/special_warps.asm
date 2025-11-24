@@ -1,7 +1,7 @@
 SpecialWarpIn::
 	call LoadSpecialWarpData
 	predef LoadTilesetHeader
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	bit 2, [hl] ; dungeon warp or fly warp?
 	res 2, [hl]
 	jr z, .next
@@ -16,12 +16,12 @@ SpecialWarpIn::
 	ld a, 0
 .next2
 	ld b, a
-	ld a, [wd72d]
+	ld a, [wStatusFlags3]
 	and a
 	jr nz, .next4
 	ld a, b
 .next4
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	bit 4, [hl] ; dungeon warp?
 	ret nz
 ; if not dungeon warp
@@ -30,7 +30,7 @@ SpecialWarpIn::
 
 ; gets the map ID, tile block map view pointer, tileset, and coordinates
 LoadSpecialWarpData:
-	ld a, [wd72d]
+	ld a, [wStatusFlags3]
 	cp TRADE_CENTER
 	jr nz, .notTradeCenter
 	ld hl, TradeCenterSpec1
@@ -49,7 +49,7 @@ LoadSpecialWarpData:
 	ld hl, ColosseumSpec2
 	jr .copyWarpData
 .notColosseum
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 1, a
 	jr nz, .notFirstMap
 	bit 2, a
@@ -70,7 +70,7 @@ LoadSpecialWarpData:
 	jr .done
 .notFirstMap
 	ld a, [wLastMap] ; this value is overwritten before it's ever read
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	bit 4, [hl] ; used dungeon warp (jumped down hole/waterfall)?
 	jr nz, .usedDunegonWarp
 	bit 6, [hl] ; return to last pokemon center (or player's house)?
@@ -80,7 +80,7 @@ LoadSpecialWarpData:
 	ld a, [wLastBlackoutMap]
 	jr .usedFlyWarp
 .usedDunegonWarp
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	res 4, [hl]
 	ld a, [wDungeonWarpDestinationMap]
 	ld b, a

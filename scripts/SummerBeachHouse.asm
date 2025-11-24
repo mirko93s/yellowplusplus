@@ -12,7 +12,7 @@ SummerBeachHouse_TextPointers:
 
 SurfinDudeText:
 	text_asm
-	ld a, [wd472]
+	ld a, [wd471]
 	vc_patch Bypass_need_Pikachu_with_Surf_for_minigame
 IF DEF (_YELLOW_VC)
 	bit 7, a
@@ -80,7 +80,7 @@ SummerBeachHousePikachuText:
 SummerBeachHouseSign1Text:
 	text_asm
 	ld hl, .SummerBeachHouseSign1Text2
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 6, a
 	jr z, .next
 	ld hl, .SummerBeachHouseSign1Text1
@@ -98,7 +98,7 @@ SummerBeachHouseSign1Text:
 SummerBeachHouseSign2Text:
 	text_asm
 	ld hl, .SummerBeachHouseSign2Text2
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 6, a
 	jr z, .next
 	ld hl, .SummerBeachHouseSign2Text1
@@ -116,7 +116,7 @@ SummerBeachHouseSign2Text:
 SummerBeachHouseSign3Text:
 	text_asm
 	ld hl, .SummerBeachHouseSign3Text2
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 6, a
 	jr z, .next
 	ld hl, .SummerBeachHouseSign3Text1
@@ -135,7 +135,7 @@ SummerBeachHouseSign4Text:
 	text_asm
 	ld a, 1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld a, [wd472]
+	ld a, [wd471]
 	vc_patch Bypass_need_Pikachu_with_Surf_for_high_score
 IF DEF(_YELLOW_VC)
 	bit 7, a
@@ -166,13 +166,13 @@ ENDC
 	and a
 	jp z, Func_f23d0
 	call SaveScreenTilesToBuffer2
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl]
 	xor a
 	ld [wUpdateSpritesEnabled], a
 	callfar Printer_PrepareSurfingMinigameHighScoreTileMap
 	call WaitForTextScrollButtonPress
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	call GBPalWhiteOutWithDelay3
 	call ReloadTilesetTilePatterns

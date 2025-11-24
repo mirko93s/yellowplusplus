@@ -40,7 +40,7 @@ ViridianGymScript0:
 	cp $ff
 	jp z, CheckFightingMapTrainers
 	call StartSimulatingJoypadStates
-	ld hl, wd736
+	ld hl, wMovementFlags
 	set 7, [hl]
 	ld a, SFX_ARROW_TILES
 	call PlaySound
@@ -119,7 +119,7 @@ ViridianGymScript4:
 	jr nz, .ViridianGymLoadSpinnerArrow
 	xor a
 	ld [wJoyIgnore], a
-	ld hl, wd736
+	ld hl, wMovementFlags
 	res 7, [hl]
 	ld a, $0
 	ld [wCurMapScript], a
@@ -227,7 +227,7 @@ GiovanniText:
 .beforeBeat
 	ld hl, GiovanniPreBattleText
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, ReceivedEarthBadgeText

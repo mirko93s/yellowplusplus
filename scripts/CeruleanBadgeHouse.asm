@@ -33,7 +33,7 @@ CeruleanHouse2Text1:
 	call DisplayListMenuID
 	jr c, .asm_74e60
 	ld hl, TextPointers_74e86
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	sub BOULDERBADGE
 	add a
 	ld d, $0

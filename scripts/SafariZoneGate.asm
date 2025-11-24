@@ -124,7 +124,7 @@ SafariZoneGate_ScriptPointers:
 	call SafariZoneEntranceScript_752b4
 	ret nz
 	call Delay3
-	ld a, [wcf0d]
+	ld a, [wNextSafariZoneGateScript]
 	ld [wSafariZoneGateCurScript], a
 	ret
 
@@ -176,7 +176,7 @@ SafariZoneGate_TextPointers:
 	call SafariZoneEntranceAutoWalk
 	ResetEvents EVENT_SAFARI_GAME_OVER, EVENT_IN_SAFARI_ZONE
 	ld a, $0
-	ld [wcf0d], a
+	ld [wNextSafariZoneGateScript], a
 	jr .asm_753b3
 .asm_7539c
 	ld hl, .SafariZoneEntranceText_753c0
@@ -187,7 +187,7 @@ SafariZoneGate_TextPointers:
 	ld c, $1
 	call SafariZoneEntranceAutoWalk
 	ld a, $5
-	ld [wcf0d], a
+	ld [wNextSafariZoneGateScript], a
 .asm_753b3
 	ld a, $6
 	ld [wSafariZoneGateCurScript], a

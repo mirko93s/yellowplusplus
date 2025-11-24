@@ -10,11 +10,11 @@ MtMoonB2F_Script:
 	ld hl, CoordsData_49d37
 	call ArePlayerCoordsInArray
 	jr nc, .asm_49d31
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	set 4, [hl]
 	ret
 .asm_49d31
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	res 4, [hl]
 	ret
 
@@ -196,7 +196,7 @@ MovementData_49ddd:
 	db -1 ; end
 
 MtMoon3Script5:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $f0
@@ -288,7 +288,7 @@ MtMoon3Script6:
 MtMoon3Script7:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 MtMoon3Script8:
@@ -310,7 +310,7 @@ MtMoon3Script9:
 MtMoon3Script10:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 MtMoon3Script11:
@@ -325,7 +325,7 @@ MtMoon3Script11:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 MtMoon3Script12:
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, MtMoon3JessieJamesEndBattleText
@@ -487,7 +487,7 @@ MtMoon3Text1:
 .asm_4a02f
 	ld hl, MtMoon3Text_4a10c
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, MtMoon3SuperNerdEndBattleText

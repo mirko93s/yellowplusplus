@@ -118,7 +118,7 @@ SabrinaText:
 .beforeBeat
 	ld hl, SabrinaPreBattleText
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, ReceivedMarshBadgeText

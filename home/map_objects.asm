@@ -56,7 +56,7 @@ StartSimulatingJoypadStates::
 	xor a
 	ld [wOverrideSimulatedJoypadStatesMask], a
 	ld [wSpritePlayerStateData2MovementByte1], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 7, [hl]
 	ret
 
@@ -71,11 +71,11 @@ IsItemInBag::
 	ret
 
 IsSurfingPikachuInParty::
-; set bit 6 of wd472 if true
+; set bit 6 of wd471 if true
 ; also calls Func_3467, which is a bankswitch to IsStarterPikachuInOurParty
-	ld a, [wd472]
+	ld a, [wd471]
 	and $3f
-	ld [wd472], a
+	ld [wd471], a
 	ld hl, wPartyMon1
 	ld c, PARTY_LENGTH
 	ld b, SURF
@@ -99,9 +99,9 @@ IsSurfingPikachuInParty::
 	cp b
 	jr nz, .noSurf
 .hasSurf
-	ld a, [wd472]
+	ld a, [wd471]
 	set 6, a
-	ld [wd472], a
+	ld [wd471], a
 .noSurf
 	pop hl
 .notPikachu
@@ -119,13 +119,13 @@ Func_3467::
 	pop bc
 	pop hl
 	ret nc
-	ld a, [wd472]
+	ld a, [wd471]
 	set 7, a
-	ld [wd472], a
+	ld [wd471], a
 	ret
 
 DisplayPokedex::
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	farjp _DisplayPokedex
 
 SetSpriteFacingDirectionAndDelay::

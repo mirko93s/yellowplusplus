@@ -1,6 +1,6 @@
 SeafoamIslandsB2F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, wFlags_0xcd60
+	ld hl, wMiscFlags
 	bit 7, [hl]
 	res 7, [hl]
 	jr z, .asm_4649e

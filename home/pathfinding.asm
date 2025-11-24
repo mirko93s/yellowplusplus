@@ -32,7 +32,7 @@ MoveSprite_::
 	ld [wNPCNumScriptedSteps], a ; number of steps taken
 
 	pop bc
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 0, [hl]
 	pop hl
 	xor a

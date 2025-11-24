@@ -13,7 +13,7 @@ Route15GateUpstairsText1:
 	ldh [hOaksAideRequirement], a
 	ld a, EXP_ALL
 	ldh [hOaksAideRewardItem], a
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	ld hl, wcd6d
 	ld de, wOaksAideRewardItemName

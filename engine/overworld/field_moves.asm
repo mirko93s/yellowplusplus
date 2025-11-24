@@ -36,7 +36,7 @@ TrySurf:
 	
 	call GetPartyMonName2
 	ld a, SURFBOARD
-	ld [wcf91], a
+	ld [wCurItem], a
 	;ld [wd152], a;???
 	call UseItem
 	call Text3_DrakesDeception

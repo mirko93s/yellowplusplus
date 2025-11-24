@@ -140,7 +140,7 @@ CalculatePikachuPlacementCoords::
 	inc hl
 	ld [hl], $fe
 	push hl
-	ld hl, wd472
+	ld hl, wd471
 	set 5, [hl]
 	pop hl
 	ret
@@ -617,15 +617,15 @@ Func_fc862:
 	add hl, bc
 	ld [hl], $6
 	xor a
-	ld [wd432], a
-	ld [wd433], a
+	ld [wd431], a
+	ld [wd431], a
 	ld hl, wSpritePikachuStateData2WalkAnimationCounter - wSpritePikachuStateData1
 	add hl, bc
 	ld [hl], $11
 asm_fc87f:
-	ld a, [wd432]
+	ld a, [wd431]
 	ld e, a
-	ld a, [wd433]
+	ld a, [wd431]
 	ld d, a
 	call Func_fc82e
 	jr c, Func_fc8c7
@@ -651,11 +651,11 @@ asm_fc87f:
 	adc 0
 	ld h, a
 	ld a, [hli]
-	ld [wd432], a
+	ld [wd431], a
 	add e
 	ld e, a
 	ld a, [hl]
-	ld [wd433], a
+	ld [wd431], a
 	add d
 	ld d, a
 	ld hl, wSpritePikachuStateData1YPixels - wSpritePikachuStateData1
@@ -918,7 +918,7 @@ TryDoubleAddPikachuStepVectorToScreenPixelCoords:
 	ld a, [wWalkBikeSurfState]
 	cp $1 ; biking
 	jr nz, AddPikachuStepVectorToScreenPixelCoords
-	ld a, [wd736]
+	ld a, [wMovementFlags]
 	bit 6, a
 	jr nz, AddPikachuStepVectorToScreenPixelCoords
 DoubleAddPikachuStepVectorToScreenPixelCoords:
@@ -990,7 +990,7 @@ UpdatePikachuWalkingSprite:
 	dec a
 	swap a
 	ld d, a
-	ld a, [wd736]
+	ld a, [wMovementFlags]
 	bit 7, a
 	jr nz, .copy_player
 	ld hl, wSpritePikachuStateData1FacingDirection - wSpritePikachuStateData1
@@ -1260,7 +1260,7 @@ CheckAbsoluteValueLessThan2:
 Func_fcc08::
 	call Func_fcc23
 	ret nc
-	ld a, [wd736]
+	ld a, [wMovementFlags]
 	bit 6, a
 	jr nz, .asm_fcc1b
 	call Func_fcc42
@@ -1281,7 +1281,7 @@ Func_fcc23:
 	ld a, [wPikachuOverworldStateFlags]
 	bit 7, a
 	jr nz, .asm_fcc40
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 7, a
 	jr z, .asm_fcc40
 	ld a, [wWalkBikeSurfState]

@@ -16,7 +16,7 @@ DrawFrameBlock:
 	inc a
 	ld [wFBTileCounter], a
 	ld a, $2
-	ld [wdef5], a
+	ld [wdef4], a
 	ld a, [wSubAnimTransform]
 	dec a
 	jr z, .flipHorizontalAndVertical   ; SUBANIMTYPE_HVFLIP
@@ -50,9 +50,9 @@ DrawFrameBlock:
 	ld [de], a ; store X
 	cp 88
 	jr c, .asm_78056
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_78056
 	inc hl
 	inc de
@@ -62,7 +62,7 @@ DrawFrameBlock:
 	inc de
 	ld a, [hli]
 	ld b, a
-	ld a, [wdef5]
+	ld a, [wdef4]
 	or b
 	ld [de], a ; store flags
 	inc de
@@ -84,9 +84,9 @@ DrawFrameBlock:
 	ld [de], a ; store X
 	cp 88
 	jr c, .asm_78087
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_78087
 	inc hl
 	inc de
@@ -107,7 +107,7 @@ DrawFrameBlock:
 	jr z, .storeFlags1
 	ld b, 0
 .storeFlags1
-	ld a, [wdef5]
+	ld a, [wdef4]
 	or b
 	ld [de], a
 	inc de
@@ -127,9 +127,9 @@ DrawFrameBlock:
 	ld [de], a ; store X
 	cp 88
 	jr c, .asm_780c8
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_780c8
 	inc hl
 	inc de
@@ -147,7 +147,7 @@ DrawFrameBlock:
 	res 5, a
 .storeFlags2
 	ld b, a
-	ld a, [wdef5]
+	ld a, [wdef4]
 	or b
 	ld [de], a
 	inc de
@@ -452,7 +452,7 @@ MoveAnimation:
 	xor a
 	vc_hook Stop_reducing_move_anim_flashing_Haze_Hyper_Beam
 	ld [wSubAnimSubEntryAddr], a
-	ld [wUnusedD09B], a
+	ld [wUnusedMoveAnimByte], a
 	ld [wSubAnimTransform], a
 	dec a ; NO_MOVE - 1
 	ld [wAnimSoundID], a
@@ -722,7 +722,7 @@ DoSpecialEffectByAnimationId:
 INCLUDE "data/battle_anims/special_effects.asm"
 
 DoBallTossSpecialEffects:
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp ULTRA_BALL + 1 ; is it a Master Ball or Ultra Ball?
 	jr nc, .skipFlashingEffect
 .flashingEffect ; do a flashing effect if it's Master Ball or Ultra Ball
@@ -741,7 +741,7 @@ DoBallTossSpecialEffects:
 	ld a, [wIsInBattle]
 	cp 2 ; is it a trainer battle?
 	jr z, .isTrainerBattle
-	ld a, [wd11e]
+	ld a, [wPokeBallAnimData]
 	cp $10 ; is the enemy pokemon the Ghost Marowak?
 	ret nz
 ; if the enemy pokemon is the Ghost Marowak, make it dodge during the last 3 frames
@@ -1169,12 +1169,12 @@ AnimationWaterDropletsEverywhere:
 	ld a, 16
 	ld [wBaseCoordY], a
 	ld a, 0
-	ld [wUnusedD08A], a
+	ld [wUnusedWaterDropletsByte], a
 	call _AnimationWaterDroplets
 	ld a, 24
 	ld [wBaseCoordY], a
 	ld a, 32
-	ld [wUnusedD08A], a
+	ld [wUnusedWaterDropletsByte], a
 	call _AnimationWaterDroplets
 	dec d
 	jr nz, .loop
@@ -1184,14 +1184,14 @@ _AnimationWaterDroplets:
 	ld hl, wShadowOAM
 .loop
 	ld a, $1
-	ld [wdef5], a
+	ld [wdef4], a
 	ld a, [wBaseCoordY]
 	ld [hli], a ; Y
 	cp 40
 	jr c, .asm_792d7
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_792d7
 	ld a, [wBaseCoordX]
 	add 27
@@ -1199,14 +1199,14 @@ _AnimationWaterDroplets:
 	ld [hli], a ; X
 	cp 88
 	jr c, .asm_792ee
-	ld a, [wdef5]
+	ld a, [wdef4]
 	add $2
 	and $3
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_792ee
 	ld a, [wDropletTile]
 	ld [hli], a ; tile
-	ld a, [wdef5]
+	ld a, [wdef4]
 	ld [hli], a ; attribute
 	ld a, [wBaseCoordX]
 	cp 144
@@ -1351,28 +1351,28 @@ BattleAnimWriteOAMEntry:
 ; tile = d
 ; attributes = variable (depending on coords)
 	ld a, $1
-	ld [wdef5], a
+	ld [wdef4], a
 	ld a, e
 	add 8
 	ld e, a
 	ld [hli], a
 	cp 40
 	jr c, .asm_793d8
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_793d8
 	ld a, [wBaseCoordX]
 	ld [hli], a
 	cp 88
 	jr c, .asm_793e8
-	ld a, [wdef5]
+	ld a, [wdef4]
 	add $2
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_793e8
 	ld a, d
 	ld [hli], a
-	ld a, [wdef5]
+	ld a, [wdef4]
 	ld [hli], a
 	ret
 
@@ -1577,7 +1577,7 @@ AnimationSpiralBallsInward:
 	cp $ff
 	jr z, .done
 	ld a, $2
-	ld [wdef5], a
+	ld [wdef4], a
 	ld a, [wSpiralBallsBaseY]
 	add [hl]
 	ld [de], a ; Y
@@ -1589,7 +1589,7 @@ AnimationSpiralBallsInward:
 	cp 88
 	jr c, .asm_79524
 	ld a, $3
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_79524
 	inc hl
 	inc de
@@ -1597,7 +1597,7 @@ AnimationSpiralBallsInward:
 	ld a, [de]
 	and $f0
 	ld b, a
-	ld a, [wdef5]
+	ld a, [wdef4]
 	or b
 	ld [de], a
 	inc de
@@ -2107,8 +2107,8 @@ HideSubstituteShowMonAnim:
 	and a
 	jr nz, .monIsMinimized
 	ld a, [wBattleMonSpecies]
-	ld [wcf91], a
-	ld [wd0b5], a
+	ld [wCurPartySpecies], a
+	ld [wCurSpecies], a
 	call GetMonHeader
 	predef LoadMonBackPic
 	ret
@@ -2117,8 +2117,8 @@ HideSubstituteShowMonAnim:
 	and a
 	jr nz, .monIsMinimized
 	ld a, [wEnemyMonSpecies]
-	ld [wcf91], a
-	ld [wd0b5], a
+	ld [wCurPartySpecies], a
+	ld [wCurSpecies], a
 	call GetMonHeader
 	ld de, vFrontPic
 	jp LoadMonFrontSprite
@@ -2172,8 +2172,8 @@ ChangeMonPic:
 	and a
 	jr z, .playerTurn
 	ld a, [wChangeMonPicEnemyTurnSpecies]
-	ld [wcf91], a
-	ld [wd0b5], a
+	ld [wCurPartySpecies], a
+	ld [wCurSpecies], a
 	xor a
 	ld [wSpriteFlipped], a
 	call GetMonHeader
@@ -2185,7 +2185,7 @@ ChangeMonPic:
 	push af
 	ld a, [wChangeMonPicPlayerTurnSpecies]
 	ld [wBattleMonSpecies2], a
-	ld [wd0b5], a
+	ld [wCurSpecies], a
 	call GetMonHeader
 	predef LoadMonBackPic
 	xor a ; TILEMAP_MON_PIC
@@ -2532,7 +2532,7 @@ FallingObjects_UpdateOAMEntry:
 	ld hl, wShadowOAM
 	add hl, de
 	ld a, $1
-	ld [wdef5], a
+	ld [wdef4], a
 	ld a, [hl]
 	inc a
 	inc a
@@ -2543,9 +2543,9 @@ FallingObjects_UpdateOAMEntry:
 	ld [hli], a ; Y
 	cp 40
 	jr c, .asm_79e51
-	ld a, [wdef5]
+	ld a, [wdef4]
 	inc a
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_79e51
 	ld a, [wFallingObjectMovementByte]
 	ld b, a
@@ -2565,10 +2565,10 @@ FallingObjects_UpdateOAMEntry:
 	ld [hli], a ; X
 	cp 88
 	jr c, .asm_79e75
-	ld a, [wdef5]
+	ld a, [wdef4]
 	add $2
 	and $3
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_79e75
 	inc hl
 	xor a ; no horizontal flip
@@ -2581,16 +2581,16 @@ FallingObjects_UpdateOAMEntry:
 	ld [hli], a ; X
 	cp 88
 	jr c, .asm_79e5c
-	ld a, [wdef5]
+	ld a, [wdef4]
 	add $2
 	and $3
-	ld [wdef5], a
+	ld [wdef4], a
 .asm_79e5c
 	inc hl
 	ld a, (1 << OAM_X_FLIP)
 .next2
 	ld b, a
-	ld a, [wdef5]
+	ld a, [wdef4]
 	or b
 	ld [hl], a ; attribute
 	ret
@@ -2793,7 +2793,7 @@ TossBallAnimation:
 
 	ld hl, .PokeBallAnimations
 	; choose which toss animation to use
-	ld a, [wcf91]
+	ld a, [wCurItem]
 	cp POKE_BALL
 	ld b, TOSS_ANIM
 	jr z, .done

@@ -38,7 +38,7 @@ Route22Script_50ee1:
 
 Route22MoveRivalSprite:
 	ld de, Route22RivalMovementData
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr z, .asm_50ef1
 	inc de
@@ -62,7 +62,7 @@ Route22Script0:
 	call ArePlayerCoordsInArray
 	ret nc
 	ld a, [wCoordIndex]
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a
 	xor a
 	ldh [hJoyHeld], a
 	ld a, $f0
@@ -102,10 +102,10 @@ Route22Script0:
 	ret
 
 Route22Script1:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_50f78
 	ld a, PLAYER_DIR_DOWN
@@ -124,7 +124,7 @@ Route22Script1:
 	ld a, $1
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, Route22RivalDefeatedText1
@@ -173,7 +173,7 @@ Route22Script2:
 	call DisplayTextID
 	call StopAllMusic
 	farcall Music_RivalAlternateStart
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_50fff
 	call Route22Script_51008
@@ -220,7 +220,7 @@ Route22RivalExitMovementData2:
 	db -1 ; end
 
 Route22Script3:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a
@@ -255,12 +255,12 @@ Route22Script_5104e:
 	ret
 
 Route22Script4:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, $2
 	ldh [hSpriteIndex], a
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_510a1
 	ld a, PLAYER_DIR_DOWN
@@ -279,7 +279,7 @@ Route22Script4:
 	ld a, $2
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, Route22RivalDefeatedText2
@@ -304,7 +304,7 @@ Route22Script5:
 	jp z, Route22Script_50ece
 	ld a, $2
 	ldh [hSpriteIndex], a
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_510fb
 	ld a, PLAYER_DIR_DOWN
@@ -326,7 +326,7 @@ Route22Script5:
 	call DisplayTextID
 	call StopAllMusic
 	farcall Music_RivalAlternateStartAndTempo
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_51134
 	call Route22Script_5113d
@@ -358,7 +358,7 @@ MovementData_5114d:
 	db -1 ; end
 
 Route22Script6:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a

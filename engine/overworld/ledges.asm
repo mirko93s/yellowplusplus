@@ -1,5 +1,5 @@
 HandleLedges::
-	ld a, [wd736]
+	ld a, [wMovementFlags]
 	bit 6, a ; already jumping down ledge
 	ret nz
 	ld a, [wCurMapTileset]
@@ -50,7 +50,7 @@ HandleLedges::
 	ret nz
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld hl, wd736
+	ld hl, wMovementFlags
 	set 6, [hl] ; jumping down ledge
 	call StartSimulatingJoypadStates
 	ld a, e

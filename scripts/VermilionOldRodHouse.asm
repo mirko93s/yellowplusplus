@@ -6,7 +6,7 @@ VermilionOldRodHouse_TextPointers:
 
 VermilionHouse2Text1:
 	text_asm
-	ld a, [wd728]
+	ld a, [wStatusFlags1]
 	bit 3, a ; got old rod?
 	jr nz, .got_item
 	ld hl, VermilionHouse2Text_560b1
@@ -18,7 +18,7 @@ VermilionHouse2Text1:
 	lb bc, OLD_ROD, 1
 	call GiveItem
 	jr nc, .bag_full
-	ld hl, wd728
+	ld hl, wStatusFlags1
 	set 3, [hl] ; got old rod
 	ld hl, VermilionHouse2Text_560b6
 	jr .done

@@ -103,7 +103,7 @@ PikachuMovementData_74f9e:
 	db $3f
 
 CinnabarGymScript_74fa3:
-	ld a, [wd472]
+	ld a, [wd471]
 	bit 7, a
 	ret z
 	push hl
@@ -118,7 +118,7 @@ CinnabarGymScript_74fa3:
 	ret
 
 CinnabarGymScript1:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a
@@ -252,7 +252,7 @@ CinnabarGymScript_750c3:
 	ld [wSpriteIndex], a
 	call EngageMapTrainer
 	call InitBattleEnemyParameters
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld a, [wSpriteIndex]

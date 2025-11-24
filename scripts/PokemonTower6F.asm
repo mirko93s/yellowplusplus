@@ -35,7 +35,7 @@ PokemonTower6Script0:
 	ld a, RESTLESS_SOUL
 	ld [wCurOpponent], a
 	ld a, 30
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, $4
 	ld [wPokemonTower6FCurScript], a
 	ld [wCurMapScript], a
@@ -51,7 +51,7 @@ PokemonTower6Script4:
 	jp z, PokemonTower6Script_60b02
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd72d]
+	ld a, [wStatusFlags3]
 	bit 6, a
 	ret nz
 	call UpdateSprites
@@ -78,7 +78,7 @@ PokemonTower6Script4:
 	xor a
 	ld [wSpritePlayerStateData2MovementByte1], a
 	ld [wOverrideSimulatedJoypadStatesMask], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 7, [hl]
 	ld a, $3
 	ld [wPokemonTower6FCurScript], a

@@ -15,7 +15,7 @@ DisplayListMenuID::
 	ld a, BANK(DisplayBattleMenu)
 .bankswitch
 	call BankswitchHome
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl] ; turn off letter printing delay
 	xor a
 	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
@@ -124,7 +124,7 @@ DisplayListMenuIDLoop::
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	ld [wcf91], a
+	ld [wCurListMenuItem], a
 	ld a, [wListMenuID]
 	and a ; PCPOKEMONLISTMENU?
 	jr z, .pokemonList
@@ -144,8 +144,8 @@ DisplayListMenuIDLoop::
 	ld a, [hl] ; a = item quantity
 	ld [wMaxItemQuantity], a
 .skipGettingQuantity
-	ld a, [wcf91]
-	ld [wd0b5], a
+	ld a, [wCurItem]
+	ld [wNameListIndex], a
 	ld a, BANK(ItemNames)
 	ld [wPredefBank], a
 	ld a, ITEM_NAME
@@ -172,7 +172,7 @@ DisplayListMenuIDLoop::
 	ld [wChosenMenuItem], a
 	xor a
 	ldh [hJoy7], a ; joypad state update flag
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl] ; turn on letter printing delay
 	jp BankswitchBack
 .checkOtherKeys ; check B, SELECT, Up, and Down keys
@@ -358,7 +358,7 @@ ExitListMenu::
 	ld [wMenuWatchMovingOutOfBounds], a
 	xor a
 	ldh [hJoy7], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	call BankswitchBack
 	xor a
@@ -397,7 +397,7 @@ PrintListMenuEntries::
 	ld a, b
 	ld [wWhichPokemon], a
 	ld a, [de]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	cp $ff
 	jp z, .printCancelMenuItem
 	push bc
@@ -445,7 +445,7 @@ PrintListMenuEntries::
 	push hl
 	ld a, [de]
 	ld de, ItemPrices
-	ld [wcf91], a
+	ld [wCurItem], a
 	call GetItemPrice ; get price
 	pop hl
 	ld bc, SCREEN_WIDTH + 5 ; 1 row down and 5 columns right
@@ -457,7 +457,7 @@ PrintListMenuEntries::
 	and a ; PCPOKEMONLISTMENU?
 	jr nz, .skipPrintingPokemonLevel
 .printPokemonLevel
-	ld a, [wd11e]
+	ld a, [wNamedObjectIndex]
 	push af
 	push hl
 	ld hl, wPartyCount
@@ -490,7 +490,7 @@ PrintListMenuEntries::
 	add hl, bc
 	call PrintLevel
 	pop af
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 .skipPrintingPokemonLevel
 	pop hl
 	pop de
@@ -499,8 +499,8 @@ PrintListMenuEntries::
 	cp ITEMLISTMENU
 	jr nz, .nextListEntry
 .printItemQuantity
-	ld a, [wd11e]
-	ld [wcf91], a
+	ld a, [wNamedObjectIndex]
+	ld [wCurItem], a
 	call IsKeyItem ; check if item is unsellable
 	ld a, [wIsKeyItem]
 	and a ; is the item unsellable?
@@ -510,18 +510,18 @@ PrintListMenuEntries::
 	add hl, bc
 	ld a, '×'
 	ld [hli], a
-	ld a, [wd11e]
+	ld a, [wNamedObjectIndex]
 	push af
 	ld a, [de]
 	ld [wMaxItemQuantity], a
 	push de
-	ld de, wd11e
+	ld de, wTempByteValue
 	ld [de], a
 	lb bc, 1, 2
 	call PrintNumber
 	pop de
 	pop af
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	pop hl
 .skipPrintingItemQuantity
 	inc de

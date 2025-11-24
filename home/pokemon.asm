@@ -75,7 +75,7 @@ DrawHPBar::
 ; 02: current box
 ; 03: daycare
 ; OUTPUT:
-; [wcf91] = pokemon ID
+; [wCurPartySpecies] = pokemon ID
 ; wLoadedMon = base address of pokemon data
 ; wMonHeader = base address of base stats
 LoadMonData::
@@ -96,14 +96,14 @@ LoadFlippedFrontSpriteByMonIndex::
 	ld [wSpriteFlipped], a
 
 LoadFrontSpriteByMonIndex::
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	and a
 	jr z, .invalidDexNumber ; dex #0 invalid
 	cp NUM_POKEMON_INDEXES + 1
 	jr c, .validDexNumber   ; dex >#151 invalid
 .invalidDexNumber
 	ld a, RHYDON ; $1
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ret
 .validDexNumber
 	push hl
@@ -194,7 +194,7 @@ PartyMenuInit::
 	ld a, 1 ; hardcoded bank
 	call BankswitchHome
 	call LoadHpBarAndStatusTilePatterns
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl] ; turn off letter printing delay
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
@@ -252,7 +252,7 @@ HandlePartyMenuInput::
 	pop af
 	call PlaceUnfilledArrowMenuCursor
 	ld b, a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl] ; turn on letter printing delay
 	ld a, [wMenuItemToSwap]
 	and a
@@ -271,7 +271,7 @@ HandlePartyMenuInput::
 	ld c, a
 	add hl, bc
 	ld a, [hl]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld [wBattleMonSpecies2], a
 	call BankswitchBack
 	and a
@@ -373,8 +373,8 @@ PrintLevelFull::
 	ld a, [wLoadedMonLevel] ; level
 
 PrintLevelCommon::
-	ld [wd11e], a
-	ld de, wd11e
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
 	ld b, LEFT_ALIGN | 1 ; 1 byte
 	jp PrintNumber
 
@@ -389,7 +389,7 @@ PrintLevelCommon::
 
 ; copies the base stat data of a pokemon to wMonHeader
 ; INPUT:
-; [wd0b5] = pokemon ID
+; [wCurSpecies] = pokemon ID
 GetMonHeader::
 	ldh a, [hLoadedROMBank]
 	push af
@@ -398,10 +398,10 @@ GetMonHeader::
 	push bc
 	push de
 	push hl
-	ld a, [wd11e]
+	ld a, [wPokedexNum]
 	push af
-	ld a, [wd0b5]
-	ld [wd11e], a
+	ld a, [wCurSpecies]
+	ld [wPokedexNum], a
 	ld b, $77 ; size of Kabutops fossil, Aerodactyl fossil and Ghost sprites
 	ld de, FossilKabutopsPic
 	cp FOSSIL_KABUTOPS ; Kabutops fossil
@@ -412,7 +412,7 @@ GetMonHeader::
 	ld de, FossilAerodactylPic
 	cp FOSSIL_AERODACTYL ; Aerodactyl fossil
 	jr z, .specialID
-	ld a, [wd11e]
+	ld a, [wPokedexNum]
 	dec a
 	ld bc, BASE_DATA_SIZE
 	ld hl, BaseStats
@@ -429,10 +429,10 @@ GetMonHeader::
 	inc hl
 	ld [hl], d
 .done
-	ld a, [wd0b5]
+	ld a, [wCurSpecies]
 	ld [wMonHIndex], a
 	pop af
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	pop hl
 	pop de
 	pop bc

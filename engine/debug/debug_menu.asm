@@ -53,7 +53,7 @@ IF DEF(_DEBUG)
 	jp z, TestBattle
 
 	; DEBUG
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	set 1, [hl]
 	ld hl, StartNewGameDebug
 	ret
@@ -77,7 +77,7 @@ TestBattle:
 	ld a, 1 << BIT_EARTHBADGE
 	ld [wObtainedBadges], a
 
-	ld hl, wFlags_D733
+	ld hl, wStatusFlags7
 	set BIT_TEST_BATTLE, [hl]
 
 	ld hl, wNumBagItems
@@ -87,7 +87,7 @@ TestBattle:
 	cp -1
 	jr z, .done
 	inc de
-	ld [wcf91], a
+	ld [wCurItem], a
 	ld a, [de]
 	inc de
 	ld [wItemQuantity], a
@@ -185,7 +185,7 @@ IncreasePlayerMonID:
 	; fallthrough
 Func_fe81a:
 	ld [de], a
-	ld [wd11e], a
+	ld [wTempByteValue], a
 	push bc
 	push hl
 	push de
@@ -200,7 +200,7 @@ Func_fe81a:
 	ld de, ClearPlayerMonText
 	call PlaceString
 	pop hl
-	ld a, [wd11e]
+	ld a, [wNamedObjectIndex]
 	and a
 	jr nz, .asm_fe845
 	ld de, PlayerEmptySlotText
@@ -423,17 +423,17 @@ Func_fe97f:
 	ld [wIsInBattle], a
 .asm_fe990
 	ld a, b
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld a, [hl]
 	ld b, a
 	inc de
 	ld a, [de]
 	and a
 	jr z, .asm_fe9ab
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	xor a
 	ld [wMonDataLocation], a
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	and a
 	jr z, .asm_fe9ab
 	call AddPartyMon
@@ -486,9 +486,9 @@ Func_fe97f:
 	dec a
 	jr z, .asm_fea40
 	ld a, [wTrainerClass]
-	ld [wd11e], a
+	ld [wTempByteValue], a
 	ld b, a
-	ld de, wd11e
+	ld de, wTempByteValue
 	hlcoord 1, 8
 	push bc
 	lb bc, LEADING_ZEROES | 1, 3
@@ -506,7 +506,7 @@ Func_fe97f:
 	ld a, b
 	and a
 	jr z, .asm_fea65
-	ld de, wd11e
+	ld de, wTempByteValue
 	ld [de], a
 	hlcoord 1, 8
 	push bc
@@ -522,7 +522,7 @@ Func_fe97f:
 .asm_fea65
 	ld a, [wEnemyMonLevel]
 	ld c, a
-	ld de, wd11e
+	ld de, wTempByteValue
 	ld [de], a
 	hlcoord 16, 8
 	push bc
@@ -625,13 +625,13 @@ Func_feb13:
 	; fallthrough
 Func_feb35:
 	ld a, b
-	ld [wd11e], a
-	ld de, wd11e
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
 	hlcoord 1, 8
 	push bc
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
-	ld a, [wd11e]
+	ld a, [wTempByteValue]
 	ld [wTrainerClass], a
 	call GetTrainerName
 	hlcoord 5, 8
@@ -648,8 +648,8 @@ Func_feb35:
 	; fallthrough
 Func_feb64:
 	ld a, b
-	ld [wd11e], a
-	ld de, wd11e
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
 	hlcoord 1, 8
 	push bc
 	lb bc, LEADING_ZEROES | 1, 3
@@ -724,7 +724,7 @@ Func_febe6:
 Func_febee:
 	hlcoord 16, 8
 	ld a, c
-	ld de, wCurEnemyLVL
+	ld de, wCurEnemyLevel
 	ld [de], a
 	push bc
 	lb bc, LEADING_ZEROES | 1, 3
@@ -760,11 +760,11 @@ Func_fec10:
 	ld [wTrainerNo], a
 .asm_fec28
 	ld a, c
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld a, b
 	ld [wCurOpponent], a
 	xor a
-	ld [wd72d], a
+	ld [wStatusFlags3], a
 	predef InitOpponent
 	xor a
 	ld [wNumRunAttempts], a
@@ -817,7 +817,7 @@ Func_fec9b:
 	ld a, [de]
 	cp -1
 	jp z, Func_fed01
-	ld [wd11e], a
+	ld [wTempByteValue], a
 	push hl
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
@@ -838,7 +838,7 @@ Func_fec9b:
 	ld d, h
 	ld e, l
 	ld a, [de]
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	pop hl
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
@@ -849,7 +849,7 @@ Func_fec9b:
 	jr nc, .asm_fecee
 	inc d
 .asm_fecee
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	ld [de], a
 	pop hl
 	ld a, [wWhichPokemon]
@@ -936,8 +936,8 @@ Func_fedfe:
 	ld [hl], a
 	inc a
 	ldh [hJoy7], a
-	ld [wcf91], a
-	ld [wCurEnemyLVL], a
+	ld [wCurPartySpecies], a
+	ld [wCurEnemyLevel], a
 	; fallthrough
 Func_fee23:
 	hlcoord 0, 3
@@ -958,7 +958,7 @@ Func_fee23:
 	jr .asm_fee30
 
 Func_fee49:
-	ld hl, wcf91
+	ld hl, wCurPartySpecies
 	inc [hl]
 	ld a, [hl]
 	cp NUM_POKEMON_INDEXES + 1
@@ -967,7 +967,7 @@ Func_fee49:
 	jr Func_fee23
 
 Func_fee56:
-	ld hl, wcf91
+	ld hl, wCurPartySpecies
 	dec [hl]
 	jr nz, Func_fee23
 	ld [hl], MEW
@@ -978,18 +978,18 @@ Func_fee60:
 	lb bc, 2, 9
 	call ClearScreenArea
 	hlcoord 1, 1
-	ld de, wcf91
+	ld de, wCurPartySpecies
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	inc hl
 	push hl
-	ld a, [wcf91]
-	ld [wd11e], a
+	ld a, [wCurPartySpecies]
+	ld [wPokedexNum], a
 	call GetMonName
 	pop hl
 	call PlaceString
-	ld a, [wd11e]
-	ld [wd0b5], a
+	ld a, [wPokedexNum]
+	ld [wCurSpecies], a
 	call GetMonHeader
 	ret
 
@@ -1005,7 +1005,7 @@ Func_fee96:
 .asm_feeab
 	call DelayFrame
 	call JoypadLowSensitivity
-	ld hl, wCurEnemyLVL
+	ld hl, wCurEnemyLevel
 	ldh a, [hJoy5]
 	bit BIT_A_BUTTON, a
 	jp nz, Func_feed1
@@ -1035,7 +1035,7 @@ Func_feedb:
 
 Func_feee2:
 	hlcoord 1, 3
-	ld de, wCurEnemyLVL
+	ld de, wCurEnemyLevel
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	ret
@@ -1044,9 +1044,9 @@ Func_feeef:
 	hlcoord 1, 4
 	lb bc, 8, 11
 	call ClearScreenArea
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	push af
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	ld hl, BaseStats + 15
 	dec a
 	ld bc, BASE_DATA_SIZE
@@ -1055,8 +1055,8 @@ Func_feeef:
 	ld bc, NUM_MOVES
 	ld a, BANK(BaseStats)
 	call FarCopyData
-	ld a, [wd11e]
-	ld [wcf91], a
+	ld a, [wPokedexNum]
+	ld [wCurPartySpecies], a
 	xor a
 	ld [wChangeMonPicEnemyTurnSpecies], a
 	ld de, wMoves
@@ -1072,8 +1072,8 @@ Func_feeef:
 	push de
 	push bc
 	push hl
-	ld [wd11e], a
-	ld de, wd11e
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	inc hl
@@ -1088,7 +1088,7 @@ Func_feeef:
 	jr nz, .asm_fef36
 .asm_fef5b
 	pop af
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ret
 
 Func_fef60:
@@ -1182,11 +1182,11 @@ Func_fefc5:
 	pop hl
 	inc hl
 	ld a, [de]
-	ld de, wd11e
+	ld de, wTempByteValue
 	ld [de], a
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
-	ld a, [wd11e]
+	ld a, [wTempByteValue]
 	and a
 	jr z, .asm_ff002
 	call Func_ff006
@@ -1200,16 +1200,16 @@ Func_fefc5:
 	ret
 
 Func_ff006:
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	push af
-	ld a, [wd11e]
+	ld a, [wPokedexNum]
 	push af
 	push hl
-	ld a, [wcf91]
-	ld [wd11e], a
+	ld a, [wCurPartySpecies]
+	ld [wPokedexNum], a
 	pop hl
 	pop af
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	push hl
 	callfar Func_3b079
 	pop hl
@@ -1217,7 +1217,7 @@ Func_ff006:
 	ld [hl], '×'
 .asm_ff036
 	pop af
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ret
 
 Func_ff03b:
@@ -1302,7 +1302,7 @@ Func_ff09e:
 	pop hl
 	inc hl
 	ld a, [de]
-	ld de, wd11e
+	ld de, wTempByteValue
 	ld [de], a
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
@@ -1362,14 +1362,14 @@ Text_ff113:
 	next "とくしゅ@" ; special
 
 Func_ff12c:
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	ld [wEnemyMonLevel], a
-	ld a, [wcf91]
-	ld [wd11e], a
-	ld [wd0b5], a
+	ld a, [wCurPartySpecies]
+	ld [wPokedexNum], a
+	ld [wCurSpecies], a
 	call GetMonHeader
 	ld hl, wEnemyMon
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	ld [hli], a
 	ld a, [wLoadedMonStats]
 	ld [hli], a
@@ -1429,7 +1429,7 @@ Func_ff1b9:
 	ld a, 1
 	ldh [hJoy7], a
 	ld a, 2
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld hl, Text_ff290
 	call PrintText
 	call YesNoChoice
@@ -1456,7 +1456,7 @@ Func_ff1e7:
 	ld [hl], 'ル'
 	inc hl
 	inc hl
-	ld de, wCurEnemyLVL
+	ld de, wCurEnemyLevel
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	call DelayFrame
@@ -1471,20 +1471,20 @@ Func_ff1e7:
 	jr Func_ff1e7
 
 Func_ff21b:
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	inc a
 	cp MAX_LEVEL + 1
 	jr c, Func_ff231
 	ld a, 2
 	jr Func_ff231
 Func_ff227:
-	ld a, [wCurEnemyLVL]
+	ld a, [wCurEnemyLevel]
 	dec a
 	cp 2
 	jr nc, Func_ff231
 	ld a, MAX_LEVEL
 Func_ff231:
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	jr Func_ff1e7
 
 Func_ff236:
@@ -1504,14 +1504,14 @@ Func_ff236:
 	push bc
 	push de
 	ld a, c
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	ld [wEnemyMonSpecies2], a
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	xor a
 	ld [wEnemyBattleStatus3], a
 	callfar LoadEnemyMonData
 	ld a, [wEnemyMonSpecies2]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	callfar SendNewMonToBox
 	pop de
 	pop bc

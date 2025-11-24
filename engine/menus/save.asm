@@ -13,7 +13,7 @@ LoadSAV:
 	ld a, $2 ; good checksum
 	jr .goodsum
 .badsum
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	push hl
 	set 6, [hl]
 	ld hl, FileDataDestroyedText
@@ -366,7 +366,7 @@ ChangeBox::
 	call GetBoxSRAMLocation
 	ld de, wBoxDataStart
 	call CopyBoxToOrFromSRAM ; copy new box from SRAM to WRAM
-	ld hl, wMapTextPtr
+	ld hl, wCurMapTextPtr
 	ld de, wChangeBoxSavedMapTextPointer
 	ld a, [hli]
 	ld [de], a

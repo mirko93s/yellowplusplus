@@ -79,7 +79,7 @@ PrintBeginningBattleText:
 	ld b, SILPH_SCOPE
 	call IsItemInBag
 	ld a, [wEnemyMonSpecies2]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	cp RESTLESS_SOUL
 	jr z, .isMarowak
 	ld a, b

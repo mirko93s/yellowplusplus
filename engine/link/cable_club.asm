@@ -256,9 +256,9 @@ CableClub_DoBattleOrTradeAgain:
 	dec c
 	jr nz, .unpatchEnemyMonsLoop
 	ld a, LOW(wEnemyMonOT)
-	ld [wUnusedCF8D], a
+	ld [wUnusedNamePointer], a
 	ld a, HIGH(wEnemyMonOT)
-	ld [wUnusedCF8D + 1], a
+	ld [wUnusedNamePointer + 1], a
 	xor a
 	ld [wTradeCenterPointerTableIndex], a
 	call StopAllMusic
@@ -593,7 +593,7 @@ ReturnToCableClubRoom:
 	push hl
 	res 0, [hl]
 	xor a
-	ld [wd72d], a
+	ld [wStatusFlags3], a
 	dec a
 	ld [wDestinationWarpID], a
 	call LoadMapData
@@ -665,7 +665,7 @@ TradeCenter_PrintPartyListNames:
 	ld a, [de]
 	cp $ff
 	ret z
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	push bc
 	push hl
 	push de
@@ -701,7 +701,7 @@ TradeCenter_Trade:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld hl, wcd6d
 	ld de, wNameOfPlayerMonToBeTraded
@@ -713,7 +713,7 @@ TradeCenter_Trade:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld hl, WillBeTradedText
 	bccoord 1, 14
@@ -809,7 +809,7 @@ TradeCenter_Trade:
 	ld e, a
 	add hl, de
 	ld a, [hl]
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	ld hl, wEnemyMons
 	ld a, c
 	ld bc, wEnemyMon2 - wEnemyMon1
@@ -842,7 +842,7 @@ TradeCenter_Trade:
 	call ClearScreen
 	call LoadHpBarAndStatusTilePatterns
 	xor a
-	ld [wUnusedCC5B], a
+	ld [wUnusedFlag], a
 	ldh a, [hSerialConnectionStatus]
 	cp USING_EXTERNAL_CLOCK
 	jr z, .usingExternalClock

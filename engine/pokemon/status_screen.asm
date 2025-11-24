@@ -47,13 +47,13 @@ StatusScreen:
 ; mon is in a box or daycare
 	ld a, [wLoadedMonBoxLevel]
 	ld [wLoadedMonLevel], a
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	ld hl, wLoadedMonHPExp - 1
 	ld de, wLoadedMonStats
 	ld b, $1
 	call CalcStats ; Recalculate stats
 .DontRecalculate
-	ld hl, wd72c
+	ld hl, wStatusFlags2
 	set 1, [hl]
 	ld a, $33
 	ldh [rNR50], a ; Reduce the volume
@@ -101,10 +101,10 @@ StatusScreen:
 	call PrintGenderStatusScreen
 	; pokemon index
 	ld a, [wMonHIndex]
-	ld [wd11e], a
-	ld [wd0b5], a
+	ld [wPokedexNum], a
+	ld [wCurSpecies], a
 	hlcoord 11, 1
-	ld de, wd11e
+	ld de, wPokedexNum
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
 	; index "#"
@@ -148,7 +148,7 @@ StatusScreen:
 	callfar PlayPikachuSoundClip
 	jr .continue
 .playRegularCry
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	call GetCryData
 	call PlaySound ; use PlaySound instead of PlayCry so we don't need to wait for the cry to finish before browsing menus
 .continue
@@ -211,7 +211,7 @@ Page0: ; hp, status, type/s, stats
 	call PlaceString
 	; Pokémon types
 	ld a, [wMonHIndex]
-	ld [wd0b5], a
+	ld [wCurSpecies], a
 	hlcoord 2, 15
 	predef PrintMonType
 	; "STATUS/"
@@ -803,7 +803,7 @@ StatusScreenOriginal:
 ExitStatusScreen:
 	pop af
 	ldh [hTileAnimations], a
-	ld hl, wd72c
+	ld hl, wStatusFlags2
 	res 1, [hl]
 	ld a, $77
 	ldh [rNR50], a
@@ -827,7 +827,7 @@ StatusScreenLoop:
     bit BIT_D_RIGHT, a
     jr nz, .nextPage
 	; if pc is open up-down scrolling is disabled
-	ld a, [wFlags_0xcd60]
+	ld a, [wMiscFlags]
 	bit 3, a
 	jr nz, .loop
 	ldh a, [hJoy5]

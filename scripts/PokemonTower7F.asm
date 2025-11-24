@@ -97,7 +97,7 @@ PokemonTower7Script1:
 PokemonTower7Script2:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 PokemonTower7Script3:
@@ -127,7 +127,7 @@ PokemonTower7Script4:
 PokemonTower7Script5:
 	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 PokemonTower7Script6:
@@ -147,7 +147,7 @@ PokemonTower7Script6:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 PokemonTower7Script7:
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, PokemonTower7JessieJamesEndBattleText
@@ -246,9 +246,9 @@ PokemonTower7Script11:
 	ld [wDestinationWarpID], a
 	ld a, LAVENDER_TOWN
 	ld [wLastMap], a
-	ld hl, wd736
+	ld hl, wMovementFlags
 	set 2, [hl]
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 3, [hl]
 	ld a, $0
 	ld [wPokemonTower7FCurScript], a

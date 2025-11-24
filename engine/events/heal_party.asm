@@ -102,7 +102,7 @@ HealParty:
 .done
 	xor a
 	ld [wWhichPokemon], a
-	ld [wd11e], a
+	ld [wUsingPPUp], a
 
 	ld a, [wPartyCount]
 	ld b, a

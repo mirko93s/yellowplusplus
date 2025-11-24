@@ -48,7 +48,7 @@ BikeShopText1:
 	ld [wTopMenuItemY], a
 	ld a, $1
 	ld [wTopMenuItemX], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl]
 	hlcoord 0, 0
 	lb bc, 4, 15
@@ -63,7 +63,7 @@ BikeShopText1:
 	ld hl, BikeShopText_1d815
 	call PrintText
 	; This fixes the bike shop instatext glitch
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a

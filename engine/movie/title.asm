@@ -8,7 +8,7 @@ SetDefaultNamesBeforeTitlescreen::
 	xor a
 	ldh [hWY], a
 	ld [wLetterPrintingDelayFlags], a
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
@@ -149,7 +149,7 @@ DisplayTitleScreen:
 	call PlaySound
 .loop
 	xor a
-	ld [wUnusedCC5B], a
+	ld [wUnusedFlag], a
 	ld [wTitleScreenScene], a
 	ld [wTitleScreenScene + 1], a
 	ld [wTitleScreenScene + 2], a

@@ -105,7 +105,7 @@ MovementData_48c63:
 	db -1 ; end
 
 CeladonGameCornerScript2:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a
@@ -417,7 +417,7 @@ CeladonGameCornerText11:
 	text_asm
 	ld hl, CeladonGameCornerText_48ece
 	call PrintText
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, CeladonGameCornerText_48ed3
@@ -477,7 +477,7 @@ CeladonGameCornerText_48f19:
 	text_end
 
 CeladonGameCornerScript_DrawUpdateMenu:
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl]
 	hlcoord 11, 0
 	lb bc, 5, 7
@@ -506,7 +506,7 @@ CeladonGameCornerScript_DrawUpdateMenu:
 	ld de, wPlayerCoins
 	ld c, $82
 	call PrintBCDNumber
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	ret
 

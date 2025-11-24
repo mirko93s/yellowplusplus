@@ -1,5 +1,5 @@
 Func_f1b73::
-	ld a, [wd72e]
+	ld a, [wStatusFlags4]
 	bit 3, a ; received a Pokémon from Oak?
 	jp nz, MomHealPokemon
 	ld hl, MomWakeUpText

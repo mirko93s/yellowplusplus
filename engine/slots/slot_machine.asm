@@ -28,7 +28,7 @@ PromptUserToPlaySlots:
 	ld a, $e4
 	ldh [rOBP0], a
 	call UpdateGBCPal_OBP0
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl]
 	xor a
 	ld [wSlotMachineAllowMatchesCounter], a
@@ -36,7 +36,7 @@ PromptUserToPlaySlots:
 	ld bc, $14
 	call FillMemory
 	call MainSlotMachineLoop
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	xor a
 	ld [wSlotMachineAllowMatchesCounter], a

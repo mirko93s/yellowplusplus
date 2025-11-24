@@ -7,8 +7,8 @@ AskName:
 	hlcoord 0, 0
 	lb bc, 4, 11
 	call z, ClearScreenArea ; only if in wild battle
-	ld a, [wcf91]
-	ld [wd11e], a
+	ld a, [wCurPartySpecies]
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld a, [wExtraFlags]
 	bit 3, a
@@ -90,7 +90,7 @@ DisplayNameRaterScreen::
 
 DisplayNamingScreen:
 	push hl
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	set 6, [hl]
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
@@ -173,7 +173,7 @@ DisplayNamingScreen:
 	call GBPalNormal
 	xor a
 	ld [wAnimCounter], a
-	ld hl, wd730
+	ld hl, wStatusFlags5
 	res 6, [hl]
 	ld a, [wIsInBattle]
 	and a
@@ -487,12 +487,12 @@ PrintNamingText:
 	ld de, RivalsTextString
 	dec a
 	jr z, .notNickname
-	ld a, [wcf91]
+	ld a, [wCurPartySpecies]
 	ld [wMonPartySpriteSpecies], a
 	push af
 	farcall LoadNicknameMonSprite
 	pop af
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	hlcoord 4, 1
 	call PlaceString

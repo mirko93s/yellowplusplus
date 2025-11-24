@@ -26,7 +26,7 @@ VictoryRoad3F_ScriptPointers:
 	dw EndTrainerBattle
 
 VictoryRoad3Script0:
-	ld hl, wFlags_0xcd60
+	ld hl, wMiscFlags
 	bit 7, [hl]
 	res 7, [hl]
 	jp z, .asm_449fe
@@ -66,13 +66,13 @@ VictoryRoad3Script0:
 	ld a, [wCoordIndex]
 	cp $1
 	jr nz, .asm_44a1b
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	res 4, [hl]
-	ld hl, wd732
+	ld hl, wStatusFlags6
 	res 4, [hl]
 	ret
 .asm_44a1b
-	ld a, [wd72d]
+	ld a, [wStatusFlags3]
 	bit 4, a
 	jp z, CheckFightingMapTrainers
 	ret

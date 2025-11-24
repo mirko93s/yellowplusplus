@@ -10,10 +10,10 @@ SetDebugTeam:
 .continue
 	cp -1
 	ret z
-	ld [wcf91], a
+	ld [wCurPartySpecies], a
 	inc de
 	ld a, [de]
-	ld [wCurEnemyLVL], a
+	ld [wCurEnemyLevel], a
 	inc de
 	call AddPartyMon
 	jr .loop
@@ -65,7 +65,7 @@ IF DEF(_DEBUG)
 	ld a, [de]
 	cp -1
 	jr z, .items_end
-	ld [wcf91], a
+	ld [wCurItem], a
 	inc de
 	ld a, [de]
 	inc de

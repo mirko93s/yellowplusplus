@@ -59,7 +59,7 @@ GaryScript2:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	call Delay3
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, GaryDefeatedText
@@ -125,7 +125,7 @@ OakEntranceAfterVictoryMovement:
 	db -1 ; end
 
 GaryScript5:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, PLAYER_DIR_LEFT
@@ -183,7 +183,7 @@ OakExitGaryRoomMovement:
 	db -1 ; end
 
 GaryScript8:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, HS_CHAMPIONS_ROOM_OAK
@@ -269,7 +269,7 @@ GaryText2:
 GaryText3:
 	text_asm
 	ld a, [wPlayerStarter]
-	ld [wd11e], a
+	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld hl, GaryText_76120
 	call PrintText

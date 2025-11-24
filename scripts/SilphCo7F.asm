@@ -142,7 +142,7 @@ SilphCo7Script0:
 	call SetSpriteMovementBytesToFF
 	ld de, MovementData_51c7d
 	ld a, [wCoordIndex]
-	ld [wcf0d], a
+	ld [wSavedCoordIndex], a
 	cp $1
 	jr z, .asm_51c6c
 	inc de
@@ -166,7 +166,7 @@ MovementData_51c7d:
 	db -1 ; end
 
 SilphCo7Script3:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	xor a
@@ -175,7 +175,7 @@ SilphCo7Script3:
 	ldh [hSpriteIndexOrTextID], a
 	call DisplayTextID
 	call Delay3
-	ld hl, wd72d
+	ld hl, wStatusFlags3
 	set 6, [hl]
 	set 7, [hl]
 	ld hl, SilphCo7Text14
@@ -210,7 +210,7 @@ SilphCo7Script4:
 	call StopAllMusic
 	farcall Music_RivalAlternateStart
 	ld de, MovementData_51d1d
-	ld a, [wcf0d]
+	ld a, [wSavedCoordIndex]
 	cp $1
 	jr nz, .asm_51d0e
 	ld de, MovementData_51d1a
@@ -237,7 +237,7 @@ MovementData_51d1d:
 	db -1 ; end
 
 SilphCo7Script5:
-	ld a, [wd730]
+	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
 	ld a, HS_SILPH_CO_7F_RIVAL
@@ -280,7 +280,7 @@ SilphCo7TrainerHeader3:
 SilphCo7Text1:
 ; lapras guy
 	text_asm
-	ld a, [wd72e]
+	ld a, [wStatusFlags4]
 	bit 0, a ; got lapras?
 	jr z, .givelapras
 .noLapras
@@ -323,7 +323,7 @@ SilphCo7Text1:
 .normalMode2
 	ld hl, .HeresYourLaprasText
 	call PrintText
-	ld hl, wd72e
+	ld hl, wStatusFlags4
 	set 0, [hl]
 	jr .done
 .savedsilph

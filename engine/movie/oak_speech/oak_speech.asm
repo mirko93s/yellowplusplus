@@ -4,7 +4,7 @@ SetDefaultNames:
 	ld a, [wOptions]
 	push af
 IF DEF(_DEBUG)
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	push af
 ENDC
 	ld a, [wPrinterSettings]
@@ -25,7 +25,7 @@ ENDC
 	ld [wPrinterSettings], a
 	pop af
 IF DEF(_DEBUG)
-	ld [wd732], a
+	ld [wStatusFlags6], a
 	pop af
 ENDC
 	ld [wOptions], a
@@ -56,7 +56,7 @@ OakSpeech:
 	predef InitPlayerData2
 	ld hl, wNumBoxItems
 	ld a, SUPER_POTION
-	ld [wcf91], a
+	ld [wCurItem], a
 	ld a, 1
 	ld [wItemQuantity], a
 	call AddItemToInventory  ; give one potion
@@ -65,14 +65,14 @@ OakSpeech:
 	call SpecialWarpIn
 	xor a
 	ldh [hTileAnimations], a
-	ld a, [wd732]
+	ld a, [wStatusFlags6]
 	bit 1, a ; possibly a debug mode bit
 	jp nz, .skipChoosingNames
 	;;;;;;;;;;;;;;;;;;; mirko93s intro
 	farcall SendShinyCaterpiePal
 	ld a, CATERPIE
-	ld [wd0b5], a
-	ld [wcf91], a
+	ld [wCurSpecies], a
+	ld [wCurPartySpecies], a
 	call GetMonHeader
 	hlcoord 6, 4
 	call LoadFlippedFrontSpriteByMonIndex
@@ -113,8 +113,8 @@ OakSpeech:
 	call ClearScreen
 	farcall SendPikaPal
 	ld a, STARTER_PIKACHU
-	ld [wd0b5], a
-	ld [wcf91], a
+	ld [wCurSpecies], a
+	ld [wCurPartySpecies], a
 	call GetMonHeader
 	hlcoord 6, 4
 	call LoadFlippedFrontSpriteByMonIndex
@@ -161,7 +161,7 @@ OakSpeech:
 .NotGreen2:
  	call IntroDisplayPicCenteredOrUpperRight
 	call GBFadeInFromWhite
-	ld a, [wd72d]
+	ld a, [wStatusFlags3]
 	and a
 	jr nz, .next
 	ld hl, OakSpeechText3

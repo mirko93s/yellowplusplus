@@ -32,11 +32,11 @@ LoadPartyMonSprites:
 
 LoadPartyMonSprite:
 	push de
-	ld [wd11e], a
+	ld [wPokedexNum], a
 	xor a
 	ld [hMultiplicand], a
 	ld [hMultiplicand + 1], a
-	ld a, [wd11e]
+	ld a, [wPokedexNum]
 	dec a
 	ld [hMultiplicand + 2], a
 	ld a, $80
