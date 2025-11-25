@@ -41,6 +41,14 @@ SaffronGymSabrinaPostBattle:
 	jp z, SaffronGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, SaffronGymReceiveTM46
+	ld a, $c
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 5, [hl] ; mark gym as beaten
+	jp SaffronGymResetScripts
 
 SaffronGymReceiveTM46:
 	ld a, $a
@@ -83,6 +91,7 @@ SaffronGym_TextPointers:
 	dw KogaMarshBadgeInfoText
 	dw ReceivedTM46Text
 	dw TM46NoRoomText
+	dw SaffronGymRematchPostBattleText
 
 SaffronGymTrainerHeaders:
 	def_trainers 2
@@ -110,8 +119,11 @@ SabrinaText:
 	jr nz, .afterBeat
 	call z, SaffronGymReceiveTM46
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .SabrinaRematch
 	ld hl, SabrinaPostBattleAdviceText
 	call PrintText
 	jr .done
@@ -130,6 +142,42 @@ SabrinaText:
 	call InitBattleEnemyParameters
 	ld a, $6
 	ld [wGymLeaderNo], a
+	jr .endBattle
+.SabrinaRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %00111111
+	cp %00011111
+	jr z, .rematch
+	ld hl, SaffronGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, SaffronGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, SaffronGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, SaffronGymRematchDefeatedText
+	ld de, SaffronGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_SABRINA
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, SaffronGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
 	ld [wSaffronGymCurScript], a
 .done
@@ -309,3 +357,27 @@ SaffronGymEndBattleText7:
 SaffronGymAfterBattleText7:
 	text_far _SaffronGymAfterBattleText7
 	text_end
+
+SaffronGymRematchPreBattleText:
+    text_far _SaffronGymRematchPreBattleText
+    text_end
+    
+SaffronGymRematchAcceptedText:
+    text_far _SaffronGymRematchAcceptedText
+    text_end
+    
+SaffronGymRematchRefusedText:
+    text_far _SaffronGymRematchRefusedText
+    text_end
+
+SaffronGymRematchDefeatedText:
+    text_far _SaffronGymRematchDefeatedText
+    text_end
+
+SaffronGymRematchPostBattleText:
+    text_far _SaffronGymRematchPostBattleText
+    text_end
+
+SaffronGymRematchCooldownText:
+    text_far _SaffronGymRematchCooldownText
+    text_end

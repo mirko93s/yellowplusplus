@@ -133,3 +133,64 @@ _CeruleanGymGuidePostBattleText::
 	line "we make a pretty"
 	cont "darn good team!"
 	done
+
+_CeruleanGymRematchPreBattleText::
+    text "Oh, look who"
+    line "decided to drop"
+    cont "in! CHAMPION,"
+    cont "wasn't it?"
+    
+    para "My Water #MON"
+    line "have surfed"
+    cont "past their limits"
+    cont "since we last"
+    cont "met!"
+
+    para "I've mastered"
+    line "the tide. Can"
+    cont "you handle the"
+    cont "tidal wave?"
+    done
+
+_CeruleanGymRematchAcceptedText::
+    text "Splash time!"
+    line "Get ready for"
+    cont "a soaking!"
+    done
+
+_CeruleanGymRematchRefusedText::
+    text "Scared of a"
+    line "little water?"
+    cont "Too bad."
+    done
+
+_CeruleanGymRematchDefeatedText::
+    text "Wow! You didn't"
+    line "just ride the"
+    cont "wave... you"
+    cont "made it look"
+    cont "like a puddle."
+    prompt
+
+_CeruleanGymRematchPostBattleText::
+    text "Incredible!"
+
+    para "You definitely"
+    line "earned the title."
+
+    para "But don't think"
+    line "I won't be back"
+    cont "with an even"
+    cont "bigger splash!"
+
+    para "Good luck, you"
+    line "big star!"
+    done
+
+_CeruleanGymRematchCooldownText::
+    text "My Water #MON"
+    line "are resting and"
+    cont "refilling their"
+    cont "tanks. Come"
+    cont "back tomorrow."
+    done

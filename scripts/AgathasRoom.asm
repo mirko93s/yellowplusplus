@@ -14,7 +14,7 @@ AgathaShowOrHideExitBlock:
 	bit 5, [hl]
 	res 5, [hl]
 	ret z
-	CheckEvent EVENT_BEAT_AGATHAS_ROOM_TRAINER_0
+	CheckEitherEventSet EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, EVENT_BEAT_AGATHAS_ROOM_TRAINER_1
 	jr z, .blockExitToNextRoom
 	ld a, $e
 	jp .setExitBlock
@@ -124,12 +124,24 @@ AgathasRoomTrainerHeaders:
 	def_trainers
 AgathasRoomTrainerHeader0:
 	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, 0, AgathaBeforeBattleText, AgathaEndBattleText, AgathaAfterBattleText
+AgathasRoomTrainerHeader1: ; rematch
+	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_1, 0, AgathaRematchBeforeBattleText, AgathaRematchEndBattleText, AgathaRematchAfterBattleText
 	db -1 ; end
 
 AgathaText1:
 	text_asm
 	ld hl, AgathasRoomTrainerHeader0
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip
+	ld hl, AgathasRoomTrainerHeader1
+.skip
 	call TalkToTrainer
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip2
+	ld a, [wTrainerNo]
+	inc a
+	ld [wTrainerNo], a
+.skip2
 	jp TextScriptEnd
 
 AgathaBeforeBattleText:
@@ -142,6 +154,18 @@ AgathaEndBattleText:
 
 AgathaAfterBattleText:
 	text_far _AgathaAfterBattleText
+	text_end
+
+AgathaRematchBeforeBattleText:
+	text_far _AgathaRematchBeforeBattleText
+	text_end
+
+AgathaRematchEndBattleText:
+	text_far _AgathaRematchEndBattleText
+	text_end
+
+AgathaRematchAfterBattleText:
+	text_far _AgathaRematchAfterBattleText
 	text_end
 
 AgathaDontRunAwayText:

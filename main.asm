@@ -167,11 +167,11 @@ INCLUDE "data/pokemon/base_stats.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
 INCLUDE "engine/battle/draw_hud_pokeball_gfx.asm"
+
+
+SECTION "Battle Engine 10", ROMX
+
 INCLUDE "gfx/trade.asm"
-
-
-SECTION "EVOS_MOVES", ROMX
-
 INCLUDE "engine/pokemon/evos_moves.asm"
 
 

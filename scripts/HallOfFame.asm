@@ -97,6 +97,17 @@ HallofFameRoomScript1:
 	ld a, HS_CERULEAN_CAVE_GUY
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	SetEvent EVENT_PLAYER_IS_CHAMPION
+	; show guard to block league until we beat all the gym leaders rematches again
+	ld a, HS_INDIGO_PLATEAU_LOBBY_GUARD
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+	; show again giovanni, he goes away after he is beaten
+	ld a, HS_VIRIDIAN_GYM_GIOVANNI
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+	xor a
+	ld [wGymRematched], a ; reset this to %00000000 so we can rematch all gym leaders once again
 	ld a, $2
 	ld [wHallOfFameCurScript], a
 	ret

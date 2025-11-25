@@ -219,3 +219,66 @@ _FuchsiaGymGuidePostBattleText::
 	line "ninja can terrify"
 	cont "even now!"
 	done
+
+_FuchsiaGymRematchPreBattleText::
+    text "Hmph. You return"
+    line "to my domain."
+
+    para "Since our last"
+    line "encounter, my"
+    cont "training has"
+    cont "only deepened."
+
+    para "My Poison-type"
+    line "toxins are"
+    cont "stronger, my"
+    cont "techniques are"
+    cont "more covert."
+
+    para "Can you detect"
+    line "the Ninja's trap"
+    cont "before the"
+    cont "venom strikes?"
+    done
+
+_FuchsiaGymRematchAcceptedText::
+    text "Observe the"
+    line "shadows. Begin."
+    done
+
+_FuchsiaGymRematchRefusedText::
+    text "Very well. A true"
+    line "Ninja chooses"
+    cont "their moment."
+    done
+
+_FuchsiaGymRematchDefeatedText::
+    text "You saw through"
+    line "my strategy."
+    cont "You possess an"
+    cont "eye for detail"
+    cont "I did not expect."
+    prompt
+
+_FuchsiaGymRematchPostBattleText::
+    text "Truly... flawless."
+
+    para "Your team is"
+    line "too fast, too"
+    cont "skilled to be"
+    cont "poisoned."
+
+    para "The title of"
+    line "CHAMPION is not"
+    cont "just a rumor."
+
+    para "Now, depart."
+    done
+
+_FuchsiaGymRematchCooldownText::
+    text "My team is"
+    line "recovering from"
+    cont "the battle's"
+    cont "venomous after-"
+    cont "effects. Soon."
+    done

@@ -41,6 +41,14 @@ CeladonGymErikaPostBattle:
 	jp z, CeladonGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, CeladonGymReceiveTM21
+	ld a, $c
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 3, [hl] ; mark gym as beaten
+	jp CeladonGymResetScripts
 
 CeladonGymReceiveTM21:
 	ld a, $9
@@ -82,6 +90,7 @@ CeladonGym_TextPointers:
 	dw ErikaRainbowBadgeInfoText
 	dw ReceivedTM21Text
 	dw TM21NoRoomText
+	dw CeladonGymRematchPostBattleText
 
 CeladonGymTrainerHeaders:
 	def_trainers 2
@@ -109,11 +118,15 @@ ErikaText:
 	jr nz, .afterBeat
 	call z, CeladonGymReceiveTM21
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .ErikaRematch
 	ld hl, ErikaPostBattleAdviceText
 	call PrintText
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .beforeBeat
 	ld hl, ErikaPreBattleText
 	call PrintText
@@ -129,6 +142,42 @@ ErikaText:
 	call InitBattleEnemyParameters
 	ld a, $4
 	ld [wGymLeaderNo], a
+	jr .endBattle
+.ErikaRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %00001111
+	cp %00000111
+	jr z, .rematch
+	ld hl, CeladonGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, CeladonGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, CeladonGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, CeladonGymRematchDefeatedText
+	ld de, CeladonGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_ERIKA
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, CeladonGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
@@ -286,3 +335,27 @@ CeladonGymEndBattleText8:
 CeladonGymAfterBattleText8:
 	text_far _CeladonGymAfterBattleText8
 	text_end
+
+CeladonGymRematchPreBattleText:
+    text_far _CeladonGymRematchPreBattleText
+    text_end
+    
+CeladonGymRematchAcceptedText:
+    text_far _CeladonGymRematchAcceptedText
+    text_end
+    
+CeladonGymRematchRefusedText:
+    text_far _CeladonGymRematchRefusedText
+    text_end
+
+CeladonGymRematchDefeatedText:
+    text_far _CeladonGymRematchDefeatedText
+    text_end
+
+CeladonGymRematchPostBattleText:
+    text_far _CeladonGymRematchPostBattleText
+    text_end
+
+CeladonGymRematchCooldownText:
+    text_far _CeladonGymRematchCooldownText
+    text_end

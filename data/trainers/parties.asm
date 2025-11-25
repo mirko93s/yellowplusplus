@@ -436,67 +436,87 @@ ChiefData:
 ; none
 
 Rival1Data:
+; Oak's Lab
 	db  "<RIVAL>@", 5,  EEVEE,                                                                                      end
 ; Route 22
-	db  "<RIVAL>@", 8,  RATTATA,    9,  SPEAROW,    8,  PIDGEY,     10, EEVEE,                                      end
+	db  "<RIVAL>@", 8,  SQUIRTLE,    9,  PIDGEY,    10, EEVEE,                                                      end
 ; Cerulean City
-	db  "<RIVAL>@", 21, PIDGEOTTO,  20, KADABRA,    21, RATICATE,   22, EEVEE,                                      end
+	db  "<RIVAL>@", 21, PIDGEOTTO,  20, NIDORINA,   21, WARTORTLE,  22, EEVEE,                                      end
 
 Rival2Data:
 ; SS Anne 2F
-	db  "<RIVAL>@", 33, DODUO,      31, GRAVELER,   32, PIDGEOTTO,  32, KADABRA,    33, EEVEE,                      end
+	db  "<RIVAL>@", 31, GROWLITHE,  30, DODUO,      32, PIDGEOTTO,  32, WARTORTLE,  33, EEVEE,                      end
 ; Pokémon Tower 2F
-	db  "<RIVAL>@", 45, PIDGEOT,    43, GOLEM,      42, ALAKAZAM,   43, SANDSLASH,  45, JOLTEON,                    end
-	db  "<RIVAL>@", 45, PIDGEOT,    43, GOLEM,      42, ALAKAZAM,   43, SANDSLASH,  45, FLAREON,                    end
-	db  "<RIVAL>@", 45, PIDGEOT,    43, GOLEM,      42, ALAKAZAM,   43, SANDSLASH,  45, VAPOREON,                   end
+	db  "<RIVAL>@", 42, GRAVELER,   43, DODRIO,     45, PIDGEOT,    43, BLASTOISE,  45, JOLTEON,                    end
+	db  "<RIVAL>@", 42, GRAVELER,   43, DODRIO,     45, PIDGEOT,    43, BLASTOISE,  45, FLAREON,                    end
+	db  "<RIVAL>@", 42, GRAVELER,   43, DODRIO,     45, PIDGEOT,    43, BLASTOISE,  45, VAPOREON,                   end
 ; Silph Co. 7F
-	db  "<RIVAL>@", 52, SANDSLASH,  53, DODRIO,     51, ALAKAZAM,   50, ARCANINE,   50, STARMIE,    55, JOLTEON,    end
-	db  "<RIVAL>@", 52, SANDSLASH,  53, DODRIO,     51, ALAKAZAM,   50, EXEGGUTOR,  50, STARMIE,    55, FLAREON,    end
-	db  "<RIVAL>@", 52, SANDSLASH,  53, DODRIO,     51, ALAKAZAM,   50, EXEGGUTOR,  50, ARCANINE,   55, VAPOREON,   end
+	db  "<RIVAL>@", 52, GOLEM,      53, NIDOQUEEN,  51, PIDGEOT,    50, BLASTOISE,  55, JOLTEON,    50, TAUROS,     end
+	db  "<RIVAL>@", 52, GOLEM,      53, NIDOQUEEN,  51, PIDGEOT,    50, BLASTOISE,  55, FLAREON,    50, TAUROS,     end
+	db  "<RIVAL>@", 52, GOLEM,      53, NIDOQUEEN,  51, PIDGEOT,    50, BLASTOISE,  55, VAPOREON,   50, TAUROS,     end
 ; Route 22
-	db  "<RIVAL>@", 68, RHYDON,     71, ARCANINE,   73, TAUROS,     70, GYARADOS,   70, ALAKAZAM,   72, JOLTEON,    end
-	db  "<RIVAL>@", 68, RHYDON,     71, EXEGGUTOR,  73, TAUROS,     70, GYARADOS,   70, ALAKAZAM,   72, FLAREON,    end
-	db  "<RIVAL>@", 68, RHYDON,     71, EXEGGUTOR,  73, TAUROS,     70, ARCANINE,   70, ALAKAZAM,   72, VAPOREON,   end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "<RIVAL>@", 68, ARCANINE,   71, NIDOQUEEN,  73, PIDGEOT,    70, BLASTOISE,  72, JOLTEON,    70, TAUROS,     end
+	db  "<RIVAL>@", 68, ARCANINE,   71, NIDOQUEEN,  73, PIDGEOT,    70, BLASTOISE,  72, FLAREON,    70, TAUROS,     end
+	db  "<RIVAL>@", 68, ARCANINE,   71, NIDOQUEEN,  73, PIDGEOT,    70, BLASTOISE,  72, VAPOREON,   70, TAUROS,     end
+
 Rival3Data:
-	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, ARCANINE,   82, GYARADOS,   83, JOLTEON,    85, SLOWBRO,    end
-	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, GYARADOS,   83, FLAREON,    85, SLOWBRO,    end
-	db  "<RIVAL>@", 81, TAUROS,     80, ALAKAZAM,   82, EXEGGUTOR,  82, ARCANINE,   83, VAPOREON,   85, SLOWBRO,    end
-;;;;;;;;;; remember to set hard mode level cap
+; Champion's Room
+	db  "<RIVAL>@", 81, ARCANINE,   80, NIDOQUEEN,  82, PIDGEOT,    82, BLASTOISE,  83, JOLTEON,    85, TAUROS,     end
+	db  "<RIVAL>@", 81, ARCANINE,   80, NIDOQUEEN,  82, PIDGEOT,    82, BLASTOISE,  83, FLAREON,    85, TAUROS,     end
+	db  "<RIVAL>@", 81, ARCANINE,   80, NIDOQUEEN,  82, PIDGEOT,    82, BLASTOISE,  83, VAPOREON,   85, TAUROS,     end
+; Champion's Room Rematch
+	db  "<RIVAL>@",127, ARCANINE,  129, NIDOQUEEN, 125, PIDGEOT,   130, BLASTOISE, 126, JOLTEON,   128, TAUROS,     end
+	db  "<RIVAL>@",125, ARCANINE,  128, NIDOQUEEN, 130, PIDGEOT,   126, BLASTOISE, 129, FLAREON,   127, TAUROS,     end
+	db  "<RIVAL>@",129, ARCANINE,  126, NIDOQUEEN, 128, PIDGEOT,   127, BLASTOISE, 130, VAPOREON,  125, TAUROS,     end
+
 BrockData:
-	db  "BROCK@",   13, AERODACTYL, 12, OMASTAR,    14, KABUTOPS,   15, ONIX,                                       end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "BROCK@",   12, GEODUDE,    14, RHYHORN,    15, ONIX,                                                       end ;  1 - Gym
+	db  "BROCK@",   95, GOLEM,      96, RHYDON,     94, ONIX,       98, AERODACTYL, 97, KABUTOPS,   99, OMASTAR,    end ;  2 - Rematch
+	; golem shiny
 MistyData:
-	db  "MISTY@",   25, VAPOREON,   25, POLIWRATH,  25, BLASTOISE,  26, STARMIE,    25, ARTICUNO,                   end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "MISTY@",   25, CLOYSTER,   24, GYARADOS,   26, STARMIE,    25, ARTICUNO,                                   end ;  1 - Gym
+	db  "MISTY@",   96, STARMIE,    97, LAPRAS,     98, GYARADOS,   95, BLASTOISE,  99, VAPOREON,   94, CLOYSTER,   end ;  2 - Rematch
+	; vaporeon shiny
 LtSurgeData:
-	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    36, RAICHU,     34, ELECTABUZZ, 35, ZAPDOS,                     end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "LT.SURGE@",35, ELECTRODE,  34, JOLTEON,    36, RAICHU,     34, ELECTABUZZ, 35, ZAPDOS,                     end ;  1 - Gym
+	db  "LT.SURGE@",95, RAICHU,     98, JOLTEON,    96, ELECTABUZZ, 97, JOLTEON,    99, ELECTRODE,  94, MAGNETON,   end ;  2 - Rematch
+	; 1 jolteon shiny
 ErikaData:
-	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "ERIKA@",   45, VILEPLUME,  44, VENUSAUR,   44, TANGELA,    45, VICTREEBEL, 46, EXEGGUTOR,                  end ;  1 - Gym
+	db  "ERIKA@",   97, VICTREEBEL, 95, VILEPLUME,  98, EXEGGUTOR,  94, TANGELA,    99, VENUSAUR,   96, PARASECT,   end ;  2 - Rematch
+	; parasect shiny
+	; anime: tangela (named angela)
 KogaData:
-	db  "KOGA@",    55, VENOMOTH,   54, WEEZING,    54, NIDOKING,   55, TENTACRUEL, 56, GENGAR,                     end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "KOGA@",    55, GOLBAT,     54, WEEZING,    54, MUK,        55, TENTACRUEL, 56, ARBOK,                      end ;  1 - Gym
+	db  "KOGA@",    95, WEEZING,    96, MUK,        94, ARBOK,      98, TENTACRUEL, 97, GOLBAT,     99, GENGAR,     end ;  2 - Rematch
+	; gengar shiny
 SabrinaData:
-	db  "SABRINA@", 60, JYNX,       59, SLOWBRO,    60, HYPNO,      59, ALAKAZAM,   61, MR_MIME,                    end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "SABRINA@", 60, JYNX,       59, SLOWBRO,    60, HYPNO,      59, ALAKAZAM,   61, MR_MIME,                    end ;  1 - Gym
+	db  "SABRINA@", 96, ALAKAZAM,   98, SLOWBRO,    97, HYPNO,      95, MR_MIME,    99, EXEGGUTOR,  94, JYNX,       end ;  2 - Rematch
+	; exeggutor shiny
 BlaineData:
-	db  "BLAINE@",  65, CHARIZARD,  64, MAGMAR,     64, FLAREON,    66, ARCANINE,   65, MOLTRES,                    end
-;;;;;;;;;; remember to set hard mode level cap
+	db  "BLAINE@",  65, FLAREON,    64, MAGMAR,     64, RAPIDASH,   66, ARCANINE,   65, MOLTRES,                    end ;  1 - Gym
+	db  "BLAINE@",  97, ARCANINE,   98, MAGMAR,     96, FLAREON,    99, CHARIZARD,  95, RAPIDASH,   94, NINETALES,  end ;  2 - Rematch
+	; charizard shiny
 GiovanniData:
-	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, GENGAR,     46, TAUROS,     47, RHYDON,                     end ;  1 - Rocket Hideout B4F
-	db  "GIOVANNI@",54, PERSIAN,    54, DUGTRIO,    56, GENGAR,     55, TAUROS,     57, RHYDON,                     end ;  2 - Silph Co. 11F
-	db  "GIOVANNI@",68, PERSIAN,    67, TAUROS,     69, GENGAR,     68, RHYDON,     70, MEWTWO,                     end ;  3 - Viridian Gym
+	db  "GIOVANNI@",48, PERSIAN,    46, DUGTRIO,    47, NIDOKING,   46, NIDOQUEEN,  47, RHYDON,                     end ;  1 - Rocket Hideout B4F
+	db  "GIOVANNI@",54, PERSIAN,    54, DUGTRIO,    56, NIDOKING,   55, NIDOQUEEN,  57, RHYDON,                     end ;  2 - Silph Co. 11F
+	db  "GIOVANNI@",68, PERSIAN,    67, NIDOQUEEN,  69, NIDOKING,   68, RHYDON,     70, MEWTWO,                     end ;  3 - Viridian Gym
+	db  "GIOVANNI@",98, PERSIAN,    96, NIDOQUEEN,  97, NIDOKING,   95, RHYDON,     99, DUGTRIO,    94, KANGASKHAN, end ;  4 - Viridian Gym Rematch
+	; kangaskhan shiny
 
 LoreleiData:
 	db  "LORELEI@", 77, CLOYSTER,   78, VAPOREON,   76, SLOWBRO,    77, JYNX,       78, LAPRAS,                     end
+    db  "LORELEI@",122, CLOYSTER,  116, VAPOREON,  124, SLOWBRO,   120, JYNX,      118, LAPRAS,    121, DEWGONG,    end
 
 BrunoData:
 	db  "BRUNO@",   78, PRIMEAPE,   77, HITMONCHAN, 77, HITMONLEE,  78, POLIWRATH,  77, MACHAMP,                    end
+    db  "BRUNO@",  123, PRIMEAPE,  115, HITMONCHAN,125, HITMONLEE, 117, POLIWRATH, 119, MACHAMP,   124, ONIX,       end
 
 AgathaData:
 	db  "AGATHA@",  79, GENGAR,     78, GOLBAT,     78, GENGAR,     78, ARBOK,      77, GENGAR,                     end
+    db  "AGATHA@", 120, GENGAR,    118, GOLBAT,    116, GENGAR,    121, ARBOK,     123, GENGAR,    115, VENOMOTH,   end
 
 LanceData:
 	db  "LANCE@",   80, GYARADOS,   80, CHARIZARD,  79, ELECTABUZZ, 80, SNORLAX,    79, AERODACTYL, 81, DRAGONITE,  end
+    db  "LANCE@",  119, GYARADOS,  122, CHARIZARD, 120, ELECTABUZZ,124, SNORLAX,   117, AERODACTYL,125, DRAGONITE,  end

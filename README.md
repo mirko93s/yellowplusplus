@@ -10,6 +10,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 **Major changes are in bold.**
 
 ### New Content
+- **Gym Leaders and League Rematches** (with stronger Pokémon)  
 - **More wild Pokémon variety** (10 → 12 per area)  
 - **New Pokémon sprites**  
 - **All 151 Pokémon are obtainable**  
@@ -74,6 +75,7 @@ This hack wouldn’t be possible without inspiration, code snippets, and tutoria
   - [jojobear13/shinpokered](https://github.com/jojobear13/shinpokered)  
   - [Vortyne/pureRGB](https://github.com/Vortyne/pureRGB)  
   - [cRz-Shadows/Pokemon_Yellow_Legacy](https://github.com/cRz-Shadows/Pokemon_Yellow_Legacy)
+  - [ShiraTheMogul/kep-hack](https://github.com/ShiraTheMogul/kep-hack)
 
 - **Wiki & Tutorials:**  
   - [pret/pokered Wiki Tutorials](https://github.com/pret/pokered/wiki/Tutorials)  

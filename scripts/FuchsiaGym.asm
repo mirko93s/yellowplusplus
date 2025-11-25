@@ -43,6 +43,14 @@ FuchsiaGymKogaPostBattle:
 	jp z, FuchsiaGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, FuchsiaGymReceiveTM06
+	ld a, $c
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 4, [hl] ; mark gym as beaten
+	jp FuchsiaGymResetScripts
 ; fallthrough
 FuchsiaGymReceiveTM06:
 	ld a, $9
@@ -84,6 +92,7 @@ FuchsiaGym_TextPointers:
 	dw KogaSoulBadgeInfoText
 	dw ReceivedTM06Text
 	dw TM06NoRoomText
+	dw FuchsiaGymRematchPostBattleText
 
 FuchsiaGymTrainerHeaders:
 	def_trainers 2
@@ -109,11 +118,15 @@ KogaText:
 	jr nz, .afterBeat
 	call z, FuchsiaGymReceiveTM06
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .KogaRematch
 	ld hl, KogaPostBattleAdviceText
 	call PrintText
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .beforeBeat
 	ld hl, KogaBeforeBattleText
 	call PrintText
@@ -131,6 +144,42 @@ KogaText:
 	ld [wGymLeaderNo], a
 	xor a
 	ldh [hJoyHeld], a
+	jr .endBattle
+.KogaRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %00011111
+	cp %00001111
+	jr z, .rematch
+	ld hl, FuchsiaGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, FuchsiaGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, FuchsiaGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, FuchsiaGymRematchDefeatedText
+	ld de, FuchsiaGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_KOGA
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, FuchsiaGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
 	ld [wFuchsiaGymCurScript], a
 .done
@@ -289,3 +338,27 @@ FuchsiaGymGuidePreBattleText:
 FuchsiaGymGuidePostBattleText:
 	text_far _FuchsiaGymGuidePostBattleText
 	text_end
+
+FuchsiaGymRematchPreBattleText:
+    text_far _FuchsiaGymRematchPreBattleText
+    text_end
+    
+FuchsiaGymRematchAcceptedText:
+    text_far _FuchsiaGymRematchAcceptedText
+    text_end
+    
+FuchsiaGymRematchRefusedText:
+    text_far _FuchsiaGymRematchRefusedText
+    text_end
+
+FuchsiaGymRematchDefeatedText:
+    text_far _FuchsiaGymRematchDefeatedText
+    text_end
+
+FuchsiaGymRematchPostBattleText:
+    text_far _FuchsiaGymRematchPostBattleText
+    text_end
+
+FuchsiaGymRematchCooldownText:
+    text_far _FuchsiaGymRematchCooldownText
+    text_end

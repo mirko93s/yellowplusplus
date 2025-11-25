@@ -218,3 +218,65 @@ _CeladonGymAfterBattleText8::
 	para "Wait 'til next"
 	line "time!"
 	done
+
+_CeladonGymRematchPreBattleText::
+    text "Welcome back,"
+    line "CHAMPION."
+
+    para "The garden of"
+    line "my team has been"
+    cont "patiently tended."
+
+    para "Each Grass #MON"
+    line "has blossomed"
+    cont "into something"
+    cont "truly magnificent."
+
+    para "Will your team"
+    line "wilt... or can"
+    cont "you endure the"
+    cont "natural power?"
+    done
+
+_CeladonGymRematchAcceptedText::
+    text "Please, show me"
+    line "the beauty of"
+    cont "your skill."
+    done
+
+_CeladonGymRematchRefusedText::
+    text "Patience is a"
+    line "virtue, after"
+    cont "all. Whenever"
+    cont "you're ready."
+    done
+
+_CeladonGymRematchDefeatedText::
+    text "Such... elegant"
+    line "power. I see"
+    cont "a truly rare"
+    cont "flower has bloomed"
+    cont "on your team."
+    prompt
+
+_CeladonGymRematchPostBattleText::
+    text "Absolutely lovely."
+
+    para "There is such"
+    line "harmony and"
+    cont "strength in"
+    cont "your style."
+
+    para "Continue to be"
+    line "a kind and"
+    cont "powerful force"
+    cont "of nature."
+    done
+
+_CeladonGymRematchCooldownText::
+    text "The petals of"
+    line "my flowers are"
+    cont "curled for now."
+    cont "Let them rest"
+    cont "in the sun."
+    done

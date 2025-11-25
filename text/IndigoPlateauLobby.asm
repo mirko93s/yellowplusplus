@@ -23,3 +23,18 @@ _IndigoPlateauLobbyText3::
 	cont "next trainer!"
 	cont "Good luck!"
 	done
+
+_IndigoPlateauGuardText::
+	text "Stop right there!"
+    line "The League is"
+    cont "undergoing some"
+    cont "maintenance."
+
+    para "I heard the Gym"
+    line "Leaders are open"
+    cont "to fight again."
+
+	para "In the meantime"
+    line "why don't you go"
+    cont "check on them?"
+    done

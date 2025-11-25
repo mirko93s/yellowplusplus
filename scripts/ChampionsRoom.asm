@@ -72,6 +72,14 @@ GaryScript2:
 	ld a, [wRivalStarter]
 	add $0 ; Wow GameFreak
 	ld [wTrainerNo], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip
+	ld a, [wTrainerNo]
+	inc a
+	inc a
+	inc a
+	ld [wTrainerNo], a
+.skip
 
 	xor a
 	ldh [hJoyHeld], a

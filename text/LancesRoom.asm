@@ -62,3 +62,55 @@ _LanceAfterBattleText::
 	line "#MON LEAGUE"
 	cont "champion!@"
 	text_end
+
+_LanceRematchBeforeBattleText::
+    text "Welcome,"
+    line "CHAMPION!"
+    cont "I've been eagerly"
+    cont "awaiting your"
+    cont "return."
+
+    para "Only a true"
+    line "master can know"
+    cont "the power of"
+    cont "the Dragon type."
+
+    para "Since our last"
+    line "bout, my team's"
+    cont "ferocity and"
+    cont "might have grown"
+    cont "to legendary"
+    cont "proportions!"
+
+    para "This is the true"
+    line "test of a"
+    cont "Champion."
+    cont "Show me your"
+    cont "worth!"
+    done
+
+_LanceRematchEndBattleText::
+    text "Unbelievable..."
+    line "The dragons have"
+    cont "fallen to your"
+    cont "superior might."
+    prompt
+
+_LanceRematchAfterBattleText::
+    text "You are truly the"
+    line "greatest master"
+    cont "trainer I have"
+    cont "ever witnessed."
+
+    para "To stand against"
+    line "my ultimate team"
+    cont "and prevail..."
+    cont "it is a testament"
+    cont "to your legend."
+
+    para "The League is safe"
+    line "in your hands."
+    cont "Go, and be the"
+    cont "Champion once"
+    cont "more!"
+    done

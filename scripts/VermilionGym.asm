@@ -60,6 +60,14 @@ VermilionGymLTSurgePostBattle:
 	jp z, VermilionGymResetScripts
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, VermilionGymReceiveTM24	
+	ld a, $9
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 2, [hl] ; mark gym as beaten
+	jp VermilionGymResetScripts
 
 VermilionGymReceiveTM24:
 	ld a, $6
@@ -98,6 +106,7 @@ VermilionGym_TextPointers:
 	dw LTSurgeThunderBadgeInfoText
 	dw ReceivedTM24Text
 	dw TM24NoRoomText
+	dw VermilionGymRematchPostBattleText
 
 VermilionGymTrainerHeaders:
 	def_trainers 2
@@ -117,11 +126,15 @@ LTSurgeText:
 	jr nz, .afterBeat
 	call z, VermilionGymReceiveTM24
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .LTSurgeRematch
 	ld hl, LTSurgePostBattleAdviceText
 	call PrintText
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .beforeBeat
 	ld hl, LTSurgePreBattleText
 	call PrintText
@@ -139,6 +152,42 @@ LTSurgeText:
 	ld [wGymLeaderNo], a
 	xor a
 	ldh [hJoyHeld], a
+	jr .endBattle
+.LTSurgeRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %00000111
+	cp %00000011
+	jr z, .rematch
+	ld hl, VermilionGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, VermilionGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, VermilionGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, VermilionGymRematchDefeatedText
+	ld de, VermilionGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_LT_SURGE
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, VermilionGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3 ; set script index to LT Surge post-battle script
 	ld [wVermilionGymCurScript], a
 	ld [wCurMapScript], a
@@ -246,3 +295,27 @@ VermilionGymGuidePreBattleText:
 VermilionGymGuidePostBattleText:
 	text_far _VermilionGymGuidePostBattleText
 	text_end
+
+VermilionGymRematchPreBattleText:
+    text_far _VermilionGymRematchPreBattleText
+    text_end
+    
+VermilionGymRematchAcceptedText:
+    text_far _VermilionGymRematchAcceptedText
+    text_end
+    
+VermilionGymRematchRefusedText:
+    text_far _VermilionGymRematchRefusedText
+    text_end
+
+VermilionGymRematchDefeatedText:
+    text_far _VermilionGymRematchDefeatedText
+    text_end
+
+VermilionGymRematchPostBattleText:
+    text_far _VermilionGymRematchPostBattleText
+    text_end
+
+VermilionGymRematchCooldownText:
+    text_far _VermilionGymRematchCooldownText
+    text_end

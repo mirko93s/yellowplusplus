@@ -133,6 +133,17 @@ ViridianGymGiovanniPostBattle:
 	jp z, ViridianGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, ViridianGymReceiveTM27
+	ld a, $f
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 7, [hl] ; mark gym as beaten
+	ld a, HS_INDIGO_PLATEAU_LOBBY_GUARD
+	ld [wMissableObjectIndex], a
+	predef HideObject
+	jp ViridianGymResetScripts
 ; fallthrough
 ViridianGymReceiveTM27:
 	ld a, $c
@@ -181,6 +192,7 @@ ViridianGym_TextPointers:
 	dw GiovanniEarthBadgeInfoText
 	dw ReceivedTM27Text
 	dw TM27NoRoomText
+	dw ViridianGymRematchPostBattleText
 
 ViridianGymTrainerHeaders:
 	def_trainers 2
@@ -210,8 +222,11 @@ GiovanniText:
 	jr nz, .afterBeat
 	call z, ViridianGymReceiveTM27
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .GiovanniRematch
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
 	ld hl, GiovanniPostBattleAdviceText
@@ -239,6 +254,42 @@ GiovanniText:
 	call InitBattleEnemyParameters
 	ld a, $8
 	ld [wGymLeaderNo], a
+	jr .endBattle
+.GiovanniRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %11111111
+	cp %01111111
+	jr z, .rematch
+	ld hl, ViridianGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, ViridianGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, ViridianGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, ViridianGymRematchDefeatedText
+	ld de, ViridianGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_GIOVANNI
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, ViridianGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
 	ld [wViridianGymCurScript], a
 .done
@@ -438,3 +489,27 @@ ViridianGymGuidePreBattleText:
 ViridianGymGuidePostBattleText:
 	text_far _ViridianGymGuidePostBattleText
 	text_end
+
+ViridianGymRematchPreBattleText:
+    text_far _ViridianGymRematchPreBattleText
+    text_end
+    
+ViridianGymRematchAcceptedText:
+    text_far _ViridianGymRematchAcceptedText
+    text_end
+    
+ViridianGymRematchRefusedText:
+    text_far _ViridianGymRematchRefusedText
+    text_end
+
+ViridianGymRematchDefeatedText:
+    text_far _ViridianGymRematchDefeatedText
+    text_end
+
+ViridianGymRematchPostBattleText:
+    text_far _ViridianGymRematchPostBattleText
+    text_end
+
+ViridianGymRematchCooldownText:
+    text_far _ViridianGymRematchCooldownText
+    text_end

@@ -201,6 +201,14 @@ CinnabarGymBlainePostBattle:
 	jp z, CinnabarGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, CinnabarGymReceiveTM38
+	ld a, $c
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 6, [hl] ; mark gym as beaten
+	jp CinnabarGymResetScripts
 ; fallthrough
 CinnabarGymReceiveTM38:
 	ld a, $a
@@ -246,6 +254,7 @@ CinnabarGym_TextPointers:
 	dw BlaineVolcanoBadgeInfoText
 	dw ReceivedTM38Text
 	dw TM38NoRoomText
+	dw CinnabarGymRematchPostBattleText
 
 CinnabarGymScript_750c3:
 	ldh a, [hSpriteIndexOrTextID]
@@ -259,10 +268,46 @@ CinnabarGymScript_750c3:
 	cp $1
 	jr z, .asm_758d4
 	ld a, $2
-	jr .asm_758d6
+	jr .done
 .asm_758d4
+	jr .endBattle
+.BlaineRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %01111111
+	cp %00111111
+	jr z, .rematch
+	ld hl, CinnabarGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, CinnabarGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, CinnabarGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, CinnabarGymRematchDefeatedText
+	ld de, CinnabarGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_BLAINE
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, CinnabarGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
-.asm_758d6
+.done
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
 	jp TextScriptEnd
@@ -277,6 +322,8 @@ BlaineText:
 	call DisableWaitingAfterTextDisplay
 	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, CinnabarGymScript_750c3.BlaineRematch
 	ld hl, BlainePostBattleAdviceText
 	call PrintText
 	jp TextScriptEnd
@@ -567,3 +614,27 @@ CinnabarGymGuideText:
 	text_asm
 	callfar Func_f2133
 	jp TextScriptEnd
+
+CinnabarGymRematchPreBattleText:
+    text_far _CinnabarGymRematchPreBattleText
+    text_end
+    
+CinnabarGymRematchAcceptedText:
+    text_far _CinnabarGymRematchAcceptedText
+    text_end
+    
+CinnabarGymRematchRefusedText:
+    text_far _CinnabarGymRematchRefusedText
+    text_end
+
+CinnabarGymRematchDefeatedText:
+    text_far _CinnabarGymRematchDefeatedText
+    text_end
+
+CinnabarGymRematchPostBattleText:
+    text_far _CinnabarGymRematchPostBattleText
+    text_end
+
+CinnabarGymRematchCooldownText:
+    text_far _CinnabarGymRematchCooldownText
+    text_end

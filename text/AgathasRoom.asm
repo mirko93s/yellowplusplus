@@ -42,3 +42,49 @@ _AgathaDontRunAwayText::
 	text "Someone's voice:"
 	line "Don't run away!"
 	done
+
+_AgathaRematchBeforeBattleText::
+    text "Ohohoho... the"
+    line "dear little"
+    cont "CHAMPION is back."
+
+    para "You may have"
+    line "defeated me once,"
+    cont "but my Ghost #MON"
+    cont "have learned a"
+    cont "few new tricks."
+
+    para "They have been"
+    line "communing with"
+    cont "the other side,"
+    cont "drawing power"
+    cont "from the shadows!"
+
+    para "Can you banish"
+    line "the spirits? I'd"
+    cont "like to see you"
+    cont "try, dearie!"
+    done
+
+_AgathaRematchEndBattleText::
+    text "Bah! My shadows"
+    line "are receding! You"
+    cont "are too bright"
+    cont "to be defeated!"
+    prompt
+
+_AgathaRematchAfterBattleText::
+    text "Truly frightening!"
+    line "Your team is just"
+    cont "too powerful."
+
+    para "It seems my old"
+    line "tricks aren't"
+    cont "enough for the"
+    cont "greatest trainer"
+    cont "in Kanto."
+
+    para "Go on, then."
+    line "Don't keep LANCE"
+    cont "waiting, dearie!"
+    done

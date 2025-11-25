@@ -177,7 +177,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw NoHS
+	dw IndigoPlateauLobbyHS
 	dw NoHS
 	dw NoHS
 	dw FightingDojoHS
@@ -247,7 +247,7 @@ MapHSPointers:
 	dw NoHS
 	dw NoHS
 	dw NoHS
-	dw UnusedMapF4HS
+	dw NoHS
 	dw NoHS
 	dw NoHS
 	dw NoHS
@@ -512,8 +512,8 @@ SilphCo11FHS:
 	db SILPH_CO_11F, $04, SHOW
 	db SILPH_CO_11F, $05, SHOW
 	db SILPH_CO_11F, $06, SHOW
-UnusedMapF4HS:
-	db UNUSED_MAP_F4, $02, SHOW
+IndigoPlateauLobbyHS:
+	db INDIGO_PLATEAU_LOBBY, $07, HIDE ; GUARD blocking league for rematch
 PokemonMansion2FHS:
 	db POKEMON_MANSION_2F, $02, SHOW
 PokemonMansion3FHS:
@@ -579,6 +579,6 @@ BluesHouseHSCopy: ; unreferenced
 	db BLUES_HOUSE, $02, HIDE
 	db BLUES_HOUSE, $03, SHOW
 VermilionDockHS:
-	db VERMILION_DOCK, $01, HIDE
+	db VERMILION_DOCK, $01, HIDE ; MEW
 	db $FF, $01, SHOW ; end
 	assert_table_length NUM_HS_OBJECTS + 1

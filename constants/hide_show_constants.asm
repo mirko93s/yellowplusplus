@@ -197,7 +197,7 @@ DEF SHOW EQU $15
 	const HS_SILPH_CO_11F_JAMES            ; BC
 	const HS_SILPH_CO_11F_2                ; BD
 	const HS_SILPH_CO_11F_JESSIE           ; BE
-	const HS_UNUSED_MAP_F4_1               ; BF XXX sprite doesn't exist
+	const HS_INDIGO_PLATEAU_LOBBY_GUARD    ; BF XXX sprite doesn't exist
 	const HS_POKEMON_MANSION_2F_ITEM       ; C0
 	const HS_POKEMON_MANSION_3F_ITEM_1     ; C1
 	const HS_POKEMON_MANSION_3F_ITEM_2     ; C2

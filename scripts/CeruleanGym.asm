@@ -41,6 +41,14 @@ CeruleanGymMistyPostBattle:
 	jp z, CeruleanGymResetScripts
 	ld a, $f0
 	ld [wJoyIgnore], a
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, CeruleanGymReceiveTM11	
+	ld a, $8
+	ldh [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld hl, wGymRematched
+	set 1, [hl] ; mark gym as beaten
+	jp CeruleanGymResetScripts
 
 CeruleanGymReceiveTM11:
 	ld a, $5
@@ -78,6 +86,7 @@ CeruleanGym_TextPointers:
 	dw MistyCascadeBadgeInfoText
 	dw ReceivedTM11Text
 	dw TM11NoRoomText
+	dw CeruleanGymRematchPostBattleText
 
 CeruleanGymTrainerHeaders:
 	def_trainers 2
@@ -95,11 +104,15 @@ MistyText:
 	jr nz, .afterBeat
 	call z, CeruleanGymReceiveTM11
 	call DisableWaitingAfterTextDisplay
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .afterBeat
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr nz, .MistyRematch
 	ld hl, TM11ExplanationText
 	call PrintText
-	jr .done
+	; jr .done
+	jp TextScriptEnd
 .beforeBeat
 	ld hl, MistyPreBattleText
 	call PrintText
@@ -117,6 +130,42 @@ MistyText:
 	ld [wGymLeaderNo], a
 	xor a
 	ldh [hJoyHeld], a
+	jr .endBattle
+.MistyRematch
+	; check if previous gym has been beaten & current gym hasn't been beaten yet
+	ld a, [wGymRematched]
+	and %00000011
+	cp %00000001
+	jr z, .rematch
+	ld hl, CeruleanGymRematchCooldownText
+	call PrintText
+	jp TextScriptEnd ; exit here
+.rematch
+	ld hl, CeruleanGymRematchPreBattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	ld hl, CeruleanGymRematchAcceptedText
+	call PrintText
+	call Delay3
+	ld hl, wStatusFlags3
+	set 6, [hl]
+	set 7, [hl]
+	ld hl, CeruleanGymRematchDefeatedText
+	ld de, CeruleanGymRematchDefeatedText
+	call SaveEndBattleTextPointers
+	ld a, OPP_MISTY
+	ld [wCurOpponent], a
+	ld a, 2
+	ld [wTrainerNo], a
+	jr .endBattle
+.refused
+	ld hl, CeruleanGymRematchRefusedText
+	call PrintText
+	jr .done
+.endBattle
 	ld a, $3
 	ld [wCeruleanGymCurScript], a
 .done
@@ -203,3 +252,27 @@ CeruleanGymGuidePreBattleText:
 CeruleanGymGuidePostBattleText:
 	text_far _CeruleanGymGuidePostBattleText
 	text_end
+
+CeruleanGymRematchPreBattleText:
+    text_far _CeruleanGymRematchPreBattleText
+    text_end
+    
+CeruleanGymRematchAcceptedText:
+    text_far _CeruleanGymRematchAcceptedText
+    text_end
+    
+CeruleanGymRematchRefusedText:
+    text_far _CeruleanGymRematchRefusedText
+    text_end
+
+CeruleanGymRematchDefeatedText:
+    text_far _CeruleanGymRematchDefeatedText
+    text_end
+
+CeruleanGymRematchPostBattleText:
+    text_far _CeruleanGymRematchPostBattleText
+    text_end
+
+CeruleanGymRematchCooldownText:
+    text_far _CeruleanGymRematchCooldownText
+    text_end

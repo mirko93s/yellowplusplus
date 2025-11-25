@@ -236,3 +236,69 @@ _SaffronGymAfterBattleText7::
 	line "used telepathy to"
 	cont "read your mind!"
 	done
+
+_SaffronGymRematchPreBattleText::
+    text "I sensed your"
+    line "return long"
+    cont "before you"
+    cont "arrived."
+
+    para "You are stronger,"
+    line "but so is my"
+    cont "Psychic Focus."
+
+    para "The battle will"
+    line "be won not on"
+    cont "the field, but"
+    cont "in the mind."
+
+    para "Show me if your"
+    line "will is a match"
+    cont "for your destiny."
+    done
+
+_SaffronGymRematchAcceptedText::
+    text "The future is"
+    line "written. Let's"
+    cont "see if you can"
+    cont "change it."
+    done
+
+_SaffronGymRematchRefusedText::
+    text "The stars do"
+    line "not align yet."
+    cont "Come when you"
+    cont "are certain."
+    done
+
+_SaffronGymRematchDefeatedText::
+    text "Your power..."
+    line "It creates a"
+    cont "shockwave in"
+    cont "my mind. This"
+    cont "was not foreseen."
+    prompt
+
+_SaffronGymRematchPostBattleText::
+    text "Remarkable."
+
+    para "You have an"
+    line "unbreakable"
+    cont "mental barrier."
+
+    para "The CHAMPION"
+    line "title is a"
+    cont "reflection of"
+    cont "your soul."
+
+    para "May your path"
+    line "remain clear."
+    done
+
+_SaffronGymRematchCooldownText::
+    text "My concentration"
+    line "is fractured."
+    cont "The Psychic"
+    cont "energy must"
+    cont "be renewed."
+    done

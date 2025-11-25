@@ -2359,8 +2359,11 @@ wPlayerGender::
 ; used to track menu pages
 ; currently used just for status screen pages
 wCurrentPage:: db
+
+; used to track which gym have been rematched, they will be reset when beating the league again.
+wGymRematched:: db
 ; unused
-	ds 39
+	ds 38
 
 ; individual trainer name
 wCurTrainerName::

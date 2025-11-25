@@ -21,6 +21,7 @@ IndigoPlateauLobby_TextPointers:
 	dw IndigoCashierText
 	dw IndigoTradeNurseText
 	dw IndigoPlateauLobbyText6
+	dw IndigoPlateauGuardText
 
 IndigoHealNurseText:
 	script_pokecenter_nurse
@@ -31,6 +32,10 @@ IndigoPlateauLobbyText2:
 
 IndigoPlateauLobbyText3:
 	text_far _IndigoPlateauLobbyText3
+	text_end
+
+IndigoPlateauGuardText:
+	text_far _IndigoPlateauGuardText
 	text_end
 
 IndigoTradeNurseText:

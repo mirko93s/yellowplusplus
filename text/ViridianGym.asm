@@ -238,3 +238,70 @@ _ViridianGymGuidePostBattleText::
 	line "GIOVANNI was the"
 	cont "GYM LEADER here?"
 	done
+
+_ViridianGymRematchPreBattleText::
+    text "So, you seek"
+    line "to challenge me"
+    cont "again, CHAMPION."
+
+    para "Do not mistake"
+    line "my presence"
+    cont "here for"
+    cont "weakness."
+
+    para "My Ground #MON"
+    line "have solidified"
+    cont "their power."
+    cont "They are the"
+    cont "ultimate force"
+    cont "of nature."
+
+    para "Step onto the"
+    line "field and let's"
+    cont "see if your"
+    cont "reign can"
+    cont "continue."
+    done
+
+_ViridianGymRematchAcceptedText::
+    text "Hmph. Very well."
+    line "Proceed. Don't"
+    cont "waste my time."
+    done
+
+_ViridianGymRematchRefusedText::
+    text "You made the"
+    line "wise choice. Run"
+    cont "along, CHAMPION."
+    done
+
+_ViridianGymRematchDefeatedText::
+    text "A crushing defeat."
+    line "Your dominance"
+    cont "is undeniable."
+    cont "You control the"
+    cont "earth itself."
+    prompt
+
+_ViridianGymRematchPostBattleText::
+    text "The Champion"
+    line "stands supreme."
+
+    para "Your strength"
+    line "is absolute."
+
+    para "The Kanto League"
+    line "has a worthy"
+    cont "master."
+
+    para "Now, go. I have"
+    line "other affairs"
+    cont "to attend to."
+    done
+
+_ViridianGymRematchCooldownText::
+    text "I am indisposed."
+    line "Wait until I"
+    cont "decide to give"
+    cont "you an audience."
+    done

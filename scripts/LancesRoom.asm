@@ -132,12 +132,24 @@ LancesRoomTrainerHeaders:
 	def_trainers
 LancesRoomTrainerHeader0:
 	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_0, 0, LanceBeforeBattleText, LanceEndBattleText, LanceAfterBattleText
+LancesRoomTrainerHeader1:
+	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_1, 0, LanceRematchBeforeBattleText, LanceRematchEndBattleText, LanceRematchAfterBattleText
 	db -1 ; end
 
 LanceText1:
 	text_asm
 	ld hl, LancesRoomTrainerHeader0
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip
+	ld hl, LancesRoomTrainerHeader1
+.skip
 	call TalkToTrainer
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip2
+	ld a, [wTrainerNo]
+	inc a
+	ld [wTrainerNo], a
+.skip2
 	jp TextScriptEnd
 
 LanceBeforeBattleText:
@@ -150,6 +162,20 @@ LanceEndBattleText:
 
 LanceAfterBattleText:
 	text_far _LanceAfterBattleText
+	text_asm
+	SetEvent EVENT_BEAT_LANCE
+	jp TextScriptEnd
+
+LanceRematchBeforeBattleText:
+	text_far _LanceRematchBeforeBattleText
+	text_end
+
+LanceRematchEndBattleText:
+	text_far _LanceRematchEndBattleText
+	text_end
+
+LanceRematchAfterBattleText:
+	text_far _LanceRematchAfterBattleText
 	text_asm
 	SetEvent EVENT_BEAT_LANCE
 	jp TextScriptEnd

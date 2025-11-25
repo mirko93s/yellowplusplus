@@ -184,3 +184,65 @@ _PewterGymGuyText::
 	cont "BROCK's ground-"
 	cont "type #MON."
 	done
+
+_PewterGymRematchPreBattleText::
+    text "Since our last"
+    line "meeting, I've"
+    
+    para "been carving a"
+    line "new path for"
+    cont "my partners."
+
+    para "My Rock-type"
+    line "resolve is now"
+    cont "like granite!"
+
+    para "Ready to test"
+    line "your strength"
+    cont "against the"
+    cont "unyielding?"
+    done
+
+_PewterGymRematchAcceptedText::
+    text "The earth is"
+    line "shaking now!"
+    cont "I'm pumped up!"
+    cont "Let's battle!"
+    done
+
+_PewterGymRematchRefusedText::
+    text "No rush. Take"
+    line "your time."
+    cont "Harden your"
+    cont "skill first."
+    done
+
+_PewterGymRematchDefeatedText::
+    text "The foundation"
+    line "of my team..."
+    cont "shattered. You"
+    cont "are truly peak"
+    cont "performance."
+    prompt
+
+_PewterGymRematchPostBattleText::
+    text "Your skill is"
+    line "geologically"
+    cont "unbeatable!"
+
+    para "Keep training"
+    line "with honor."
+
+    para "I hope to"
+    line "one day witness"
+    cont "your next ascent."
+    done
+
+_PewterGymRematchCooldownText::
+    text "My team needs"
+    line "a moment to"
+    cont "recuperate and"
+    cont "regroup. Try"
+    cont "again soon."
+    done
+	

@@ -254,3 +254,66 @@ _CinnabarGymText_7::
 	text "Come on, answer"
 	line "the question!"
 	done
+
+_CinnabarGymRematchPreBattleText::
+    text "Aha! The great"
+    line "CHAMPION returns!"
+
+    para "My scientific"
+    line "training has"
+    cont "ignited my team"
+    cont "to a blazing"
+    cont "new level!"
+
+    para "I've discovered"
+    line "the formula for"
+    cont "Victory!"
+
+    para "Can your team"
+    line "withstand the"
+    cont "fierce heat of"
+    cont "this eruption?"
+    done
+
+_CinnabarGymRematchAcceptedText::
+    text "The pressure is"
+    line "rising! Let the"
+    cont "battle ignite!"
+    done
+
+_CinnabarGymRematchRefusedText::
+    text "A shame! The"
+    line "flames will"
+    cont "have to wait"
+    cont "to burn bright."
+    done
+
+_CinnabarGymRematchDefeatedText::
+    text "Magnificent! You"
+    line "extinguished my"
+    cont "strongest blaze."
+    cont "A true spectacle!"
+    prompt
+
+_CinnabarGymRematchPostBattleText::
+    text "The heat of your"
+    line "skill is intense!"
+
+    para "You are a master"
+    line "of the element"
+    cont "of surprise!"
+
+    para "Continue your"
+    line "journey! May"
+    cont "your passion"
+    cont "always burn"
+    cont "so brightly!"
+    done
+
+_CinnabarGymRematchCooldownText::
+    text "The laboratory"
+    line "is too hot right"
+    cont "now. The team"
+    cont "needs to cool"
+    cont "down and rest."
+    done

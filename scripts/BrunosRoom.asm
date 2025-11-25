@@ -14,7 +14,7 @@ BrunoShowOrHideExitBlock:
 	bit 5, [hl]
 	res 5, [hl]
 	ret z
-	CheckEvent EVENT_BEAT_BRUNOS_ROOM_TRAINER_0
+	CheckEitherEventSet EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, EVENT_BEAT_BRUNOS_ROOM_TRAINER_1
 	jr z, .blockExitToNextRoom
 	ld a, $5
 	jp .setExitBlock
@@ -121,12 +121,24 @@ BrunosRoomTrainerHeaders:
 	def_trainers
 BrunosRoomTrainerHeader0:
 	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, 0, BrunoBeforeBattleText, BrunoEndBattleText, BrunoAfterBattleText
+BrunosRoomTrainerHeader1:
+	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_1, 0, BrunoRematchBeforeBattleText, BrunoRematchEndBattleText, BrunoRematchAfterBattleText
 	db -1 ; end
 
 BrunoText1:
 	text_asm
 	ld hl, BrunosRoomTrainerHeader0
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip
+	ld hl, BrunosRoomTrainerHeader1
+.skip
 	call TalkToTrainer
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
+	jr z, .skip2
+	ld a, [wTrainerNo]
+	inc a
+	ld [wTrainerNo], a
+.skip2
 	jp TextScriptEnd
 
 BrunoBeforeBattleText:
@@ -139,6 +151,18 @@ BrunoEndBattleText:
 
 BrunoAfterBattleText:
 	text_far _BrunoAfterBattleText
+	text_end
+
+BrunoRematchBeforeBattleText:
+	text_far _BrunoRematchBeforeBattleText
+	text_end
+
+BrunoRematchEndBattleText:
+	text_far _BrunoRematchEndBattleText
+	text_end
+
+BrunoRematchAfterBattleText:
+	text_far _BrunoRematchAfterBattleText
 	text_end
 
 BrunoDontRunAwayText:

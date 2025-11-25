@@ -176,3 +176,60 @@ _VermilionCityText16::
 	line "journey it's"
 	cont "back in port."
 	done
+
+
+_VermilionGymRematchPreBattleText::
+    text "CHAMPION!"
+    line "Report for duty!"
+
+    para "My Electric"
+    line "Shock Troops"
+    cont "are fully charged"
+    cont "and combat-ready!"
+
+    para "This is a Code"
+    line "Red battle drill,"
+    cont "so show me"
+    cont "your full power!"
+    done
+
+_VermilionGymRematchAcceptedText::
+    text "Ready, aim,"
+    line "shock! BATTLE!"
+    done
+
+_VermilionGymRematchRefusedText::
+    text "Stand down. I'll"
+    line "keep my battery"
+    cont "fully charged."
+    done
+
+_VermilionGymRematchDefeatedText::
+    text "Unbelievable..."
+    line "Your tactics"
+    cont "were flawless."
+    cont "My team short-"
+    cont "circuited."
+    prompt
+
+_VermilionGymRematchPostBattleText::
+    text "A clean sweep!"
+
+    para "Your team is"
+    line "operating at"
+    cont "maximum output!"
+
+    para "The Kanto League"
+    line "is in good hands,"
+    cont "soldier."
+
+    para "Dismissed!"
+    done
+
+_VermilionGymRematchCooldownText::
+    text "My team is"
+    line "undergoing"
+    cont "post-battle"
+    cont "maintenance."
+    cont "Stand by."
+    done
