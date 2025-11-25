@@ -4327,7 +4327,7 @@ CheckForDisobedience:
 	ld a, [wExtraFlags]
 	bit 2, a
 	jr z, .normalMode2 ; jump if we are in normal mode
-	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	ld a, 101 ; always obey ; MAX_LEVEL + 1
 	jr nz, .next
 	ld hl, wObtainedBadges

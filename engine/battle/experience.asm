@@ -121,7 +121,7 @@ GainExperience:
 	ld a, [wExtraFlags]
 	bit 2, a
 	jr z, .continueCalcExperience ; jump if we are in normal mode
-	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	ld d, MAX_LEVEL ; no level cap after we beat champion
 	jr nz, .continueCalcExperience
 	ld a, [wObtainedBadges]

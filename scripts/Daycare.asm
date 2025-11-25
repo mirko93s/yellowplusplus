@@ -79,7 +79,7 @@ DayCareMText1:
 	ld a, [wExtraFlags]
 	bit 2, a
 	jr z, .continueDayCareInUse ; jump if we are in normal mode
-	CheckEvent EVENT_BEAT_CHAMPION_RIVAL
+	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	jr nz, .continueDayCareInUse
 	ld a, [wObtainedBadges]
 	bit BIT_EARTHBADGE, a
