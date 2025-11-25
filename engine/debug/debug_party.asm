@@ -19,11 +19,12 @@ SetDebugTeam:
 	jr .loop
 
 DebugTeam:
-	db SNORLAX, 80
-	db PERSIAN, 80
-	db JIGGLYPUFF, 15
-	db STARTER_PIKACHU, 5
-	db TENTACOOL, 100
+	db SNORLAX, 100
+	db PERSIAN, 100
+	db DRAGONITE, 100
+	db STARTER_PIKACHU, 100
+	db GYARADOS, 100
+	db MEWTWO, 100
 	db -1 ; end
 
 DebugStart:
@@ -57,6 +58,27 @@ IF DEF(_DEBUG)
 	ld [hli], a
 	ld a, STRENGTH
 	ld [hl], a
+	; Mewtwo gets good moves.
+	ld hl, wPartyMon6Moves
+	ld a, PSYCHIC_M
+	ld [hli], a
+	ld a, THUNDERBOLT
+	ld [hli], a
+	ld a, ICE_BEAM
+	ld [hli], a
+	ld a, FLAMETHROWER
+	ld [hl], a
+	; Mewtwo gets a lot of pps.
+	ld hl, wPartyMon6PP
+	ld a, $ff
+	ld [hli], a
+	ld a, $ff
+	ld [hli], a
+	ld a, $ff
+	ld [hli], a
+	ld a, $ff
+	ld [hl], a
+
 
 	; Get some debug items.
 	ld hl, wNumBagItems
