@@ -56,20 +56,11 @@ SleepEffect:
 	and a
 	jr nz, .didntAffect
 .setSleepCounter
-; set target's sleep counter to a random number between 1 and 3
+; set target's sleep counter to a random number between 2 and 4
 	call BattleRandom
 	and $3
 	jr z, .setSleepCounter
-	ld b, a
-	ld a, [wUnknownSerialFlag_d499]
-	and a
-	jr z, .asm_3f1ba ; XXX stadium stuff?
-	ld a, b
-	and $3
-	jr z, .setSleepCounter
-	ld b, a
-.asm_3f1ba
-	ld a, b
+	inc a
 	ld [de], a
 	call PlayCurrentMoveAnimation2
 	ld hl, FellAsleepText
