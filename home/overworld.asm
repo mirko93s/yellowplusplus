@@ -1784,7 +1784,7 @@ RunMapScript::
 LoadWalkingPlayerSpriteGraphics::
 ; new sprite copy stuff
 	xor a
-	ld [wd471], a
+	ld [wd472], a
 	ld b, BANK(RedSprite)
 	ld de, RedSprite
     ld a, [wPlayerGender]
@@ -1796,7 +1796,7 @@ LoadWalkingPlayerSpriteGraphics::
  	jr LoadPlayerSpriteGraphicsCommon
 
 LoadSurfingPlayerSpriteGraphics2::
-	ld a, [wd471]
+	ld a, [wd472]
 	and a
 	jr z, .asm_0d75
 	dec a
