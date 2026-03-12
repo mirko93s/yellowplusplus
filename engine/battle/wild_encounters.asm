@@ -22,7 +22,7 @@ TryDoWildEncounter:
 	and a
 	jr z, .next
 	dec a
-	jr z, .lastRepelStep
+	jp z, .lastRepelStep
 	ld [wRepelRemainingSteps], a
 .next
 ; determine if wild pokemon can appear in the half-block we're standing in
@@ -43,7 +43,7 @@ TryDoWildEncounter:
 ; ...as long as it's not Viridian Forest or Safari Zone.
 	ld a, [wCurMap]
 	cp FIRST_INDOOR_MAP ; is this an indoor map?
-	jr c, .CantEncounter2
+	jp c, .CantEncounter2
 	ld a, [wCurMapTileset]
 	cp FOREST ; Viridian Forest/Safari Zone
 	jr z, .CantEncounter2
@@ -75,12 +75,46 @@ TryDoWildEncounter:
 	jr nz, .gotWildEncounterType ; else, it's treated as a grass tile by default
 	ld hl, wWaterMons
 .gotWildEncounterType
-	ld b, 0
-	add hl, bc
-	ld a, [hli]
-	ld [wNextEncounterLevel], a
-	ld a, [hl]
-	ld [wNextEncounterSpecies], a
+    ld b, 0
+    add hl, bc
+    ld a, [hli]
+; add a small random variation to the wild pokemon level using a triangular distribution.
+; two random 0..7 values are summed to get D (0..14), center at 7 = no variation.
+; allowed range is +-7 (base_level - 2), so low level pokemon have less variation and we dont go below level 2 which causes bugs in the experience formula.
+; out of range values fall back to base level, keeping early routes more consistent, more likely to get base level.
+; lower bound = 9 - base_level, upper bound = 5 + base_level (max +-7 at level 9+)
+; 9 and 5 come from +-7 (base_level - 2), where 7 is the center of D (0..14)
+    ld b, a          ; base level
+    call Random
+    and %00000111
+    ld c, a
+    call Random
+    and %00000111
+    add c            ; D = 0..14
+    ld d, a
+; check if value of D is in the allowed range for this pokemon level
+    ld a, 9
+    sub b
+	jr c, .inRange ; skip bounds check if level is 9+ (always full range)
+    cp d
+    jr z, .inRange
+    jr nc, .useBase
+    ld a, b
+    add 5
+    cp d
+    jr c, .useBase
+; apply variation
+.inRange
+    ld a, d
+    sub 7 ; shifts 0..14 to -7..+7, (technically it underflows to 249..7)
+    add b
+    jr .done
+.useBase
+    ld a, b
+.done
+    ld [wNextEncounterLevel], a
+    ld a, [hl]
+    ld [wNextEncounterSpecies], a
 	ld a, [wRepelRemainingSteps]
 	and a
 	jr z, .willEncounterNext
