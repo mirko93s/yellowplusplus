@@ -5019,11 +5019,9 @@ CriticalHitTest:
 	ld [wCriticalHitOrOHKO], a
 	ldh a, [hWhoseTurn]                 ; check whose turn is this, player or enemy
 	and a
-	ld a, [wBattleMonSpecies]
 	ld hl, wPlayerMovePower
 	ld de, wPlayerBattleStatus2
 	jr z, .checkIfDamageMove            ; if player's turn jump
-	ld a, [wEnemyMonSpecies]
 	ld hl, wEnemyMovePower
 	ld de, wEnemyBattleStatus2
 .checkIfDamageMove
