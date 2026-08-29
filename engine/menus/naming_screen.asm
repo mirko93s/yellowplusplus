@@ -498,7 +498,6 @@ PrintNamingText:
 	call PlaceString
 	ld hl, $0
 	add hl, bc
-	ld [hl], 'の' ; leftover from Japanese version; blank tile $c9 in English
 	hlcoord 1, 3
 	ld de, NicknameTextString
 	jr .placeString
