@@ -482,6 +482,8 @@ DisplayDepositWithdrawMenu:
 	ld [wMonDataLocation], a
 	predef StatusScreenOriginal
 	call LoadScreenTilesFromBuffer1
+	call ReloadTilesetTilePatterns
+	call LoadHpBarAndStatusTilePatterns
 	call RunDefaultPaletteCommand
 	call LoadGBPal
 	jr .loop
