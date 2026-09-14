@@ -20,7 +20,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **Changed all trainer parties**  
 - **Rebalanced trainer and wild Pokémon levels** (up to Lv. 85 for final rival)  
 - **Move relearner and deleter**  
-- **New game modes: HARD and NUZLOCKE** (can be combined)  
+- **New game modes: HARD and NUZLOCKE** (can be combined and with an optional dupe clause)  
 - **Brand new status screen** inspired by Gen 2 (made from scratch by me)  
 - Changed all wild Pokémon and levels (mix of RBY)  
 - Changed all Pokémon trades and casino prizes  
