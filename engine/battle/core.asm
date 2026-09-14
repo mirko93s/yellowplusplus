@@ -265,6 +265,8 @@ EnemyRan:
 	ld a, [wExtraFlags]
 	bit 3, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar checkFamilyCaught
+	jr c, .noNuzlocke ; do not set area as consumed if dupe
 	callfar setNuzlockeFlag
 .noNuzlocke
 	ld a, [wLinkState]
@@ -1667,6 +1669,8 @@ TryRunningFromBattle:
 	ld a, [wExtraFlags]
 	bit 3, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	callfar checkFamilyCaught
+	jr c, .noNuzlocke ; do not set area as consumed if dupe
 	callfar setNuzlockeFlag
 .noNuzlocke
 	ld a, [wLinkState]

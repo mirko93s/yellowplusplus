@@ -210,6 +210,7 @@ wc5d2:: db
 wSurfingMinigameWaveFunctionNumber:: dw
 wc5d5:: db
 wSurfingMinigamePikachuHP:: dw ; little-endian BCD
+wTempMon::
 wc5d8:: db ; unused?
 ; number of consecutive tricks
 wSurfingMinigameRadnessMeter:: db
@@ -2344,6 +2345,7 @@ wStatusScreenHPDVs::
 ; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
 ; Bit 2 is set if the difficulty is set in hard mode
 ; Bit 3 is set if the nuzlocke mode is enabled
+; Bit 4 is set if the nuzlocke mode dupe clause is enabled
 ; NOTE: nuzlocke and hard mode can be combined into a "nuzlocke-hard" mode
 wExtraFlags:: db
 	
@@ -2362,8 +2364,11 @@ wCurrentPage:: db
 
 ; used to track which gym have been rematched, they will be reset when beating the league again.
 wGymRematched:: db
+; track caught pokemon families in nuzlocke mode
+wCaughtFamilies::
+	ds 10
 ; unused
-	ds 38
+	ds 28
 
 ; individual trainer name
 wCurTrainerName::

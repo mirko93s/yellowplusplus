@@ -92,6 +92,12 @@ _AddPartyMon::
 ; If the mon is being added to the player's party, update the pokedex.
 	ld a, [wCurPartySpecies]
 	ld [wPokedexNum], a
+	ld [wTempMon], a
+	push af
+	push de
+	callfar setFamilyCaught
+	pop de
+	pop af
 	dec a
 	ld c, a
 	ld b, FLAG_TEST

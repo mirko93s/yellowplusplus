@@ -1357,6 +1357,13 @@ _MirkoIntroText2::
 	line ".-."
 	prompt
 
+_NuzlockeDupeClauseText::
+	text "Do you want to use"
+	line "the optional"
+	para "dupe clause for"
+	line "Nuzlocke mode?"
+	prompt
+
 _WildMonCatchableText::
 	text '@'
 	text_ram wEnemyMonNick

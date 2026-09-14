@@ -95,7 +95,27 @@ OakSpeech:
 	call PrintText
 	call ClearScreen
 	call ChooseGameDifficulty
-	call ClearScreen	
+	call ClearScreen
+	ld a, [wExtraFlags]
+	bit 3, a
+	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	ld hl, NuzlockeDupeClauseText
+	call PrintText
+    hlcoord 14, 7
+    lb bc, 8, 15
+    ld a, NO_YES_MENU
+    ld [wTwoOptionMenuID], a
+    ld a, TWO_OPTION_MENU
+    ld [wTextBoxID], a
+    call DisplayTextBoxID
+    ld a, [wCurrentMenuItem]
+    and a
+    jr z, .dontUseDupeClause
+	ld hl, wExtraFlags
+	set 4, [hl] ; set dupe clause
+.dontUseDupeClause
+	call ClearScreen
+.noNuzlocke
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
 	call PrintText     ; show this text
 	call BoyGirlChoice ; added routine at the end of this file
@@ -273,6 +293,9 @@ MirkoIntroText:
     text_end
 MirkoIntroText2:
 	text_far _MirkoIntroText2
+    text_end
+NuzlockeDupeClauseText:
+	text_far _NuzlockeDupeClauseText
     text_end
 
 FadeInIntroPic:

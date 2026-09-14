@@ -527,3 +527,190 @@ checkNuzlockeStatus::
 .nuzCeruleanCave
 	bit CERULEAN_CAVE_NUZ, [hl]
 	ret
+
+setFamilyCaught::
+	ld a, [wExtraFlags]
+	bit 4, a
+	ret z ; return early if dupe clause is disabled
+	ld a, [wTempMon]
+	ld b, FLAG_SET
+	call loadFamilyTable
+	ret
+
+checkFamilyCaught::
+	ld a, [wExtraFlags]
+	bit 4, a
+	ret z ; return early if dupe clause is disabled
+	ld a, [wEnemyMonSpecies]
+	ld b, FLAG_TEST
+	call loadFamilyTable
+	ld a, c
+	and a
+	ret z ; return if not caught with carry cleared
+	scf
+	ret
+
+loadFamilyTable:
+	dec a
+	ld e, a
+	ld d, 0
+	ld hl, FamilyBitTable
+	add hl, de
+	ld a, [hl]
+	ld c, a
+	ld hl, wCaughtFamilies
+	predef FlagActionPredef
+	ret
+
+FamilyBitTable:
+    db 0     ; 001 Bulbasaur
+    db 0     ; 002 Ivysaur
+    db 0     ; 003 Venusaur
+    db 1     ; 004 Charmander
+    db 1     ; 005 Charmeleon
+    db 1     ; 006 Charizard
+    db 2     ; 007 Squirtle
+    db 2     ; 008 Wartortle
+    db 2     ; 009 Blastoise
+    db 3     ; 010 Caterpie
+    db 3     ; 011 Metapod
+    db 3     ; 012 Butterfree
+    db 4     ; 013 Weedle
+    db 4     ; 014 Kakuna
+    db 4     ; 015 Beedrill
+    db 5     ; 016 Pidgey
+    db 5     ; 017 Pidgeotto
+    db 5     ; 018 Pidgeot
+    db 6     ; 019 Rattata
+    db 6     ; 020 Raticate
+    db 7     ; 021 Spearow
+    db 7     ; 022 Fearow
+    db 8     ; 023 Ekans
+    db 8     ; 024 Arbok
+    db 9     ; 025 Pikachu
+    db 9     ; 026 Raichu
+    db 10    ; 027 Sandshrew
+    db 10    ; 028 Sandslash
+    db 11    ; 029 Nidoran♀
+    db 11    ; 030 Nidorina
+    db 11    ; 031 Nidoqueen
+    db 12    ; 032 Nidoran♂
+    db 12    ; 033 Nidorino
+    db 12    ; 034 Nidoking
+    db 13    ; 035 Clefairy
+    db 13    ; 036 Clefable
+    db 14    ; 037 Vulpix
+    db 14    ; 038 Ninetales
+    db 15    ; 039 Jigglypuff
+    db 15    ; 040 Wigglytuff
+    db 16    ; 041 Zubat
+    db 16    ; 042 Golbat
+    db 17    ; 043 Oddish
+    db 17    ; 044 Gloom
+    db 17    ; 045 Vileplume
+    db 18    ; 046 Paras
+    db 18    ; 047 Parasect
+    db 19    ; 048 Venonat
+    db 19    ; 049 Venomoth
+    db 20    ; 050 Diglett
+    db 20    ; 051 Dugtrio
+    db 21    ; 052 Meowth
+    db 21    ; 053 Persian
+    db 22    ; 054 Psyduck
+    db 22    ; 055 Golduck
+    db 23    ; 056 Mankey
+    db 23    ; 057 Primeape
+    db 24    ; 058 Growlithe
+    db 24    ; 059 Arcanine
+    db 25    ; 060 Poliwag
+    db 25    ; 061 Poliwhirl
+    db 25    ; 062 Poliwrath
+    db 26    ; 063 Abra
+    db 26    ; 064 Kadabra
+    db 26    ; 065 Alakazam
+    db 27    ; 066 Machop
+    db 27    ; 067 Machoke
+    db 27    ; 068 Machamp
+    db 28    ; 069 Bellsprout
+    db 28    ; 070 Weepinbell
+    db 28    ; 071 Victreebel
+    db 29    ; 072 Tentacool
+    db 29    ; 073 Tentacruel
+    db 30    ; 074 Geodude
+    db 30    ; 075 Graveler
+    db 30    ; 076 Golem
+    db 31    ; 077 Ponyta
+    db 31    ; 078 Rapidash
+    db 32    ; 079 Slowpoke
+    db 32    ; 080 Slowbro
+    db 33    ; 081 Magnemite
+    db 33    ; 082 Magneton
+    db 34    ; 083 Farfetch'd
+    db 35    ; 084 Doduo
+    db 35    ; 085 Dodrio
+    db 36    ; 086 Seel
+    db 36    ; 087 Dewgong
+    db 37    ; 088 Grimer
+    db 37    ; 089 Muk
+    db 38    ; 090 Shellder
+    db 38    ; 091 Cloyster
+    db 39    ; 092 Gastly
+    db 39    ; 093 Haunter
+    db 39    ; 094 Gengar
+    db 40    ; 095 Onix
+    db 41    ; 096 Drowzee
+    db 41    ; 097 Hypno
+    db 42    ; 098 Krabby
+    db 42    ; 099 Kingler
+    db 43    ; 100 Voltorb
+    db 43    ; 101 Electrode
+    db 44    ; 102 Exeggcute
+    db 44    ; 103 Exeggutor
+    db 45    ; 104 Cubone
+    db 45    ; 105 Marowak
+    db 46    ; 106 Hitmonlee
+    db 47    ; 107 Hitmonchan
+    db 48    ; 108 Lickitung
+    db 49    ; 109 Koffing
+    db 49    ; 110 Weezing
+    db 50    ; 111 Rhyhorn
+    db 50    ; 112 Rhydon
+    db 51    ; 113 Chansey
+    db 52    ; 114 Tangela
+    db 53    ; 115 Kangaskhan
+    db 54    ; 116 Horsea
+    db 54    ; 117 Seadra
+    db 55    ; 118 Goldeen
+    db 55    ; 119 Seaking
+    db 56    ; 120 Staryu
+    db 56    ; 121 Starmie
+    db 57    ; 122 Mr. Mime
+    db 58    ; 123 Scyther
+    db 59    ; 124 Jynx
+    db 60    ; 125 Electabuzz
+    db 61    ; 126 Magmar
+    db 62    ; 127 Pinsir
+    db 63    ; 128 Tauros
+    db 64    ; 129 Magikarp
+    db 64    ; 130 Gyarados
+    db 65    ; 131 Lapras
+    db 66    ; 132 Ditto
+    db 67    ; 133 Eevee
+    db 67    ; 134 Vaporeon
+    db 67    ; 135 Jolteon
+    db 67    ; 136 Flareon
+    db 68    ; 137 Porygon
+    db 69    ; 138 Omanyte
+    db 69    ; 139 Omastar
+    db 70    ; 140 Kabuto
+    db 70    ; 141 Kabutops
+    db 71    ; 142 Aerodactyl
+    db 72    ; 143 Snorlax
+    db 73    ; 144 Articuno
+    db 74    ; 145 Zapdos
+    db 75    ; 146 Moltres
+    db 76    ; 147 Dratini
+    db 76    ; 148 Dragonair
+    db 76    ; 149 Dragonite
+    db 77    ; 150 Mewtwo
+    db 78    ; 151 Mew

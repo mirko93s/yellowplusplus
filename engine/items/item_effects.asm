@@ -344,6 +344,9 @@ ItemUseBall:
 	ld a, [wExtraFlags]
 	bit 3, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	ld a, [wEnemyMonSpecies]
+	ld [wTempMon], a
+	callfar setFamilyCaught
 	callfar setNuzlockeFlag
 .noNuzlocke
 	jr .skipShakeCalculations

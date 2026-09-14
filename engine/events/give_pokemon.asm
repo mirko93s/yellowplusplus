@@ -14,6 +14,10 @@ _GivePokemon::
 	xor a
 	ld [wEnemyBattleStatus3], a
 	ld a, [wCurPartySpecies]
+	ld [wTempMon], a
+	push af
+	callfar setFamilyCaught
+	pop af
 	ld [wEnemyMonSpecies2], a
 	callfar LoadEnemyMonData
 	call SetPokedexOwnedFlag

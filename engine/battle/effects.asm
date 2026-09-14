@@ -984,7 +984,10 @@ SwitchAndTeleportEffect:
 	bit 3, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
 	push hl
+	callfar checkFamilyCaught
+	jr c, .familyCaught ; do not set area as consumed if dupe
 	callfar setNuzlockeFlag
+.familyCaught
 	pop hl
 .noNuzlocke
 	jp PrintText
