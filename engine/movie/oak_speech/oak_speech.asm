@@ -402,7 +402,7 @@ RandomizerSeed::
     ld a, [wCurrentMenuItem]
     and a
     jr z, .dontUseSeedRandomizer
-	ld hl, wStringBuffer
+	ld hl, wSeedString
     ld a, NAME_SEED_SCREEN
     ld [wNamingScreenType], a
     call DisplayNamingScreen

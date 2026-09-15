@@ -2369,8 +2369,11 @@ wGymRematched:: db
 ; track caught pokemon families in nuzlocke mode
 wCaughtFamilies::
 	ds 10
+; this might get removed in the future if I need space, it is not so important ("unused" just so I can search for it in vscode)
+wSeedString::
+	ds 11
 ; unused
-	ds 28
+	ds 17
 
 ; individual trainer name
 wCurTrainerName::

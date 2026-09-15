@@ -596,35 +596,50 @@ DrawTrainerInfo:
 	jr z, .printGamemode
 	cp 1
 	ld de, HardText
-	jr nz, .printGamemodeNormal
+	jr z, .printGamemode
+	ld de, ClassicText
 .printGamemode
 	hlcoord 1, 7
 	call PlaceString
+	; name
 	hlcoord 1, 1
-	ld de, TrainerInfo_NameMoneyTimeText
+	ld de, TrainerInfo_NameText
 	call PlaceString
-	hlcoord 6, 1
+	hlcoord 7, 1
 	ld de, wPlayerName
+	call PlaceString
+	; money
+	hlcoord 1, 2
+	ld de, TrainerInfo_MoneyText
+	call PlaceString
+	hlcoord 7, 2
+	ld de, wPlayerMoney
+	ld c, $e3
+	call PrintBCDNumber
+	; seed
+	ld a, [wExtraFlags]
+	bit 5, a
+	jr z, .noSeed
+	hlcoord 1, 4
+	ld de, TrainerInfo_SeedText
+	call PlaceString
+	hlcoord 2, 5
+	ld de, wSeedString
+	call PlaceString
+.noSeed
+	; dupe clause
+	ld a, [wExtraFlags]
+	bit 4, a
+	jr z, .noDupeClause
+	ld de, DupeClauseText
+	hlcoord 1, 6
+	call PlaceString
+.noDupeClause
+	; time
+	hlcoord 1, 3
+	ld de, TrainerInfo_TimeText
 	call PlaceString
 	hlcoord 7, 3
-	ld de, wPlayerMoney
-	ld c, $e3
-	call PrintBCDNumber
-	hlcoord 6, 5
-	jr .printHours
-.printGamemodeNormal
-	hlcoord 1, 2
-	ld de, TrainerInfo_NameMoneyTimeText
-	call PlaceString
-	hlcoord 6, 2
-	ld de, wPlayerName
-	call PlaceString
-	hlcoord 7, 4
-	ld de, wPlayerMoney
-	ld c, $e3
-	call PrintBCDNumber
-	hlcoord 6, 6
-.printHours
 	ld de, wPlayTimeHours ; hours
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
@@ -637,15 +652,17 @@ DrawTrainerInfo:
 HardNuzlockeText: 	db "HARD-NUZLOCKE@"
 NuzlockeText: 		db "NUZLOCKE@"
 HardText: 			db "HARD@"
+ClassicText: 		db "CLASSIC@"
+DupeClauseText: 	db "Dupe Clause@"
 
 TrainerInfo_FarCopyData:
 	ld a, BANK(TrainerInfoTextBoxTileGraphics)
 	jp FarCopyData
 
-TrainerInfo_NameMoneyTimeText:
-	db   "Name/",
-	next "Money/",
-	next "Time/@",
+TrainerInfo_NameText:	db   "Name/@"
+TrainerInfo_MoneyText:	db   "Money/@"
+TrainerInfo_TimeText:	db   "Time/@"
+TrainerInfo_SeedText:	db   "Seed/@"
 
 ; $76 is a circle tile
 TrainerInfo_BadgesText:
