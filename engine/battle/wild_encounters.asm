@@ -46,13 +46,13 @@ TryDoWildEncounter:
 	jp c, .CantEncounter2
 	ld a, [wCurMapTileset]
 	cp FOREST ; Viridian Forest/Safari Zone
-	jr z, .CantEncounter2
+	jp z, .CantEncounter2
 	ld a, [wGrassRate]
 .CanEncounter
 	ld b, a
 	ld a, [wNextEncounterSpecies]
 	and a
-	jr nz, .WillEncounterIfNotRepelled
+	jp nz, .WillEncounterIfNotRepelled
 ; compare encounter chance with a random number to determine if there will be an encounter
 	ldh a, [hRandomAdd]
 	cp b
@@ -114,6 +114,12 @@ TryDoWildEncounter:
 .done
     ld [wNextEncounterLevel], a
     ld a, [hl]
+	; seed randomizer here
+	ld a, [wExtraFlags]
+	bit 5, a
+	jr z, .noSeedRandomizer ; return early if dupe clause is disabled
+	call RandomizeWildSpecies
+.noSeedRandomizer
     ld [wNextEncounterSpecies], a
 	ld a, [wRepelRemainingSteps]
 	and a
@@ -156,3 +162,65 @@ TryDoWildEncounter:
 	ret
 
 INCLUDE "data/wild/probabilities.asm"
+
+RandomizeWildSpecies::
+    dec a                  ; 0-150
+
+    ; C = H ^ L
+    ld b, a
+    ld a, d
+    xor e
+    ld c, a
+    ld a, b
+
+.loop
+    ; x ^= H
+    xor d
+
+    ; x ^= x >> 4
+    ld b, a
+    srl a
+    srl a
+    srl a
+    srl a
+    xor b
+
+    ; x += L
+    add e
+
+    ; x ^= x << 3
+    ld b, a
+    add a
+    add a
+    add a
+    xor b
+
+    ; x ^= H ^ L
+    xor c
+
+    ; x -= H
+    sub d
+
+    ; x ^= x >> 5
+    ld b, a
+    srl a
+    srl a
+    srl a
+    srl a
+    srl a
+    xor b
+
+    ; x ^= L
+    xor e
+
+    ; x ^= x << 1
+    ld b, a
+    add a
+    xor b
+
+    ; cycle-walk
+    cp 151
+    jr nc, .loop
+
+    inc a
+    ret

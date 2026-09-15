@@ -116,6 +116,7 @@ OakSpeech:
 .dontUseDupeClause
 	call ClearScreen
 .noNuzlocke
+	call RandomizerSeed
 	ld hl, BoyGirlText  ; added to the same file as the other oak text
 	call PrintText     ; show this text
 	call BoyGirlChoice ; added routine at the end of this file
@@ -297,6 +298,9 @@ MirkoIntroText2:
 NuzlockeDupeClauseText:
 	text_far _NuzlockeDupeClauseText
     text_end
+SeedRandomizerText:
+	text_far _SeedRandomizerText
+    text_end
 
 FadeInIntroPic:
 	ld hl, IntroFadePalettes
@@ -383,3 +387,65 @@ DisplayBoyGirlChoice::
 	  ld [wTextBoxID], a
 	  call DisplayTextBoxID
 	  jp LoadScreenTilesFromBuffer1
+
+RandomizerSeed::
+	; randomizer seed input menu
+	ld hl, SeedRandomizerText
+	call PrintText
+    hlcoord 14, 7
+    lb bc, 8, 15
+    ld a, NO_YES_MENU
+    ld [wTwoOptionMenuID], a
+    ld a, TWO_OPTION_MENU
+    ld [wTextBoxID], a
+    call DisplayTextBoxID
+    ld a, [wCurrentMenuItem]
+    and a
+    jr z, .dontUseSeedRandomizer
+	ld hl, wStringBuffer
+    ld a, NAME_SEED_SCREEN
+    ld [wNamingScreenType], a
+    call DisplayNamingScreen
+; hash seed (input a string in hl and outputs a 16bit seed in de)
+    ld de, $1993 ; this just needs to be not zero
+.loop
+    ld a, [hli]
+    cp $50
+    jr z, .hashDone
+    ; E ^= character
+    xor e
+    ld e, a
+    ; D = ROL(D, 3) + E
+    ld a, d
+    rlca
+    rlca
+    rlca
+    add e
+    ld d, a
+    ; E = ROL(E, 5) ^ D
+    ld a, e
+    rlca
+    rlca
+    rlca
+    rlca
+    rlca
+    xor d
+    ld e, a
+    ; D ^= ROL(E, 1)
+    ld a, e
+    rlca
+    xor d
+    ld d, a
+    jr .loop
+.hashDone
+	; save hashed seed to wram
+	ld a, e
+	ld [wRandomizerSeed], a
+	ld a, d
+	ld [wRandomizerSeed + 1], a
+	; set randomizer seed bit
+	ld hl, wExtraFlags
+	set 5, [hl]
+.dontUseSeedRandomizer
+	call ClearScreen
+	ret

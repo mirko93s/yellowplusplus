@@ -1364,6 +1364,22 @@ _NuzlockeDupeClauseText::
 	line "Nuzlocke mode?"
 	prompt
 
+_SeedRandomizerText::
+	text "Do you want to"
+	line "enter a seed to"
+	cont "randomize wild"
+	cont "Pokemon?"
+
+	para "Same seed, same"
+	line "results, always."
+
+	para "Great for Soul"
+	line "Link Nuzlockes:"
+	cont "same Pokemon in"
+	cont "the same areas"
+	cont "for all players."
+	prompt
+
 _WildMonCatchableText::
 	text '@'
 	text_ram wEnemyMonNick

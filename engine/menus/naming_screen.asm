@@ -481,6 +481,8 @@ CalcStringLength:
 PrintNamingText:
 	hlcoord 0, 1
 	ld a, [wNamingScreenType]
+	cp NAME_SEED_SCREEN
+    jr z, .seed
 	ld de, YourTextString
 	and a
 	jr z, .notNickname
@@ -506,6 +508,9 @@ PrintNamingText:
 	ld l, c
 	ld h, b
 	ld de, NameTextString
+	jr .placeString
+.seed
+	ld de, SeedTextString
 .placeString
 	jp PlaceString
 
@@ -520,3 +525,6 @@ NameTextString:
 
 NicknameTextString:
 	db "NICKNAME?@"
+
+SeedTextString:
+	db "SEED?@"
