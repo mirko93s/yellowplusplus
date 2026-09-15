@@ -1345,13 +1345,12 @@ _BoyGirlText::
 _MirkoIntroText::
 	text "Hackrom created"
 	line "by mirko93s :)"
-	cont "It is a beta so"
-	cont "there might be"
-	cont "few bugs..."
+	para "Enjoy your"
+	line "adventure!"
 	prompt
 	
 _MirkoIntroText2::
-	text "...that definitely"
+	text "That definitely"
 	line "wasn't a bug!"
 	para "It's a feature."
 	line ".-."
