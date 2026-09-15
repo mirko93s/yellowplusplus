@@ -22,6 +22,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **Move relearner and deleter**  
 - **New game modes: HARD and NUZLOCKE** (can be combined and with an optional dupe clause)  
 - **Brand new status screen** inspired by Gen 2 (made from scratch by me)  
+- **Built-in Wild Pokémon Randomizer with User-Entered Seeds**  
 - Changed all wild Pokémon and levels (mix of RBY)  
 - Changed all Pokémon trades and casino prizes  
 - All gym leaders and Elite Four have unique sprites and custom movesets  
