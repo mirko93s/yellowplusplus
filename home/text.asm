@@ -555,7 +555,7 @@ TextCommandSounds::
 	db TX_SOUND_DEX_PAGE_ADDED,       SFX_DEX_PAGE_ADDED
 	db TX_SOUND_CRY_PIKACHU,          STARTER_PIKACHU ; used in OakSpeech
 	db TX_SOUND_CRY_PIDGEOT,          PIDGEOT ; used in SaffronCityText12
-	db TX_SOUND_CRY_CATERPIE,         CATERPIE ; unused
+	db TX_SOUND_CRY_CATERPIE,         CATERPIE ; used in intro
 
 TextCommand_DOTS::
 ; wait for button press or 30 frames while printing "…"s

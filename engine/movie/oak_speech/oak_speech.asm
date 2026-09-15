@@ -46,9 +46,9 @@ ENDC
 
 OakSpeech:
 	call StopAllMusic ; stop music
-	ld a, BANK(Music_YellowUnusedSong)
+	ld a, BANK(Music_SurfingPikachu)
 	ld c, a
-	ld a, MUSIC_YELLOW_UNUSED_SONG
+	ld a, MUSIC_SURFING_PIKACHU
 	call PlayMusic
 	call ClearScreen
 	call LoadTextBoxTilePatterns
@@ -69,14 +69,7 @@ OakSpeech:
 	bit 1, a ; possibly a debug mode bit
 	jp nz, .skipChoosingNames
 	;;;;;;;;;;;;;;;;;;; mirko93s intro
-	farcall SendShinyCaterpiePal
-	ld a, CATERPIE
-	ld [wCurSpecies], a
-	ld [wCurPartySpecies], a
-	call GetMonHeader
-	hlcoord 6, 4
-	call LoadFlippedFrontSpriteByMonIndex
-	call MovePicLeft
+	call ShowCaterpie
 	ld hl, MirkoIntroText
 	call PrintText
 	call MovePicLeft
@@ -94,11 +87,14 @@ OakSpeech:
 	ld hl, MirkoIntroText2
 	call PrintText
 	call ClearScreen
+	; game difficulty selection screen
 	call ChooseGameDifficulty
 	call ClearScreen
 	ld a, [wExtraFlags]
 	bit 3, a
-	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
+	jr z, .noNuzlocke ; if no nuzlocke skip asking about dupe clause
+	; dupe clause
+	call ShowCaterpie
 	ld hl, NuzlockeDupeClauseText
 	call PrintText
     hlcoord 14, 7
@@ -296,9 +292,11 @@ MirkoIntroText2:
 	text_far _MirkoIntroText2
     text_end
 NuzlockeDupeClauseText:
+	sound_cry_caterpie
 	text_far _NuzlockeDupeClauseText
     text_end
 SeedRandomizerText:
+	sound_cry_caterpie
 	text_far _SeedRandomizerText
     text_end
 
@@ -389,6 +387,8 @@ DisplayBoyGirlChoice::
 	  jp LoadScreenTilesFromBuffer1
 
 RandomizerSeed::
+	; bg pokemon sprite
+	call ShowCaterpie
 	; randomizer seed input menu
 	ld hl, SeedRandomizerText
 	call PrintText
@@ -448,4 +448,15 @@ RandomizerSeed::
 	set 5, [hl]
 .dontUseSeedRandomizer
 	call ClearScreen
+	ret
+
+ShowCaterpie:
+	farcall SendShinyCaterpiePal
+	ld a, CATERPIE
+	ld [wCurSpecies], a
+	ld [wCurPartySpecies], a
+	call GetMonHeader
+	hlcoord 6, 4
+	call LoadFlippedFrontSpriteByMonIndex
+	call MovePicLeft
 	ret
