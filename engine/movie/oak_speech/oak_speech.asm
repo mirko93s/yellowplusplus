@@ -103,7 +103,11 @@ OakSpeech:
     ld [wTwoOptionMenuID], a
     ld a, TWO_OPTION_MENU
     ld [wTextBoxID], a
+	ld a, B_BUTTON
+	ld [wJoyIgnore], a
     call DisplayTextBoxID
+	xor a
+	ld [wJoyIgnore], a
     ld a, [wCurrentMenuItem]
     and a
     jr z, .dontUseDupeClause
@@ -381,10 +385,14 @@ InitBoyGirlTextBoxParameters::
 	ret
 	
 DisplayBoyGirlChoice::
-	  ld a, $14
-	  ld [wTextBoxID], a
-	  call DisplayTextBoxID
-	  jp LoadScreenTilesFromBuffer1
+	ld a, $14
+	ld [wTextBoxID], a
+	ld a, B_BUTTON
+	ld [wJoyIgnore], a
+	call DisplayTextBoxID
+	xor a
+	ld [wJoyIgnore], a
+	jp LoadScreenTilesFromBuffer1
 
 RandomizerSeed::
 	; bg pokemon sprite
@@ -398,7 +406,11 @@ RandomizerSeed::
     ld [wTwoOptionMenuID], a
     ld a, TWO_OPTION_MENU
     ld [wTextBoxID], a
+	ld a, B_BUTTON
+	ld [wJoyIgnore], a
     call DisplayTextBoxID
+	xor a
+	ld [wJoyIgnore], a
     ld a, [wCurrentMenuItem]
     and a
     jr z, .dontUseSeedRandomizer
