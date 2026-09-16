@@ -56,7 +56,7 @@ TryDoWildEncounter:
 ; compare encounter chance with a random number to determine if there will be an encounter
 	ldh a, [hRandomAdd]
 	cp b
-	jr nc, .CantEncounter2
+	jp nc, .CantEncounter2
 	ldh a, [hRandomSub]
 	ld b, a
 	ld hl, WildMonEncounterSlotChances
@@ -115,11 +115,20 @@ TryDoWildEncounter:
     ld [wNextEncounterLevel], a
     ld a, [hl]
 	; seed randomizer here
+	push af
 	ld a, [wExtraFlags]
 	bit 5, a
-	jr z, .noSeedRandomizer ; return early if dupe clause is disabled
+	jr z, .noSeedRandomizer
+	ld a, [wRandomizerSeed]
+    ld e, a
+    ld a, [wRandomizerSeed + 1]
+    ld d, a
+	pop af
 	call RandomizeWildSpecies
+	jr .storeSpecies
 .noSeedRandomizer
+	pop af
+.storeSpecies
     ld [wNextEncounterSpecies], a
 	ld a, [wRepelRemainingSteps]
 	and a
@@ -163,6 +172,8 @@ TryDoWildEncounter:
 
 INCLUDE "data/wild/probabilities.asm"
 
+; input  a = original pokemon species id
+; 		de = seed (wRandomizerSeed)
 RandomizeWildSpecies::
     dec a                  ; 0-150
 
