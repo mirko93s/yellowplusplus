@@ -270,20 +270,50 @@ DisplayNamingScreen:
 	ret nc
 	dec hl
 .addLetter
-	ld a, [wNamingScreenLetter]
-	ld [hli], a
-	ld [hl], '@'
-	ld a, SFX_PRESS_AB
-	call PlaySound
-	ret
+    ld a, [wNamingScreenLetter]
+    ld [hli], a
+    ld [hl], '@'
+    ; seed screen stays uppercase
+    ld a, [wNamingScreenType]
+    cp NAME_SEED_SCREEN
+    jr z, .playAddLetterSound
+    ; after first char switch to lowercase
+    ld a, [wNamingScreenNameLength]
+    and a
+    jr nz, .playAddLetterSound
+    ld a, 1
+    ld [wAlphabetCase], a
+    pop de
+    ld de, .selectReturnPoint
+    push de
+.playAddLetterSound
+    ld a, SFX_PRESS_AB
+    call PlaySound
+    ret
 .pressedB
-	ld a, [wNamingScreenNameLength]
-	and a
-	ret z
-	call CalcStringLength
-	dec hl
-	ld [hl], '@'
-	ret
+    ld a, [wNamingScreenNameLength]
+    and a
+    ret z
+    call CalcStringLength
+    dec hl
+    ld [hl], '@'
+    ; switch back to uppercase if we deleted the last char
+    ld a, [wNamingScreenNameLength]
+    cp 1
+    jr nz, .pressedB_done
+    xor a
+    ld [wAlphabetCase], a
+    pop de
+    ld de, .selectReturnPoint
+    push de
+.pressedB_done
+    ret
+
+.deleteLetter
+    call CalcStringLength
+    dec hl
+    ld [hl], '@'
+    ret
 .pressedRight
 	ld a, [wCurrentMenuItem]
 	cp $6
