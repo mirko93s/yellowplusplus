@@ -420,6 +420,7 @@ RandomizerSeed::
     call DisplayNamingScreen
 ; hash seed (input a string in hl and outputs a 16bit seed in de)
     ld de, $1993 ; this just needs to be not zero
+	ld hl, wSeedString
 .loop
     ld a, [hli]
     cp $50
