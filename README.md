@@ -41,6 +41,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - Starter Pikachu has maxed DVs  
 - "Press B to RUN" in wild battles  
 - Shop quantity adjustment with left/right  
+- Fully decapitalized text  
 
 ### Backported / Updated Mechanics
 - **Running shoes** (press B)  
