@@ -2243,9 +2243,9 @@ DisplayBattleMenu::
 	ld a, $2 ; select the "ITEM" menu
 	jp .upperLeftMenuItemWasNotSelected
 .oldManName
-	db "GRANDPA@"
+	db "Grandpa@"
 .profOakName
-	db "PROF.OAK@"
+	db "Prof. Oak@"
 .handleBattleMenuInput
 	ld a, [wBattleAndStartSavedMenuItem]
 	ld [wCurrentMenuItem], a
@@ -2942,7 +2942,7 @@ MoveDisabledText:
 	text_end
 
 WhichTechniqueString:
-	db "WHICH TECHNIQUE?@"
+	db "Which Technique?@"
 
 SelectMenuItem_CursorUp:
 	ld a, [wCurrentMenuItem]
@@ -3259,10 +3259,10 @@ SpecialText: ; added for PS Split
 	db " <sL><sR> @"
 
 DisabledText:
-	db "DSBL@"
+	db "Dsbl@"
 
 TypeText:
-	db "TYPE@"
+	db "Type@"
 
 SelectEnemyMove:
 	ld a, [wLinkState]

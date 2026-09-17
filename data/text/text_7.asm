@@ -1,5 +1,5 @@
 _PokemonText::
-	text "#MON!"
+	text "#mon!"
 	done
 
 _PokemartGreetingText::
@@ -15,14 +15,14 @@ _PokemonFaintedText::
 
 _PlayerBlackedOutText::
 	text "<PLAYER> is out of"
-	line "useable #MON!"
+	line "useable #mon!"
 
 	para "<PLAYER> blacked"
 	line "out!"
 	prompt
 
 _RepelWoreOffText::
-	text "REPEL's effect"
+	text "Repel's effect"
 	line "wore off."
 	done
 
@@ -36,7 +36,7 @@ _PokemartTellBuyPriceText::
 	line "That will be"
 	cont "¥@"
 	text_bcd hMoney, 3 | LEADING_ZEROES | LEFT_ALIGN
-	text ". OK?"
+	text ". Ok?"
 	done
 
 _PokemartBoughtItemText::
@@ -162,16 +162,16 @@ _HMCantDeleteText::
 
 _PokemonCenterWelcomeText::
 	text "Welcome to our"
-	line "#MON CENTER!"
+	line "#mon Center!"
 	prompt
 
 _NeedYourPokemonText::
-	text "Healing #MON"
+	text "Healing #mon"
 	line "Please wait..."
 	done
 
 _PokemonCenterFarewellText::
-	text "Your #MON are"
+	text "Your #mon are"
 	line "fighting fit!"
 	done
 
@@ -203,21 +203,21 @@ _CableClubNPCPleaseApplyHereHaveToSaveText::
 _DeadMon1Text::
        text "Come on man."	
        para "Trying to trade"
-       line "a dead #MON?"
+       line "a dead #mon?"
        done
 
 _DeadMon2Text::
        text "Wow. You don't"
        line "have any shame!"
        para "Trading dead"
-       line "#MON!"
+       line "#mon!"
        done
 
 _DeadMon3Text::
        text "I can't believe"
        line "you would try to"
        cont "trade a dead"
-       cont "#MON!"
+       cont "#mon!"
        para "You don't deserve"
        line "those badges!"
        done

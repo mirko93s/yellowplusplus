@@ -91,7 +91,7 @@ AnimateHallOfFame:
 	ret
 
 HallOfFameText:
-	db "HALL OF FAME@"
+	db "Hall Of Fame@"
 
 HoFShowMonOrPlayer:
 	call ClearScreen
@@ -192,8 +192,8 @@ HoFDisplayMonInfo:
 	ret
 
 HoFMonInfoText:
-	db   "LEVEL/"
-	next "TYPE/@"
+	db   "Level/"
+	next "Type/@"
 
 HoFLoadPlayerPics:
  	ld a, [wPlayerGender] ; new gender check
@@ -279,10 +279,10 @@ HoFPrintTextAndDelay:
 	jp DelayFrames
 
 HoFPlayTimeText:
-	db "PLAY TIME@"
+	db "Play Time@"
 
 HoFMoneyText:
-	db "MONEY@"
+	db "Money@"
 
 DexSeenOwnedText:
 	text_far _DexSeenOwnedText

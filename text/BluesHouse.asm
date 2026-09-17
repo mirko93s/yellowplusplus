@@ -24,14 +24,14 @@ _DaisyBagFullText::
 	done
 
 _DaisyUseMapText::
-	text "Use the TOWN MAP"
+	text "Use the Town Map"
 	line "to find out where"
 	cont "you are."
 	done
 
 _BluesHouseDaisyWalkingText::
 	text "Spending time"
-	line "with your #MON"
+	line "with your #mon"
 	cont "makes them more"
 	cont "friendly to you."
 	done

@@ -228,13 +228,13 @@ Text3_DrakesDeception:
 	
 CanBeCutTxt:
 	text "This tree can be"
-	line "CUT!@@"
+	line "Cut!@@"
 	
 WantToCutTxt:
 	text "Would you like to"
-	line "use CUT?@@"
+	line "use Cut?@@"
 	
 WaterIsCalmTxt:
 	text "The water is calm."
 	line "Would you like to"
-	cont "SURF?@@"
+	cont "Surf?@@"

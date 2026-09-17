@@ -1,18 +1,18 @@
 _LoreleiBeforeBattleText::
 	text "Welcome to"
-	line "#MON LEAGUE!"
+	line "#mon League!"
 
-	para "I am LORELEI of"
-	line "the ELITE FOUR!"
+	para "I am Lorelei of"
+	line "the Elite Four!"
 
 	para "No one can best"
 	line "me when it comes"
-	cont "to icy #MON!"
+	cont "to icy #mon!"
 
 	para "Freezing moves"
 	line "are powerful!"
 
-	para "Your #MON will"
+	para "Your #mon will"
 	line "be at my mercy"
 	cont "when they are"
 	cont "frozen solid!"
@@ -32,8 +32,8 @@ _LoreleiAfterBattleText::
 	cont "Go on ahead!"
 
 	para "You only got a"
-	line "taste of #MON"
-	cont "LEAGUE power!"
+	line "taste of #mon"
+	cont "League power!"
 	done
 
 _LoreleiDontRunAwayText::
@@ -43,11 +43,11 @@ _LoreleiDontRunAwayText::
 
 _LoreleiRematchBeforeBattleText::
     text "Welcome back to"
-    line "the #MON LEAGUE."
+    line "the #mon League."
 
     para "It's an honor to"
     line "once again face"
-    cont "the CHAMPION."
+    cont "the Champion."
 
     para "My Ice-type team"
     line "has undergone a"
@@ -83,7 +83,7 @@ _LoreleiRematchAfterBattleText::
     
     para "Now, let's see if"
     line "the rest of the"
-    cont "ELITE FOUR can"
+    cont "Elite Four can"
     cont "withstand your"
     cont "flame. Go forth."
     done

@@ -13,13 +13,13 @@ _TrainerWantsToFightText::
 	prompt
 
 _UnveiledGhostText::
-	text "SILPH SCOPE"
+	text "Silph Scope"
 	line "unveiled the"
-	cont "GHOST's identity!"
+	cont "Ghost's identity!"
 	prompt
 
 _GhostCantBeIDdText::
-	text "Darn! The GHOST"
+	text "Darn! The Ghost"
 	line "can't be ID'd!"
 	prompt
 
@@ -91,26 +91,26 @@ _SleepingPikachuText1::
 	prompt
 
 _PartyMenuNormalText::
-	text "Choose a #MON."
+	text "Choose a #mon."
 	done
 
 _PartyMenuItemUseText::
 	text "Use item on which"
-	line "#MON?"
+	line "#mon?"
 	done
 
 _PartyMenuBattleText::
 	text "Bring out which"
-	line "#MON?"
+	line "#mon?"
 	done
 
 _PartyMenuUseTMText::
 	text "Teach to which"
-	line "#MON?"
+	line "#mon?"
 	done
 
 _PartyMenuSwapMonText::
-	text "Move #MON"
+	text "Move #mon"
 	line "where?"
 	done
 
@@ -178,10 +178,10 @@ _TurnedOnPC1Text::
 	prompt
 
 _AccessedBillsPCText::
-	text "Accessed BILL's"
+	text "Accessed Bill's"
 	line "PC."
 
-	para "Accessed #MON"
+	para "Accessed #mon"
 	line "Storage System."
 	prompt
 
@@ -189,7 +189,7 @@ _AccessedSomeonesPCText::
 	text "Accessed someone's"
 	line "PC."
 
-	para "Accessed #MON"
+	para "Accessed #mon"
 	line "Storage System."
 	prompt
 
@@ -271,11 +271,11 @@ _TossHowManyText::
 	done
 
 _AccessedHoFPCText::
-	text "Accessed #MON"
-	line "LEAGUE's site."
+	text "Accessed #mon"
+	line "League's site."
 
-	para "Accessed the HALL"
-	line "OF FAME List."
+	para "Accessed the Hall"
+	line "Of Fame List."
 	prompt
 
 _SleepingPikachuText2::
@@ -293,7 +293,7 @@ _WhatText::
 
 _DepositWhichMonText::
 	text "Deposit which"
-	line "#MON?"
+	line "#mon?"
 	done
 
 _MonWasStoredText::
@@ -306,12 +306,12 @@ _MonWasStoredText::
 
 _CantDepositLastMonText::
 	text "You can't deposit"
-	line "the last #MON!"
+	line "the last #mon!"
 	prompt
 
 _BoxFullText::
 	text "Oops! This Box is"
-	line "full of #MON."
+	line "full of #mon."
 	prompt
 
 _MonIsTakenOutText::
@@ -325,14 +325,14 @@ _MonIsTakenOutText::
 
 _NoMonText::
 	text "What? There are"
-	line "no #MON here!"
+	line "no #mon here!"
 	prompt
 
 _CantTakeMonText::
 	text "You can't take"
-	line "any more #MON."
+	line "any more #mon."
 
-	para "Deposit #MON"
+	para "Deposit #mon"
 	line "first."
 	prompt
 
@@ -344,7 +344,7 @@ _PikachuUnhappyText::
 
 _ReleaseWhichMonText::
 	text "Release which"
-	line "#MON?"
+	line "#mon?"
 	done
 
 _OnceReleasedText::
@@ -352,7 +352,7 @@ _OnceReleasedText::
 	line '@'
 	text_ram wStringBuffer
 	text " is"
-	cont "gone forever. OK?"
+	cont "gone forever. Ok?"
 	done
 
 _MonWasReleasedText::
@@ -365,7 +365,7 @@ _MonWasReleasedText::
 	prompt
 
 _RequireCoinCaseText::
-	text "A COIN CASE is"
+	text "A Coin Case is"
 	line "required!@"
 	text_end
 
@@ -406,19 +406,19 @@ _OhFineThenText::
 
 _GetDexRatedText::
 	text "Want to get your"
-	line "#DEX rated?"
+	line "#dex rated?"
 	done
 
 _ClosedOaksPCText::
 	text "Closed link to"
-	line "PROF.OAK's PC.@"
+	line "Prof. Oak's PC.@"
 	text_end
 
 _AccessedOaksPCText::
-	text "Accessed PROF."
-	line "OAK's PC."
+	text "Accessed Prof."
+	line "Oak's PC."
 
-	para "Accessed #DEX"
+	para "Accessed #dex"
 	line "Rating System."
 	prompt
 
@@ -437,29 +437,29 @@ _NotEnoughMemoryText::
 _OakSpeechText1::
 	text "Hello there!"
 	line "Welcome to the"
-	cont "world of #MON!"
+	cont "world of #mon!"
 
-	para "My name is OAK!"
+	para "My name is Oak!"
 	line "People call me"
-	cont "the #MON PROF!"
+	cont "the #mon Prof!"
 	prompt
 
 _OakSpeechText2A::
 	text "This world is"
 	line "inhabited by"
 	cont "creatures called"
-	cont "#MON!@"
+	cont "#mon!@"
 	text_end
 
 _OakSpeechText2B::
 	text $51,"For some people,"
-	line "#MON are"
+	line "#mon are"
 	cont "pets. Others use"
 	cont "them for fights."
 
 	para "Myself..."
 
-	para "I study #MON"
+	para "I study #mon"
 	line "as a profession."
 	prompt
 
@@ -482,12 +482,12 @@ _OakSpeechText3::
 	text "<PLAYER>!"
 
 	para "Your very own"
-	line "#MON legend is"
+	line "#mon legend is"
 	cont "about to unfold!"
 
 	para "A world of dreams"
 	line "and adventures"
-	cont "with #MON"
+	cont "with #mon"
 	cont "awaits! Let's go!"
 	done
 
@@ -520,27 +520,27 @@ _WillBeTradedText::
 	done
 
 _Colosseum3MonsText::
-	text "You need 3 #MON"
+	text "You need 3 #mon"
 	line "to fight!"
 	prompt
 
 _ColosseumMewText::
-	text "Sorry, MEW can't"
+	text "Sorry, Mew can't"
 	line "attend!"
 	prompt
 
 _ColosseumDifferentMonsText::
-	text "Your #MON must"
+	text "Your #mon must"
 	line "all be different!"
 	prompt
 
 _ColosseumMaxL55Text::
-	text "No #MON can"
+	text "No #mon can"
 	line "exceed L55!"
 	prompt
 
 _ColosseumMinL50Text::
-	text "All #MON must"
+	text "All #mon must"
 	line "be at least L50!"
 	prompt
 
@@ -550,12 +550,12 @@ _ColosseumTotalL155Text::
 	prompt
 
 _ColosseumMaxL30Text::
-	text "No #MON can"
+	text "No #mon can"
 	line "exceed L30!"
 	prompt
 
 _ColosseumMinL25Text::
-	text "All #MON must"
+	text "All #mon must"
 	line "be at least L25!"
 	prompt
 
@@ -565,12 +565,12 @@ _ColosseumTotalL80Text::
 	prompt
 
 _ColosseumMaxL20Text::
-	text "No #MON can"
+	text "No #mon can"
 	line "exceed L20!"
 	prompt
 
 _ColosseumMinL15Text::
-	text "All #MON must"
+	text "All #mon must"
 	line "be at least L15!"
 	prompt
 
@@ -594,7 +594,7 @@ _ColosseumWeightText::
 _ColosseumEvolvedText::
 	text_ram wcd6d
 	text " is an"
-	line "evolved #MON!"
+	line "evolved #mon!"
 	prompt
 
 _ColosseumIneligibleText::
@@ -608,7 +608,7 @@ _ColosseumWhereToText::
 	done
 
 _ColosseumPleaseWaitText::
-	text "OK, please wait"
+	text "Ok, please wait"
 	line "just a moment."
 	done
 
@@ -633,12 +633,12 @@ _ContCharText::
 
 _NoPokemonText::
 	text "There are no"
-	line "#MON here!"
+	line "#mon here!"
 	prompt
 
 _NormalModeText::
 	text "Are you sure?"
-	para "Classic #MON"
+	para "Classic #mon"
 	line "rules."
 	done
 

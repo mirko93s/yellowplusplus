@@ -597,13 +597,13 @@ GBPrinter_UpdateStatusMessage:
 	db   '@'
 .CheckingLink:
 	db   ""
-	next " CHECKING LINK...@"
+	next " Checking Link...@"
 .Transmitting:
 	db   ""
-	next "  TRANSMITTING...@"
+	next "  Transmitting...@"
 .Printing:
 	db   ""
-	next "    PRINTING...@"
+	next "    Printing...@"
 .Error1:
 	db   " Printer Error 1"
 	next ""

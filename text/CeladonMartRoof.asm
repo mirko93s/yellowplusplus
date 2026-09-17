@@ -6,7 +6,7 @@ _CeladonMartRoofText_484ee::
 _CeladonMartRoofText_484f3::
 	text "Yay!"
 
-	para "FRESH WATER!"
+	para "Fresh Water!"
 
 	para "Thank you!"
 
@@ -27,7 +27,7 @@ _CeladonMartRoofText_484fe::
 	para '@'
 	text_ram wStringBuffer
 	text " contains"
-	line "ICE BEAM!"
+	line "Ice Beam!"
 
 	para "It can freeze the"
 	line "target sometimes!@"
@@ -36,7 +36,7 @@ _CeladonMartRoofText_484fe::
 _CeladonMartRoofText_48504::
 	text "Yay!"
 
-	para "SODA POP!"
+	para "Soda Pop!"
 
 	para "Thank you!"
 
@@ -57,13 +57,13 @@ _CeladonMartRoofText_4850f::
 	para '@'
 	text_ram wStringBuffer
 	text " contains"
-	line "ROCK SLIDE!@"
+	line "Rock Slide!@"
 	text_end
 
 _CeladonMartRoofText_48515::
 	text "Yay!"
 
-	para "LEMONADE!"
+	para "Lemonade!"
 
 	para "Thank you!"
 
@@ -80,7 +80,7 @@ _CeladonMartRoofText_48520::
 	text_start
 
 	para "TM49 contains"
-	line "TRI ATTACK!@"
+	line "Tri Attack!@"
 	text_end
 
 _CeladonMartRoofText_48526::
@@ -119,8 +119,8 @@ _CeladonMartRoofText4::
 	done
 
 _CeladonMartRoofText6::
-	text "ROOFTOP SQUARE:"
-	line "VENDING MACHINES"
+	text "Rooftop Square:"
+	line "Vending Machines"
 	done
 
 _VendingMachineText1::

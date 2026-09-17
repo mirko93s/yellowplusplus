@@ -14,7 +14,7 @@ _ReceivedHM02Text::
 	text_end
 
 _HM02ExplanationText::
-	text "HM02 is FLY."
+	text "HM02 is Fly."
 	line "It will take you"
 	cont "back to any town."
 
@@ -28,5 +28,5 @@ _HM02NoRoomText::
 	done
 
 _Route16HouseText_1e652::
-	text "FEAROW: Kyueen!"
+	text "Fearow: Kyueen!"
 	done

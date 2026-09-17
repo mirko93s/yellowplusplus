@@ -1,9 +1,9 @@
 MelanieText1::
 	text "I take care of"
-	line "injured #MON."
+	line "injured #mon."
 
 	para "I nursed this"
-	line "BULBASAUR back to"
+	line "Bulbasaur back to"
 	cont "health."
 
 	para "It needs a good"
@@ -14,16 +14,16 @@ MelanieText1::
 MelanieText2::
 	text "I know! Would you"
 	line "take care of this"
-	cont "BULBASAUR?"
+	cont "Bulbasaur?"
 	done
 
 MelanieText3::
 	text "Please take care"
-	line "of BULBASAUR!@"
+	line "of Bulbasaur!@"
 	text_end
 
 MelanieText4::
-	text "Is BULBASAUR"
+	text "Is Bulbasaur"
 	line "doing well?@"
 	text_end
 
@@ -33,14 +33,14 @@ MelanieText5::
 	text_end
 
 MelanieBulbasaurText::
-	text "BULBASAUR: Bubba!"
+	text "Bulbasaur: Bubba!"
 	line "Zoar!@"
 	text_end
 
 MelanieOddishText::
-	text "ODDISH: Orddissh!@"
+	text "Oddish: Orddissh!@"
 	text_end
 
 MelanieSandshrewText::
-	text "SANDSHREW: Pikii!@"
+	text "Sandshrew: Pikii!@"
 	text_end

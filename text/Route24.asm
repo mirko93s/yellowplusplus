@@ -26,11 +26,11 @@ _Route24Text_51521::
 _Route24Text_51526::
 	text "By the way, would"
 	line "you like to join"
-	cont "TEAM ROCKET?"
+	cont "Team Rocket?"
 
 	para "We're a group"
 	line "dedicated to evil"
-	cont "using #MON!"
+	cont "using #mon!"
 
 	para "Want to join?"
 
@@ -41,7 +41,7 @@ _Route24Text_51526::
 	para "I'm telling you"
 	line "to join!"
 
-	para "OK, you need"
+	para "Ok, you need"
 	line "convincing!"
 
 	para "I'll make you an"
@@ -58,7 +58,7 @@ _Route24Text_51530::
 	text "With your ability,"
 	line "you could become"
 	cont "a top leader in"
-	cont "TEAM ROCKET!"
+	cont "Team Rocket!"
 	done
 
 _Route24BattleText1::
@@ -138,8 +138,8 @@ _Route24AfterBattleText5::
 	done
 
 _Route24BattleText6::
-	text "This is NUGGET"
-	line "BRIDGE! Beat us 5"
+	text "This is Nugget"
+	line "Bridge! Beat us 5"
 	cont "trainers and win"
 	cont "a fabulous prize!"
 
@@ -159,10 +159,10 @@ _Route24AfterBattleText6::
 
 _Route24DamianText1::
 	text "I'm not good at"
-	line "raising #MON."
+	line "raising #mon."
 
 	para "I should release"
-	line "my CHARMANDER"
+	line "my Charmander"
 	cont "because I haven't"
 	cont "raised it well..."
 
@@ -173,7 +173,7 @@ _Route24DamianText1::
 
 _Route24DamianText2::
 	text "Take good care of"
-	line "my CHARMANDER!@"
+	line "my Charmander!@"
 	text_end
 
 _Route24DamianText3::
@@ -182,6 +182,6 @@ _Route24DamianText3::
 	done
 
 _Route24DamianText4::
-	text "How's CHARMANDER"
+	text "How's Charmander"
 	line "doing?"
 	done

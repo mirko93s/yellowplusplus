@@ -10,7 +10,7 @@ _ProgrammerText2::
 	para "What a surprise!"
 	line "I never expected"
 	cont "anyone to fill a"
-	cont "#DEX."
+	cont "#dex."
 	done
 
 _GraphicArtistText::
@@ -24,16 +24,16 @@ _GraphicArtistText2::
 	line "artist!"
 
 	para "Wow, you finished"
-	line "your #DEX!"
-	cont "Want me to PRINT"
-	cont "out a DIPLOMA"
+	line "your #dex!"
+	cont "Want me to Print"
+	cont "out a Diploma"
 	cont "as proof?"
 	done
 
 _GraphicArtistText3::
 	text "Just tell me if"
-	line "you want to PRINT"
-	cont "out a DIPLOMA."
+	line "you want to Print"
+	cont "out a Diploma."
 	done
 
 _GraphicArtistText4::
@@ -41,18 +41,18 @@ _GraphicArtistText4::
 	done
 
 _GraphicArtistText5::
-	text "OK, let's not"
-	line "PRINT."
+	text "Ok, let's not"
+	line "Print."
 	done
 
 _WriterText::
 	text "I wrote the story!"
-	line "Isn't ERIKA cute?"
+	line "Isn't Erika cute?"
 
-	para "I like MISTY a"
+	para "I like Misty a"
 	line "lot too!"
 
-	para "Oh, and SABRINA,"
+	para "Oh, and Sabrina,"
 	line "I like her!"
 	done
 
@@ -61,7 +61,7 @@ _WriterText2::
 
 	para "It's great you"
 	line "caught all the"
-	cont "#MON! Thanks!"
+	cont "#mon! Thanks!"
 	done
 
 _GameDesignerText::
@@ -71,7 +71,7 @@ _GameDesignerText::
 	line "designer!"
 
 	para "Filling up your"
-	line "#DEX is tough,"
+	line "#dex is tough,"
 	cont "but don't quit!"
 
 	para "When you finish,"
@@ -81,14 +81,14 @@ _GameDesignerText::
 _CompletedDexText::
 	text "Wow! Excellent!"
 	line "You completed"
-	cont "your #DEX!"
+	cont "your #dex!"
 	cont "Congratulations!"
 	cont "...@"
 	text_end
 
 _CompletedDexText2::
 	text "Go show off your"
-	line "DIPLOMA to"
+	line "Diploma to"
 	cont "the development"
 	cont "crew."
 	done
@@ -113,6 +113,6 @@ _CeladonMansion3Text7::
 	done
 
 _CeladonMansion3Text8::
-	text "GAME FREAK"
+	text "Game Freak"
 	line "Development Room"
 	done

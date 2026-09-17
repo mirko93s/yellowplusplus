@@ -1,8 +1,8 @@
 _AgathaBeforeBattleText::
-	text "I am AGATHA of"
-	line "the ELITE FOUR!"
+	text "I am Agatha of"
+	line "the Elite Four!"
 
-	para "OAK's taken a lot"
+	para "Oak's taken a lot"
 	line "of interest in"
 	cont "you, child!"
 
@@ -13,8 +13,8 @@ _AgathaBeforeBattleText::
 
 	para "Now he just wants"
 	line "to fiddle with"
-	cont "his #DEX! He's"
-	cont "wrong! #MON"
+	cont "his #dex! He's"
+	cont "wrong! #mon"
 	cont "are for fighting!"
 
 	para "<PLAYER>! I'll show"
@@ -46,11 +46,11 @@ _AgathaDontRunAwayText::
 _AgathaRematchBeforeBattleText::
     text "Ohohoho... the"
     line "dear little"
-    cont "CHAMPION is back."
+    cont "Champion is back."
 
     para "You may have"
     line "defeated me once,"
-    cont "but my Ghost #MON"
+    cont "but my Ghost #mon"
     cont "have learned a"
     cont "few new tricks."
 
@@ -85,6 +85,6 @@ _AgathaRematchAfterBattleText::
     cont "in Kanto."
 
     para "Go on, then."
-    line "Don't keep LANCE"
+    line "Don't keep Lance"
     cont "waiting, dearie!"
     done

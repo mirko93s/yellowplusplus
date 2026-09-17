@@ -1,24 +1,24 @@
 _SurfinDudeText1::
 	text "Whoa!"
 
-	para "Your PIKACHU knows"
-	line "how to SURF! So,"
+	para "Your Pikachu knows"
+	line "how to Surf! So,"
 	cont "I'm not alone..."
 
 	para "Great! You earned"
-	line "the right to SURF"
-	cont "with the DUDE!"
+	line "the right to Surf"
+	cont "with the Dude!"
 
 	para "Give it a go?"
 	done
 
 _SurfinDudeText2::
-	text "Come SURF anytime,"
+	text "Come Surf anytime,"
 	line "my friend!"
 	done
 
 _SurfinDudeText3::
-	text "Wanna go SURF?"
+	text "Wanna go Surf?"
 	done
 
 _SurfinDudeText4::
@@ -27,11 +27,11 @@ _SurfinDudeText4::
 	done
 
 _SummerBeachHousePikachuText::
-	text "PIKACHU: Pikaa"
+	text "Pikachu: Pikaa"
 	done
 
 _SummerBeachHouseSign1Text1::
-	text "SURFIN' DUDE's"
+	text "Surfin' Dude's"
 	line "scribbles..."
 
 	para "When I shoot the"
@@ -41,11 +41,11 @@ _SummerBeachHouseSign1Text1::
 
 _SummerBeachHouseSign1Text2::
 	text "30 years of waves!"
-	line "SURFIN' DUDE"
+	line "Surfin' Dude"
 	done
 
 _SummerBeachHouseSign2Text1::
-	text "SURFING TIP 1!"
+	text "Surfing Tip 1!"
 
 	para "After flips, line"
 	line "the board up with"
@@ -54,12 +54,12 @@ _SummerBeachHouseSign2Text1::
 	done
 
 _SummerBeachHouseSign2Text2::
-	text "SUMMER BEACH HOUSE"
-	line "#MON welcome!"
+	text "Summer Beach House"
+	line "#mon welcome!"
 	done
 
 _SummerBeachHouseSign3Text1::
-	text "SURFING TIP 2!"
+	text "Surfing Tip 2!"
 
 	para "Pulling flips in"
 	line "a jump is totally"
@@ -77,31 +77,31 @@ _SummerBeachHousePrinterText1::
 	text_end
 
 _SummerBeachHousePrinterText2::
-	text "SUMMER BEACH HOUSE"
-	line "PRINTER, it says.@"
+	text "Summer Beach House"
+	line "Printer, it says.@"
 	text_end
 
 _SummerBeachHousePrinterText3::
 	text "The Hi-Score is"
 	line "shown."
 
-	para "PRINT it out?"
+	para "Print it out?"
 	done
 
 _SummerBeachHousePrinterText4::
-	text "SUMMER BEACH HOUSE"
-	line "PRINTER, it says."
+	text "Summer Beach House"
+	line "Printer, it says."
 
 	para "The Hi-Score is"
 	line "shown."
 
-	para "PRINT it out?"
+	para "Print it out?"
 	done
 
 _SummerBeachHousePrinterText5::
-	text "PRINT completed.@"
+	text "Print completed.@"
 	text_end
 
 _SummerBeachHousePrinterText6::
-	text "PRINT error!@"
+	text "Print error!@"
 	text_end

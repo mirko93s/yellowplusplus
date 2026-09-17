@@ -33,25 +33,25 @@ _CableClubNPCMakingPreparationsText::
 	done
 
 _FlashLightsAreaText::
-	text "A blinding FLASH"
+	text "A blinding Flash"
 	line "lights the area!"
 	prompt
 
 _WarpToLastPokemonCenterText::
 	text "Warp to the last"
-	line "#MON CENTER."
+	line "#mon Center."
 	done
 
 _CannotUseTeleportNowText::
 	text_ram wcd6d
 	text " can't"
-	line "use TELEPORT now."
+	line "use Teleport now."
 	prompt
 
 _CannotFlyHereText::
 	text_ram wcd6d
 	text " can't"
-	line "FLY here."
+	line "Fly here."
 	prompt
 
 _NotHealthyEnoughText::
@@ -60,7 +60,7 @@ _NotHealthyEnoughText::
 	prompt
 
 _NewBadgeRequiredText::
-	text "No! A new BADGE"
+	text "No! A new Badge"
 	line "is required."
 	prompt
 
@@ -77,7 +77,7 @@ _CannotGetOffHereText::
 _UsedStrengthText::
 	text_ram wcd6d
 	text " used"
-	line "STRENGTH.@"
+	line "Strength.@"
 	text_end
 
 _CanMoveBouldersText::
@@ -93,7 +93,7 @@ _CurrentTooFastText::
 
 _CyclingIsFunText::
 	text "Cycling is fun!"
-	line "Forget SURFing!"
+	line "Forget Surfing!"
 	prompt
 
 _GotMonText::
@@ -105,34 +105,34 @@ _GotMonText::
 
 _SentToBoxText::
 	text "There's no more"
-	line "room for #MON!"
+	line "room for #mon!"
 	cont '@'
 	text_ram wBoxMonNicks
 	text " was"
-	cont "sent to #MON"
-	cont "BOX @"
+	cont "sent to #mon"
+	cont "Box @"
 	text_ram wStringBuffer
 	text " on PC!"
 	done
 
 _BoxIsFullText::
 	text "There's no more"
-	line "room for #MON!"
+	line "room for #mon!"
 
-	para "The #MON BOX"
+	para "The #mon Box"
 	line "is full and can't"
 	cont "accept any more!"
 
-	para "Change the BOX at"
-	line "a #MON CENTER!"
+	para "Change the Box at"
+	line "a #mon Center!"
 	done
 
 _BoxIsFullReminderText::
-	text "The #MON BOX"
+	text "The #mon Box"
 	line "is now full."
 	cont "It won't hold"
-	cont "more #MON!"
+	cont "more #mon!"
 
-	para "Change the BOX at"
-	line "a #MON CENTER!"
+	para "Change the Box at"
+	line "a #mon Center!"
 	prompt

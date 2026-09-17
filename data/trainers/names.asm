@@ -1,48 +1,48 @@
 TrainerNames::
-	db "YOUNGSTER@"
-	db "BUG CATCHER@"
-	db "LASS@"
-	db "SAILOR@"
-	db "CAMPER@" ; JR.TRAINER M
-	db "PICNICKER@" ; JR.TRAINER F
-	db "POKéMANIAC@"
-	db "SUPER NERD@"
-	db "HIKER@"
-	db "BIKER@"
-	db "BURGLAR@"
-	db "ENGINEER@"
-	db "JESSIE AND@" ; JAMES
-	db "FISHERMAN@"
-	db "SWIMMER@"
-	db "ROUGHNECK@" ; CUEBALL
-	db "GAMBLER@"
-	db "BEAUTY@"
-	db "PSYCHIC@"
-	db "ROCKER@"
-	db "JUGGLER@"
-	db "TAMER@"
-	db "BIRD KEEPER@"
-	db "BLACKBELT@"
-	db "RIVAL@" ; RIVAL1
-	db "PROF.OAK@"
-	db "CHIEF@" ; Unused
-	db "SCIENTIST@"
-	db "BOSS@" ; GIOVANNI
-	db "TEAM ROCKET@"
-	db "ACE TRAINER@" ; M
-	db "ACE TRAINER@" ; F
-	db "ELITE FOUR@" ; BRUNO
-	db "LEADER@" ; BROCK
-	db "LEADER@" ; MISTY
-	db "LEADER@" ; LT.SURGE
-	db "LEADER@" ; ERIKA
-	db "LEADER@" ; KOGA
-	db "LEADER@" ; BLAINE
-	db "LEADER@" ; SABRINA
-	db "GENTLEMAN@"
-	db "RIVAL@" ; RIVAL2
-	db "CHAMPION@" ; RIVAL3
-	db "ELITE FOUR@" ; LORELEI
-	db "CHANNELER@"
-	db "ELITE FOUR@" ; AGATHA
-	db "ELITE FOUR@" ; LANCE
+	db "Youngster@"
+	db "Bug Catcher@"
+	db "Lass@"
+	db "Sailor@"
+	db "Camper@" ; JR.TRAINER M
+	db "Picnicker@" ; JR.TRAINER F
+	db "Pokémaniac@"
+	db "Super Nerd@"
+	db "Hiker@"
+	db "Biker@"
+	db "Burglar@"
+	db "Engineer@"
+	db "Jessie And@" ; JAMES
+	db "Fisherman@"
+	db "Swimmer@"
+	db "Roughneck@" ; CUEBALL
+	db "Gambler@"
+	db "Beauty@"
+	db "Psychic@"
+	db "Rocker@"
+	db "Juggler@"
+	db "Tamer@"
+	db "Bird Keeper@"
+	db "Blackbelt@"
+	db "Rival@" ; RIVAL1
+	db "Prof. Oak@"
+	db "Chief@" ; Unused
+	db "Scientist@"
+	db "Boss@" ; GIOVANNI
+	db "Team Rocket@"
+	db "Ace Trainer@" ; M
+	db "Ace Trainer@" ; F
+	db "Elite Four@" ; BRUNO
+	db "Leader@" ; BROCK
+	db "Leader@" ; MISTY
+	db "Leader@" ; LT.SURGE
+	db "Leader@" ; ERIKA
+	db "Leader@" ; KOGA
+	db "Leader@" ; BLAINE
+	db "Leader@" ; SABRINA
+	db "Gentleman@"
+	db "Rival@" ; RIVAL2
+	db "Champion@" ; RIVAL3
+	db "Elite Four@" ; LORELEI
+	db "Channeler@"
+	db "Elite Four@" ; AGATHA
+	db "Elite Four@" ; LANCE

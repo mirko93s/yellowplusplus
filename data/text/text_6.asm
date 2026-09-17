@@ -1,5 +1,5 @@
 TeachingHMsText::
-	text "Once a #MON"
+	text "Once a #mon"
 	line "learns an HM, the"
 	cont "technique can't"
 	cont "be replaced."

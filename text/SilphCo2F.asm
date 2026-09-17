@@ -3,7 +3,7 @@ _SilphCo2Text_59ded::
 	line "No! Stop! Help!"
 
 	para "Oh, you're not"
-	line "with TEAM ROCKET."
+	line "with Team Rocket."
 	cont "I thought..."
 	cont "I'm sorry. Here,"
 	cont "please take this!"
@@ -18,10 +18,10 @@ _ReceivedTM36Text::
 
 _TM36ExplanationText::
 	text "TM36 is"
-	line "SELFDESTRUCT!"
+	line "Selfdestruct!"
 
 	para "It's powerful, but"
-	line "the #MON that"
+	line "the #mon that"
 	cont "uses it faints!"
 	cont "Be careful."
 	done
@@ -32,20 +32,20 @@ _TM36NoRoomText::
 	done
 
 _SilphCo2BattleText1::
-	text "Help! I'm a SILPH"
+	text "Help! I'm a Silph"
 	line "employee."
 	done
 
 _SilphCo2EndBattleText1::
 	text "How"
 	line "did you know I"
-	cont "was a ROCKET?"
+	cont "was a Rocket?"
 	prompt
 
 _SilphCo2AfterBattleText1::
 	text "I work for both"
-	line "SILPH and TEAM"
-	cont "ROCKET!"
+	line "Silph and Team"
+	cont "Rocket!"
 	done
 
 _SilphCo2BattleText2::
@@ -91,7 +91,7 @@ _SilphCo2EndBattleText4::
 	prompt
 
 _SilphCo2AfterBattleText4::
-	text "SILPH CO. will"
+	text "Silph Co. will"
 	line "be merged with"
-	cont "TEAM ROCKET!"
+	cont "Team Rocket!"
 	done

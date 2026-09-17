@@ -25,7 +25,7 @@ _SSAnne6Text4::
 
 _SSAnne6Text5::
 	text "Did you hear about"
-	line "SNORLAX?"
+	line "Snorlax?"
 
 	para "All it does is"
 	line "eat and sleep!"
@@ -41,7 +41,7 @@ _SSAnne6Text6::
 
 _SSAnne6Text_61807::
 	text "Er-hem! Indeed I"
-	line "am le CHEF!"
+	line "am le Chef!"
 
 	para "Le main course is"
 	prompt

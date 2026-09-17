@@ -25,22 +25,22 @@ ENDR
 
 	assert_table_length NUM_TYPES
 
-.Normal:   db "NORMAL@"
-.Fighting: db "FIGHTING@"
-.Flying:   db "FLYING@"
-.Poison:   db "POISON@"
-.Fire:     db "FIRE@"
-.Water:    db "WATER@"
-.Grass:    db "GRASS@"
-.Electric: db "ELECTRIC@"
-.Psychic:  db "PSYCHIC@"
-.Ice:      db "ICE@"
-.Ground:   db "GROUND@"
-.Rock:     db "ROCK@"
+.Normal:   db "Normal@"
+.Fighting: db "Fighting@"
+.Flying:   db "Flying@"
+.Poison:   db "Poison@"
+.Fire:     db "Fire@"
+.Water:    db "Water@"
+.Grass:    db "Grass@"
+.Electric: db "Electric@"
+.Psychic:  db "Psychic@"
+.Ice:      db "Ice@"
+.Ground:   db "Ground@"
+.Rock:     db "Rock@"
 .Typeless: db "???@" ; used for struggle so it is typeless
-.Bug:      db "BUG@"
-.Ghost:    db "GHOST@"
-.Dragon:   db "DRAGON@"
+.Bug:      db "Bug@"
+.Ghost:    db "Ghost@"
+.Dragon:   db "Dragon@"
 
 TypeNamesShort:
 	table_width 2, TypeNamesShort

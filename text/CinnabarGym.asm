@@ -1,16 +1,16 @@
 _BlainePreBattleText::
 	text "Hah!"
 
-	para "I am BLAINE! I"
-	line "am the LEADER of"
-	cont "CINNABAR GYM!"
+	para "I am Blaine! I"
+	line "am the Leader of"
+	cont "Cinnabar Gym!"
 
-	para "My fiery #MON"
+	para "My fiery #mon"
 	line "will incinerate"
 	cont "all challengers!"
 
 	para "Hah! You better"
-	line "have BURN HEAL!"
+	line "have Burn Heal!"
 	done
 
 _ReceivedVolcanoBadgeText::
@@ -18,26 +18,26 @@ _ReceivedVolcanoBadgeText::
 	line "burnt out!"
 
 	para "You have earned"
-	line "the VOLCANOBADGE!@"
+	line "the VolcanoBadge!@"
 	text_end
 
 _BlainePostBattleAdviceText::
-	text "FIRE BLAST is the"
+	text "Fire Blast is the"
 	line "ultimate fire"
 	cont "technique!"
 
 	para "Don't waste it on"
-	line "water #MON!"
+	line "water #mon!"
 	done
 
 _BlaineVolcanoBadgeInfoText::
 	text "Hah!"
 
-	para "The VOLCANOBADGE"
+	para "The VolcanoBadge"
 	line "heightens the"
-	cont "SPCL.ATK and"
-	cont "SPCL.DEF"
-	cont "of your #MON!"
+	cont "Spcl.Atk and"
+	cont "Spcl.Def"
+	cont "of your #mon!"
 
 	para "Here, you can"
 	line "have this too!"
@@ -54,13 +54,13 @@ _TM38ExplanationText::
 	text_start
 
 	para "TM38 contains"
-	line "FIRE BLAST!"
+	line "Fire Blast!"
 
 	para "Teach it to fire-"
-	line "type #MON!"
+	line "type #mon!"
 
-	para "CHARMELEON or"
-	line "PONYTA would be"
+	para "Charmeleon or"
+	line "Ponyta would be"
 	cont "good bets!"
 	done
 
@@ -71,7 +71,7 @@ _TM38NoRoomText::
 
 _CinnabarGymBattleText2::
 	text "Do you know how"
-	line "hot #MON fire"
+	line "hot #mon fire"
 	cont "breath can get?"
 	done
 
@@ -103,13 +103,13 @@ _CinnabarGymEndBattleText1::
 _CinnabarGymAfterBattleText1::
 	text "I can't help"
 	line "stealing other"
-	cont "people's #MON!"
+	cont "people's #mon!"
 	done
 
 _CinnabarGymBattleText3::
 	text "You can't win!"
 	line "I have studied"
-	cont "#MON totally!"
+	cont "#mon totally!"
 	done
 
 _CinnabarGymEndBattleText3::
@@ -125,7 +125,7 @@ _CinnabarGymAfterBattleText3::
 
 _CinnabarGymBattleText4::
 	text "I just like using"
-	line "fire #MON!"
+	line "fire #mon!"
 	done
 
 _CinnabarGymEndBattleText4::
@@ -135,12 +135,12 @@ _CinnabarGymEndBattleText4::
 
 _CinnabarGymAfterBattleText4::
 	text "I wish there was"
-	line "a thief #MON!"
+	line "a thief #mon!"
 	cont "I'd use that!"
 	done
 
 _CinnabarGymBattleText5::
-	text "I know why BLAINE"
+	text "I know why Blaine"
 	line "became a trainer!"
 	done
 
@@ -149,19 +149,19 @@ _CinnabarGymEndBattleText5::
 	prompt
 
 _CinnabarGymAfterBattleText5::
-	text "BLAINE was lost"
+	text "Blaine was lost"
 	line "in the mountains"
 	cont "when a fiery bird"
-	cont "#MON appeared."
+	cont "#mon appeared."
 
 	para "Its light enabled"
-	line "BLAINE to find"
+	line "Blaine to find"
 	cont "his way down!"
 	done
 
 _CinnabarGymBattleText6::
 	text "I've been to many"
-	line "GYMs, but this is"
+	line "Gyms, but this is"
 	cont "my favorite!"
 	done
 
@@ -171,9 +171,9 @@ _CinnabarGymEndBattleText6::
 	prompt
 
 _CinnabarGymAfterBattleText6::
-	text "Us fire #MON"
-	line "fans like PONYTA"
-	cont "and NINETALES!"
+	text "Us fire #mon"
+	line "fans like Ponyta"
+	cont "and Ninetales!"
 	done
 
 _CinnabarGymBattleText7::
@@ -189,7 +189,7 @@ _CinnabarGymEndBattleText7::
 _CinnabarGymAfterBattleText7::
 	text "Water beats fire!"
 	line "But, fire melts"
-	cont "ice #MON!"
+	cont "ice #mon!"
 	done
 
 _CinnabarGymGuidePreBattleText::
@@ -197,14 +197,14 @@ _CinnabarGymGuidePreBattleText::
 	line "making!"
 
 	para "The hot-headed"
-	line "BLAINE is a fire"
-	cont "#MON pro!"
+	line "Blaine is a fire"
+	cont "#mon pro!"
 
 	para "Douse his spirits"
 	line "with water!"
 
 	para "You better take"
-	line "some BURN HEALs!"
+	line "some Burn Heals!"
 	done
 
 _CinnabarGymGuidePostBattleText::
@@ -213,13 +213,13 @@ _CinnabarGymGuidePostBattleText::
 	done
 
 _CinnabarGymText_1::
-	text "This GYM is also"
-	line "known as the QUIZ"
-	cont "GYM."
+	text "This Gym is also"
+	line "known as the Quiz"
+	cont "Gym."
 
 	para "You have to take a"
 	line "quiz if you want"
-	cont "to see BLAINE."
+	cont "to see Blaine."
 
 	para "You don't have to"
 	line "fight us if you"
@@ -236,13 +236,13 @@ _CinnabarGymText_3::
 	done
 
 _CinnabarGymText_4::
-	text "#MON enjoy"
+	text "#mon enjoy"
 	line "quizzes too!"
 	done
 
 _CinnabarGymText_5::
 	text "I like it here at"
-	line "QUIZ GYM."
+	line "Quiz Gym."
 	done
 
 _CinnabarGymText_6::
@@ -257,7 +257,7 @@ _CinnabarGymText_7::
 
 _CinnabarGymRematchPreBattleText::
     text "Aha! The great"
-    line "CHAMPION returns!"
+    line "Champion returns!"
 
     para "My scientific"
     line "training has"

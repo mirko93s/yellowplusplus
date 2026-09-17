@@ -1,15 +1,15 @@
 _BrunoBeforeBattleText::
-	text "I am BRUNO of"
-	line "the ELITE FOUR!"
+	text "I am Bruno of"
+	line "the Elite Four!"
 
 	para "Through rigorous"
 	line "training, people"
-	cont "and #MON can"
+	cont "and #mon can"
 	cont "become stronger!"
 
 	para "I've weight"
 	line "trained with"
-	cont "my #MON!"
+	cont "my #mon!"
 
 	para "<PLAYER>!"
 
@@ -37,7 +37,7 @@ _BrunoDontRunAwayText::
 	done
 
 _BrunoRematchBeforeBattleText::
-    text "The CHAMPION."
+    text "The Champion."
     line "I knew you would"
     cont "return to train."
 
@@ -47,8 +47,8 @@ _BrunoRematchBeforeBattleText::
     cont "a proving ground"
     cont "for the strong."
 
-    para "YEAH, BUDDY!"
-    line "My Fighting #MON"
+    para "Yeah, Buddy!"
+    line "My Fighting #mon"
     cont "have sparred and"
     cont "meditated until"
     cont "they reached"
@@ -58,7 +58,7 @@ _BrunoRematchBeforeBattleText::
     line "back a single"
     cont "punch. I hope you"
     cont "aren't a"
-    cont "LIGHTWEIGHT BABY!"
+    cont "Lightweight Baby!"
     
     para "Show me the true"
     line "power of your"

@@ -3,14 +3,14 @@
 
 StatModTextStrings:
 	list_start StatModTextStrings
-	li "ATTACK"
-	li "DEFENSE"
-	li "SPEED"
-	li "SPCL.ATK"
-	li "SPCL.DEF"
+	li "Attack"
+	li "Defense"
+	li "Speed"
+	li "Spcl.Atk"
+	li "Spcl.Def"
 	assert_list_length SPCLDEF_DOWN_SIDE_EFFECT - ATTACK_DOWN_SIDE_EFFECT + 1
-	li "ACCURACY"
-	li "EVADE"
+	li "Accuracy"
+	li "Evade"
 	assert_list_length NUM_STAT_MODS - 2 ; two bytes are unused
 	assert_list_length EVASION_UP1_EFFECT - ATTACK_UP1_EFFECT + 1
 	assert_list_length EVASION_DOWN1_EFFECT - ATTACK_DOWN1_EFFECT + 1

@@ -5,7 +5,7 @@ _FileDataDestroyedText::
 
 ; _WouldYouLikeToSaveText::
 ; 	text "Would you like to"
-; 	line "SAVE the game?"
+; 	line "Save the game?"
 ; 	done
 
 ; _SavingText::
@@ -25,7 +25,7 @@ _OlderFileWillBeErasedText::
 
 _WhenYouChangeBoxText::
 	text "When you change a"
-	line "#MON BOX, data"
+	line "#mon Box, data"
 	cont "will be saved."
 
 	para "Is that okay?"
@@ -33,7 +33,7 @@ _WhenYouChangeBoxText::
 
 _ChooseABoxText::
 	text "Choose a"
-	line "<PKMN> BOX.@"
+	line "<PKMN> Box.@"
 	text_end
 
 _EvolvedText::

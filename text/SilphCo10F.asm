@@ -47,7 +47,7 @@ _SilphCoJessieJamesText1::
 	text_end
 
 _SilphCoJessieJamesText2::
-	text "Our BOSS is in a"
+	text "Our Boss is in a"
 	line "meeting!"
 
 	para "You better not"
@@ -60,7 +60,7 @@ _SilphCoJessieJamesText3::
 	prompt
 
 _SilphCoJessieJamesText4::
-	text "TEAM ROCKET, blast"
+	text "Team Rocket, blast"
 	line "off at the speed"
 	cont "of light!"
 

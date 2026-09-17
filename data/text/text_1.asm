@@ -4,13 +4,13 @@ _CardKeySuccessText1::
 
 _CardKeySuccessText2::
 	text_start
-	line "The CARD KEY"
+	line "The Card Key"
 	cont "opened the door!"
 	done
 
 _CardKeyFailText::
 	text "Darn! It needs a"
-	line "CARD KEY!"
+	line "Card Key!"
 	done
 
 _TrainerNameText::
@@ -43,18 +43,18 @@ _GroundRoseText::
 
 _BoulderText::
 	text "This requires"
-	line "STRENGTH to move!"
+	line "Strength to move!"
 	done
 
 _MartSignText::
 	text "All your item"
 	line "needs fulfilled!"
-	cont "#MON MART"
+	cont "#mon Mart"
 	done
 
 _PokeCenterSignText::
-	text "Heal Your #MON!"
-	line "#MON CENTER"
+	text "Heal Your #mon!"
+	line "#mon Center"
 	done
 
 _FoundItemText::
@@ -71,13 +71,13 @@ _NoMoreRoomForItemText::
 
 _OaksAideHiText::
 	text "Hi! Remember me?"
-	line "I'm PROF.OAK's"
-	cont "AIDE!"
+	line "I'm Prof. Oak's"
+	cont "Aide!"
 
 	para "If you caught @"
 	text_decimal hOaksAideRequirement, 1, 3
 	text_start
-	line "kinds of #MON,"
+	line "kinds of #mon,"
 	cont "I'm supposed to"
 	cont "give you an"
 	cont '@'
@@ -89,7 +89,7 @@ _OaksAideHiText::
 	cont "least @"
 	text_decimal hOaksAideRequirement, 1, 3
 	text " kinds of"
-	cont "#MON?"
+	cont "#mon?"
 	done
 
 _OaksAideUhOhText::
@@ -98,7 +98,7 @@ _OaksAideUhOhText::
 	cont "caught only @"
 	text_decimal hOaksAideNumMonsOwned, 1, 3
 	text_start
-	cont "kinds of #MON!"
+	cont "kinds of #mon!"
 
 	para "You need @"
 	text_decimal hOaksAideRequirement, 1, 3
@@ -126,7 +126,7 @@ _OaksAideHereYouGoText::
 	line "caught @"
 	text_decimal hOaksAideNumMonsOwned, 1, 3
 	text " kinds "
-	cont "of #MON!"
+	cont "of #mon!"
 	cont "Congratulations!"
 
 	para "Here you go!"
@@ -149,6 +149,6 @@ _OaksAideNoRoomText::
 	done
 
 _NurseChanseyText::
-	text "CHANSEY: Chaaan"
+	text "Chansey: Chaaan"
 	line "sey!"
 	done

@@ -11,10 +11,10 @@ ViridianGym_Script:
 	ret
 
 .CityName:
-	db "VIRIDIAN CITY@"
+	db "Viridian City@"
 
 .LeaderName:
-	db "GIOVANNI@"
+	db "Giovanni@"
 
 ViridianGymResetScripts:
 	xor a

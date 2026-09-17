@@ -649,10 +649,10 @@ DrawTrainerInfo:
 	lb bc, LEADING_ZEROES | 1, 2
 	jp PrintNumber
 
-HardNuzlockeText: 	db "HARD-NUZLOCKE@"
-NuzlockeText: 		db "NUZLOCKE@"
-HardText: 			db "HARD@"
-ClassicText: 		db "CLASSIC@"
+HardNuzlockeText: 	db "Hard-Nuzlocke@"
+NuzlockeText: 		db "Nuzlocke@"
+HardText: 			db "Hard@"
+ClassicText: 		db "Classic@"
 DupeClauseText: 	db "Dupe Clause@"
 
 TrainerInfo_FarCopyData:
@@ -666,7 +666,7 @@ TrainerInfo_SeedText:	db   "Seed/@"
 
 ; $76 is a circle tile
 TrainerInfo_BadgesText:
-	db $76,"BADGES",$76,'@'
+	db $76,"Badges",$76,'@'
 
 ; draws a text box on the trainer info screen
 ; height is always 6

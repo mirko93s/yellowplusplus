@@ -1,33 +1,33 @@
 _CeladonMansion1Text1::
-	text "MEOWTH: Meow!@"
+	text "Meowth: Meow!@"
 	text_end
 
 _CeladonMansion1Text3::
-	text "CLEFAIRY: Pi"
+	text "Clefairy: Pi"
 	line "pippippi!@"
 	text_end
 
 _CeladonMansion1Text4::
-	text "NIDORAN: Kya"
+	text "Nidoran: Kya"
 	line "kyaoo!@"
 	text_end
 
 _CeladonMansion1Text5::
-	text "CELADON MANSION"
+	text "Celadon Mansion"
 	line "Manager's Suite"
 	done
 
 _CeladonMansion1Text2::
-	text "My dear #MON"
+	text "My dear #mon"
 	line "keep me company."
 
-	para "MEOWTH even brings"
+	para "Meowth even brings"
 	line "money home!"
 	done
 
 _CeladonMansion1Text6::
 	text "Oh, you have an"
-	line "adorable PIKACHU"
+	line "adorable Pikachu"
 	cont "with you.@"
 	text_end
 
@@ -40,22 +40,22 @@ _CeladonMansion1Text7::
 _CeladonMansion1Text8::
 	text "Why don't you"
 	line "take more care"
-	cont "with PIKACHU?"
+	cont "with Pikachu?"
 	done
 
 _CeladonMansion1Text9::
 	text "You must be happy"
-	line "to have a #MON"
+	line "to have a #mon"
 	cont "that cute."
 	done
 
 _CeladonMansion1Text10::
-	text "Your PIKACHU seems"
+	text "Your Pikachu seems"
 	line "tamed."
 	done
 
 _CeladonMansion1Text11::
-	text "Your PIKACHU looks"
+	text "Your Pikachu looks"
 	line "happy with you."
 	done
 

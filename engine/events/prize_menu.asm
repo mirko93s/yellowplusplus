@@ -148,7 +148,7 @@ GetPrizeMenuId:
 	jp PrintBCDNumber
 
 NoThanksText:
-	db "NO THANKS@"
+	db "No Thanks@"
 
 INCLUDE "data/events/prizes.asm"
 
@@ -170,7 +170,7 @@ PrintPrizePrice:
 	ret
 
 .CoinString:
-	db "COIN@"
+	db "Coin@"
 
 .SixSpacesString:
 	db "      @"

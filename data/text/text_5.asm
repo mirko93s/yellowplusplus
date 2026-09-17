@@ -170,17 +170,17 @@ _ParalyzedMayNotAttackText::
 
 _SubstituteText::
 	text "It created a"
-	line "SUBSTITUTE!"
+	line "Substitute!"
 	prompt
 
 _HasSubstituteText::
 	text "<USER>"
-	line "has a SUBSTITUTE!"
+	line "has a Substitute!"
 	prompt
 
 _TooWeakSubstituteText::
 	text "Too weak to make"
-	line "a SUBSTITUTE!"
+	line "a Substitute!"
 	prompt
 
 _WasSeededText::
@@ -204,7 +204,7 @@ _ConvertedTypeText::
 	prompt
 
 _StatusChangesEliminatedText::
-	text "All STATUS changes"
+	text "All Status changes"
 	line "are eliminated!"
 	prompt
 

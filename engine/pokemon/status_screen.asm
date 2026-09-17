@@ -328,17 +328,17 @@ PrintNormalStats:
 	ret
 
 TypesText:
-	db   "TYPE/@"
+	db   "Type/@"
 StatusText:
-	db   "STATUS/@"
+	db   "Status/@"
 OKText:
 	db	 "OK@"
 StatsText:
-	db   "ATTACK"
-	next "DEFENSE"
-	next "SPEED"
-	next "SP.ATK"
-	next "SP.DEF@"
+	db   "Attack"
+	next "Defense"
+	next "Speed"
+	next "Sp. Atk"
+	next "Sp. Def@"
 
 Page1: ; xp, ot-id
 	ld a, 1
@@ -471,9 +471,9 @@ OTPointers:
 	dw wDayCareMonOT
 
 XPPointsText:
-	db   "XP POINTS@"
+	db   "XP Points@"
 LevelUpText:
-	db   "LEVEL UP@"
+	db   "Level Up@"
 OTText:
 	db   "OT/@"
 IDText:
@@ -608,7 +608,7 @@ StatusScreen_PrintPP:
 	ret
 
 MovesText:
-	db	 "    MOVES       <BOLD_P><BOLD_P>@"
+	db	 "    Moves       <BOLD_P><BOLD_P>@"
 
 Page3:
 	ld a, 3
@@ -674,10 +674,10 @@ Page3:
 
 DvText:
 	db	 "HP   DV EV"
-	next "ATTACK     HP SPEED"
-	next "DEFENSE                       ATK S.ATK"
-	next "SPEED"
-	next "SPECIAL   DEF S.DEF@"
+	next "Attack     HP Speed"
+	next "Defense                       Atk S.Atk"
+	next "Speed"
+	next "Special   Def S.Def@"
 
 DVParse:
 	push hl
@@ -896,4 +896,3 @@ WaitForButtonPress:
     and b
     jr z, .waitLoop
     ret
-

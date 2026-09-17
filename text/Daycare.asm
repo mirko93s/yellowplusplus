@@ -1,12 +1,12 @@
 _DayCareIntroText::
-	text "I run a DAYCARE."
+	text "I run a Daycare."
 	line "Would you like me"
 	cont "to raise one of"
-	cont "your #MON?"
+	cont "your #mon?"
 	done
 
 _DayCareWhichMonText::
-	text "Which #MON"
+	text "Which #mon"
 	line "should I raise?"
 	prompt
 
@@ -42,7 +42,7 @@ _DayCareOweMoneyText::
 	text_bcd wDayCareTotalCost, 2 | LEADING_ZEROES | LEFT_ALIGN
 	text_start
 	line "for the return"
-	cont "of this #MON."
+	cont "of this #mon."
 	done
 
 _DayCareGotMonBackText::
@@ -72,17 +72,17 @@ _DayCareComeAgainText::
 
 _DayCareNoRoomForMonText::
 	text "You have no room"
-	line "for this #MON!"
+	line "for this #mon!"
 	done
 
 _DayCareOnlyHaveOneMonText::
 	text "You only have one"
-	line "#MON with you."
+	line "#mon with you."
 	done
 
 _DayCareHeresYourMonText::
 	text "Thank you! Here's"
-	line "your #MON!"
+	line "your #mon!"
 	prompt
 
 _DayCareNotEnoughMoneyText::

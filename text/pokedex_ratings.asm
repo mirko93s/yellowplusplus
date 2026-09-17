@@ -1,35 +1,35 @@
 _DexCompletionText::
-	text "#DEX comp-"
+	text "#dex comp-"
 	line "letion is:"
 
 	para '@'
 	text_decimal hDexRatingNumMonsSeen, 1, 3
-	text " #MON seen"
+	text " #mon seen"
 	line '@'
 	text_decimal hDexRatingNumMonsOwned, 1, 3
-	text " #MON owned"
+	text " #mon owned"
 
-	para "PROF.OAK's"
+	para "Prof. Oak's"
 	line "Rating:"
 	prompt
 
 _DexRatingText_Own0To9::
 	text "You still have"
 	line "lots to do."
-	cont "Look for #MON"
+	cont "Look for #mon"
 	cont "in grassy areas!"
 	done
 
 _DexRatingText_Own10To19::
 	text "You're on the"
 	line "right track! "
-	cont "Get a FLASH HM"
-	cont "from my AIDE!"
+	cont "Get a Flash HM"
+	cont "from my Aide!"
 	done
 
 _DexRatingText_Own20To29::
 	text "You still need"
-	line "more #MON!"
+	line "more #mon!"
 	cont "Try to catch"
 	cont "other species!"
 	done
@@ -37,13 +37,13 @@ _DexRatingText_Own20To29::
 _DexRatingText_Own30To39::
 	text "Good, you're"
 	line "trying hard!"
-	cont "Get an ITEMFINDER"
-	cont "from my AIDE!"
+	cont "Get an Itemfinder"
+	cont "from my Aide!"
 	done
 
 _DexRatingText_Own40To49::
 	text "Looking good!"
-	line "Go find my AIDE"
+	line "Go find my Aide"
 	cont "when you get 50!"
 	done
 
@@ -51,8 +51,8 @@ _DexRatingText_Own50To59::
 	text "You finally got at"
 	line "least 50 species!"
 	cont "Be sure to get"
-	cont "EXP.ALL from my"
-	cont "AIDE!"
+	cont "Exp. All from my"
+	cont "Aide!"
 	done
 
 _DexRatingText_Own60To69::
@@ -63,7 +63,7 @@ _DexRatingText_Own60To69::
 _DexRatingText_Own70To79::
 	text "Very good!"
 	line "Go fish for some"
-	cont "marine #MON!"
+	cont "marine #mon!"
 	done
 
 _DexRatingText_Own80To89::
@@ -88,7 +88,7 @@ _DexRatingText_Own100To109::
 _DexRatingText_Own110To119::
 	text "You even have the"
 	line "evolved forms of"
-	cont "#MON! Super!"
+	cont "#mon! Super!"
 	done
 
 _DexRatingText_Own120To129::
@@ -111,7 +111,7 @@ _DexRatingText_Own140To149::
 	done
 
 _DexRatingText_Own150To151::
-	text "Your #DEX is"
+	text "Your #dex is"
 	line "fully complete!"
 	cont "Congratulations!"
 	done

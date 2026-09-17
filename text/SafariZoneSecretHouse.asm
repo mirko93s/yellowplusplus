@@ -3,7 +3,7 @@ _SecretHouseText_4a350::
 
 	para "You're the first"
 	line "person to reach"
-	cont "the SECRET HOUSE!"
+	cont "the Secret House!"
 
 	para "I was getting"
 	line "worried that no"
@@ -22,9 +22,9 @@ _ReceivedHM03Text::
 	text_end
 
 _HM03ExplanationText::
-	text "HM03 is SURF!"
+	text "HM03 is Surf!"
 
-	para "#MON will be"
+	para "#mon will be"
 	line "able to ferry you"
 	cont "across water!"
 

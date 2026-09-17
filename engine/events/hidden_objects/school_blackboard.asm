@@ -67,10 +67,10 @@ LinkCableHelpText2:
 	text_end
 
 HowToLinkText:
-	db   "HOW TO LINK"
-	next "COLOSSEUM"
-	next "TRADE CENTER"
-	next "STOP READING@"
+	db   "How To Link"
+	next "Colosseum"
+	next "Trade Center"
+	next "Stop Reading@"
 
 LinkCableInfoTexts:
 	dw LinkCableInfoText1
@@ -191,7 +191,7 @@ StatusAilmentText1:
 StatusAilmentText2:
 	db   " BRN"
 	next " FRZ"
-	next " QUIT@"
+	next " Quit@"
 
 	db '@' ; unused
 

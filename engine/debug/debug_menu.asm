@@ -65,8 +65,8 @@ DebugRivalName:
 	db "Juerry@"
 
 DebugMenuOptions:
-	db   "FIGHT"
-	next "DEBUG@"
+	db   "Fight"
+	next "Debug@"
 
 TestBattle:
 	ld a, 1
@@ -874,10 +874,10 @@ Text_fed12: ; unused ???
 	db   "けんしろう@" ; "KENSHIROU@"
 
 FightTestText:
-	db   "TEST FIGHT@" ; "FIGHT TEST@"
+	db   "Test Fight@" ; "FIGHT TEST@"
 
 PlayerIdNameLvlText:
-	db   "№．  NAME       LVL@" ; "№．  NAME  LEVEL@"
+	db   "№．  Name       Lvl@" ; "№．  NAME  LEVEL@"
 
 PlayerEmptyListText:
 	db   "000 ーーーーーーーーーー 000"
@@ -894,13 +894,13 @@ PlayerEmptySlotText:
 	db   "ーーーーーーーーーー@"
 
 MonText:
-	db   "WILD #MON@" ; "WILD #MON@"
+	db   "Wild #mon@" ; "WILD #mon@"
 
 TrainerText:
-	db   "TRAINER     @" ; "TRAINER@"
+	db   "Trainer     @" ; "TRAINER@"
 
 EnemyIdNameLvlText:
-	db   "№．  NAME       LVL" ; "№．  NAME     LABEL"
+	db   "№．  Name       Lvl" ; "№．  NAME     LABEL"
 	next ""
 
 EnemyEmptyLineText:

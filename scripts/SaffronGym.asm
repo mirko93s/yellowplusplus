@@ -17,10 +17,10 @@ SaffronGym_Script:
 	jp LoadGymLeaderAndCityName
 
 .CityName:
-	db "SAFFRON CITY@"
+	db "Saffron City@"
 
 .LeaderName:
-	db "SABRINA@"
+	db "Sabrina@"
 
 SaffronGymResetScripts:
 	xor a

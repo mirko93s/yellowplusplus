@@ -1,28 +1,28 @@
 PikachuFanText::
 	text "Won't you admire"
-	line "my CLEFAIRY's"
+	line "my Clefairy's"
 	cont "adorable tail?"
 	done
 
 PikachuFanBetterText::
-	text "Humph! My CLEFAIRY"
+	text "Humph! My Clefairy"
 	line "is twice as cute"
 	cont "as that one!"
 	done
 
 PikachuFanPrintText::
-	text "Our CHAIRMAN's new"
+	text "Our Chairman's new"
 	line "hobby is taking"
-	cont "#MON photos."
+	cont "#mon photos."
 
 	para "He gave me a nice"
-	line "PRINT of my cute"
-	cont "CLEFAIRY."
+	line "Print of my cute"
+	cont "Clefairy."
 	done
 
 SeelFanText::
 	text "I just love my"
-	line "SEEL!"
+	line "Seel!"
 
 	para "It squeals when I"
 	line "hug it!"
@@ -31,42 +31,42 @@ SeelFanText::
 SeelFanBetterText::
 	text "Oh dear!"
 
-	para "My SEEL is far"
+	para "My Seel is far"
 	line "more attractive!"
 	done
 
 SeelFanPrintText::
 	text "I'm going to hook"
 	line "up the cable to"
-	cont "get a photo PRINT"
-	cont "of my SEEL!"
+	cont "get a photo Print"
+	cont "of my Seel!"
 	done
 
 FanClubPikachuText::
-	text "CLEFAIRY: Pippii!"
+	text "Clefairy: Pippii!"
 	done
 
 FanClubSeelText::
-	text "SEEL: Kyuoo!"
+	text "Seel: Kyuoo!"
 	done
 
 FanClubMeetChairText::
 	text "I chair the"
-	line "#MON Fan Club!"
+	line "#mon Fan Club!"
 
 	para "I have more than"
-	line "100 #MON. I"
+	line "100 #mon. I"
 	cont "love them all!"
 
 	para "I'm very fussy"
 	line "when it comes to"
-	cont "#MON!"
+	cont "#mon!"
 
 	para "So..."
 
 	para "Did you come to"
 	line "hear me brag"
-	cont "about my #MON?"
+	cont "about my #mon?"
 	done
 
 FanClubChairStoryText::
@@ -74,7 +74,7 @@ FanClubChairStoryText::
 	line "Then listen up!"
 
 	para "My favorite"
-	line "RAPIDASH..."
+	line "Rapidash..."
 
 	para "It...cute..."
 	line "lovely...smart..."
@@ -109,14 +109,14 @@ ReceivedBikeVoucherText::
 ExplainBikeVoucherText::
 	text_start
 	para "Exchange that for"
-	line "a BICYCLE!"
+	line "a Bicycle!"
 
 	para "Don't worry, my"
-	line "FEAROW will FLY"
+	line "Fearow will Fly"
 	cont "me anywhere!"
 
 	para "So, I don't need a"
-	line "BICYCLE!"
+	line "Bicycle!"
 
 	para "I hope you like"
 	line "cycling!"
@@ -133,7 +133,7 @@ FanClubChairFinalText::
 
 	para "Did you come see"
 	line "me about my"
-	cont "#MON again?"
+	cont "#mon again?"
 
 	para "No? Too bad!"
 	done
@@ -146,7 +146,7 @@ FanClubBagFullText::
 FanClubChairPrintText1::
 	text "Hi there, <PLAYER>!"
 	line "Have you seen my"
-	cont "#MON photos?"
+	cont "#mon photos?"
 
 	para "I have them framed"
 	line "up on that wall."
@@ -155,7 +155,7 @@ FanClubChairPrintText1::
 
 	para "Would you like me"
 	line "to take a photo"
-	cont "of your #MON?"
+	cont "of your #mon?"
 	done
 
 FanClubChairPrintText2::
@@ -164,16 +164,16 @@ FanClubChairPrintText2::
 	done
 
 FanClubChairPrintText3::
-	text "OK, I'm done."
+	text "Ok, I'm done."
 	done
 
 FanClubChairPrintText4::
 	text "Maybe we won't"
-	line "PRINT this now."
+	line "Print this now."
 	done
 
 _FanClubText6::
-	text "Our CHAIRMAN is"
+	text "Our Chairman is"
 	line "very vocal about"
-	cont "#MON."
+	cont "#mon."
 	done

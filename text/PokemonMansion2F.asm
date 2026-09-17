@@ -20,7 +20,7 @@ _Mansion2Text3::
 	line "Guyana,"
 	cont "South America"
 
-	para "A new #MON was"
+	para "A new #mon was"
 	line "discovered deep"
 	cont "in the jungle."
 	done
@@ -29,7 +29,7 @@ _Mansion2Text4::
 	text "Diary: July 10"
 	line "We christened the"
 	cont "newly discovered"
-	cont "#MON, MEW."
+	cont "#mon, Mew."
 	done
 
 _Mansion2Text_520c2::

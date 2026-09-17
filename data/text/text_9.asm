@@ -1,18 +1,18 @@
 _ItemUseBallText00::
 	text "It dodged the"
-	line "thrown BALL!"
+	line "thrown Ball!"
 
-	para "This #MON"
+	para "This #mon"
 	line "can't be caught!"
 	prompt
 
 _ItemUseBallText01::
 	text "You missed the"
-	line "#MON!"
+	line "#mon!"
 	prompt
 
 _ItemUseBallText02::
-	text "Darn! The #MON"
+	text "Darn! The #mon"
 	line "broke free!"
 	prompt
 
@@ -38,7 +38,7 @@ _ItemUseBallText07::
 	text_ram wBoxMonNicks
 	text " was"
 	line "transferred to"
-	cont "BILL's PC!"
+	cont "Bill's PC!"
 	prompt
 
 _ItemUseBallText08::
@@ -49,7 +49,7 @@ _ItemUseBallText08::
 	prompt
 
 _ItemUseBallText06::
-	text "New #DEX data"
+	text "New #dex data"
 	line "will be added for"
 	cont '@'
 	text_ram wEnemyMonNick
@@ -89,17 +89,17 @@ _VitaminNoEffectText::
 
 _ThrewBaitText::
 	text "<PLAYER> threw"
-	line "some BAIT."
+	line "some Bait."
 	done
 
 _ThrewRockText::
 	text "<PLAYER> threw a"
-	line "ROCK."
+	line "Rock."
 	done
 
 _PlayedFluteNoEffectText::
 	text "Played the #"
-	line "FLUTE."
+	line "Flute."
 
 	para "Now, that's a"
 	line "catchy tune!"
@@ -107,12 +107,12 @@ _PlayedFluteNoEffectText::
 
 _FluteWokeUpText::
 	text "All sleeping"
-	line "#MON woke up."
+	line "#mon woke up."
 	prompt
 
 _PlayedFluteHadEffectText::
 	text "<PLAYER> played the"
-	line "# FLUTE.@"
+	line "# Flute.@"
 	text_end
 
 _CoinCaseNumCoinsText::
@@ -123,13 +123,13 @@ _CoinCaseNumCoinsText::
 	prompt
 
 _ItemfinderFoundItemText::
-	text "Yes! ITEMFINDER"
+	text "Yes! Itemfinder"
 	line "indicates there's"
 	cont "an item nearby."
 	prompt
 
 _ItemfinderFoundNothingText::
-	text "Nope! ITEMFINDER"
+	text "Nope! Itemfinder"
 	line "isn't responding."
 	prompt
 
@@ -176,7 +176,7 @@ _TeachMachineMoveText::
 	para "Teach @"
 	text_ram wStringBuffer
 	text_start
-	line "to a #MON?"
+	line "to a #mon?"
 	done
 
 _MonCannotLearnMachineMoveText::
@@ -194,7 +194,7 @@ _MonCannotLearnMachineMoveText::
 	prompt
 
 _ItemUseNotTimeText::
-	text "OAK: <PLAYER>!"
+	text "Oak: <PLAYER>!"
 	line "This isn't the"
 	cont "time to use that! "
 	prompt
@@ -216,12 +216,12 @@ _NoRevivesNuzlockeEffectText::
 
 _AlreadyEncounteredNuzlockeText::
 	text "You already got"
-	line "a #MON here."
+	line "a #mon here."
 	prompt
 
 _ThrowBallAtTrainerMonText1::
 	text "The trainer"
-	line "blocked the BALL!"
+	line "blocked the Ball!"
 	prompt
 
 _ThrowBallAtTrainerMonText2::
@@ -234,21 +234,21 @@ _NoCyclingAllowedHereText::
 	prompt
 
 _NoSurfingHereText::
-	text "No SURFing on"
+	text "No Surfing on"
 	line '@'
 	text_ram wcd6d
 	text " here!"
 	prompt
 
 _BoxFullCannotThrowBallText::
-	text "The #MON BOX"
+	text "The #mon Box"
 	line "is full! Can't"
 	cont "use that item!"
 	prompt
 
 _DontHavePokemonText::
 	text "You don't have a "
-	line "#MON!"
+	line "#mon!"
 	prompt
 
 _ItemUseText001::
@@ -287,7 +287,7 @@ _ThrewAwayItemText::
 	prompt
 
 _IsItOKToTossItemText::
-	text "Is it OK to toss"
+	text "Is it ok to toss"
 	line '@'
 	text_ram wStringBuffer
 	text "?"
@@ -442,11 +442,11 @@ _AfterTrade3Text::
 
 _NothingToCutText::
 	text "There isn't"
-	line "anything to CUT!"
+	line "anything to Cut!"
 	prompt
 
 _UsedCutText::
 	text_ram wcd6d
 	text " hacked"
-	line "away with CUT!"
+	line "away with Cut!"
 	prompt

@@ -1,4 +1,4 @@
 _CeladonGameCornerText_48f19::
 	text "Oops! Forgot the"
-	line "COIN CASE!"
+	line "Coin Case!"
 	done

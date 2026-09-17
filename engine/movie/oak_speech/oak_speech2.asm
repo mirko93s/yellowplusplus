@@ -214,7 +214,7 @@ DisplayIntroNameTextBox:
 	jp HandleMenuInput
 
 .namestring
-	db "NAME@"
+	db "Name@"
 
 INCLUDE "data/player_names.asm"
 
@@ -271,10 +271,10 @@ ChooseGameDifficulty:
 	ret
 	
 DifficultyEntries:
-	db   "CLASSIC"
-	next "HARD"
-	next "NUZLOCKE"
-	next "HARD-NUZLOCKE"
+	db   "Classic"
+	next "Hard"
+	next "Nuzlocke"
+	next "Hard-Nuzlocke"
 	db   '@'
 
 DisplayDifficultyTextBox:
@@ -338,7 +338,7 @@ DisplayDifficultyTextBox:
 .nuz1:
 	db   "◓ NUZLOCKE@"
 .nuz2:
-	db   "-Can't revive #MON@"
+	db   "-Can't revive #mon@"
 .nuz3:
 	db   "-Catch 1 <PKMN> per area@"
 .nuz4:

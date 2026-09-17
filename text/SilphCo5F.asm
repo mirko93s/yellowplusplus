@@ -1,12 +1,12 @@
 _SilphCo5Text_1a010::
-	text "TEAM ROCKET is"
+	text "Team Rocket is"
 	line "in an uproar over"
 	cont "some intruder."
 	cont "That's you right?"
 	done
 
 _SilphCo5Text_1a015::
-	text "TEAM ROCKET took"
+	text "Team Rocket took"
 	line "off! You're our"
 	cont "hero! Thank you!"
 	done
@@ -23,12 +23,12 @@ _SilphCo5EndBattleText2::
 _SilphCo5AfterBattleText2::
 	text "It's not smart"
 	line "to pick a fight"
-	cont "with TEAM ROCKET!"
+	cont "with Team Rocket!"
 	done
 
 _SilphCo5BattleText3::
 	text "We study #"
-	line "BALL technology"
+	line "Ball technology"
 	cont "on this floor!"
 	done
 
@@ -40,7 +40,7 @@ _SilphCo5EndBattleText3::
 _SilphCo5AfterBattleText3::
 	text "We worked on the"
 	line "ultimate #"
-	cont "BALL which would"
+	cont "Ball which would"
 	cont "catch anything!"
 	done
 
@@ -58,11 +58,11 @@ _SilphCo5EndBattleText4::
 _SilphCo5AfterBattleText4::
 	text "You're only on 5F."
 	line "It's a long way"
-	cont "to my BOSS!"
+	cont "to my Boss!"
 	done
 
 _SilphCo5BattleText5::
-	text "Show TEAM ROCKET"
+	text "Show Team Rocket"
 	line "a little respect!"
 	done
 
@@ -74,34 +74,34 @@ _SilphCo5EndBattleText5::
 _SilphCo5AfterBattleText5::
 	text "Which reminds me."
 
-	para "KOFFING evolves"
-	line "into WEEZING!"
+	para "Koffing evolves"
+	line "into Weezing!"
 	done
 
 _SilphCo5Text9::
-	text "It's a #MON"
-	line "REPORT!"
+	text "It's a #mon"
+	line "Report!"
 
-	para "#MON LAB"
-	line "created PORYGON,"
+	para "#mon Lab"
+	line "created Porygon,"
 	cont "the first virtual"
-	cont "reality #MON."
+	cont "reality #mon."
 	done
 
 _SilphCo5Text10::
-	text "It's a #MON"
-	line "REPORT!"
+	text "It's a #mon"
+	line "Report!"
 
-	para "Over 160 #MON"
+	para "Over 160 #mon"
 	line "techniques have"
 	cont "been confirmed."
 	done
 
 _SilphCo5Text11::
-	text "It's a #MON"
-	line "REPORT!"
+	text "It's a #mon"
+	line "Report!"
 
-	para "4 #MON evolve"
+	para "4 #mon evolve"
 	line "only when traded"
 	cont "by link-cable."
 	done

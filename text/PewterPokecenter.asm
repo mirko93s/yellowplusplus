@@ -1,18 +1,18 @@
 _PewterPokecenterText2::
 	text "What!?"
 
-	para "TEAM ROCKET is"
-	line "at MT.MOON? Huh?"
+	para "Team Rocket is"
+	line "at Mt. Moon? Huh?"
 	cont "I'm on the phone!"
 
 	para "Scram!"
 	done
 
 _PewterPokecenterText3::
-	text "#MON CENTERS"
+	text "#mon Centers"
 	line "are wonderful!"
 
-	para "They heal #MON"
+	para "They heal #mon"
 	line "completely."
 
 	para "Even conditions"
@@ -22,6 +22,6 @@ _PewterPokecenterText3::
 	done
 
 _PewterJigglypuffText::
-	text "JIGGLYPUFF: Puu"
+	text "Jigglypuff: Puu"
 	line "pupuu!"
 	done

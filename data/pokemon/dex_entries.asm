@@ -159,1057 +159,1057 @@ PokedexEntryPointers:
 ; text entry
 
 BulbasaurDexEntry:
-	db "SEED@"
+	db "Seed@"
 	db 0,7
 	dw 69
 	text_far _BulbasaurDexEntry
 	text_end
 
 IvysaurDexEntry:
-	db "SEED@"
+	db "Seed@"
 	db 1,0
 	dw 130
 	text_far _IvysaurDexEntry
 	text_end
 
 VenusaurDexEntry:
-	db "SEED@"
+	db "Seed@"
 	db 2,0
 	dw 1000
 	text_far _VenusaurDexEntry
 	text_end
 
 CharmanderDexEntry:
-	db "LIZARD@"
+	db "Lizard@"
 	db 0,6
 	dw 85
 	text_far _CharmanderDexEntry
 	text_end
 
 CharmeleonDexEntry:
-	db "FLAME@"
+	db "Flame@"
 	db 1,7
 	dw 190
 	text_far _CharmeleonDexEntry
 	text_end
 
 CharizardDexEntry:
-	db "FLAME@"
+	db "Flame@"
 	db 1,7
 	dw 905
 	text_far _CharizardDexEntry
 	text_end
 
 SquirtleDexEntry:
-	db "TINYTURTLE@"
+	db "Tinyturtle@"
 	db 0,5
 	dw 90
 	text_far _SquirtleDexEntry
 	text_end
 
 WartortleDexEntry:
-	db "TURTLE@"
+	db "Turtle@"
 	db 1,0
 	dw 225
 	text_far _WartortleDexEntry
 	text_end
 
 BlastoiseDexEntry:
-	db "SHELLFISH@"
+	db "Shellfish@"
 	db 1,6
 	dw 855
 	text_far _BlastoiseDexEntry
 	text_end
 
 CaterpieDexEntry:
-	db "WORM@"
+	db "Worm@"
 	db 0,3
 	dw 29
 	text_far _CaterpieDexEntry
 	text_end
 
 MetapodDexEntry:
-	db "COCOON@"
+	db "Cocoon@"
 	db 0,7
 	dw 99
 	text_far _MetapodDexEntry
 	text_end
 
 ButterfreeDexEntry:
-	db "BUTTERFLY@"
+	db "Butterfly@"
 	db 1,1
 	dw 320
 	text_far _ButterfreeDexEntry
 	text_end
 
 WeedleDexEntry:
-	db "HAIRY BUG@"
+	db "Hairy Bug@"
 	db 0,3
 	dw 32
 	text_far _WeedleDexEntry
 	text_end
 
 KakunaDexEntry:
-	db "COCOON@"
+	db "Cocoon@"
 	db 0,6
 	dw 100
 	text_far _KakunaDexEntry
 	text_end
 
 BeedrillDexEntry:
-	db "POISON BEE@"
+	db "Poison Bee@"
 	db 1,0
 	dw 295
 	text_far _BeedrillDexEntry
 	text_end
 
 PidgeyDexEntry:
-	db "TINY BIRD@"
+	db "Tiny Bird@"
 	db 0,3
 	dw 18
 	text_far _PidgeyDexEntry
 	text_end
 
 PidgeottoDexEntry:
-	db "BIRD@"
+	db "Bird@"
 	db 1,1
 	dw 300
 	text_far _PidgeottoDexEntry
 	text_end
 
 PidgeotDexEntry:
-	db "BIRD@"
+	db "Bird@"
 	db 1,5
 	dw 395
 	text_far _PidgeotDexEntry
 	text_end
 
 RattataDexEntry:
-	db "RAT@"
+	db "Rat@"
 	db 0,3
 	dw 35
 	text_far _RattataDexEntry
 	text_end
 
 RaticateDexEntry:
-	db "RAT@"
+	db "Rat@"
 	db 0,7
 	dw 185
 	text_far _RaticateDexEntry
 	text_end
 
 SpearowDexEntry:
-	db "TINY BIRD@"
+	db "Tiny Bird@"
 	db 0,4
 	dw 20
 	text_far _SpearowDexEntry
 	text_end
 
 FearowDexEntry:
-	db "BEAK@"
+	db "Beak@"
 	db 1,2
 	dw 380
 	text_far _FearowDexEntry
 	text_end
 
 EkansDexEntry:
-	db "SNAKE@"
+	db "Snake@"
 	db 2,0
 	dw 69
 	text_far _EkansDexEntry
 	text_end
 
 ArbokDexEntry:
-	db "COBRA@"
+	db "Cobra@"
 	db 3,5
 	dw 650
 	text_far _ArbokDexEntry
 	text_end
 
 PikachuDexEntry:
-	db "MOUSE@"
+	db "Mouse@"
 	db 0,4
 	dw 6
 	text_far _PikachuDexEntry
 	text_end
 
 RaichuDexEntry:
-	db "MOUSE@"
+	db "Mouse@"
 	db 0,8
 	dw 300
 	text_far _RaichuDexEntry
 	text_end
 
 SandshrewDexEntry:
-	db "MOUSE@"
+	db "Mouse@"
 	db 0,6
 	dw 120
 	text_far _SandshrewDexEntry
 	text_end
 
 SandslashDexEntry:
-	db "MOUSE@"
+	db "Mouse@"
 	db 1,0
 	dw 295
 	text_far _SandslashDexEntry
 	text_end
 
 NidoranFDexEntry:
-	db "POISON PIN@"
+	db "Poison Pin@"
 	db 0,4
 	dw 70
 	text_far _NidoranFDexEntry
 	text_end
 
 NidorinaDexEntry:
-	db "POISON PIN@"
+	db "Poison Pin@"
 	db 0,8
 	dw 200
 	text_far _NidorinaDexEntry
 	text_end
 
 NidoqueenDexEntry:
-	db "DRILL@"
+	db "Drill@"
 	db 1,3
 	dw 600
 	text_far _NidoqueenDexEntry
 	text_end
 
 NidoranMDexEntry:
-	db "POISON PIN@"
+	db "Poison Pin@"
 	db 0,5
 	dw 90
 	text_far _NidoranMDexEntry
 	text_end
 
 NidorinoDexEntry:
-	db "POISON PIN@"
+	db "Poison Pin@"
 	db 0,9
 	dw 195
 	text_far _NidorinoDexEntry
 	text_end
 
 NidokingDexEntry:
-	db "DRILL@"
+	db "Drill@"
 	db 1,4
 	dw 620
 	text_far _NidokingDexEntry
 	text_end
 
 ClefairyDexEntry:
-	db "FAIRY@"
+	db "Fairy@"
 	db 0,6
 	dw 75
 	text_far _ClefairyDexEntry
 	text_end
 
 ClefableDexEntry:
-	db "FAIRY@"
+	db "Fairy@"
 	db 1,3
 	dw 400
 	text_far _ClefableDexEntry
 	text_end
 
 VulpixDexEntry:
-	db "FOX@"
+	db "Fox@"
 	db 0,6
 	dw 99
 	text_far _VulpixDexEntry
 	text_end
 
 NinetalesDexEntry:
-	db "FOX@"
+	db "Fox@"
 	db 1,1
 	dw 199
 	text_far _NinetalesDexEntry
 	text_end
 
 JigglypuffDexEntry:
-	db "BALLOON@"
+	db "Balloon@"
 	db 0,5
 	dw 55
 	text_far _JigglypuffDexEntry
 	text_end
 
 WigglytuffDexEntry:
-	db "BALLOON@"
+	db "Balloon@"
 	db 1,0
 	dw 120
 	text_far _WigglytuffDexEntry
 	text_end
 
 ZubatDexEntry:
-	db "BAT@"
+	db "Bat@"
 	db 0,8
 	dw 75
 	text_far _ZubatDexEntry
 	text_end
 
 GolbatDexEntry:
-	db "BAT@"
+	db "Bat@"
 	db 1,6
 	dw 550
 	text_far _GolbatDexEntry
 	text_end
 
 OddishDexEntry:
-	db "WEED@"
+	db "Weed@"
 	db 0,5
 	dw 54
 	text_far _OddishDexEntry
 	text_end
 
 GloomDexEntry:
-	db "WEED@"
+	db "Weed@"
 	db 0,8
 	dw 86
 	text_far _GloomDexEntry
 	text_end
 
 VileplumeDexEntry:
-	db "FLOWER@"
+	db "Flower@"
 	db 1,2
 	dw 186
 	text_far _VileplumeDexEntry
 	text_end
 
 ParasDexEntry:
-	db "MUSHROOM@"
+	db "Mushroom@"
 	db 0,3
 	dw 54
 	text_far _ParasDexEntry
 	text_end
 
 ParasectDexEntry:
-	db "MUSHROOM@"
+	db "Mushroom@"
 	db 1,0
 	dw 295
 	text_far _ParasectDexEntry
 	text_end
 
 VenonatDexEntry:
-	db "INSECT@"
+	db "Insect@"
 	db 1,0
 	dw 300
 	text_far _VenonatDexEntry
 	text_end
 
 VenomothDexEntry:
-	db "POISONMOTH@"
+	db "Poisonmoth@"
 	db 1,5
 	dw 125
 	text_far _VenomothDexEntry
 	text_end
 
 DiglettDexEntry:
-	db "MOLE@"
+	db "Mole@"
 	db 0,2
 	dw 8
 	text_far _DiglettDexEntry
 	text_end
 
 DugtrioDexEntry:
-	db "MOLE@"
+	db "Mole@"
 	db 0,7
 	dw 333
 	text_far _DugtrioDexEntry
 	text_end
 
 MeowthDexEntry:
-	db "SCRATCHCAT@"
+	db "Scratchcat@"
 	db 0,4
 	dw 42
 	text_far _MeowthDexEntry
 	text_end
 
 PersianDexEntry:
-	db "CLASSY CAT@"
+	db "Classy Cat@"
 	db 1,0
 	dw 320
 	text_far _PersianDexEntry
 	text_end
 
 PsyduckDexEntry:
-	db "DUCK@"
+	db "Duck@"
 	db 0,8
 	dw 196
 	text_far _PsyduckDexEntry
 	text_end
 
 GolduckDexEntry:
-	db "DUCK@"
+	db "Duck@"
 	db 1,7
 	dw 766
 	text_far _GolduckDexEntry
 	text_end
 
 MankeyDexEntry:
-	db "PIG MONKEY@"
+	db "Pig Monkey@"
 	db 0,5
 	dw 280
 	text_far _MankeyDexEntry
 	text_end
 
 PrimeapeDexEntry:
-	db "PIG MONKEY@"
+	db "Pig Monkey@"
 	db 1,0
 	dw 320
 	text_far _PrimeapeDexEntry
 	text_end
 
 GrowlitheDexEntry:
-	db "PUPPY@"
+	db "Puppy@"
 	db 0,7
 	dw 190
 	text_far _GrowlitheDexEntry
 	text_end
 
 ArcanineDexEntry:
-	db "LEGENDARY@"
+	db "Legendary@"
 	db 1,9
 	dw 1550
 	text_far _ArcanineDexEntry
 	text_end
 
 PoliwagDexEntry:
-	db "TADPOLE@"
+	db "Tadpole@"
 	db 0,6
 	dw 124
 	text_far _PoliwagDexEntry
 	text_end
 
 PoliwhirlDexEntry:
-	db "TADPOLE@"
+	db "Tadpole@"
 	db 1,0
 	dw 200
 	text_far _PoliwhirlDexEntry
 	text_end
 
 PoliwrathDexEntry:
-	db "TADPOLE@"
+	db "Tadpole@"
 	db 1,3
 	dw 540
 	text_far _PoliwrathDexEntry
 	text_end
 
 AbraDexEntry:
-	db "PSI@"
+	db "Psi@"
 	db 0,9
 	dw 195
 	text_far _AbraDexEntry
 	text_end
 
 KadabraDexEntry:
-	db "PSI@"
+	db "Psi@"
 	db 1,3
 	dw 565
 	text_far _KadabraDexEntry
 	text_end
 
 AlakazamDexEntry:
-	db "PSI@"
+	db "Psi@"
 	db 1,5
 	dw 480
 	text_far _AlakazamDexEntry
 	text_end
 
 MachopDexEntry:
-	db "SUPERPOWER@"
+	db "Superpower@"
 	db 0,8
 	dw 195
 	text_far _MachopDexEntry
 	text_end
 
 MachokeDexEntry:
-	db "SUPERPOWER@"
+	db "Superpower@"
 	db 1,5
 	dw 705
 	text_far _MachokeDexEntry
 	text_end
 
 MachampDexEntry:
-	db "SUPERPOWER@"
+	db "Superpower@"
 	db 1,6
 	dw 1300
 	text_far _MachampDexEntry
 	text_end
 
 BellsproutDexEntry:
-	db "FLOWER@"
+	db "Flower@"
 	db 0,7
 	dw 40
 	text_far _BellsproutDexEntry
 	text_end
 
 WeepinbellDexEntry:
-	db "FLYCATCHER@"
+	db "Flycatcher@"
 	db 1,0
 	dw 64
 	text_far _WeepinbellDexEntry
 	text_end
 
 VictreebelDexEntry:
-	db "FLYCATCHER@"
+	db "Flycatcher@"
 	db 1,7
 	dw 155
 	text_far _VictreebelDexEntry
 	text_end
 
 TentacoolDexEntry:
-	db "JELLYFISH@"
+	db "Jellyfish@"
 	db 0,9
 	dw 455
 	text_far _TentacoolDexEntry
 	text_end
 
 TentacruelDexEntry:
-	db "JELLYFISH@"
+	db "Jellyfish@"
 	db 1,6
 	dw 550
 	text_far _TentacruelDexEntry
 	text_end
 
 GeodudeDexEntry:
-	db "ROCK@"
+	db "Rock@"
 	db 0,4
 	dw 200
 	text_far _GeodudeDexEntry
 	text_end
 
 GravelerDexEntry:
-	db "ROCK@"
+	db "Rock@"
 	db 1,0
 	dw 1050
 	text_far _GravelerDexEntry
 	text_end
 
 GolemDexEntry:
-	db "MEGATON@"
+	db "Megaton@"
 	db 1,4
 	dw 3000
 	text_far _GolemDexEntry
 	text_end
 
 PonytaDexEntry:
-	db "FIRE HORSE@"
+	db "Fire Horse@"
 	db 1,0
 	dw 300
 	text_far _PonytaDexEntry
 	text_end
 
 RapidashDexEntry:
-	db "FIRE HORSE@"
+	db "Fire Horse@"
 	db 1,7
 	dw 950
 	text_far _RapidashDexEntry
 	text_end
 
 SlowpokeDexEntry:
-	db "DOPEY@"
+	db "Dopey@"
 	db 1,2
 	dw 360
 	text_far _SlowpokeDexEntry
 	text_end
 
 SlowbroDexEntry:
-	db "HERMITCRAB@"
+	db "Hermitcrab@"
 	db 1,6
 	dw 785
 	text_far _SlowbroDexEntry
 	text_end
 
 MagnemiteDexEntry:
-	db "MAGNET@"
+	db "Magnet@"
 	db 0,3
 	dw 60
 	text_far _MagnemiteDexEntry
 	text_end
 
 MagnetonDexEntry:
-	db "MAGNET@"
+	db "Magnet@"
 	db 1,0
 	dw 600
 	text_far _MagnetonDexEntry
 	text_end
 
 FarfetchdDexEntry:
-	db "WILD DUCK@"
+	db "Wild Duck@"
 	db 0,8
 	dw 150
 	text_far _FarfetchdDexEntry
 	text_end
 
 DoduoDexEntry:
-	db "TWIN BIRD@"
+	db "Twin Bird@"
 	db 1,4
 	dw 392
 	text_far _DoduoDexEntry
 	text_end
 
 DodrioDexEntry:
-	db "TRIPLEBIRD@"
+	db "Triplebird@"
 	db 1,8
 	dw 852
 	text_far _DodrioDexEntry
 	text_end
 
 SeelDexEntry:
-	db "SEA LION@"
+	db "Sea Lion@"
 	db 1,1
 	dw 900
 	text_far _SeelDexEntry
 	text_end
 
 DewgongDexEntry:
-	db "SEA LION@"
+	db "Sea Lion@"
 	db 1,7
 	dw 1200
 	text_far _DewgongDexEntry
 	text_end
 
 GrimerDexEntry:
-	db "SLUDGE@"
+	db "Sludge@"
 	db 0,9
 	dw 300
 	text_far _GrimerDexEntry
 	text_end
 
 MukDexEntry:
-	db "SLUDGE@"
+	db "Sludge@"
 	db 1,2
 	dw 300
 	text_far _MukDexEntry
 	text_end
 
 ShellderDexEntry:
-	db "BIVALVE@"
+	db "Bivalve@"
 	db 0,3
 	dw 40
 	text_far _ShellderDexEntry
 	text_end
 
 CloysterDexEntry:
-	db "BIVALVE@"
+	db "Bivalve@"
 	db 1,5
 	dw 1325
 	text_far _CloysterDexEntry
 	text_end
 
 GastlyDexEntry:
-	db "GAS@"
+	db "Gas@"
 	db 1,3
 	dw 1
 	text_far _GastlyDexEntry
 	text_end
 
 HaunterDexEntry:
-	db "GAS@"
+	db "Gas@"
 	db 1,6
 	dw 1
 	text_far _HaunterDexEntry
 	text_end
 
 GengarDexEntry:
-	db "SHADOW@"
+	db "Shadow@"
 	db 1,5
 	dw 405
 	text_far _GengarDexEntry
 	text_end
 
 OnixDexEntry:
-	db "ROCK SNAKE@"
+	db "Rock Snake@"
 	db 8,8
 	dw 2100
 	text_far _OnixDexEntry
 	text_end
 
 DrowzeeDexEntry:
-	db "HYPNOSIS@"
+	db "Hypnosis@"
 	db 1,0
 	dw 324
 	text_far _DrowzeeDexEntry
 	text_end
 
 HypnoDexEntry:
-	db "HYPNOSIS@"
+	db "Hypnosis@"
 	db 1,6
 	dw 756
 	text_far _HypnoDexEntry
 	text_end
 
 KrabbyDexEntry:
-	db "RIVER CRAB@"
+	db "River Crab@"
 	db 0,4
 	dw 65
 	text_far _KrabbyDexEntry
 	text_end
 
 KinglerDexEntry:
-	db "PINCER@"
+	db "Pincer@"
 	db 1,3
 	dw 600
 	text_far _KinglerDexEntry
 	text_end
 
 VoltorbDexEntry:
-	db "BALL@"
+	db "Ball@"
 	db 0,5
 	dw 104
 	text_far _VoltorbDexEntry
 	text_end
 
 ElectrodeDexEntry:
-	db "BALL@"
+	db "Ball@"
 	db 1,2
 	dw 666
 	text_far _ElectrodeDexEntry
 	text_end
 
 ExeggcuteDexEntry:
-	db "EGG@"
+	db "Egg@"
 	db 0,4
 	dw 25
 	text_far _ExeggcuteDexEntry
 	text_end
 
 ExeggutorDexEntry:
-	db "COCONUT@"
+	db "Coconut@"
 	db 2,0
 	dw 1200
 	text_far _ExeggutorDexEntry
 	text_end
 
 CuboneDexEntry:
-	db "LONELY@"
+	db "Lonely@"
 	db 0,4
 	dw 65
 	text_far _CuboneDexEntry
 	text_end
 
 MarowakDexEntry:
-	db "BONEKEEPER@"
+	db "Bonekeeper@"
 	db 1,0
 	dw 450
 	text_far _MarowakDexEntry
 	text_end
 
 HitmonleeDexEntry:
-	db "KICKING@"
+	db "Kicking@"
 	db 1,5
 	dw 498
 	text_far _HitmonleeDexEntry
 	text_end
 
 HitmonchanDexEntry:
-	db "PUNCHING@"
+	db "Punching@"
 	db 1,4
 	dw 502
 	text_far _HitmonchanDexEntry
 	text_end
 
 LickitungDexEntry:
-	db "LICKING@"
+	db "Licking@"
 	db 1,2
 	dw 655
 	text_far _LickitungDexEntry
 	text_end
 
 KoffingDexEntry:
-	db "POISON GAS@"
+	db "Poison Gas@"
 	db 0,6
 	dw 10
 	text_far _KoffingDexEntry
 	text_end
 
 WeezingDexEntry:
-	db "POISON GAS@"
+	db "Poison Gas@"
 	db 1,2
 	dw 95
 	text_far _WeezingDexEntry
 	text_end
 
 RhyhornDexEntry:
-	db "SPIKES@"
+	db "Spikes@"
 	db 1,0
 	dw 1150
 	text_far _RhyhornDexEntry
 	text_end
 
 RhydonDexEntry:
-	db "DRILL@"
+	db "Drill@"
 	db 1,9
 	dw 1200
 	text_far _RhydonDexEntry
 	text_end
 
 ChanseyDexEntry:
-	db "EGG@"
+	db "Egg@"
 	db 1,1
 	dw 346
 	text_far _ChanseyDexEntry
 	text_end
 
 TangelaDexEntry:
-	db "VINE@"
+	db "Vine@"
 	db 1,0
 	dw 350
 	text_far _TangelaDexEntry
 	text_end
 
 KangaskhanDexEntry:
-	db "PARENT@"
+	db "Parent@"
 	db 2,2
 	dw 800
 	text_far _KangaskhanDexEntry
 	text_end
 
 HorseaDexEntry:
-	db "DRAGON@"
+	db "Dragon@"
 	db 0,4
 	dw 80
 	text_far _HorseaDexEntry
 	text_end
 
 SeadraDexEntry:
-	db "DRAGON@"
+	db "Dragon@"
 	db 1,2
 	dw 250
 	text_far _SeadraDexEntry
 	text_end
 
 GoldeenDexEntry:
-	db "GOLDFISH@"
+	db "Goldfish@"
 	db 0,6
 	dw 150
 	text_far _GoldeenDexEntry
 	text_end
 
 SeakingDexEntry:
-	db "GOLDFISH@"
+	db "Goldfish@"
 	db 1,3
 	dw 390
 	text_far _SeakingDexEntry
 	text_end
 
 StaryuDexEntry:
-	db "STARSHAPE@"
+	db "Starshape@"
 	db 0,8
 	dw 345
 	text_far _StaryuDexEntry
 	text_end
 
 StarmieDexEntry:
-	db "MYSTERIOUS@"
+	db "Mysterious@"
 	db 1,1
 	dw 800
 	text_far _StarmieDexEntry
 	text_end
 
 MrMimeDexEntry:
-	db "BARRIER@"
+	db "Barrier@"
 	db 1,4
 	dw 568
 	text_far _MrMimeDexEntry
 	text_end
 
 ScytherDexEntry:
-	db "MANTIS@"
+	db "Mantis@"
 	db 1,5
 	dw 560
 	text_far _ScytherDexEntry
 	text_end
 
 JynxDexEntry:
-	db "HUMANSHAPE@"
+	db "Humanshape@"
 	db 1,4
 	dw 406
 	text_far _JynxDexEntry
 	text_end
 
 ElectabuzzDexEntry:
-	db "ELECTRIC@"
+	db "Electric@"
 	db 1,1
 	dw 300
 	text_far _ElectabuzzDexEntry
 	text_end
 
 MagmarDexEntry:
-	db "SPITFIRE@"
+	db "Spitfire@"
 	db 1,3
 	dw 445
 	text_far _MagmarDexEntry
 	text_end
 
 PinsirDexEntry:
-	db "STAGBEETLE@"
+	db "Stagbeetle@"
 	db 1,5
 	dw 550
 	text_far _PinsirDexEntry
 	text_end
 
 TaurosDexEntry:
-	db "WILD BULL@"
+	db "Wild Bull@"
 	db 1,4
 	dw 884
 	text_far _TaurosDexEntry
 	text_end
 
 MagikarpDexEntry:
-	db "FISH@"
+	db "Fish@"
 	db 0,9
 	dw 100
 	text_far _MagikarpDexEntry
 	text_end
 
 GyaradosDexEntry:
-	db "ATROCIOUS@"
+	db "Atrocious@"
 	db 6,5
 	dw 3050
 	text_far _GyaradosDexEntry
 	text_end
 
 LaprasDexEntry:
-	db "TRANSPORT@"
+	db "Transport@"
 	db 2,5
 	dw 2200
 	text_far _LaprasDexEntry
 	text_end
 
 DittoDexEntry:
-	db "TRANSFORM@"
+	db "Transform@"
 	db 0,3
 	dw 40
 	text_far _DittoDexEntry
 	text_end
 
 EeveeDexEntry:
-	db "EVOLUTION@"
+	db "Evolution@"
 	db 0,3
 	dw 65
 	text_far _EeveeDexEntry
 	text_end
 
 VaporeonDexEntry:
-	db "BUBBLE JET@"
+	db "Bubble Jet@"
 	db 1,0
 	dw 290
 	text_far _VaporeonDexEntry
 	text_end
 
 JolteonDexEntry:
-	db "LIGHTNING@"
+	db "Lightning@"
 	db 0,8
 	dw 245
 	text_far _JolteonDexEntry
 	text_end
 
 FlareonDexEntry:
-	db "FLAME@"
+	db "Flame@"
 	db 0,9
 	dw 250
 	text_far _FlareonDexEntry
 	text_end
 
 PorygonDexEntry:
-	db "VIRTUAL@"
+	db "Virtual@"
 	db 0,8
 	dw 365
 	text_far _PorygonDexEntry
 	text_end
 
 OmanyteDexEntry:
-	db "SPIRAL@"
+	db "Spiral@"
 	db 0,4
 	dw 75
 	text_far _OmanyteDexEntry
 	text_end
 
 OmastarDexEntry:
-	db "SPIRAL@"
+	db "Spiral@"
 	db 1,0
 	dw 350
 	text_far _OmastarDexEntry
 	text_end
 
 KabutoDexEntry:
-	db "SHELLFISH@"
+	db "Shellfish@"
 	db 0,5
 	dw 115
 	text_far _KabutoDexEntry
 	text_end
 
 KabutopsDexEntry:
-	db "SHELLFISH@"
+	db "Shellfish@"
 	db 1,3
 	dw 405
 	text_far _KabutopsDexEntry
 	text_end
 
 AerodactylDexEntry:
-	db "FOSSIL@"
+	db "Fossil@"
 	db 1,8
 	dw 590
 	text_far _AerodactylDexEntry
 	text_end
 
 SnorlaxDexEntry:
-	db "SLEEPING@"
+	db "Sleeping@"
 	db 2,1
 	dw 4600
 	text_far _SnorlaxDexEntry
 	text_end
 
 ArticunoDexEntry:
-	db "FREEZE@"
+	db "Freeze@"
 	db 1,7
 	dw 554
 	text_far _ArticunoDexEntry
 	text_end
 
 ZapdosDexEntry:
-	db "ELECTRIC@"
+	db "Electric@"
 	db 1,6
 	dw 526
 	text_far _ZapdosDexEntry
 	text_end
 
 MoltresDexEntry:
-	db "FLAME@"
+	db "Flame@"
 	db 2,0
 	dw 600
 	text_far _MoltresDexEntry
 	text_end
 
 DratiniDexEntry:
-	db "DRAGON@"
+	db "Dragon@"
 	db 1,8
 	dw 33
 	text_far _DratiniDexEntry
 	text_end
 
 DragonairDexEntry:
-	db "DRAGON@"
+	db "Dragon@"
 	db 4,0
 	dw 165
 	text_far _DragonairDexEntry
 	text_end
 
 DragoniteDexEntry:
-	db "DRAGON@"
+	db "Dragon@"
 	db 2,2
 	dw 2100
 	text_far _DragoniteDexEntry
 	text_end
 
 MewtwoDexEntry:
-	db "GENETIC@"
+	db "Genetic@"
 	db 2,0
 	dw 1220
 	text_far _MewtwoDexEntry
 	text_end
 
 MewDexEntry:
-	db "NEW SPECIE@"
+	db "New Specie@"
 	db 0,4
 	dw 40
 	text_far _MewDexEntry
