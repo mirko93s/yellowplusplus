@@ -106,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create prerelease
+      - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.ROLLING_TAG }}
@@ -125,7 +125,7 @@ jobs:
 
             **Changelog since last rolling build:**  
             ${{ steps.changelog.outputs.changes }}
-          prerelease: true
+          prerelease: false
           draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
