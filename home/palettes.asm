@@ -24,7 +24,7 @@ GBPalNormal::
 ; Reset BGP and OBP0.
 	ld a, %11100100 ; 3210
 	ldh [rBGP], a
-	ld a, %11010000 ; 3100
+	ld a, %11100100 ; 3100
 	ldh [rOBP0], a
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0

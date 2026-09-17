@@ -820,8 +820,17 @@ InitGBCPalettes:
 		ld a, index
 		call TransferCurBGPData
 
-		ld a, CONVERT_OBP0
-		call DMGPalToGBCPal
+		IF index == 0
+			push de
+			ld a, PAL_NPC
+			call GetGBCBasePalAddress
+			ld a, CONVERT_OBP0
+			call DMGPalToGBCPal
+			pop de
+		ELSE
+			ld a, CONVERT_OBP0
+			call DMGPalToGBCPal
+		ENDC
 		ld a, index
 		call TransferCurOBPData
 
@@ -1062,10 +1071,22 @@ _UpdateGBCPal_BGP::
 
 _UpdateGBCPal_OBP::
 	FOR index, NUM_ACTIVE_PALS
+		IF index == 0
+			ld a, c
+			cp CONVERT_OBP0
+			jr nz, .useMapPal0
+			ld a, PAL_NPC
+			call GetGBCBasePalAddress
+			jr .gotPal0
+	.useMapPal0
+		ENDC
 		ld a, [wGBCBasePalPointers + index * 2]
 		ld e, a
 		ld a, [wGBCBasePalPointers + index * 2 + 1]
 		ld d, a
+	IF index == 0
+	.gotPal0
+	ENDC
 		ld a, c
 		call DMGPalToGBCPal
 		ld a, c

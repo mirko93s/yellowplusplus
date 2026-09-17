@@ -289,6 +289,6 @@ DEF SET_PAL_DEFAULT EQU $ff
 	const PAL_SHINY_ARTICUNO   ; $FB
 	const PAL_SHINY_MOLTRES    ; $FC
 	const PAL_SHINY_SLOWBRO    ; $FD
-	                           ; $FE
+	const PAL_NPC              ; $FE
 	                           ; $FF
 DEF NUM_SGB_PALS EQU const_value
