@@ -68,7 +68,7 @@ YoungsterData:
 BugCatcherData:
 	db  "Brian@",    9, WEEDLE,      9, CATERPIE,                                                                   end ;  1 - Viridian Forest
 	db  "Doug@",    11, KAKUNA,     11, METAPOD,                                                                    end ;  2 - Viridian Forest
-	db  "Rick@",    13, BUTTERFREE, 13, BEEDRILL,                                                                   end ;  3 - Viridian Forest
+	db  "Rick@",    12, BUTTERFREE, 12, BEEDRILL,                                                                   end ;  3 - Viridian Forest
 	db  "Sammy@",   10, BUTTERFREE,                                                                                 end ;  4 - Viridian Forest
 	db  "Greg@",    13, PINSIR,                                                                                     end ;  5 - Route 3
 	db  "Aaron@",   14, CATERPIE,   15, METAPOD,                                                                    end ;  6 - Route 3
@@ -113,7 +113,7 @@ SailorData:
 	db  "Huey@",    24, MACHOP,     26, MANKEY,     25, HITMONCHAN,                                                 end ;  8 - SS Anne B1F Rooms
 
 JrTrainerMData:
-	db  "Liam@",    14, DIGLETT,    15, SANDSHREW,                                                                  end ;  1 - Pewter Gym
+	db  "Liam@",    13, DIGLETT,    13, SANDSHREW,                                                                  end ;  1 - Pewter Gym
 	db  "Shane@",   23, POLIWAG,    22, GOLDEEN,                                                                    end ;  2 - Route 24
 	db  "Kevin@",   20, PRIMEAPE,   21, MACHOKE,                                                                    end ;  3 - Route 24
 	db  "Dustin@",  24, PIDGEOTTO,  26, GLOOM,                                                                      end ;  4 - Route 25
@@ -470,7 +470,7 @@ Rival3Data:
 	db  "<RIVAL>@",129, ARCANINE,  126, NIDOQUEEN, 128, PIDGEOT,   127, BLASTOISE, 130, VAPOREON,  125, TAUROS,     end
 
 BrockData:
-	db  "Brock@",   12, GEODUDE,    14, RHYHORN,    15, ONIX,                                                       end ;  1 - Gym
+	db  "Brock@",   13, GEODUDE,    14, RHYHORN,    15, ONIX,                                                       end ;  1 - Gym
 	db  "Brock@",   95, GOLEM,      96, RHYDON,     94, ONIX,       98, AERODACTYL, 97, KABUTOPS,   99, OMASTAR,    end ;  2 - Rematch
 	; golem shiny
 MistyData:
