@@ -946,8 +946,19 @@ TrainerBattleVictory:
 .gymleader
 	ld a, [wTrainerClass]
 	cp RIVAL3 ; final battle against rival
+	jr z, .elite4Battle
+	cp LORELEI
+	jr z, .elite4Battle
+	cp BRUNO
+	jr z, .elite4Battle
+	cp AGATHA
+	jr z, .elite4Battle
+	cp LANCE
 	jr nz, .notrival
+.elite4Battle
 	ld b, MUSIC_DEFEATED_GYM_LEADER
+	cp RIVAL3 ; final battle against rival
+	jr nz, .notrival
 	ld hl, wStatusFlags7
 	set 1, [hl]
 .notrival
