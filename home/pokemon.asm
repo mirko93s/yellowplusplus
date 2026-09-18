@@ -402,14 +402,16 @@ GetMonHeader::
 	push af
 	ld a, [wCurSpecies]
 	ld [wPokedexNum], a
-	ld b, $77 ; size of Kabutops fossil, Aerodactyl fossil and Ghost sprites
 	ld de, FossilKabutopsPic
+	ld b, $77 ; size of Kabutops fossilGhost sprite
 	cp FOSSIL_KABUTOPS ; Kabutops fossil
 	jr z, .specialID
 	ld de, GhostPic
+	ld b, $66 ; size of Ghost sprite
 	cp MON_GHOST ; Ghost
 	jr z, .specialID
 	ld de, FossilAerodactylPic
+	ld b, $77 ; size of Aerodactyl fossil sprite
 	cp FOSSIL_AERODACTYL ; Aerodactyl fossil
 	jr z, .specialID
 	ld a, [wPokedexNum]
