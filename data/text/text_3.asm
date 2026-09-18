@@ -12,6 +12,14 @@ _TrainerWantsToFightText::
 	line "wants to fight!"
 	prompt
 
+_TrainerWantToFightText::
+	text_ram wTrainerName
+	text " @"
+	text_ram wCurTrainerName
+	text ""
+	line "want to fight!"
+	prompt
+
 _UnveiledGhostText::
 	text "Silph Scope"
 	line "unveiled the"

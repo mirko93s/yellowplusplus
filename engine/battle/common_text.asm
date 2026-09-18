@@ -48,6 +48,11 @@ PrintBeginningBattleText:
 	ld c, 20
 	call DelayFrames
 	ld hl, TrainerWantsToFightText
+	; check Jessie & James
+	ld a, [wTrainerClass]
+	cp JESSIE_AND_JAMES
+	jr nz, .wildBattle
+	ld hl, TrainerWantToFightText
 .wildBattle
 	ld a, [wBattleType]
 	and a
@@ -135,6 +140,10 @@ EnemyAppearedText:
 
 TrainerWantsToFightText:
 	text_far _TrainerWantsToFightText
+	text_end
+
+TrainerWantToFightText:
+	text_far _TrainerWantToFightText
 	text_end
 
 UnveiledGhostText:
