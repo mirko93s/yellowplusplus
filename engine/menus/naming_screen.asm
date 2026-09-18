@@ -221,20 +221,20 @@ DisplayNamingScreen:
 	ret
 
 .pressedA
-	ld a, [wCurrentMenuItem]
-	cp $5 ; "ED" row
-	jr nz, .didNotPressED
-	ld a, [wTopMenuItemX]
-	cp $11 ; "ED" column
-	jr z, .pressedStart
-.didNotPressED
-	ld a, [wCurrentMenuItem]
-	cp $6 ; case switch row
-	jr nz, .didNotPressCaseSwtich
-	ld a, [wTopMenuItemX]
-	cp $1 ; case switch column
-	jr z, .pressedA_changedCase
-.didNotPressCaseSwtich
+; 	ld a, [wCurrentMenuItem]
+; 	cp $5 ; "ED" row
+; 	jr nz, .didNotPressED
+; 	ld a, [wTopMenuItemX]
+; 	cp $11 ; "ED" column
+; 	jr z, .pressedStart
+; .didNotPressED
+; 	ld a, [wCurrentMenuItem]
+; 	cp $6 ; case switch row
+; 	jr nz, .didNotPressCaseSwtich
+; 	ld a, [wTopMenuItemX]
+; 	cp $1 ; case switch column
+; 	jr z, .pressedA_changedCase
+; .didNotPressCaseSwtich
 	ld hl, wMenuCursorLocation
 	ld a, [hli]
 	ld h, [hl]
@@ -243,13 +243,13 @@ DisplayNamingScreen:
 	ld a, [hl]
 	ld [wNamingScreenLetter], a
 	call CalcStringLength
-	ld a, [wNamingScreenLetter]
-	cp 'ﾞ'
-	ld de, Dakutens
-	jr z, .dakutensAndHandakutens
-	cp 'ﾟ'
-	ld de, Handakutens
-	jr z, .dakutensAndHandakutens
+	; ld a, [wNamingScreenLetter]
+	; cp 'ﾞ'
+	; ld de, Dakutens
+	; jr z, .dakutensAndHandakutens
+	; cp 'ﾟ'
+	; ld de, Handakutens
+	; jr z, .dakutensAndHandakutens
 	ld a, [wNamingScreenType]
 	cp NAME_MON_SCREEN
 	jr nc, .checkMonNameLength
@@ -263,12 +263,12 @@ DisplayNamingScreen:
 	jr c, .addLetter
 	ret
 
-.dakutensAndHandakutens
-	push hl
-	call DakutensAndHandakutens
-	pop hl
-	ret nc
-	dec hl
+; .dakutensAndHandakutens
+; 	push hl
+; 	call DakutensAndHandakutens
+; 	pop hl
+; 	ret nc
+; 	dec hl
 .addLetter
     ld a, [wNamingScreenLetter]
     ld [hli], a
@@ -298,6 +298,10 @@ DisplayNamingScreen:
     dec hl
     ld [hl], '@'
     ; switch back to uppercase if we deleted the last char
+	; seed screen stays uppercase
+    ld a, [wNamingScreenType]
+    cp NAME_SEED_SCREEN
+    jr z, .pressedB_done
     ld a, [wNamingScreenNameLength]
     cp 1
     jr nz, .pressedB_done
@@ -315,56 +319,43 @@ DisplayNamingScreen:
     ld [hl], '@'
     ret
 .pressedRight
-	ld a, [wCurrentMenuItem]
-	cp $6
-	ret z ; can't scroll right on bottom row
-	ld a, [wTopMenuItemX]
-	cp $11 ; max
-	jp z, .wrapToFirstColumn
-	inc a
-	inc a
-	jr .done
+    ld a, [wTopMenuItemX]
+    cp $11
+    jr z, .wrapToFirstColumn
+    inc a
+    inc a
+    jr .setCursorX
 .wrapToFirstColumn
-	ld a, $1
-	jr .done
+    ld a, $1
+    jr .setCursorX
 .pressedLeft
-	ld a, [wCurrentMenuItem]
-	cp $6
-	ret z ; can't scroll right on bottom row
-	ld a, [wTopMenuItemX]
-	dec a
-	jp z, .wrapToLastColumn
-	dec a
-	jr .done
+    ld a, [wTopMenuItemX]
+    dec a
+    jr z, .wrapToLastColumn
+    dec a
+    jr .setCursorX
 .wrapToLastColumn
-	ld a, $11 ; max
-	jr .done
+    ld a, $11
+    jr .setCursorX
 .pressedUp
-	ld a, [wCurrentMenuItem]
-	dec a
-	ld [wCurrentMenuItem], a
-	and a
-	ret nz
-	ld a, $6 ; wrap to bottom row
-	ld [wCurrentMenuItem], a
-	ld a, $1 ; force left column
-	jr .done
+    ld a, [wCurrentMenuItem]
+    dec a
+    jr nz, .setCursorY
+    ld a, $5
+    jr .setCursorY
 .pressedDown
-	ld a, [wCurrentMenuItem]
-	inc a
-	ld [wCurrentMenuItem], a
-	cp $7
-	jr nz, .wrapToTopRow
-	ld a, $1
-	ld [wCurrentMenuItem], a
-	jr .done
-.wrapToTopRow
-	cp $6
-	ret nz
-	ld a, $1
+    ld a, [wCurrentMenuItem]
+    inc a
+    cp $6
+    jr nz, .setCursorY
+    ld a, $1
+.setCursorY
+    ld [wCurrentMenuItem], a
+    jr .done
+.setCursorX
+    ld [wTopMenuItemX], a
 .done
-	ld [wTopMenuItemX], a
-	jp EraseMenuCursor
+    jp EraseMenuCursor
 
 LoadEDTile:
 ; In Red/Blue, the bank for the ED_tile was defined incorrectly as bank0
@@ -461,11 +452,11 @@ PrintNicknameAndUnderscores:
 .playerOrRival2
 	jr nz, .emptySpacesRemaining
 	; when all spaces are filled, force the cursor onto the ED tile
-	call EraseMenuCursor
-	ld a, $11 ; "ED" x coord
-	ld [wTopMenuItemX], a
-	ld a, $5 ; "ED" y coord
-	ld [wCurrentMenuItem], a
+	; call EraseMenuCursor
+	; ld a, $11 ; "ED" x coord
+	; ld [wTopMenuItemX], a
+	; ld a, $5 ; "ED" y coord
+	; ld [wCurrentMenuItem], a
 	ld a, [wNamingScreenType]
 	cp NAME_MON_SCREEN
 	ld a, 9 ; keep the last underscore raised
@@ -480,21 +471,21 @@ PrintNicknameAndUnderscores:
 	ld [hl], $77 ; raised underscore tile id
 	ret
 
-DakutensAndHandakutens:
-	push de
-	call CalcStringLength
-	dec hl
-	ld a, [hl]
-	pop hl
-	ld de, $2
-	call IsInArray
-	ret nc
-	inc hl
-	ld a, [hl]
-	ld [wNamingScreenLetter], a
-	ret
+; DakutensAndHandakutens:
+; 	push de
+; 	call CalcStringLength
+; 	dec hl
+; 	ld a, [hl]
+; 	pop hl
+; 	ld de, $2
+; 	call IsInArray
+; 	ret nc
+; 	inc hl
+; 	ld a, [hl]
+; 	ld [wNamingScreenLetter], a
+; 	ret
 
-INCLUDE "data/text/dakutens.asm"
+; INCLUDE "data/text/dakutens.asm"
 
 ; calculates the length of the string at wStringBuffer and stores it in c
 CalcStringLength:
