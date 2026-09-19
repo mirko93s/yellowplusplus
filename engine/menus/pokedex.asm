@@ -461,9 +461,26 @@ ShowPokedexDataInternal:
 	call c, Pokedex_PrintFlavorTextAtRow11
 .waitForButtonPress
 	call JoypadLowSensitivity
+; if select is pressed alternate normal/shiny palette
+	ldh a, [hJoyPressed]
+	and SELECT
+	jr z, .checkAB
+	ld hl, wShinyMonFlag
+	bit 0, [hl]
+	jr nz, .setNormal
+	set 0, [hl]
+	jr .updatePalette
+.setNormal
+	res 0, [hl]
+.updatePalette
+	ld b, SET_PAL_POKEDEX
+	call RunPaletteCommand
+.checkAB
 	ldh a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .waitForButtonPress
+	ld hl, wShinyMonFlag
+	res 0, [hl]
 	pop af
 	ldh [hTileAnimations], a
 	call GBPalWhiteOut
