@@ -97,11 +97,11 @@ Func_f98cb:
 
 Func_f98fc:
 	ld a, [wYellowIntroCurrentScene]
-	ld hl, Jumptable_f9906
+	ld hl, ScenesTable
 	call Func_fa06e
 	jp hl
 
-Jumptable_f9906:
+ScenesTable:
 	dw YellowIntroScene0 ; running pika 1
 	dw YellowIntroScene1 ; wait last
 	dw YellowIntroScene2 ; pikachu kick
@@ -420,15 +420,15 @@ YellowIntroScene10:
 	ld a, $2
 	call Bank3E_FillMemory
 	ld hl, $9900
-	ld de, Unkn_f9b6e
+	ld de, FlyingPikaBottomCloud
 	lb bc, 6, 20
 	call .FillBGMapBox
 	ld hl, $988c
-	ld de, Unkn_f9be6
+	ld de, FlyingPikaRightCloud
 	lb bc, 3, 4
 	call .FillBGMapBox
 	ld hl, $98e3
-	ld de, Unkn_f9bf2
+	ld de, FlyingPikaLeftCloud
 	lb bc, 2, 2
 	call .FillBGMapBox
 	lb de, $98, $58
@@ -458,9 +458,9 @@ YellowIntroScene10:
 	jr nz, .fill_row
 	ret
 
-Unkn_f9b6e: INCBIN "gfx/intro/unknown_f9b6e.tilemap"
-Unkn_f9be6: INCBIN "gfx/intro/unknown_f9be6.tilemap"
-Unkn_f9bf2: INCBIN "gfx/intro/unknown_f9bf2.tilemap"
+FlyingPikaBottomCloud: INCBIN "gfx/intro/unknown_f9b6e.tilemap"
+FlyingPikaRightCloud: INCBIN "gfx/intro/unknown_f9be6.tilemap"
+FlyingPikaLeftCloud: INCBIN "gfx/intro/unknown_f9bf2.tilemap"
 
 YellowIntroScene11:
 	call YellowIntro_CheckFrameTimerDecrement

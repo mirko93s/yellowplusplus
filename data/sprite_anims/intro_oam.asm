@@ -1,36 +1,36 @@
 YellowIntro_AnimatedObjectOAMData:
 	dbw $00, Unkn_fa179
-	dbw $96, Unkn_fa17e
-	dbw $98, Unkn_fa17e
-	dbw $9a, Unkn_fa17e
-	dbw $0c, Unkn_fa18f
-	dbw $0e, Unkn_fa18f
-	dbw $3c, Unkn_fa18f
-	dbw $60, Unkn_fa1b0
-	dbw $70, Unkn_fa1b0
-	dbw $80, Unkn_fa1b0
-	dbw $90, Unkn_fa201
-	dbw $00, Unkn_fa201
-	dbw $06, Unkn_fa201
-	dbw $c6, Unkn_fa292
-	dbw $6d, Unkn_fa2f7
-	dbw $f0, Unkn_fa308
-	dbw $f4, Unkn_fa308
-	dbw $f8, Unkn_fa308
-	dbw $9c, Unkn_fa329
-	dbw $ec, Unkn_fa329
+	dbw $96, RunningPikachu1
+	dbw $98, RunningPikachu1
+	dbw $9a, RunningPikachu1
+	dbw $0c, RunningPikachu2
+	dbw $0e, RunningPikachu2
+	dbw $3c, RunningPikachu2
+	dbw $60, RunningPikachu3
+	dbw $70, RunningPikachu3
+	dbw $80, RunningPikachu3
+	dbw $90, SurfingFlyingPikachu
+	dbw $00, SurfingFlyingPikachu
+	dbw $06, SurfingFlyingPikachu
+	dbw $c6, FinalPikachu
+	dbw $6d, SlidingPikachuBgLines
+	dbw $f0, PikachuEyesThunderbolt
+	dbw $f4, PikachuEyesThunderbolt
+	dbw $f8, PikachuEyesThunderbolt
+	dbw $9c, PikachuThunderboltSparks
+	dbw $ec, PikachuThunderboltSparks
 
 Unkn_fa179:
 	db 1
 	db $fc, $fc, $00, $00
-Unkn_fa17e:
+RunningPikachu1:
 	db 4
 	db $f8, $f8, $00, $00
 	db $f8, $00, $01, $00
 	db $00, $f8, $10, $00
 	db $00, $00, $11, $00
 
-Unkn_fa18f:
+RunningPikachu2:
 	db 8
 	db $f0, $f8, $00, $00
 	db $f0, $00, $01, $00
@@ -41,7 +41,7 @@ Unkn_fa18f:
 	db $08, $f8, $21, $00
 	db $08, $00, $21, $20
 
-Unkn_fa1b0:
+RunningPikachu3:
 	db 20
 	db $e8, $f8, $00, $00
 	db $e8, $00, $01, $00
@@ -64,7 +64,7 @@ Unkn_fa1b0:
 	db $10, $00, $0c, $20
 	db $10, $08, $0b, $20
 
-Unkn_fa201:
+SurfingFlyingPikachu:
 	db 36
 	db $e8, $e8, $00, $00
 	db $e8, $f0, $01, $00
@@ -103,7 +103,7 @@ Unkn_fa201:
 	db $10, $08, $54, $00
 	db $10, $10, $55, $00
 
-Unkn_fa292:
+FinalPikachu:
 	db 25
 	db $ec, $f0, $00, $00
 	db $ec, $f8, $01, $00
@@ -131,14 +131,14 @@ Unkn_fa292:
 	db $0c, $08, $23, $00
 	db $0c, $10, $24, $00
 
-Unkn_fa2f7:
+SlidingPikachuBgLines:
 	db 4
 	db $fc, $f0, $00, $00
 	db $fc, $f8, $01, $00
 	db $fc, $00, $01, $20
 	db $fc, $08, $00, $20
 
-Unkn_fa308:
+PikachuEyesThunderbolt:
 	db 8
 	db $f8, $e8, $00, $10
 	db $f8, $f0, $01, $10
@@ -149,7 +149,7 @@ Unkn_fa308:
 	db $00, $08, $03, $30
 	db $00, $10, $02, $30
 
-Unkn_fa329:
+PikachuThunderboltSparks:
 	db 12
 	db $f8, $d8, $00, $10
 	db $f8, $e0, $01, $10
