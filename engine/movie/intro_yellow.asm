@@ -56,6 +56,38 @@ PlayIntroScene:
 	ldh [hAutoBGTransferEnabled], a
 	ret
 
+YellowIntro_CopyBG0ToOBJ0:
+	ldh a, [hGBC]
+	and a
+	ret z
+	push de
+	di
+	ld d, 0
+.loop
+.wait1
+	ldh a, [rSTAT]
+	and 2
+	jr nz, .wait1
+	ld a, d
+	ldh [$ff68], a
+	ldh a, [$ff69]
+	ld e, a
+.wait2
+	ldh a, [rSTAT]
+	and 2
+	jr nz, .wait2
+	ld a, d
+	ldh [$ff6a], a
+	ld a, e
+	ldh [$ff6b], a
+	inc d
+	ld a, d
+	cp 8
+	jr nz, .loop
+	ei
+	pop de
+	ret
+
 Func_f98a2:
 	ld a, [wShadowOAMSprite08Attributes]
 	or $1
@@ -776,6 +808,7 @@ Func_f9e9a:
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+	call YellowIntro_CopyBG0ToOBJ0
 	ret
 
 YellowIntro_Copy8BitSineWave:
