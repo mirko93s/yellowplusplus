@@ -453,6 +453,8 @@ ShowPokedexDataInternal:
 	ld a, [wPokedexNum] ; pokemon ID
 	ld [wCurPartySpecies], a
 	push af
+	ld hl, wShinyMonFlag
+	res 0, [hl]
 	ld b, SET_PAL_POKEDEX
 	call RunPaletteCommand
 	pop af
