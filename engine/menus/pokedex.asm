@@ -290,10 +290,10 @@ Pokedex_DrawInterface:
 	hlcoord 16, 5
 	lb bc, 1, 3
 	call PrintNumber ; print number of owned pokemon
-	hlcoord 16, 1
+	hlcoord 15, 1
 	ld de, PokedexSeenText
 	call PlaceString
-	hlcoord 16, 4
+	hlcoord 15, 4
 	ld de, PokedexOwnText
 	call PlaceString
 	hlcoord 1, 1
@@ -337,10 +337,10 @@ PokedexSeenText:
 	db "Seen@"
 
 PokedexOwnText:
-	db "Own@"
+	db "Owned@"
 
 PokedexContentsText:
-	db "CONTENTS@"
+	db "  ◓Pokémons◓@"
 
 PokedexMenuItemsText:
 	db   "Data"
