@@ -8,8 +8,16 @@ _CaterpieDexEntry::
 	down "stink to protect"
 	down "itself."
 
-	page "Lvl Moves"
-	down "  1 String Shot"
-	down "  1 Tackle"
+	page "HP   45 │    Type:"
+	down "ATK  30 │      Bug"
+	down "DEF  35 │"
+	down "SPD  45 │ Evolves:"
+	down "SAT  20 │    Lvl 7"
+	down "SDF  20 │  Metapod"
+	down "TOT 195 │"
+
+	page "Lvl│Moves"
+	down "  1│String Shot"
+	down "  1│Tackle"
 
 	done

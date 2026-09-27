@@ -8,15 +8,23 @@ _GrowlitheDexEntry::
 	down "anything invading"
 	down "its territory."
 
-	page "Lvl Moves"
-	down "  1 Bite"
-	down "  1 Roar"
-	down "  3 Ember"
-	down "  7 Leer"
-	down " 14 Take Down"
-	down " 17 Flamethrower"
+	page "HP   55 │    Type:"
+	down "ATK  70 │     Fire"
+	down "DEF  45 │"
+	down "SPD  60 │ Evolves:"
+	down "SAT  70 │    Stone"
+	down "SDF  50 │ Arcanine"
+	down "TOT 350 │"
 
-	page "Lvl Moves"
-	down " 21 Agility"
+	page "Lvl│Moves"
+	down "  1│Bite"
+	down "  1│Roar"
+	down "  3│Ember"
+	down "  7│Leer"
+	down " 14│Take Down"
+	down " 17│Flamethrower"
+
+	page "Lvl│Moves"
+	down " 21│Agility"
 
 	done

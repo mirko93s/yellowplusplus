@@ -8,7 +8,15 @@ _DittoDexEntry::
 	down "copy of its oppo-"
 	down "nent."
 
-	page "Lvl Moves"
-	down "  1 Transform"
+	page "HP   48 │    Type:"
+	down "ATK  48 │   Normal"
+	down "DEF  48 │"
+	down "SPD  48 │"
+	down "SAT  48 │"
+	down "SDF  48 │"
+	down "TOT 288 │"
+
+	page "Lvl│Moves"
+	down "  1│Transform"
 
 	done

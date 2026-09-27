@@ -8,15 +8,23 @@ _ExeggutorDexEntry::
 	down "about whatever it"
 	down "likes."
 
-	page "Lvl Moves"
-	down "  1 Barrage"
-	down "  1 Confusion"
-	down "  1 Egg Bomb"
-	down "  1 Hypnosis"
-	down "  1 Stomp"
-	down "  1 Stun Spore"
+	page "HP   95 │   Types:"
+	down "ATK  95 │    Grass"
+	down "DEF  85 │  Psychic"
+	down "SPD  55 │"
+	down "SAT 125 │"
+	down "SDF  75 │"
+	down "TOT 530 │"
 
-	page "Lvl Moves"
-	down "Evo Stomp"
+	page "Lvl│Moves"
+	down "  1│Barrage"
+	down "  1│Confusion"
+	down "  1│Egg Bomb"
+	down "  1│Hypnosis"
+	down "  1│Stomp"
+	down "  1│Stun Spore"
+
+	page "Lvl│Moves"
+	down "Evo│Stomp"
 
 	done

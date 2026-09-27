@@ -8,12 +8,20 @@ _RaichuDexEntry::
 	down "It also glows in"
 	down "the dark."
 
-	page "Lvl Moves"
-	down "  1 Growl"
-	down "  1 Quick Attack"
-	down "  1 Tail Whip"
-	down "  1 Thunderpunch"
-	down "  1 Thundershock"
-	down "Evo Thunderpunch"
+	page "HP   60 │    Type:"
+	down "ATK  90 │ Electric"
+	down "DEF  55 │"
+	down "SPD 110 │"
+	down "SAT  90 │"
+	down "SDF  80 │"
+	down "TOT 485 │"
+
+	page "Lvl│Moves"
+	down "  1│Growl"
+	down "  1│Quick Attack"
+	down "  1│Tail Whip"
+	down "  1│Thunderpunch"
+	down "  1│Thundershock"
+	down "Evo│Thunderpunch"
 
 	done

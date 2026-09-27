@@ -8,12 +8,20 @@ _ClefableDexEntry::
 	down "fairy, rarely seen"
 	down "by people."
 
-	page "Lvl Moves"
-	down "  1 Defense Curl"
-	down "  1 Growl"
-	down "  1 Metronome"
-	down "  1 Pound"
-	down "  1 Sing"
-	down "Evo Metronome"
+	page "HP   95 │    Type:"
+	down "ATK  70 │   Normal"
+	down "DEF  73 │"
+	down "SPD  60 │"
+	down "SAT  95 │"
+	down "SDF  90 │"
+	down "TOT 483 │"
+
+	page "Lvl│Moves"
+	down "  1│Defense Curl"
+	down "  1│Growl"
+	down "  1│Metronome"
+	down "  1│Pound"
+	down "  1│Sing"
+	down "Evo│Metronome"
 
 	done

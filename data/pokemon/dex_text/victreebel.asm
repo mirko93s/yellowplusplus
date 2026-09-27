@@ -8,12 +8,20 @@ _VictreebelDexEntry::
 	down "melted in a day,"
 	down "bones and all."
 
-	page "Lvl Moves"
-	down "  1 Acid"
-	down "  1 Growth"
-	down "  1 Leech Life"
-	down "  1 Swords Dance"
-	down "  1 Vine Whip"
-	down "  1 Wrap"
+	page "HP   80 │   Types:"
+	down "ATK 105 │    Grass"
+	down "DEF  65 │   Poison"
+	down "SPD  70 │"
+	down "SAT 100 │"
+	down "SDF  70 │"
+	down "TOT 490 │"
+
+	page "Lvl│Moves"
+	down "  1│Acid"
+	down "  1│Growth"
+	down "  1│Leech Life"
+	down "  1│Swords Dance"
+	down "  1│Vine Whip"
+	down "  1│Wrap"
 
 	done

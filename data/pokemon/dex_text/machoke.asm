@@ -8,15 +8,23 @@ _MachokeDexEntry::
 	down "#mon would be"
 	down "unstoppable."
 
-	page "Lvl Moves"
-	down "  1 Leer"
-	down "  1 Low Kick"
-	down "  4 Focus Energy"
-	down "  8 Bide"
-	down " 12 Seismic Toss"
-	down " 16 Karate Chop"
+	page "HP   80 │    Type:"
+	down "ATK 100 │ Fighting"
+	down "DEF  70 │"
+	down "SPD  45 │ Evolves:"
+	down "SAT  50 │    Trade"
+	down "SDF  60 │  Machamp"
+	down "TOT 405 │"
 
-	page "Lvl Moves"
-	down " 26 Submission"
+	page "Lvl│Moves"
+	down "  1│Leer"
+	down "  1│Low Kick"
+	down "  4│Focus Energy"
+	down "  8│Bide"
+	down " 12│Seismic Toss"
+	down " 16│Karate Chop"
+
+	page "Lvl│Moves"
+	down " 26│Submission"
 
 	done
