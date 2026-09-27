@@ -34,6 +34,8 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 ### Quality of Life
 - **Countless original bugs fixed**  
 - **Increased bag capacity** to 50  
+- **More Info in the Pokédex** (Base stats, Types, Evolutions, Levelup Movesets)
+- Press SELECT in the Pokédex entry page to alternate Normal/Shiny Sprites
 - Item descriptions and box reminders  
 - Prompt to use CUT and SURF  
 - Metric system in Pokédex  
