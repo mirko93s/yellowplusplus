@@ -3,6 +3,7 @@
 ; Control characters (see home/text.asm)
 
 	charmap "<NULL>",    $00
+	charmap "<DOWN>",    $01
 	charmap "<PAGE>",    $49
 	charmap "<PKMN>",    $4a ; "<PK><MN>"
 	charmap "<_CONT>",   $4b ; implements "<CONT>"
@@ -24,7 +25,7 @@
 	charmap "<TM>",      $5c ; "TM"
 	charmap "<TRAINER>", $5d ; "TRAINER"
 	charmap "<ROCKET>",  $5e ; "ROCKET"
-	charmap "<DEXEND>",  $5f
+	; charmap "<DEXEND>",  $5f ; unused since pokedex moves addition
 
 ; Actual characters (from gfx/font/font_extra.png)
 
@@ -42,15 +43,16 @@
 
 	charmap "<to>",      $70 ; narrow "to"
 
-	charmap "『",         $72 ; Japanese opening quote, unused
+	charmap "『",        $72 ; Japanese opening quote, unused
 	charmap "<ID>",      $73
 	charmap "№",         $74
 
 ; Actual characters (from other graphics files)
 
 	; needed for ShowPokedexDataInternal (see engine/menus/pokedex.asm)
-	charmap "′",         $60 ; gfx/pokedex/pokedex.png
-	charmap "″",         $61 ; gfx/pokedex/pokedex.png
+	charmap "<SEL_L>",   $60 ; gfx/pokedex/pokedex.png
+	charmap "<SEL_C>",   $61 ; gfx/pokedex/pokedex.png
+	charmap "<SEL_R>",   $62 ; gfx/pokedex/pokedex.png
 
 	; needed for StatusScreen (see engine/pokemon/status_screen.asm)
 	charmap "<BOLD_P>",  $72 ; gfx/font/P.1bpp

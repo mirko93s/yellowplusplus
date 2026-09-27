@@ -502,6 +502,9 @@ HeightWeightText:
 PokeText:
 	db "#@"
 
+SelectText:
+	db " <SEL_L><SEL_C><SEL_R> @"
+
 ; horizontal line that divides the pokedex text description from the rest of the data
 PokedexDataDividerLine:
 	db $68, $69, $6B, $69, $6B, $69, $6B, $69, $6B, $6B
@@ -665,13 +668,17 @@ DrawDexEntryOnScreen:
 	ret
 
 Pokedex_PrintFlavorTextAtRow11:
-	bccoord 1, 11
+	bccoord 1, 10
 Pokedex_PrintFlavorTextAtBC:
 	ld a, %10
 	ldh [hClearLetterPrintingDelayFlags], a
 	call TextCommandProcessor ; print pokedex description text
 	xor a
 	ldh [hClearLetterPrintingDelayFlags], a
+	; replace pokemon number with "SELECT" icon to give a visual indicator for shiny palette switch
+	hlcoord 2, 8
+	ld de, SelectText
+	call PlaceString
 	ret
 
 Pokedex_PrepareDexEntryForPrinting:

@@ -1,5 +1,6 @@
 DEF text   EQUS "db TX_START,"    ; Start writing text.
 DEF next   EQUS "db \"<NEXT>\","  ; Move a line down.
+DEF down   EQUS "db \"<DOWN>\","  ; Move a line down without leaving an empty line like <NEXT>
 DEF line   EQUS "db \"<LINE>\","  ; Start writing at the bottom line.
 DEF para   EQUS "db \"<PARA>\","  ; Start a new paragraph.
 DEF cont   EQUS "db \"<CONT>\","  ; Scroll to the next line.
@@ -7,7 +8,9 @@ DEF done   EQUS "db \"<DONE>\""   ; End a text box.
 DEF prompt EQUS "db \"<PROMPT>\"" ; Prompt the player to end a text box (initiating some other event).
 
 DEF page   EQUS "db \"<PAGE>\","         ; Start a new Pokédex page.
-DEF dex    EQUS "db \"<DEXEND>\", \"@\"" ; End a Pokédex entry.
+
+; unused since pokedex moves addition
+; DEF dex    EQUS "db \"<DEXEND>\", \"@\"" ; End a Pokédex entry.
 
 
 ; TextCommandJumpTable indexes (see home/text.asm)

@@ -1,0 +1,24 @@
+SECTION "Zubat Dex Text", ROMX
+
+_ZubatDexEntry::
+	text "Emits ultrasonic"
+	down "cries while it"
+	down "flies. They act"
+	down "as a sonar used"
+	down "to check for ob-"
+	down "jects in its way."
+
+	page "Lvl Moves"
+	down "  1 Absorb"
+	down "  1 Supersonic"
+	down "  4 Wing Attack"
+	down "  9 Bite"
+	down " 12 Swift"
+	down " 17 Confuse Ray"
+
+	page "Lvl Moves"
+	down " 20 Haze"
+	down " 25 Leech Life"
+	down " 28 Toxic"
+
+	done

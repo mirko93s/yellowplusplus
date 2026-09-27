@@ -81,6 +81,15 @@ PlaceNextChar::
 	jp NextChar
 
 .NotLine
+	cp '<DOWN>'
+	jr nz, .NotDown
+	ld bc, SCREEN_WIDTH
+	pop hl
+	add hl, bc
+	push hl
+	jp NextChar
+
+.NotDown
 
 ; Check against a dictionary
 	dict '<NULL>',    NullChar
@@ -100,7 +109,7 @@ PlaceNextChar::
 	dict '<DONE>',    DoneText
 	dict '<PROMPT>',  PromptText
 	dict '<PKMN>',    PlacePKMN
-	dict '<DEXEND>',  PlaceDexEnd
+	; dict '<DEXEND>',  PlaceDexEnd ; unused since pokedex moves addition
 	dict '<TARGET>',  PlaceMoveTargetsName
 	dict '<USER>',    PlaceMoveUsersName
 
@@ -258,7 +267,7 @@ PageChar::
 	call DelayFrames
 	pop de
 	pop hl
-	hlcoord 1, 11
+	hlcoord 1, 10
 	push hl
 	jp NextChar
 

@@ -178,8 +178,6 @@ ROMX $2C
 	"Text 7"
 ROMX $2D
 	"Text 8"
-ROMX $2E
-	"Pokédex Text"
 ROMX $2f
 	"Move Names"
 	"BG Map Attributes (Debug)"
