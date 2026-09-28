@@ -103,7 +103,7 @@ PikachuMovementData_74f9e:
 	db $3f
 
 CinnabarGymScript_74fa3:
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 7, a
 	ret z
 	push hl

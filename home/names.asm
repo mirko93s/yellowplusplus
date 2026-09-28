@@ -11,11 +11,11 @@ GetMonName::
 	ld c, 10
 	ld b, 0
 	call AddNTimes
-	ld de, wcd6d
+	ld de, wNameBuffer
 	push de
 	ld bc, 10
 	call CopyData
-	ld hl, wcd6d + 10
+	ld hl, wNameBuffer + 10
 	ld [hl], '@'
 	pop de
 	pop af
@@ -26,7 +26,7 @@ GetMonName::
 
 GetItemName::
 ; given an item ID at [wNamedObjectIndex], store the name of the item into a string
-;     starting at wcd6d
+;     starting at wNameBuffer
 	push hl
 	push bc
 	ld a, [wNamedObjectIndex]
@@ -44,13 +44,13 @@ GetItemName::
 .Machine
 	call GetMachineName
 .Finish
-	ld de, wcd6d ; pointer to where item name is stored in RAM
+	ld de, wNameBuffer ; pointer to where item name is stored in RAM
 	pop bc
 	pop hl
 	ret
 
 GetMachineName::
-; copies the name of the TM/HM in [wNamedObjectIndex] to wcd6d
+; copies the name of the TM/HM in [wNamedObjectIndex] to wNameBuffer
 	push hl
 	push de
 	push bc
@@ -69,7 +69,7 @@ GetMachineName::
 	ld hl, TechnicalPrefix ; points to "TM"
 	ld bc, 2
 .WriteMachinePrefix
-	ld de, wcd6d
+	ld de, wNameBuffer
 	call CopyData
 
 ; now get the machine number and convert it to text
@@ -136,6 +136,6 @@ GetMoveName::
 	ld a, BANK(MoveNames)
 	ld [wPredefBank], a
 	call GetName
-	ld de, wcd6d ; pointer to where move name is stored in RAM
+	ld de, wNameBuffer ; pointer to where move name is stored in RAM
 	pop hl
 	ret

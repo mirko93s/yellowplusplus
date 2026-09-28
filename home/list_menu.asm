@@ -163,7 +163,7 @@ DisplayListMenuIDLoop::
 	ld a, [wWhichPokemon]
 	call GetPartyMonName
 .storeChosenEntry ; store the menu entry that the player chose and return
-	ld de, wcd6d
+	ld de, wNameBuffer
 	call CopyToStringBuffer
 .skipStoringItemName	
 	ld a, CHOSE_MENU_ITEM

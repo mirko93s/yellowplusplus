@@ -1,6 +1,6 @@
 PayDayEffect_:
 	xor a
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	ld [hli], a
 	ldh a, [hWhoseTurn]
 	and a

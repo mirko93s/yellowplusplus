@@ -233,7 +233,7 @@ PewterGymGuideText:
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .PewterGymGuideBeginAdviceText
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 7, a
 	jp nz, .asm_5c3fa
 	ld hl, PewterGymGuideBeginAdviceText

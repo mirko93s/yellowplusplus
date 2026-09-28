@@ -9,7 +9,7 @@ Route25_Script:
 	ret
 
 Route25Script_515e1:
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	res 2, [hl]
 	res 3, [hl]
 	res 4, [hl]

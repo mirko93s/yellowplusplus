@@ -71,11 +71,11 @@ IsItemInBag::
 	ret
 
 IsSurfingPikachuInParty::
-; set bit 6 of wd471 if true
+; set bit 6 of wPikachuSpawnStateFlags if true
 ; also calls Func_3467, which is a bankswitch to IsStarterPikachuInOurParty
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	and $3f
-	ld [wd471], a
+	ld [wPikachuSpawnStateFlags], a
 	ld hl, wPartyMon1
 	ld c, PARTY_LENGTH
 	ld b, SURF
@@ -99,9 +99,9 @@ IsSurfingPikachuInParty::
 	cp b
 	jr nz, .noSurf
 .hasSurf
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	set 6, a
-	ld [wd471], a
+	ld [wPikachuSpawnStateFlags], a
 .noSurf
 	pop hl
 .notPikachu
@@ -119,9 +119,9 @@ Func_3467::
 	pop bc
 	pop hl
 	ret nc
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	set 7, a
-	ld [wd471], a
+	ld [wPikachuSpawnStateFlags], a
 	ret
 
 DisplayPokedex::

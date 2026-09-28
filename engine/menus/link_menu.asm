@@ -343,19 +343,19 @@ PetitCup::
 	ld hl, PokedexEntryPointers
 	add hl, bc
 	add hl, bc
-	ld de, wcd6d
+	ld de, wNameBuffer
 	ld bc, $2
 	ld a, BANK(PokedexEntryPointers)
 	call FarCopyData
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, wcd6d
+	ld de, wNameBuffer
 	ld bc, $14
 	ld a, BANK(PokedexEntryPointers)
 	call FarCopyData
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 .loop2
 	ld a, [hli]
 	cp '@'

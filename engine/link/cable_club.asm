@@ -703,7 +703,7 @@ TradeCenter_Trade:
 	ld a, [hl]
 	ld [wNamedObjectIndex], a
 	call GetMonName
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	ld de, wNameOfPlayerMonToBeTraded
 	ld bc, NAME_LENGTH
 	call CopyData

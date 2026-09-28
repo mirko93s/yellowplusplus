@@ -579,7 +579,7 @@ ItemUseBall:
 
 .skipShowingPokedexData
 	ld a, $1
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ld a, $85
 	ld [wPikachuMood], a
 	ld a, [wPartyCount]
@@ -842,7 +842,7 @@ ItemUseEvoStone:
 	ld hl, RefusingText
 	call PrintText
 	ld a, $4
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ld a, $82
 	ld [wPikachuMood], a
 	jr .canceledItemUse
@@ -877,19 +877,19 @@ Func_d85d:
 	ld b, $0
 	add hl, bc
 	add hl, bc
-	ld de, wcd6d
+	ld de, wNameBuffer
 	ld a, BANK(TryEvolvingMon)
 	ld bc, $2
 	call FarCopyData
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, wcd6d
+	ld de, wNameBuffer
 	ld a, BANK(TryEvolvingMon)
 	ld bc, 13
 	call FarCopyData
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 .loop
 	ld a, [hli]
 	and a
@@ -2193,7 +2193,7 @@ FishingInit:
 	ld a, SFX_HEAL_AILMENT
 	call PlaySound
 	ld a, $2
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ld a, $81
 	ld [wPikachuMood], a
 	ld c, 80
@@ -2573,7 +2573,7 @@ ItemUseTMHM:
 	jr nz, .notTeachingThunderboltOrThunderToPikachu
 .teachingThunderboltOrThunderToPlayerPikachu
 	ld a, $5
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ld a, $85
 	ld [wPikachuMood], a
 .notTeachingThunderboltOrThunderToPikachu
@@ -2863,10 +2863,10 @@ GetMaxPP:
 	ld hl, Moves
 	ld bc, MOVE_LENGTH
 	call AddNTimes
-	ld de, wcd6d
+	ld de, wNameBuffer
 	ld a, BANK(Moves)
 	call FarCopyData
-	ld de, wcd6d + 5 ; PP is byte 5 of move data
+	ld de, wNameBuffer + 5 ; PP is byte 5 of move data
 	ld a, [de]
 	ld b, a ; b = normal max PP
 	pop hl

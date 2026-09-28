@@ -1,5 +1,5 @@
 TryApplyPikachuMovementData::
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 7, a
 	ret z
 	ld a, [wWalkBikeSurfState]

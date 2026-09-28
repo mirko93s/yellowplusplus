@@ -140,7 +140,7 @@ CalculatePikachuPlacementCoords::
 	inc hl
 	ld [hl], $fe
 	push hl
-	ld hl, wd471
+	ld hl, wPikachuSpawnStateFlags
 	set 5, [hl]
 	pop hl
 	ret
@@ -1281,7 +1281,7 @@ Func_fcc23:
 	ld a, [wPikachuOverworldStateFlags]
 	bit 7, a
 	jr nz, .asm_fcc40
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 7, a
 	jr z, .asm_fcc40
 	ld a, [wWalkBikeSurfState]

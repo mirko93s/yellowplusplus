@@ -10,18 +10,18 @@ PokemonFanClub_ScriptPointers:
 	dw FanClubScript2
 
 FanClubScript1:
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	bit 7, [hl]
 	call z, FanClubScript_59a44
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	set 7, [hl]
 	ret
 
 FanClubScript2:
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	bit 7, [hl]
 	call z, FanClubScript_59a39
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	set 7, [hl]
 	ret
 
@@ -33,7 +33,7 @@ FanClubScript_59a39:
 	ret
 
 FanClubScript_59a44:
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 7, a
 	ret z
 	callfar CheckPikachuFaintedOrStatused

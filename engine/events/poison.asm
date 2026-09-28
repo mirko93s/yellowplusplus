@@ -2,7 +2,7 @@ ApplyOutOfBattlePoisonDamage:
 	ld a, [wStatusFlags5]
 	add a
 	jp c, .noBlackOut ; no black out if joypad states are being simulated
-	ld a, [wd492]
+	ld a, [wPikachuMapScriptFlags]
 	bit 7, a
 	jp nz, .noBlackOut
 	ld a, [wStatusFlags4]
@@ -147,5 +147,5 @@ Func_c4c7:
 	ret nz
 .asm_c4ef
 	xor a
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ret

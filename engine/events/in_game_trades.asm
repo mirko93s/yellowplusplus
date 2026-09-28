@@ -71,7 +71,7 @@ InGameTrade_GetMonName:
 	push de
 	ld [wNamedObjectIndex], a
 	call GetMonName
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	pop de
 	ld bc, NAME_LENGTH
 	jp CopyData

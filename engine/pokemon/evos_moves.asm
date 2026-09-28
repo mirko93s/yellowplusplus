@@ -265,7 +265,7 @@ RenameEvolvedMon:
 	call GetName
 	pop af
 	ld [wCurSpecies], a
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	ld de, wStringBuffer
 .compareNamesLoop
 	ld a, [de]
@@ -281,7 +281,7 @@ RenameEvolvedMon:
 	call AddNTimes
 	push hl
 	call GetName
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 	pop de
 	jp CopyData
 
@@ -377,7 +377,7 @@ LearnMoveFromLevelUp:
 	jr nz, .done
 .foundThunderOrThunderbolt
 	ld a, $5
-	ld [wd49b], a
+	ld [wPikachuEmotionModifier], a
 	ld a, $85
 	ld [wPikachuMood], a
 	jr .done

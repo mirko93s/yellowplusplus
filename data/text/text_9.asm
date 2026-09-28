@@ -59,7 +59,7 @@ _ItemUseBallText06::
 _SurfingGotOnText::
 	text "<PLAYER> got on"
 	line '@'
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text "!"
 	prompt
 
@@ -69,13 +69,13 @@ _SurfingNoPlaceToGetOffText::
 	prompt
 
 _RefusingText::
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text_start
 	line "is refusing!"
 	prompt
 
 _VitaminStatRoseText::
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text "'s"
 	line '@'
 	text_ram wStringBuffer
@@ -180,7 +180,7 @@ _TeachMachineMoveText::
 	done
 
 _MonCannotLearnMachineMoveText::
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text " is not"
 	line "compatible with"
 	cont '@'
@@ -236,7 +236,7 @@ _NoCyclingAllowedHereText::
 _NoSurfingHereText::
 	text "No Surfing on"
 	line '@'
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text " here!"
 	prompt
 
@@ -282,7 +282,7 @@ _GotOffBicycleText2::
 _ThrewAwayItemText::
 	text "Threw away"
 	line '@'
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text '.'
 	prompt
 
@@ -299,7 +299,7 @@ _TooImportantToTossText::
 	prompt
 
 _AlreadyKnowsText::
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text " knows"
 	line '@'
 	text_ram wStringBuffer
@@ -446,7 +446,7 @@ _NothingToCutText::
 	prompt
 
 _UsedCutText::
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text " hacked"
 	line "away with Cut!"
 	prompt

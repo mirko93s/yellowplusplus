@@ -14,7 +14,7 @@ FormatMovesString:
 	ld a, MOVE_NAME
 	ld [wNameListType], a
 	call GetName
-	ld hl, wcd6d
+	ld hl, wNameBuffer
 .copyNameLoop
 	ld a, [hli]
 	cp $50

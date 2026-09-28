@@ -73,7 +73,8 @@ wAudioSavedROMBank:: db
 wFrequencyModifier:: db
 wTempoModifier:: db
 
-wc0f3:: dw
+; regularly set to $0, but nothing ever reads it
+wUnusedAudioCounter:: dw
 
 	ds 11
 
@@ -206,29 +207,27 @@ wAnimatedObjectsDataEnd::
 ; Surfing minigame
 wSurfingMinigameData:: db
 wSurfingMinigameRoutineNumber:: db
-wc5d2:: db
+wSurfingMinigamePikachuState:: db
 wSurfingMinigameWaveFunctionNumber:: dw
-wc5d5:: db
+wSurfingMinigameWaveRandomValue:: db
 wSurfingMinigamePikachuHP:: dw ; little-endian BCD
-wTempMon::
-wc5d8:: db ; unused?
-; number of consecutive tricks
-wSurfingMinigameRadnessMeter:: db
+wTempMon:: ; used for nuzlocke dupe clause
+wSurfingMinigameRadnessMeter:: db ; number of consecutive tricks
 wSurfingMinigameRadnessScore:: dw ; little-endian BCD
 wSurfingMinigameTotalScore:: dw ; little-endian BCD
-wc5de:: db
-wc5df:: db
-wc5e0:: db
-wc5e1:: db
-wc5e2:: db
+wSurfingMinigameBoardAngleOffset:: db
+wSurfingMinigameBoardAngleDecreasing:: db
+wSurfingMinigameBoardAngleTimer:: db
+wSurfingMinigameCrashTimer:: db
+wSurfingMinigameUnusedToggle:: db ; only used in unused function
 wSurfingMinigamePikachuSpeed:: dw ; little-endian
-wc5e5:: ds 3 ; big-endian
+wSurfingMinigameDistance:: ds 3 ; big-endian
 wSurfingMinigameWaveHeightBuffer:: dw
 wSurfingMinigamePikachuObjectHeight:: db
-wc5eb:: db
-wc5ec:: db
-wc5ed:: db
-wc5ee:: db
+wSurfingMinigameWaterSprayCounter:: db
+wSurfingMinigameJumpArcMagnitude:: db
+wSurfingMinigameJumpDescending:: db
+wSurfingMinigameJumpArcFraction:: db
 wSurfingMinigameBGMapReadBuffer:: ds 1 tiles
 	ds 24
 wSurfingMinigameSCX:: db
@@ -237,16 +236,16 @@ wSurfingMinigameSCXHi:: db
 wSurfingMinigameWaveHeight:: ds SCREEN_WIDTH
 wSurfingMinigameXOffset:: db
 wSurfingMinigameTrickFlags:: db
-wc630:: db
-wc631:: db
+wSurfingMinigameGameOver:: db
+wSurfingMinigameGameOverDelay:: db
 wSurfingMinigameRoutineDelay:: db
 wSurfingMinigameIntroAnimationFinished:: db
 
-; Yellow intro
-wYellowIntroCurrentScene::
-wc634:: db
-wYellowIntroSceneTimer::
-wc635:: db
+; Shared with the Yellow intro
+wSurfingMinigameMusicTempoEnabled::
+wYellowIntroCurrentScene:: db
+wSurfingMinigameCloudScrollFraction::
+wYellowIntroSceneTimer:: db
 wYellowIntroAnimatedObjectStructPointer:: db
 wSurfingMinigameDataEnd::
 ENDU
@@ -273,10 +272,10 @@ wPrinterRowIndex:: db
 
 ; Printer data header
 wPrinterDataHeader::
-wc6ea:: db
-wc6eb:: db
-wc6ec:: db
-wc6ed:: db
+wc6ea:: db ; unused
+wc6eb:: db ; unused
+wc6ec:: db ; unused
+wc6ed:: db ; unused
 wPrinterChecksum:: dw
 
 UNION
@@ -287,8 +286,8 @@ wPrinterSerialReceived:: db
 ; if this and the previous byte are both $ff: error 2 (connection error)
 wPrinterStatusReceived:: db
 
-wc6f2:: db
-wc6f3:: db
+wc6f2:: db ; unused ??? nothing ever reads it
+wc6f3:: db ; unused ??? nothing ever reads it
 	ds 12
 wLYOverrides:: ds $100
 wLYOverridesEnd::
@@ -1074,7 +1073,8 @@ wDownscaledMonSize::
 wNumMovesMinusOne:: db
 
 UNION
-wcd6d:: ds NAME_BUFFER_LENGTH ; buffer for various data
+; storage buffer for various name strings
+wNameBuffer:: ds NAME_BUFFER_LENGTH
 
 NEXTU
 wEvosMoves:: ds MAX_EVOLUTIONS * EVOLUTION_SIZE + 1
@@ -1758,7 +1758,7 @@ wMoveNum:: db
 
 wMovesString:: ds 56
 
-wUnusedD119:: db
+wUnusedCurMapTilesetCopy:: db ; unused ??? nothing ever reads it
 
 ; wWalkBikeSurfState is sometimes copied here, but it doesn't seem to be used for anything
 wWalkBikeSurfStateCopy:: db
@@ -1902,7 +1902,7 @@ wSerialPlayerDataBlock:: ; ds $1a8
 ; that case, this would be ESCAPE_ROPE.
 wPseudoItemID:: db
 
-wUnusedAlreadyOwnedFlag:: db ; unused ???
+wUnusedAlreadyOwnedFlag:: db ; unused ??? nothing ever reads it
 
 	ds 2
 
@@ -2101,14 +2101,14 @@ ENDU
 
 wPikachuHappiness:: db
 wPikachuMood:: db
-wd471:: db
+wPikachuSpawnStateFlags:: db
 wd472:: db
 	ds 1
 wd474:: db
 	ds 4
 wd479:: db
 	ds 24
-wd492:: db
+wPikachuMapScriptFlags:: db
 	ds 1
 wSurfingMinigameHiScore:: dw ; little-endian BCD
 	ds 1
@@ -2116,7 +2116,7 @@ wPrinterSettings:: db
 wUnknownSerialFlag_d499:: db
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
-wd49b:: db
+wPikachuEmotionModifier:: db
 
 	ds 19
 

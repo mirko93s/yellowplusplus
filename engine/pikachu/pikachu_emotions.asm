@@ -304,7 +304,7 @@ MapSpecificPikachuExpression:
 	ld a, [wCurMap]
 	cp POKEMON_FAN_CLUB
 	jr nz, .notFanClub
-	ld hl, wd492
+	ld hl, wPikachuMapScriptFlags
 	bit 7, [hl]
 	ldpikaemotion a, PikachuEmotion29
 	jr z, .play_emotion
@@ -343,7 +343,7 @@ MapSpecificPikachuExpression:
 	ldpikaemotion a, PikachuEmotion22
 	jr c, .play_emotion
 .notInLavenderTower
-	ld a, [wd49b]
+	ld a, [wPikachuEmotionModifier]
 	and a
 	jr z, .mood_based_emotion
 	dec a

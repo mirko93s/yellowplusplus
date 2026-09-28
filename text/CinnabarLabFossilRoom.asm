@@ -38,7 +38,7 @@ _Lab4Text_75dd5::
 _Lab4Text_610ae::
 	text "Oh! That is"
 	line '@'
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text "!"
 
 	para "It is fossil of"
@@ -60,7 +60,7 @@ _Lab4Text_610b3::
 
 	para "<PLAYER> handed"
 	line "over @"
-	text_ram wcd6d
+	text_ram wNameBuffer
 	text "!"
 	prompt
 

@@ -1804,7 +1804,7 @@ LoadSurfingPlayerSpriteGraphics2::
 	dec a
 	jr z, .asm_0d7c
 .asm_0d75
-	ld a, [wd471]
+	ld a, [wPikachuSpawnStateFlags]
 	bit 6, a
 	jr z, LoadSurfingPlayerSpriteGraphics
 .asm_0d7c
@@ -1856,7 +1856,7 @@ Func_0db5:: ; XXX
 	farcall LoadMissableObjectData
 asm_0dbd:
 	ld a, [wCurMapTileset]
-	ld [wUnusedD119], a
+	ld [wUnusedCurMapTilesetCopy], a
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
 	ld a, [wCurMapTileset]
@@ -2084,7 +2084,7 @@ ResetMapVariables::
 	ldh [hSCY], a
 	ldh [hSCX], a
 	ld [wWalkCounter], a
-	ld [wUnusedD119], a
+	ld [wUnusedCurMapTilesetCopy], a
 	ld [wSpriteSetID], a
 	ld [wWalkBikeSurfStateCopy], a
 	ret
