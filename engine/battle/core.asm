@@ -5054,13 +5054,13 @@ CriticalHitTest:
 	jr nz, .checkIfHighCritMoveLoop     ; check the next move in HighCriticalMoves
 	jr .checkForFocusEnergy             ; continue as a normal move
 .highCriticalMove
-	inc b                               ; +2 stages for high crit moves
-	inc b
+	inc b                               ; +1 stage for high crit moves
 .checkForFocusEnergy
 	ld a, [de]
 	bit GETTING_PUMPED, a               ; test for focus energy
 	jr z, .noFocusEnergyUsed
-	inc b                               ; focus energy +1 stage
+	inc b                               ; +2 stages for focus energy / dire hit 
+	inc b
 .noFocusEnergyUsed
 	ld a, b
 	cp 3                                ; stage 3+ 100% chance
