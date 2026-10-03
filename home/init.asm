@@ -108,6 +108,8 @@ DEF rLCDC_DEFAULT EQU %11100011
 	ldh [hAutoBGTransferDest], a
 	dec a
 	ld [wUpdateSpritesEnabled], a
+	; early loads color correction mode from save data
+	call LoadStartupColorMode
 
 	predef PlayIntro
 
@@ -119,6 +121,23 @@ DEF rLCDC_DEFAULT EQU %11100011
 	ldh [rLCDC], a
 
 	jp SetDefaultNamesBeforeTitlescreen
+
+
+LoadStartupColorMode:
+    ld a, $1
+    ld [MBC1SRamBankingMode], a
+    ld a, SRAM_ENABLE
+    ld [MBC1SRamEnable], a
+    ld a, $1
+    ld [MBC1SRamBank], a
+    ld a, [sMainData + (wOptions - wMainDataStart)]
+    and COLOR_MODE_MASK
+    ld b, a
+    ld a, [wOptions]
+    and ~COLOR_MODE_MASK
+    or b
+    ld [wOptions], a
+    ret
 
 ClearVram::
 	ld hl, VRAM_Begin

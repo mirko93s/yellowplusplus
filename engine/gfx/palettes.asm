@@ -851,21 +851,33 @@ InitGBCPalettes:
 GetGBCBasePalAddress::
 ; Input: a = palette ID
 ; Output: de = palette address
-	push hl
-	ld l, a
-	xor a
-	ld h, a
-	add hl, hl
-	add hl, hl
-	add hl, hl
-	ld de, GBCBasePalettes
-	add hl, de
-	ld a, l
-	ld e, a
-	ld a, h
-	ld d, a
-	pop hl
-	ret
+    push hl
+    ld l, a
+    xor a
+    ld h, a
+    add hl, hl
+    add hl, hl
+    add hl, hl
+    ld a, [wOptions]
+    and COLOR_MODE_MASK
+    ld de, GBCBasePalettes
+    jr z, .gotTable
+    ld de, GBCBasePalettesCorrected
+    cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+    jr z, .gotTable
+    ld de, DMGGreenPalette
+    ld hl, 0
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+    jr z, .gotTable
+    ld de, DMGGrayPalette
+.gotTable
+    add hl, de
+    ld a, l
+    ld e, a
+    ld a, h
+    ld d, a
+    pop hl
+    ret
 
 DMGPalToGBCPal::
 ; Populate wGBCPal with colors from a base palette, selected using one of the

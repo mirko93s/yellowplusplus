@@ -36,7 +36,7 @@ OptionMenuJumpTable:
 	dw OptionsMenu_BattleStyle
 	dw OptionsMenu_SpeakerSettings
 	dw OptionsMenu_GBPrinterBrightness
-	dw OptionsMenu_Dummy
+	dw OptionsMenu_ColorCorrection
 	dw OptionsMenu_Dummy
 	dw OptionsMenu_Cancel
 
@@ -346,6 +346,73 @@ OptionsMenu_Dummy:
 	and a
 	ret
 
+OptionsMenu_ColorCorrection:
+    ldh a, [hJoy5]
+    ld b, a
+    ld a, [wOptions]
+    and COLOR_MODE_MASK
+    swap a
+    ld c, a
+    ld a, b
+    and D_RIGHT
+    jr z, .checkLeft
+    inc c
+    ld a, c
+    cp 4
+    jr c, .store
+    ld c, 0
+    jr .store
+.checkLeft
+    ld a, b
+    and D_LEFT
+    jr z, .draw
+    ld a, c
+    and a
+    jr nz, .decrement
+    ld c, 4
+.decrement
+    dec c
+.store
+    ld a, c
+    swap a
+    ld b, a
+    ld a, [wOptions]
+    and %11001111
+    or b
+    ld [wOptions], a
+    call RunDefaultPaletteCommand
+.draw
+    ld a, [wOptions]
+    and COLOR_MODE_MASK
+    swap a
+    ld c, a
+    ld b, 0
+    ld hl, ColorModeStringsPointerTable
+    add hl, bc
+    add hl, bc
+    ld e, [hl]
+    inc hl
+    ld d, [hl]
+    hlcoord 8, 12
+    call PlaceString
+    and a
+    ret
+
+ColorModeStringsPointerTable:
+    dw UncorrectedText
+    dw GBCText
+    dw DMGText
+	dw BWText
+
+UncorrectedText:
+    db "Uncorrected@"
+GBCText:
+    db "GBC        @"
+DMGText:
+    db "DMG        @"
+BWText:
+    db "Black/White@"
+
 OptionsMenu_Cancel:
 	ldh a, [hJoy5]
 	and A_BUTTON
@@ -373,7 +440,7 @@ OptionsControl:
 	scf
 	ret
 .doNotWrapAround
-	cp $4
+	cp $5
 	jr c, .regularIncrement
 	ld [hl], $6
 .regularIncrement
@@ -384,7 +451,7 @@ OptionsControl:
 	ld a, [hl]
 	cp $7
 	jr nz, .doNotMoveCursorToPrintOption
-	ld [hl], $4
+	ld [hl], $5
 	scf
 	ret
 .doNotMoveCursorToPrintOption
@@ -424,7 +491,7 @@ InitOptionsMenu:
 	call PlaceString
 	xor a
 	ld [wOptionsCursorLocation], a
-	ld c, 5 ; the number of options to loop through
+	ld c, 6 ; number of options to loop through
 .loop
 	push bc
 	call GetOptionPointer ; updates the next option
@@ -445,7 +512,8 @@ AllOptionsText:
 	next "Animation  :"
 	next "Battlestyle:"
 	next "Sound:"
-	next "Print:@"
+	next "Print:"
+	next "Color:@"
 
 OptionMenuCancelText:
 	db "Cancel@"
