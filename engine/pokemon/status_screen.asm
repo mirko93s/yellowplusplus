@@ -605,7 +605,93 @@ Page2:
 	cp $4
 	jr nz, .PrintPP
 .PPDone
+	call StatusScreen_PrintMoveStats
+	ldh a, [hGBC]
+	and a
+	ret z
+	farcall ApplyStatusMoveStatsAttributes
 	ret
+
+StatusScreen_PrintMoveStats:
+	ld hl, wLoadedMonMoves
+	decoord 1, 11
+	ld b, NUM_MOVES
+PrintMoveStatsList::
+; hl = move IDs, de = first detail row, b = count; rows are two tiles apart.
+.loop
+	ld a, [hli]
+	and a
+	ret z
+	push bc
+	push hl
+	push de
+	dec a
+	ld hl, Moves + MOVE_POWER
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [wStatusScreenCurrentPP], a
+	inc hl
+	inc hl
+	ld a, BANK(Moves)
+	call GetFarByte
+	; Recover the percentage from the move table's n * 255 / 100 encoding.
+	ld b, a
+	ld c, 0
+	ld hl, .accuracyPercentages
+.accuracy
+	ld a, [hli]
+	cp b
+	jr nc, .gotAccuracy
+	inc c
+	jr .accuracy
+.gotAccuracy
+	ld a, c
+	push af
+	pop bc
+	pop hl
+	push hl
+	push bc
+	ld de, .powerText
+	call PlaceString
+	ld h, b
+	ld l, c
+	ld de, wStatusScreenCurrentPP
+	lb bc, LEFT_ALIGN | 1, 3
+	push hl
+	call PrintNumber
+	pop hl
+	; Reserve three tiles for BP, including trailing padding for short values.
+	ld bc, 3
+	add hl, bc
+	ld de, .accuracyText
+	call PlaceString
+	ld h, b
+	ld l, c
+	pop af
+	ld [wStatusScreenCurrentPP], a
+	ld de, wStatusScreenCurrentPP
+	lb bc, LEFT_ALIGN | 1, 3
+	call PrintNumber
+	pop hl
+	ld de, SCREEN_WIDTH * 2
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+	pop bc
+	dec b
+	jr nz, .loop
+	ret
+.powerText
+	db "BP@"
+.accuracyText
+	db " ACC@"
+.accuracyPercentages
+	FOR accuracy, 0, 101
+		db accuracy percent
+	ENDR
 
 StatusScreen_PrintPP:
 ; print PP or -- c times, going down two rows each time

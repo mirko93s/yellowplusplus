@@ -927,8 +927,18 @@ SetBattleMoveTypeAttributes:
 	ret
 
 UpdateBattleMoveTypePalette:
+	ld a, [wStatusFlags2]
+	bit 1, a
+	jr z, .typeIcon
+	ld a, [wCurrentPage]
+	cp 2
+	jr nz, .typeIcon
+	ld de, StatusMoveStatsPalette
+	jr .convert
+.typeIcon
 	ld a, [wMoveTypeIconPalette]
 	call GetMoveTypeIconPaletteAddress
+.convert
 	xor a ; CONVERT_BGP, so fades also affect the type icon
 	call DMGPalToGBCPal
 	ld a, PAL_BG_MOVE_TYPE
@@ -1017,7 +1027,53 @@ SetStatusTypeIconPalettes::
 
 ResetStatusTypeIconAttributes::
 	xor a ; status-screen text uses palette 0
+	call SetStatusMoveStatsAttributes
+	xor a
 	jr SetStatusTypeIconAttributes
+
+ApplyStatusMoveStatsAttributes::
+	call UpdateBattleMoveTypePalette
+	ld a, PAL_BG_MOVE_TYPE
+SetStatusMoveStatsAttributes:
+	ld c, a
+	ldh a, [hGBC]
+	and a
+	ret z
+	di
+	ldh a, [rLCDC]
+	bit 7, a
+	jr z, .lcdOff
+.waitVBlank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .waitVBlank
+.lcdOff
+	ldh a, [rVBK]
+	push af
+	ld a, 1
+	ldh [rVBK], a
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 11 * BG_MAP_WIDTH + 1
+	add hl, de
+	ld b, NUM_MOVES
+.row
+	ld e, 12
+.column
+	ld [hl], c
+	inc hl
+	dec e
+	jr nz, .column
+	ld de, 2 * BG_MAP_WIDTH - 12
+	add hl, de
+	dec b
+	jr nz, .row
+	pop af
+	ldh [rVBK], a
+	ei
+	ret
 
 ApplyStatusTypeIconAttributes::
 	ld a, PAL_BG_MOVE_TYPE

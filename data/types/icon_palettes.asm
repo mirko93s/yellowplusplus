@@ -4,6 +4,10 @@ ASSERT BANK(BattleMoveTypePalettes) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveTypePalettesCorrected) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettes) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettesCorrected) == BANK(SuperPalettes)
+ASSERT BANK(StatusMoveStatsPalette) == BANK(SuperPalettes)
+
+StatusMoveStatsPalette:
+	RGB 31,31,31, 27,27,27, 24,24,24, 22,22,22
 
 BattleMoveTypePalettes:
 	table_width PALETTE_SIZE, BattleMoveTypePalettes
