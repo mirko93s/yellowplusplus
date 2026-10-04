@@ -710,6 +710,7 @@ MewPicBack::          INCBIN "gfx/pokemon/back/mewb.pic"
 SECTION "bank42", ROMX, BANK[$42]
 
 INCLUDE "data/sgb/sgb_palettes.asm"
+INCLUDE "data/types/icon_palettes.asm"
 
 SECTION "bank44",ROMX,BANK[$43]
 
@@ -729,3 +730,7 @@ INCLUDE "engine/overworld/field_moves.asm"
 INCLUDE "engine/mon_gender.asm"
 
 INCLUDE "engine/battle/physical_special_split.asm"
+
+SECTION "Battle Move Icons", ROMX
+
+INCLUDE "engine/battle/move_menu_icons.asm"

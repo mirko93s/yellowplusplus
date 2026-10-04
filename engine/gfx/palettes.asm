@@ -846,6 +846,230 @@ InitGBCPalettes:
 	call DMGPalToGBCPal
 	ld a, 4
 	call TransferCurBGPData
+	call UpdateBattleMoveTypePalette
+	call UpdateBattleMoveCategoryPalette
+	ret
+
+; Type uses BG palette 5; category uses palette 6 with its own three shades.
+; PP retains the normal battle message palette. Respect monochrome options.
+SetBattleMoveTypePalette::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld a, [wPlayerMoveType]
+	cp NUM_TYPES
+	jr c, .validType
+	ld a, TYPELESS
+.validType
+	ld [wMoveTypeIconPalette], a
+	ld a, [wTempMoveID]
+	cp OTHER_M + 1
+	jr c, .validCategory
+	xor a
+.validCategory
+	ld [wMoveCategoryIconPalette], a
+	call UpdateBattleMoveTypePalette
+	call UpdateBattleMoveCategoryPalette
+	ld a, PAL_BG_MOVE_TYPE
+	jr SetBattleMoveTypeAttributes
+
+ResetBattleMoveTypeAttributes::
+	ld a, 2 ; normal battle message palette
+; fall through: restore both icon rows when closing the menu or showing text
+SetBattleMoveTypeAttributes:
+	ld c, a
+	ldh a, [hGBC]
+	and a
+	ret z
+	di
+	ldh a, [rLCDC]
+	bit 7, a
+	jr z, .lcdOff
+.waitVBlank
+	ldh a, [rLY]
+	cp 144 ; start of VBlank: enough time for all four attribute writes
+	jr nz, .waitVBlank
+.lcdOff
+	ldh a, [rVBK]
+	push af
+	ld a, 1
+	ldh [rVBK], a
+	; wTileMap is transferred to the window map ($9c00) during battle.
+	; Follow the actual transfer destination instead of assuming BG map 0.
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 13 * BG_MAP_WIDTH + 1
+	add hl, de
+	ld a, c
+	cp PAL_BG_MOVE_TYPE
+	jr nz, .categoryPaletteReady
+	ld a, PAL_BG_MOVE_CATEGORY
+.categoryPaletteReady
+	ld b, a
+	ld [hli], a
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], a
+	ld de, BG_MAP_WIDTH - 3
+	add hl, de
+	ld a, b
+	ld [hli], a
+	ld [hli], a
+	ld a, c
+	ld [hli], a
+	ld [hl], a
+	pop af
+	ldh [rVBK], a
+	ei
+	ret
+
+UpdateBattleMoveTypePalette:
+	ld a, [wMoveTypeIconPalette]
+	call GetMoveTypeIconPaletteAddress
+	xor a ; CONVERT_BGP, so fades also affect the type icon
+	call DMGPalToGBCPal
+	ld a, PAL_BG_MOVE_TYPE
+	jp TransferCurBGPData
+
+; a = type ID; de = palette selected by the current color option.
+GetMoveTypeIconPaletteAddress:
+	cp NUM_TYPES
+	jr c, .validType
+	ld a, TYPELESS
+.validType
+	ld l, a
+	ld h, 0
+	REPT 3
+		add hl, hl
+	ENDR
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, BattleMoveTypePalettes
+	jr z, .gotTable
+	ld de, BattleMoveTypePalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld de, DMGGreenPalette
+	ld hl, 0
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld de, DMGGrayPalette
+.gotTable
+	add hl, de
+	ld d, h
+	ld e, l
+	ret
+
+; Regenerate palette 6 from its saved category or second type on BGP updates.
+; Both icon palettes use LCD-safe direct uploads to avoid WRAM buffers.
+UpdateBattleMoveCategoryPalette:
+	ld a, [wMoveCategoryIconPalette]
+	bit 7, a
+	jr nz, UpdateStatusSecondTypePalette
+	cp OTHER_M + 1
+	jr c, .validCategory
+	xor a
+.validCategory
+	ld l, a
+	ld h, 0
+	REPT 3
+		add hl, hl
+	ENDR
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, BattleMoveCategoryPalettes
+	jr z, .gotTable
+	ld de, BattleMoveCategoryPalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	ld de, DMGGreenPalette
+	ld hl, 0
+	jr z, .gotTable
+	ld de, DMGGrayPalette
+.gotTable
+	add hl, de
+	ld d, h
+	ld e, l
+	xor a ; CONVERT_BGP
+	call DMGPalToGBCPal
+	ld a, PAL_BG_MOVE_CATEGORY
+	jp TransferCurBGPData
+
+UpdateStatusSecondTypePalette:
+	ld a, [wMoveCategoryIconPalette]
+	and $7f
+	call GetMoveTypeIconPaletteAddress
+	xor a ; CONVERT_BGP
+	call DMGPalToGBCPal
+	ld a, PAL_BG_MOVE_CATEGORY
+	jp TransferCurBGPData
+
+SetStatusTypeIconPalettes::
+	ldh a, [hGBC]
+	and a
+	ret z
+	call UpdateBattleMoveTypePalette
+	jp UpdateStatusSecondTypePalette
+
+ResetStatusTypeIconAttributes::
+	xor a ; status-screen text uses palette 0
+	jr SetStatusTypeIconAttributes
+
+ApplyStatusTypeIconAttributes::
+	ld a, PAL_BG_MOVE_TYPE
+SetStatusTypeIconAttributes:
+	ld c, a
+	ldh a, [hGBC]
+	and a
+	ret z
+	di
+	ldh a, [rLCDC]
+	bit 7, a
+	jr z, .lcdOff
+.waitVBlank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .waitVBlank
+.lcdOff
+	ldh a, [rVBK]
+	push af
+	ld a, 1
+	ldh [rVBK], a
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 15 * BG_MAP_WIDTH + 2
+	add hl, de
+	ld b, 2
+.row
+	ld a, c
+	ld [hli], a
+	ld [hli], a
+	and a
+	jr z, .secondReady
+	ld a, [wMoveTypeIconPalette]
+	ld d, a
+	ld a, [wMoveCategoryIconPalette]
+	and $7f
+	cp d
+	ld a, 0
+	jr z, .secondReady
+	ld a, PAL_BG_MOVE_CATEGORY
+.secondReady
+	ld [hli], a
+	ld [hl], a
+	ld de, BG_MAP_WIDTH - 3
+	add hl, de
+	dec b
+	jr nz, .row
+	pop af
+	ldh [rVBK], a
+	ei
 	ret
 
 GetGBCBasePalAddress::
@@ -996,7 +1220,7 @@ TransferBGPPals::
 	ldh [rBGPI], a
 	ld de, rBGPD
 	ld hl, wBGPPalsBuffer
-	ld c, 5 * PALETTE_SIZE
+	ld c, NUM_BG_PALS * PALETTE_SIZE
 .loop
 	ld a, [hli]
 	ld [de], a
@@ -1079,6 +1303,8 @@ _UpdateGBCPal_BGP::
 	call BufferBGPPal
 
 	call TransferBGPPals
+	call UpdateBattleMoveTypePalette
+	call UpdateBattleMoveCategoryPalette
 	ret
 
 _UpdateGBCPal_OBP::

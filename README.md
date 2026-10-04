@@ -15,6 +15,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **New Pokémon sprites**  
 - **All 151 Pokémon are obtainable**  
 - **New battle HUD**  
+- **Colored moves type and category icons in battle and status screen**
 - **NES-style font**  
 - **Mew obtainable through easter egg**  
 - **Changed all trainer parties**  

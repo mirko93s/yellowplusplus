@@ -10,6 +10,10 @@ DEF PAL_COLOR_SIZE EQU 2
 DEF PALETTE_SIZE EQU NUM_PAL_COLORS * PAL_COLOR_SIZE
 
 DEF NUM_ACTIVE_PALS EQU 4
+DEF NUM_BG_PALS EQU NUM_ACTIVE_PALS + 1 ; buffered base palettes and EXP bar
+	; Icon palettes are uploaded directly, without extra WRAM buffers.
+DEF PAL_BG_MOVE_TYPE EQU 5
+DEF PAL_BG_MOVE_CATEGORY EQU 6 ; uploaded separately; no extra palette buffer
 
 ; pal/blk packets
 ; SetPalFunctions indexes (see engine/gfx/palettes.asm)

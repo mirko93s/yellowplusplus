@@ -348,6 +348,9 @@ MainInBattleLoop:
 	call MoveSelectionMenu
 	push af
 	call LoadScreenTilesFromBuffer1
+	; Replace the visible icon tiles before restoring their message palettes.
+	call Delay3
+	callfar ResetBattleMoveTypeAttributes
 	call DrawHUDsAndHPBars
 	pop af
 	jr nz, MainInBattleLoop ; if the player didn't select a move, jump
@@ -2940,6 +2943,13 @@ ENDC
 .noPP
 	ld hl, MoveNoPPText
 .print
+	push hl
+	hlcoord 1, 13
+	lb bc, 2, 4
+	call ClearScreenArea
+	call Delay3
+	callfar ResetBattleMoveTypeAttributes
+	pop hl
 	call PrintText
 	call LoadScreenTilesFromBuffer1
 	jp MoveSelectionMenu
@@ -3182,7 +3192,11 @@ PrintMenuItem:
 	hlcoord 1, 14 ; disabled text
 	ld de, DisabledText
 	call PlaceString
-	jp .moveDisabled
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
+	call Delay3
+	callfar ResetBattleMoveTypeAttributes
+	ret
 .notDisabled
 	ld hl, wCurrentMenuItem
 	dec [hl]
@@ -3232,42 +3246,13 @@ PrintMenuItem:
 	call PrintNumber
 
 	call GetCurrentMove
-	hlcoord 1, 13 ; move type
-	predef PrintMoveType
-
-	; physical/special/status text
 	ld a, [wPlayerSelectedMove]
 	call PhysicalSpecialSplit
-	cp a,$02
-	jp z, .OtherTextShow
-	cp a,$01
-	jp nz, .PhysicalTextShow
-	hlcoord 1, 14
-	ld de,SpecialText
-	call PlaceString
-	jp .moveDisabled
-.PhysicalTextShow
-	hlcoord 1, 14
-	ld de, PhysicalText
-	call PlaceString
-	jr .moveDisabled
-.OtherTextShow
-	hlcoord 1, 14
-	ld de, OtherText
-	call PlaceString
+	callfar DrawBattleMoveIcons
 .moveDisabled
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
-
-OtherText:
-	db " <oL><oR> @"
-
-PhysicalText: ; Added for PS Split
-	db " <pL><pR> @"
-
-SpecialText: ; added for PS Split
-	db " <sL><sR> @"
 
 DisabledText:
 	db "Dsbl@"

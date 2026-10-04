@@ -41,6 +41,12 @@ NumText:
 ; Predef 0x37
 StatusScreen:
 	call LoadMonData
+	; Bit 7 distinguishes a second type from a battle category.
+	ld a, [wMonHType1]
+	ld [wMoveTypeIconPalette], a
+	ld a, [wMonHType2]
+	or $80
+	ld [wMoveCategoryIconPalette], a
 	ld a, [wMonDataLocation]
 	cp BOX_DATA
 	jr c, .DontRecalculate
@@ -166,6 +172,8 @@ ClearStatusScreen:
 	hlcoord 0, 8
 	lb bc, 10, 20
 	call ClearScreenArea
+	call Delay3 ; remove icon tiles before restoring the text attributes
+	farcall ResetStatusTypeIconAttributes
 	; reset middle line
 	ld b, SCREEN_WIDTH
 	hlcoord 0, 7
@@ -205,25 +213,24 @@ Page0: ; hp, status, type/s, stats
 	ld [hl], $75
 	hlcoord 18, 6
 	ld [hl], $76
-	; "TYPE/"
+	; "Type"
 	hlcoord 1, 14
 	ld de, TypesText
 	call PlaceString
 	; Pokémon types
 	ld a, [wMonHIndex]
 	ld [wCurSpecies], a
-	hlcoord 2, 15
-	predef PrintMonType
+	farcall DrawStatusTypeIcons
 	; "STATUS/"
 	hlcoord 1, 11
 	ld de, StatusText
 	call PlaceString
 	; actual pokemon status
-	hlcoord 7, 12
+	hlcoord 2, 12
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
 	ret nz
-	hlcoord 7, 12
+	hlcoord 2, 12
 	ld de, OKText
 	call PlaceString ; "OK"
 	ret
@@ -803,11 +810,14 @@ StatusScreenOriginal:
 ExitStatusScreen:
 	pop af
 	ldh [hTileAnimations], a
-	ld hl, wStatusFlags2
-	res 1, [hl]
 	ld a, $77
 	ldh [rNR50], a
 	call GBPalWhiteOut
+	; Keep the second type palette active until its icon has faded out.
+	ld hl, wMoveCategoryIconPalette
+	res 7, [hl]
+	ld hl, wStatusFlags2
+	res 1, [hl]
 	jp ClearScreen
 
 StatusScreenLoop:

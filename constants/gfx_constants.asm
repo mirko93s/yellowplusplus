@@ -2,6 +2,10 @@ DEF TILE_WIDTH EQU 8 ; pixels
 DEF LEN_1BPP_TILE EQU 1 * TILE_WIDTH ; bytes
 DEF LEN_2BPP_TILE EQU 2 * TILE_WIDTH ; bytes
 
+; Battle move panel: dynamically replace the former category font tiles.
+DEF MOVE_TYPE_ICON_TILE EQU $da ; four tiles, row-major order
+DEF MOVE_CATEGORY_ICON_TILE EQU $de ; two horizontal tiles
+
 DEF SCREEN_WIDTH  EQU 20
 DEF SCREEN_HEIGHT EQU 18
 DEF SCREEN_WIDTH_PX  EQU SCREEN_WIDTH  * TILE_WIDTH ; pixels

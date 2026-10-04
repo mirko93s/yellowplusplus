@@ -2681,7 +2681,9 @@ wLastBGP:: db
 wLastOBP0:: db
 wLastOBP1:: db
 wdef4:: db
-wBGPPalsBuffer:: ds (NUM_ACTIVE_PALS + 1) * PALETTE_SIZE
+wMoveTypeIconPalette:: db ; type ID for BG palette 5, including fades
+wMoveCategoryIconPalette:: db ; category ID, or bit 7 set + second type ID
+wBGPPalsBuffer:: ds NUM_BG_PALS * PALETTE_SIZE
 
 
 SECTION "Stack", WRAM0
