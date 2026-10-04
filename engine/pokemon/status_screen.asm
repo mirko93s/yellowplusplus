@@ -133,10 +133,15 @@ StatusScreen:
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
 	; pokemon sprite
-	call Delay3
-	call GBPalNormal
 	hlcoord 1, 0
 	call LoadFlippedFrontSpriteByMonIndex ; draw Pokémon picture
+	pop af
+	ret
+
+RevealStatusScreen:
+	; Show the header, sprite and selected page together, before playing the cry.
+	call Delay3
+	call GBPalNormal
 	; cry
 	ld a, [wMonDataLocation]
 	cp ENEMY_PARTY_DATA
@@ -152,14 +157,11 @@ StatusScreen:
 .playPikachuSoundClip
 	ld e, 16
 	callfar PlayPikachuSoundClip
-	jr .continue
+	ret
 .playRegularCry
 	ld a, [wCurPartySpecies]
 	call GetCryData
-	call PlaySound ; use PlaySound instead of PlayCry so we don't need to wait for the cry to finish before browsing menus
-.continue
-	pop af
-	ret
+	jp PlaySound ; don't wait for the cry before browsing menus
 
 NamePointers2:
 	dw wPartyMonNicks
@@ -827,6 +829,7 @@ StatusScreenLoop:
 	ld [wCurrentPage], a
 	call StatusScreen
 	call Page0
+	call RevealStatusScreen
 .loop
 	call WaitForButtonPress
     ldh a, [hJoy5]
@@ -896,7 +899,10 @@ StatusScreenLoop:
     ld [wWhichPokemon], a
 	call StatusScreen
 	ld a, [wCurrentPage]
-	jr .ok
+	ld hl, .pagesTable
+	call CallFunctionInTable
+	call RevealStatusScreen
+	jp .loop
 
 WaitForButtonPress:
     ld b, BIT_D_UP | BIT_D_DOWN | BIT_D_LEFT | BIT_D_RIGHT | BIT_B_BUTTON
