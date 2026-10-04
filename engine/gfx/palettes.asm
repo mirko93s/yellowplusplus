@@ -1075,6 +1075,10 @@ SetStatusMoveStatsAttributes:
 	ei
 	ret
 
+SetMoveLearningDetailsPalette::
+	ld de, StatusMoveStatsPalette
+	jp UpdateBattleMoveTypePalette.convert
+
 ApplyStatusTypeIconAttributes::
 	ld a, PAL_BG_MOVE_TYPE
 SetStatusTypeIconAttributes:

@@ -114,45 +114,31 @@ TryingToLearn:
 	ld de, wMoves
 	ld bc, NUM_MOVES
 	call CopyData
-	callfar FormatMovesString
 	pop hl
 .loop
 	push hl
-	ld hl, WhichMoveToForgetText
-	call PrintText
-	hlcoord 4, 7
-	lb bc, 4, 14
-	call TextBoxBorder
-	hlcoord 6, 8
-	ld de, wMovesString
-	ldh a, [hUILayoutFlags]
-	set 2, a
-	ldh [hUILayoutFlags], a
-	call PlaceString
-	ldh a, [hUILayoutFlags]
-	res 2, a
-	ldh [hUILayoutFlags], a
-	ld hl, wTopMenuItemY
-	ld a, 8
-	ld [hli], a ; wTopMenuItemY
-	ld a, 5
-	ld [hli], a ; wTopMenuItemX
+	ldh a, [rLCDC]
+	push af ; keep sprite visibility on the stack for this menu's lifetime
+	res 1, a
+	ldh [rLCDC], a
+	farcall DrawMoveLearningMenu
 	xor a
-	ld [hli], a ; wCurrentMenuItem
-	inc hl
-	ld a, [wNumMovesMinusOne]
-	ld [hli], a ; wMaxMenuItem
-	ld a, A_BUTTON | B_BUTTON
-	ld [hli], a ; wMenuWatchedKeys
-	ld [hl], 0 ; wLastMenuItem
-	ld hl, hUILayoutFlags
-	set 1, [hl]
-	call HandleMenuInput
-	ld hl, hUILayoutFlags
-	res 1, [hl]
+	ld [wCurrentMenuItem], a
+	farcall HandleMoveLearningInput
+	ldh a, [hJoy5]
 	push af
+	farcall RestoreMoveLearningAttributes
 	call LoadScreenTilesFromBuffer1
+	call Delay3 ; finish restoring the background before showing sprites
+	pop bc ; b = menu input
 	pop af
+	and %10
+	ld e, a
+	ldh a, [rLCDC]
+	res 1, a
+	or e
+	ldh [rLCDC], a
+	ld a, b
 	pop hl
 	bit BIT_B_BUTTON, a
 	jr nz, .cancel

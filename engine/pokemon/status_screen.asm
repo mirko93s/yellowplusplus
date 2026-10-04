@@ -612,6 +612,16 @@ Page2:
 	farcall ApplyStatusMoveStatsAttributes
 	ret
 
+PrintLearningMoveStats::
+	ld hl, wMoves
+	decoord 2, 3
+	ld b, NUM_MOVES
+	call PrintMoveStatsList
+	ld hl, wMoveNum
+	decoord 2, 12
+	ld b, 1
+	jp PrintMoveStatsList
+
 StatusScreen_PrintMoveStats:
 	ld hl, wLoadedMonMoves
 	decoord 1, 11

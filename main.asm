@@ -737,3 +737,7 @@ INCLUDE "engine/battle/physical_special_split.asm"
 SECTION "Battle Move Icons", ROMX
 
 INCLUDE "engine/battle/move_menu_icons.asm"
+
+SECTION "Move Learning Menu", ROMX
+
+INCLUDE "engine/pokemon/move_learning_menu.asm"
