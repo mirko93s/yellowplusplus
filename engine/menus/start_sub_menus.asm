@@ -25,10 +25,12 @@ StartMenu_Pokemon::
 	jr nc, .chosePokemon
 .exitMenu
 	call GBPalWhiteOutWithDelay3
-	call RestoreScreenTilesAndReloadTilePatterns
-	call LoadGBPal
 	call ReloadMapData
-	jp RedisplayStartMenu
+	call RestoreScreenTilesAndReloadTilePatterns
+	farcall DrawStartMenu
+	call UpdateSprites
+	call LoadGBPal
+	jp RedisplayStartMenu_DoNotDrawStartMenu
 .chosePokemon
 	call SaveScreenTilesToBuffer1
 	ld a, FIELD_MOVE_MON_MENU
