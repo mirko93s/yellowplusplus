@@ -26,6 +26,8 @@ JoypadLowSensitivity::
 	and a ; have any buttons been newly pressed since last check?
 	jr z, .noNewlyPressedButtons
 .newlyPressedButtons
+	; A new press must not retrigger buttons held from the previous menu.
+	ldh [hJoy5], a ; report only the newly pressed buttons
 	ld a, 30 ; half a second delay
 	ldh [hFrameCounter], a
 	ret
