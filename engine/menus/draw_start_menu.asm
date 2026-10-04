@@ -9,6 +9,12 @@ DrawStartMenu::
 	hlcoord 10, 2
 	lb bc, 10, 8
 .drawTextBoxBorder
+	ld a, CHEAT_UNLOCKED
+	call CheckCheat
+	jr z, .borderReady
+	inc b
+	inc b
+.borderReady
 	call TextBoxBorder
 	ld a, D_DOWN | D_UP | START | B_BUTTON | A_BUTTON | SELECT
 	ld [wMenuWatchedKeys], a
@@ -33,7 +39,25 @@ DrawStartMenu::
 	call PrintStartMenuItem
 	ld a, $06
 .storeMenuItemCount
+	push af
+	ld a, CHEAT_UNLOCKED
+	call CheckCheat
+	jr z, .locked
+	pop af
+	inc a
+	jr .countReady
+.locked
+	pop af
+.countReady
 	ld [wMaxMenuItem], a ; number of menu items
+	ld b, a
+	ld a, [wCurrentMenuItem]
+	cp b
+	jr c, .selectionReady
+	xor a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
+.selectionReady
 	ld de, StartMenuPokemonText
 	call PrintStartMenuItem
 	ld de, StartMenuItemText
@@ -51,6 +75,12 @@ DrawStartMenu::
 	call PrintStartMenuItem
 	ld de, StartMenuOptionText
 	call PrintStartMenuItem
+	ld a, CHEAT_UNLOCKED
+	call CheckCheat
+	jr z, .noCheats
+	ld de, StartMenuCheatsText
+	call PrintStartMenuItem
+.noCheats
 	ld hl, wStatusFlags5
 	res 6, [hl] ; turn pauses between printing letters back on
 	ret
@@ -75,6 +105,9 @@ StartMenuExitText:
 
 StartMenuOptionText:
 	db "Option@"
+
+StartMenuCheatsText:
+	db "Cheats@"
 
 PrintStartMenuItem:
 	push hl

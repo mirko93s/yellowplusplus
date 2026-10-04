@@ -64,6 +64,8 @@
 	charmap "<ED>",      $f0 ; gfx/font/ED.1bpp
 
 ; Actual characters (from gfx/font/font.png)
+	charmap "%",         $cd
+	charmap "+",         $ce ; loaded by the Options menu
 
 	charmap "A",         $80
 	charmap "B",         $81

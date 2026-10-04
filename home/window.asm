@@ -25,6 +25,8 @@ HandleMenuInput_::
 .getJoypadState
 	pop hl
 	call JoypadLowSensitivity
+	call CheckKonamiCode
+	jr c, .loop2
 	ldh a, [hJoy5]
 	and a ; was a key pressed?
 	jr nz, .keyPressed

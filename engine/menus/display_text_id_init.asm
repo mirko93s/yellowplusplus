@@ -25,6 +25,15 @@ DisplayTextIDInit::
 	hlcoord 0, 12
 	lb bc, 4, 18
 .drawTextBoxBorder
+	ldh a, [hSpriteIndexOrTextID]
+	and a
+	jr nz, .borderReady ; dialogue boxes keep their normal size
+	ld a, CHEAT_UNLOCKED
+	call CheckCheat
+	jr z, .borderReady
+	inc b
+	inc b
+.borderReady
 	call TextBoxBorder
 .skipDrawingTextBoxBorder
 	ld hl, wFontLoaded

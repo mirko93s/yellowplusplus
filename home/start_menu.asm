@@ -26,10 +26,8 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	and a
 	jr nz, .loop
 ; if the player pressed tried to go past the top item, wrap around to the bottom
-	CheckEvent EVENT_GOT_POKEDEX
-	ld a, 5 ; there are 7 menu items with the pokedex, so the max index is 6
-	jr nz, .wrapMenuItemId
-	dec a ; there are only 6 menu items without the pokedex
+	ld a, [wMaxMenuItem]
+	dec a ; the final index is the existing wrap sentinel
 .wrapMenuItemId
 	ld [wCurrentMenuItem], a
 	call EraseMenuCursor
@@ -38,11 +36,9 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	bit BIT_D_DOWN, a
 	jr z, .buttonPressed
 ; if the player pressed tried to go past the bottom item, wrap around to the top
-	CheckEvent EVENT_GOT_POKEDEX
+	ld a, [wMaxMenuItem]
+	ld c, a
 	ld a, [wCurrentMenuItem]
-	ld c, 6 ; there are 7 menu items with the pokedex
-	jr nz, .checkIfPastBottom
-	dec c ; there are only 6 menu items without the pokedex
 .checkIfPastBottom
 	cp c
 	jr nz, .loop
@@ -76,6 +72,9 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	jp z, StartMenu_SaveReset
 	cp 5
 	jp z, StartMenu_Option
+	cp 6
+	jp z, StartMenu_Cheats
+	jp CloseStartMenu
 .selectPressed
 	CheckEvent EVENT_GOT_POKEDEX
 	jp z, .loop

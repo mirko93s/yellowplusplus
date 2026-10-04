@@ -1,4 +1,6 @@
 ParalyzeEffect_:
+	call CheckPlayerStatusProtection
+	jp nz, .didntAffect
 	ld hl, wEnemyMonStatus
 	ld de, wPlayerMoveType
 	ldh a, [hWhoseTurn]

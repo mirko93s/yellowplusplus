@@ -33,6 +33,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - Unique overworld Pokémon sprites  
 
 ### Quality of Life
+- **Cheats menu** — unlock with Konami Codew (↑↑↓↓←→←→BA) in the main menu  
 - **Countless original bugs fixed**  
 - **Increased bag capacity** to 50  
 - **More Info in the Pokédex** (Base stats, Types, Evolutions, Levelup Movesets)

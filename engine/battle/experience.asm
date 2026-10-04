@@ -86,6 +86,7 @@ GainExperience:
 	ld a, [wIsInBattle]
 	dec a ; is it a trainer battle?
 	call nz, BoostExp ; if so, boost exp
+	call ApplyCheatExperienceMultiplier
 	inc hl
 	inc hl
 	inc hl
@@ -381,6 +382,32 @@ BoostExp:
 	ldh a, [hQuotient + 2]
 	adc b
 	ldh [hQuotient + 2], a
+	ret
+
+; The reward remains 16-bit; widen multiplication and saturate before
+; both the printed reward and the party EXP addition read it.
+ApplyCheatExperienceMultiplier:
+	push bc
+	push de
+	push hl
+	xor a
+	call GetCheatMultiplier
+	ldh [hMultiplier], a
+	xor a
+	ldh [hMultiplicand], a
+	call Multiply
+	ldh a, [hProduct]
+	ld b, a
+	ldh a, [hProduct + 1]
+	or b
+	jr z, .done
+	ld a, $ff
+	ldh [hQuotient + 2], a
+	ldh [hQuotient + 3], a
+.done
+	pop hl
+	pop de
+	pop bc
 	ret
 
 CallBattleCore:

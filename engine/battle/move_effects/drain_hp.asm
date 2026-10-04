@@ -1,4 +1,7 @@
 DrainHPEffect_:
+	ld a, CHEAT_HP
+	call CheckTargetCheat
+	jp nz, .drainText ; a zero-damage hit cannot restore the attacker's HP
 	ld hl, wDamage
 	ld a, [hl]
 	srl a ; divide damage by 2
@@ -82,6 +85,7 @@ DrainHPEffect_:
 	predef DrawPlayerHUDAndHPBar
 	predef DrawEnemyHUDAndHPBar
 	callfar ReadPlayerMonCurHPAndStatus
+.drainText
 	ld hl, SuckedHealthText
 	ldh a, [hWhoseTurn]
 	and a

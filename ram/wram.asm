@@ -1860,7 +1860,11 @@ wSavedSpriteScreenX:: db
 wSavedSpriteMapY:: db
 wSavedSpriteMapX:: db
 
-	ds 5
+wKonamiProgress:: db
+wNextGameCheats:: db
+wSettingsMenuKind:: db ; 0 = options, 1 = cheats, 2 = main menu input
+wSettingsFooter:: db ; 0 = exit, 1 = previous, 2 = next
+wSettingsRowCount:: db
 
 wWhichPrize:: db
 
@@ -2372,8 +2376,15 @@ wCaughtFamilies::
 ; this might get removed in the future if I need space, it is not so important ("unused" just so I can search for it in vscode)
 wSeedString::
 	ds 11
-; unused
-	ds 17
+; Saved extension within the original 17-byte unused reservation.
+wCheatDataMarker:: ds 2
+wCheatFlags:: dw ; toggle bits, including permanent menu unlock
+wCheatMultipliers:: db ; EXP bits 0-2, money bits 3-5
+wSoundSettings:: db
+wEnemyCheatFlags:: dw ; matching flag bits for Enemy/Both battle settings
+wCheatWildLevel:: db ; 0 = Off, otherwise 2-255
+wCheatWildSpecies:: db ; 0 = Off, otherwise dex number 1-151
+	ds 7 ; still unused
 
 ; individual trainer name
 wCurTrainerName::

@@ -139,6 +139,12 @@ ItemUseBall:
 	jr nz, .skipSafariZoneCode
 
 .safariZone
+	ld a, CHEAT_SAFARI
+	call CheckCheat
+	jr nz, .skipSafariZoneCode
+	ld a, CHEAT_ITEMS
+	call CheckCheat
+	jr nz, .skipSafariZoneCode
 	ld hl, wNumSafariBalls
 	dec [hl] ; remove a Safari Ball
 
@@ -184,7 +190,7 @@ ItemUseBall:
 ; Pokémon can't be caught and skip the capture calculations.
 	ld a, [wCurMap]
 	cp POKEMON_TOWER_6F
-	jr nz, .loop
+	jr nz, .checkCatchCheat
 	ld a, [wEnemyMonSpecies2]
 	cp RESTLESS_SOUL
 	ld b, $10 ; can't be caught value
@@ -198,6 +204,10 @@ ItemUseBall:
 ; Ultra/Safari Ball: [0, 150]
 ; Loop until an acceptable number is found.
 
+.checkCatchCheat
+	ld a, CHEAT_CATCH
+	call CheckCheat
+	jp nz, .captured
 .loop
 	call Random
 	ld b, a
@@ -623,6 +633,10 @@ ItemUseBall:
 	ret nz ; if so, don't remove a ball from the bag
 
 ; Remove a ball from the bag.
+	ld a, CHEAT_ITEMS
+	call CheckCheat
+	ret nz
+	xor a
 	ld hl, wNumBagItems
 	inc a
 	ld [wItemQuantity], a
@@ -857,6 +871,9 @@ ItemUseEvoStone:
 	pop af
 	ld [wWhichPokemon], a
 	ld hl, wNumBagItems
+	ld a, CHEAT_ITEMS
+	call CheckCheat
+	ret nz
 	ld a, 1 ; remove 1 stone
 	ld [wItemQuantity], a
 	jp RemoveItemFromInventory
@@ -1185,6 +1202,14 @@ ItemUseMedicine:
 ; subtract 1/5 of max HP from current HP of pokemon that used Softboiled
 	ldh a, [hQuotient + 3]
 	push af
+	ld a, CHEAT_HP
+	call CheckCheat
+	jr z, .normalSoftboiledCost
+	xor a
+	ldh [hQuotient + 2], a
+	ldh [hQuotient + 3], a
+.normalSoftboiledCost
+	ldh a, [hQuotient + 3]
 	ld b, a
 	ld a, [hl]
 	ld [wHPBarOldHP], a
@@ -2159,6 +2184,7 @@ RodResponse:
 	ld [wCurEnemyLevel], a
 	ld a, c ; species
 	ld [wCurOpponent], a
+	farcall ApplyWildCheats
 
 DoNotGenerateFishingEncounter:
 	ld hl, wWalkBikeSurfState
@@ -2175,6 +2201,9 @@ DoNotGenerateFishingEncounter:
 ; checks if fishing is possible and if so, runs initialization code common to all rods
 ; unsets carry if fishing is possible, sets carry if not
 FishingInit:
+	ld a, CHEAT_ENCOUNTERS
+	call CheckCheat
+	jr nz, .cannotFish
 	ld a, [wIsInBattle]
 	and a
 	jr z, .notInBattle
@@ -2610,6 +2639,9 @@ PrintItemUseTextAndRemoveItem:
 	call WaitForTextScrollButtonPress ; wait for button press
 
 RemoveUsedItem:
+	ld a, CHEAT_ITEMS
+	call CheckCheat
+	ret nz
 	ld hl, wNumBagItems
 	ld a, 1 ; one item
 	ld [wItemQuantity], a

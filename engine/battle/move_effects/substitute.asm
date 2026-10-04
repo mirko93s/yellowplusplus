@@ -29,6 +29,12 @@ SubstituteEffect_:
 	pop de
 	ld a, b
 	ld [de], a ; save copy of HP to subtract in wPlayerSubstituteHP/wEnemySubstituteHP
+	ld a, CHEAT_HP
+	call CheckBattleCheat
+	jr z, .payHPCost
+	pop bc
+	jr .createSubstitute
+.payHPCost
 	ld a, [hld]
 ; subtract [max hp / 4] to current HP
 	sub b
@@ -46,6 +52,7 @@ SubstituteEffect_:
 .userHasZeroOrMoreHP
 	ldi [hl], a ; save resulting HP after subtraction into current HP
 	ld [hl], d
+.createSubstitute
 	ld h, b
 	ld l, c
 	set HAS_SUBSTITUTE_UP, [hl]

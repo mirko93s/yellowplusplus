@@ -180,6 +180,9 @@ StartBattle:
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; was the item used successfully?
 	jr z, .displaySafariZoneBattleMenu ; if not, display the menu again; XXX does this ever jump?
+	ld a, CHEAT_SAFARI
+	call CheckCheat
+	jr nz, .notOutOfSafariBalls
 	ld a, [wNumSafariBalls]
 	and a
 	jr nz, .notOutOfSafariBalls
@@ -614,6 +617,11 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 	ld b, h       ; bc = damage * toxic counter
 	ld c, l
 .noToxic
+	ld a, CHEAT_HP
+	call CheckBattleCheat
+	jr z, .applyResidualDamage
+	ld bc, 0
+.applyResidualDamage
 	pop hl
 	inc hl
 	ld a, [hl]    ; subtract total damage from current HP
@@ -2915,9 +2923,13 @@ ENDC
 	ld c, a
 	ld b, $0
 	add hl, bc
+	ld a, CHEAT_PP
+	call CheckCheat
+	jr nz, .hasPP
 	ld a, [hl]
 	and $3f
 	jr z, .noPP
+.hasPP
 	ld a, [wPlayerDisabledMove]
 	swap a
 	and $f
@@ -3038,6 +3050,25 @@ Func_3d536:
 	jp PlaceString
 
 AnyMoveToSelect:
+	ld a, CHEAT_PP
+	call CheckCheat
+	jr z, .normalPP
+	ld hl, wBattleMonMoves
+	ld a, [wPlayerDisabledMove]
+	swap a
+	and $f
+	ld b, a
+	ld c, NUM_MOVES
+.cheatMoveLoop
+	ld a, [hli]
+	dec b
+	jr z, .cheatNextMove
+	and a
+	ret nz
+.cheatNextMove
+	dec c
+	jr nz, .cheatMoveLoop
+.normalPP
 ; return z and Struggle as the selected move if all moves have 0 PP and/or are disabled
 	ld a, STRUGGLE
 	ld [wPlayerSelectedMove], a
@@ -4419,6 +4450,9 @@ CheckForDisobedience:
 	call HandleSelfConfusionDamage
 	jp .cannotUseMove
 .monNaps
+	ld a, CHEAT_STATUS
+	call CheckCheat
+	jp nz, .monDoesNothing
 	call BattleRandom
 	add a
 	swap a
@@ -4442,7 +4476,7 @@ CheckForDisobedience:
 	ld hl, IgnoredOrdersText
 .printText
 	call PrintText
-	jr .cannotUseMove
+	jp .cannotUseMove
 .useRandomMove
 	ld a, [wBattleMonMoves + 1]
 	and a ; is the second move slot empty?
@@ -4454,6 +4488,9 @@ CheckForDisobedience:
 	cp STRUGGLE
 	jr z, .monDoesNothing ; mon will not use move if struggling
 ; check if only one move has remaining PP
+	ld a, CHEAT_PP
+	call CheckCheat
+	jr nz, .chooseDisobedientMove
 	ld hl, wBattleMonPP
 	push hl
 	ld a, [hli]
@@ -4482,6 +4519,7 @@ CheckForDisobedience:
 	pop af
 	cp b
 	jr z, .monDoesNothing ; mon will not use move if only one move has remaining PP
+.chooseDisobedientMove
 	ld a, $1
 	ld [wMonIsDisobedient], a
 	ld a, [wMaxMenuItem]
@@ -4500,9 +4538,13 @@ CheckForDisobedience:
 	ld e, a
 	ld d, $0
 	add hl, de
+	ld a, CHEAT_PP
+	call CheckCheat
+	jr nz, .disobedientMoveHasPP
 	ld a, [hl]
 	and a ; does the move have any PP left?
 	jr z, .chooseMove ; if the move has no PP left, choose another
+.disobedientMoveHasPP
 	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $0
@@ -5028,6 +5070,13 @@ CriticalHitTest:
 	ld a, [hld]                         ; read base power from RAM
 	and a
 	ret z                               ; do nothing if zero (status moves)
+	ld a, CHEAT_CRITICAL
+	call CheckBattleCheat
+	jr z, .normalCritical
+	ld a, 1
+	ld [wCriticalHitOrOHKO], a
+	ret
+.normalCritical
 	dec hl
 	ld c, [hl]                          ; read move id
 	ld hl, HighCriticalMoves            ; table of high critical hit moves
@@ -5213,6 +5262,8 @@ ApplyAttackToEnemyPokemon:
 	ld [hl], a
 
 ApplyDamageToEnemyPokemon:
+	ld c, 1 ; enemy is the recipient, including enemy confusion
+	farcall ApplyCheatAttackDamage
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
@@ -5334,6 +5385,8 @@ ApplyAttackToPlayerPokemon:
 	ld [hl], a
 
 ApplyDamageToPlayerPokemon:
+	ld c, 0 ; player is the recipient, including player confusion
+	farcall ApplyCheatAttackDamage
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
@@ -5580,6 +5633,9 @@ MetronomePickMove:
 ; it's used to prevent moves that run another move within the same turn
 ; (like Mirror Move and Metronome) from losing 2 PP
 IncrementMovePP:
+	ld a, CHEAT_PP
+	call CheckBattleCheat
+	ret nz
 	ldh a, [hWhoseTurn]
 	and a
 ; values for player turn
@@ -5663,6 +5719,12 @@ AdjustDamageForMoveType:
 	ld hl, wDamageMultipliers
 	set 7, [hl]
 .skipSameTypeAttackBonus
+	ld a, CHEAT_SUPER_EFFECTIVE
+	call CheckBattleCheat
+	jr z, .normalTypeEffectiveness
+	farcall ApplySuperEffectiveCheat
+	ret
+.normalTypeEffectiveness
 	ld a, [wMoveType]
 	ld b, a
 	ld hl, TypeEffects
@@ -5853,6 +5915,9 @@ MoveHitTest:
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
 	jp nz, .moveMissed
 .skipEnemyMistCheck
+	ld a, CHEAT_ACCURACY
+	call CheckCheat
+	ret nz
 	ld a, [wPlayerBattleStatus2]
 	bit USING_X_ACCURACY, a ; is the player using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion
@@ -5874,6 +5939,9 @@ MoveHitTest:
 	bit PROTECTED_BY_MIST, a ; is mon protected by mist?
 	jp nz, .moveMissed
 .skipPlayerMistCheck
+	ld a, CHEAT_ACCURACY
+	call CheckEnemyCheat
+	ret nz
 	ld a, [wEnemyBattleStatus2]
 	bit USING_X_ACCURACY, a ; is the enemy using X Accuracy?
 	ret nz ; if so, always hit regardless of accuracy/evasion
@@ -6583,6 +6651,20 @@ LoadEnemyMonData:
 	ld b, [hl]
 	jr .storeDVs
 .notTrainer
+	ld a, CHEAT_PERFECT_DVS
+	call CheckCheat
+	jr z, .checkShinyCheat
+	ld a, $ff
+	ld b, a
+	jr .storeDVs
+.checkShinyCheat
+	ld a, CHEAT_SHINY
+	call CheckCheat
+	jr z, .normalWildDVs
+	ld a, $aa
+	ld b, a
+	jr .storeDVs
+.normalWildDVs
 	; if oak vs starter pikachu set pikachu dvs
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
@@ -7211,12 +7293,16 @@ HandleExplodingAnimation:
 	ld a, [de]
 	bit INVULNERABLE, a ; fly/dig
 	ret nz
+	ld a, CHEAT_SUPER_EFFECTIVE
+	call CheckBattleCheat
+	jr nz, .checkMissed
 	ld a, [hli]
 	cp GHOST
 	ret z
 	ld a, [hl]
 	cp GHOST
 	ret z
+.checkMissed
 	ld a, [wMoveMissed]
 	and a
 	ret nz

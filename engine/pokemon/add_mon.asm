@@ -87,7 +87,7 @@ _AddPartyMon::
 	ld a, [hli]
 	ld b, [hl]
 	pop hl
-	jr nz, .next4
+	jp nz, .next4
 
 ; If the mon is being added to the player's party, update the pokedex.
 	ld a, [wCurPartySpecies]
@@ -123,6 +123,16 @@ _AddPartyMon::
 	jr nz, .copyEnemyMonData
 
 ; starter pikachu gets maxed IVs
+	ld a, CHEAT_PERFECT_DVS
+	call CheckCheat
+	jr nz, .maxedDVs
+	ld a, CHEAT_SHINY
+	call CheckCheat
+	jr z, .checkStarterDVs
+	ld a, $aa
+	ld b, a
+	jr .next4
+.checkStarterDVs
 	ld a, [wCurPartySpecies]
 	cp STARTER_PIKACHU
 	jr z, .maxedDVs

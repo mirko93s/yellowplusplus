@@ -3,6 +3,8 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
+	ld a, [wSoundSettings]
+	push af
 IF DEF(_DEBUG)
 	ld a, [wStatusFlags6]
 	push af
@@ -18,6 +20,8 @@ ENDC
 	xor a
 	call FillMemory
 	xor a
+	call InitializeCheatData
+	xor a
 	ld [wSurfingMinigameHiScore], a
 	ld [wSurfingMinigameHiScore + 1], a
 	ld [wSurfingMinigameHiScore + 2], a
@@ -28,6 +32,8 @@ IF DEF(_DEBUG)
 	ld [wStatusFlags6], a
 	pop af
 ENDC
+	ld [wSoundSettings], a
+	pop af
 	ld [wOptions], a
 	pop af
 	ld [wLetterPrintingDelayFlags], a
@@ -42,6 +48,7 @@ ENDC
 	ld de, wRivalName
 	ld bc, NAME_LENGTH
 	call CopyData ; rip optimizations
+	call LatchCheatUnlock
 	ret
 
 OakSpeech:

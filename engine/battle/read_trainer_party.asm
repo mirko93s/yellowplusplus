@@ -126,6 +126,31 @@ ReadTrainer:
 	inc de ; increment de one more time to prevent the previous memory address (wEscapedFromBattle) from being affected
 	dec b
 	jr nz, .LastLoop ; repeat wCurEnemyLevel times
+	call ApplyCheatMoneyMultiplier
+	ret
+
+; Sum copies of the original prize using the existing capped BCD adder.
+ApplyCheatMoneyMultiplier:
+	ld a, 1
+	call GetCheatMultiplier
+	dec a
+	ret z
+	ld b, a
+	ld a, [wAmountMoneyWon]
+	ldh [hMoney], a
+	ld a, [wAmountMoneyWon + 1]
+	ldh [hMoney + 1], a
+	ld a, [wAmountMoneyWon + 2]
+	ldh [hMoney + 2], a
+.loop
+	push bc
+	ld hl, hMoney + 2
+	ld de, wAmountMoneyWon + 2
+	ld c, 3
+	predef AddBCDPredef
+	pop bc
+	dec b
+	jr nz, .loop
 	ret
 
 	GetTrainerMonDVs:: ; called from engine/battle/core.asm

@@ -1,44 +1,4 @@
-DisplayOptionMenu_:
-	call InitOptionsMenu
-.optionMenuLoop
-	call JoypadLowSensitivity
-	ldh a, [hJoy5]
-	and START | B_BUTTON
-	jr nz, .exitOptionMenu
-	call OptionsControl
-	jr c, .dpadDelay
-	call GetOptionPointer
-	jr c, .exitOptionMenu
-.dpadDelay
-	call OptionsMenu_UpdateCursorPosition
-	call DelayFrame
-	call DelayFrame
-	call DelayFrame
-	jr .optionMenuLoop
-.exitOptionMenu
-	ret
-
-GetOptionPointer:
-	ld a, [wOptionsCursorLocation]
-	ld e, a
-	ld d, $0
-	ld hl, OptionMenuJumpTable
-	add hl, de
-	add hl, de
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	jp hl ; jump to the function for the current highlighted option
-
-OptionMenuJumpTable:
-	dw OptionsMenu_TextSpeed
-	dw OptionsMenu_BattleAnimations
-	dw OptionsMenu_BattleStyle
-	dw OptionsMenu_SpeakerSettings
-	dw OptionsMenu_GBPrinterBrightness
-	dw OptionsMenu_ColorCorrection
-	dw OptionsMenu_Dummy
-	dw OptionsMenu_Cancel
+INCLUDE "engine/menus/settings.asm"
 
 OptionsMenu_TextSpeed:
 	call GetTextSpeed
@@ -50,21 +10,21 @@ OptionsMenu_TextSpeed:
 	jr .nonePressed
 .pressedRight
 	ld a, c
-	cp $3
-	jr c, .increase
-	ld c, $ff
-.increase
-	inc c
-	ld a, e
-	jr .save
-.pressedLeft
-	ld a, c
 	and a
 	jr nz, .decrease
 	ld c, $4
 .decrease
 	dec c
 	ld a, d
+	jr .save
+.pressedLeft
+	ld a, c
+	cp $3
+	jr c, .increase
+	ld c, $ff
+.increase
+	inc c
+	ld a, e
 .save
 	ld b, a
 	ld a, [wOptions]
@@ -79,7 +39,7 @@ OptionsMenu_TextSpeed:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 14, 2
+	call SettingsValuePosition
 	call PlaceString
 	and a
 	ret
@@ -145,7 +105,7 @@ OptionsMenu_BattleAnimations:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 14, 4
+	call SettingsValuePosition
 	call PlaceString
 	and a
 	ret
@@ -181,7 +141,7 @@ OptionsMenu_BattleStyle:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 14, 6
+	call SettingsValuePosition
 	call PlaceString
 	and a
 	ret
@@ -196,44 +156,34 @@ BattleStyleSetText:
 	db "Set  @"
 
 OptionsMenu_SpeakerSettings:
-	ld a, [wOptions]
-	and $30
-	swap a
+	ld a, [wSoundSettings]
+	and 3
 	ld c, a
 	ldh a, [hJoy5]
-	bit 4, a
-	jr nz, .pressedRight
-	bit 5, a
-	jr nz, .pressedLeft
-	jr .asm_41dca
-.pressedRight
+	bit BIT_D_RIGHT, a
+	jr nz, .right
+	bit BIT_D_LEFT, a
+	jr z, .draw
+	dec c
+	jr .save
+.right
+	inc c
+.save
 	ld a, c
-	inc a
-	and $3
-	jr .asm_41dba
-.pressedLeft
-	ld a, c
-	dec a
-	and $3
-.asm_41dba
+	and 3
 	ld c, a
-	swap a
-	ld b, a
+	ld [wSoundSettings], a
 	xor a
 	ldh [rNR51], a
-	ld a, [wOptions]
-	and $cf
-	or b
-	ld [wOptions], a
-.asm_41dca
-	ld b, $0
+.draw
+	ld b, 0
 	ld hl, SpeakerOptionStringsPointerTable
 	add hl, bc
 	add hl, bc
-	ld e, [hl]
-	inc hl
+	ld a, [hli]
 	ld d, [hl]
-	hlcoord 8, 8
+	ld e, a
+	call SettingsValuePosition
 	call PlaceString
 	and a
 	ret
@@ -245,13 +195,13 @@ SpeakerOptionStringsPointerTable:
 	dw Earphone3SoundText
 
 MonoSoundText:
-	db "Mono     @"
+	db "Mono@"
 Earphone1SoundText:
-	db "Earphone1@"
+	db "Ear1@"
 Earphone2SoundText:
-	db "Earphone2@"
+	db "Ear2@"
 Earphone3SoundText:
-	db "Earphone3@"
+	db "Ear3@"
 
 OptionsMenu_GBPrinterBrightness:
 	call Func_41e7b
@@ -289,7 +239,7 @@ OptionsMenu_GBPrinterBrightness:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	hlcoord 8, 10
+	call SettingsValuePosition
 	call PlaceString
 	and a
 	ret
@@ -302,15 +252,15 @@ GBPrinterOptionStringsPointerTable:
 	dw DarkestPrintText
 
 LightestPrintText:
-	db "Lightest@"
+	db "+2  @"
 LighterPrintText:
-	db "Lighter @"
+	db "+1  @"
 NormalPrintText:
-	db "Normal  @"
+	db "Base@"
 DarkerPrintText:
-	db "Darker  @"
+	db "-1  @"
 DarkestPrintText:
-	db "Darkest @"
+	db "-2  @"
 
 Func_41e7b:
 	ld a, [wPrinterSettings]
@@ -393,7 +343,7 @@ OptionsMenu_ColorCorrection:
     ld e, [hl]
     inc hl
     ld d, [hl]
-    hlcoord 8, 12
+    call SettingsValuePosition
     call PlaceString
     and a
     ret
@@ -405,115 +355,10 @@ ColorModeStringsPointerTable:
 	dw BWText
 
 UncorrectedText:
-    db "Uncorrected@"
+    db "None@"
 GBCText:
-    db "GBC        @"
+    db "GBC @"
 DMGText:
-    db "DMG        @"
+    db "DMG @"
 BWText:
-    db "Black/White@"
-
-OptionsMenu_Cancel:
-	ldh a, [hJoy5]
-	and A_BUTTON
-	jr nz, .pressedCancel
-	and a
-	ret
-.pressedCancel
-	scf
-	ret
-
-OptionsControl:
-	ld hl, wOptionsCursorLocation
-	ldh a, [hJoy5]
-	cp D_DOWN
-	jr z, .pressedDown
-	cp D_UP
-	jr z, .pressedUp
-	and a
-	ret
-.pressedDown
-	ld a, [hl]
-	cp $7
-	jr nz, .doNotWrapAround
-	ld [hl], $0
-	scf
-	ret
-.doNotWrapAround
-	cp $5
-	jr c, .regularIncrement
-	ld [hl], $6
-.regularIncrement
-	inc [hl]
-	scf
-	ret
-.pressedUp
-	ld a, [hl]
-	cp $7
-	jr nz, .doNotMoveCursorToPrintOption
-	ld [hl], $5
-	scf
-	ret
-.doNotMoveCursorToPrintOption
-	and a
-	jr nz, .regularDecrement
-	ld [hl], $8
-.regularDecrement
-	dec [hl]
-	scf
-	ret
-
-OptionsMenu_UpdateCursorPosition:
-	hlcoord 1, 1
-	ld de, SCREEN_WIDTH
-	ld c, 16
-.loop
-	ld [hl], ' '
-	add hl, de
-	dec c
-	jr nz, .loop
-	hlcoord 1, 2
-	ld bc, SCREEN_WIDTH * 2
-	ld a, [wOptionsCursorLocation]
-	call AddNTimes
-	ld [hl], '▶'
-	ret
-
-InitOptionsMenu:
-	hlcoord 0, 0
-	lb bc, SCREEN_HEIGHT - 2, SCREEN_WIDTH - 2
-	call TextBoxBorder
-	hlcoord 2, 2
-	ld de, AllOptionsText
-	call PlaceString
-	hlcoord 2, 16
-	ld de, OptionMenuCancelText
-	call PlaceString
-	xor a
-	ld [wOptionsCursorLocation], a
-	ld c, 6 ; number of options to loop through
-.loop
-	push bc
-	call GetOptionPointer ; updates the next option
-	pop bc
-	ld hl, wOptionsCursorLocation
-	inc [hl] ; moves the cursor for the highlighted option
-	dec c
-	jr nz, .loop
-	xor a
-	ld [wOptionsCursorLocation], a
-	inc a
-	ldh [hAutoBGTransferEnabled], a
-	call Delay3
-	ret
-
-AllOptionsText:
-	db "Text Speed :"
-	next "Animation  :"
-	next "Battlestyle:"
-	next "Sound:"
-	next "Print:"
-	next "Color:@"
-
-OptionMenuCancelText:
-	db "Cancel@"
+    db "B/W @"

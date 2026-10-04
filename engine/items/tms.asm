@@ -3,6 +3,12 @@ CanLearnTM:
 	ld a, [wCurPartySpecies]
 	ld [wCurSpecies], a
 	call GetMonHeader
+	ld a, CHEAT_LEARN_ANY
+	call CheckCheat
+	jr z, .normal
+	ld c, 1
+	ret
+.normal
 	ld hl, wMonHLearnset
 	push hl
 	ld a, [wMoveNum]

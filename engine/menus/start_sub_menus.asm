@@ -739,12 +739,21 @@ StartMenu_SaveReset::
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	jp HoldTextDisplayOpen
 
+StartMenu_Cheats::
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	call ClearScreen
+	call UpdateSprites
+	callfar DisplayCheatMenu_
+	jr StartMenu_SettingsReturn
+
 StartMenu_Option::
 	xor a
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	call UpdateSprites
 	callfar DisplayOptionMenu
+StartMenu_SettingsReturn:
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call LoadTextBoxTilePatterns
 	call UpdateSprites

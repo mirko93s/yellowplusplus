@@ -24,6 +24,8 @@ _JumpMoveEffect:
 INCLUDE "data/moves/effects_pointers.asm"
 
 SleepEffect:
+	call CheckPlayerStatusProtection
+	jp nz, PrintDidntAffectText
 	ld de, wEnemyMonStatus
 	ld bc, wEnemyBattleStatus2
 	ldh a, [hWhoseTurn]
@@ -77,6 +79,8 @@ AlreadyAsleepText:
 	text_end
 
 PoisonEffect:
+	call CheckPlayerStatusProtection
+	ret nz
 	ld hl, wEnemyMonStatus
 	ld de, wPlayerMoveEffect
 	ldh a, [hWhoseTurn]
@@ -184,6 +188,9 @@ DrainHPEffect:
 	jpfar DrainHPEffect_
 
 ExplodeEffect:
+	ld a, CHEAT_HP
+	call CheckBattleCheat
+	ret nz
 	ld hl, wBattleMonHP
 	ld de, wPlayerBattleStatus2
 	ldh a, [hWhoseTurn]
@@ -223,6 +230,8 @@ TriAttackEffect:
 ; fallthrough to FreezeBurnParalyzeEffect
 
 FreezeBurnParalyzeEffect:
+	call CheckPlayerStatusProtection
+	ret nz
 	xor a
 	ld [wAnimationType], a
 	call CheckTargetSubstitute ; test bit 4 of d063/d068 flags [target has substitute flag]

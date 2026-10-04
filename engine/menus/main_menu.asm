@@ -9,6 +9,7 @@ MainMenu:
 	jr nc, .mainMenuLoop
 
 	predef LoadSAV
+	call ValidateCheatData
 
 .mainMenuLoop
 	ld c, 20
@@ -48,6 +49,7 @@ MainMenu:
 	ld de, NewGameText
 	call PlaceString
 .next2
+	call DrawCheatsEnabled
 	hlcoord 0, 17
 	ld de, VersionText
 	call PlaceString
@@ -66,7 +68,13 @@ MainMenu:
 	ld [wMenuWatchedKeys], a
 	ld a, [wSaveFileStatus]
 	ld [wMaxMenuItem], a
+	ld a, 2
+	ld [wSettingsMenuKind], a
 	call HandleMenuInput
+	ld b, a
+	xor a
+	ld [wSettingsMenuKind], a
+	ld a, b
 	bit BIT_B_BUTTON, a
 	jp nz, DisplayTitleScreen ; if so, go back to the title screen
 	ld c, 20
@@ -106,6 +114,7 @@ MainMenu:
 	jp nz, .mainMenuLoop ; pressed B
 	jr .inputLoop
 .pressedA
+	call LatchCheatUnlock
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
 	ld a, PLAYER_DIR_DOWN

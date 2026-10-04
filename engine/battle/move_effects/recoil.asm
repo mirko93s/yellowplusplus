@@ -27,6 +27,11 @@ RecoilEffect_:
 	jr nz, .updateHP
 	inc c ; minimum recoil damage is 1
 .updateHP
+	ld a, CHEAT_HP
+	call CheckBattleCheat
+	jr z, .applyRecoil
+	ld bc, 0
+.applyRecoil
 ; subtract HP from user due to the recoil damage
 	ld a, [hli]
 	ld [wHPBarMaxHP+1], a

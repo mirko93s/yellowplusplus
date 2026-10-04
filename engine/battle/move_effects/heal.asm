@@ -22,6 +22,21 @@ HealEffect_:
 	ld a, b
 	cp REST
 	jr nz, .healHP
+	ld a, CHEAT_STATUS
+	call CheckBattleCheat
+	jr z, .normalRest
+	push hl
+	ld hl, wBattleMonStatus
+	ldh a, [hWhoseTurn]
+	and a
+	jr z, .clearStatus
+	ld hl, wEnemyMonStatus
+.clearStatus
+	xor a
+	ld [hl], a
+	pop hl
+	jr .healHP ; REST still heals fully, without causing sleep
+.normalRest
 	push hl
 	push de
 	push af

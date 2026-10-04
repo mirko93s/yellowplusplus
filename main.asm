@@ -378,7 +378,10 @@ INCLUDE "engine/overworld/emotion_bubbles.asm"
 INCLUDE "engine/movie/trade.asm"
 INCLUDE "engine/movie/intro.asm"
 INCLUDE "engine/movie/trade2.asm"
+
+SECTION "Cheat Settings", ROMX
 INCLUDE "engine/menus/options.asm"
+INCLUDE "engine/cheats.asm"
 
 
 SECTION "Pokédex Rating", ROMX

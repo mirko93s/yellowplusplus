@@ -1,6 +1,9 @@
 ; try to initiate a wild pokemon encounter
 ; returns success in Z
 TryDoWildEncounter:
+	ld a, CHEAT_ENCOUNTERS
+	call CheckCheat
+	jr nz, .CantEncounter
 	ld a, [wNPCMovementScriptPointerTableNum]
 	and a
 	ret nz
@@ -130,6 +133,7 @@ TryDoWildEncounter:
 	pop af
 .storeSpecies
     ld [wNextEncounterSpecies], a
+	farcall ApplyQueuedWildCheats
 	ld a, [wRepelRemainingSteps]
 	and a
 	jr z, .willEncounterNext
@@ -153,6 +157,7 @@ TryDoWildEncounter:
 	and a
 	ret
 .WillEncounterIfNotRepelled
+	farcall ApplyQueuedWildCheats
 	ld a, [wRepelRemainingSteps]
 	and a
 	jr z, .willEncounter
@@ -167,6 +172,7 @@ TryDoWildEncounter:
 	ld a, [wNextEncounterSpecies]
 	ld [wCurPartySpecies], a
 	ld [wEnemyMonSpecies2], a
+	farcall ApplyWildCheats
 	xor a
 	ret
 

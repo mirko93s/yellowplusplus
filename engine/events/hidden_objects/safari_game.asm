@@ -1,12 +1,18 @@
 SafariZoneCheck::
 	CheckEventHL EVENT_IN_SAFARI_ZONE ; if we are not in the Safari Zone,
 	jr z, SafariZoneGameStillGoing ; don't bother printing game over text
+	ld a, CHEAT_SAFARI
+	call CheckCheat
+	jr nz, SafariZoneGameStillGoing
 	ld a, [wNumSafariBalls]
 	and a
 	jr z, SafariZoneGameOver
 	jr SafariZoneGameStillGoing
 
 SafariZoneCheckSteps::
+	ld a, CHEAT_SAFARI
+	call CheckCheat
+	jr nz, SafariZoneGameStillGoing
 IF DEF(_DEBUG)
 	call DebugPressedOrHeldB
 	ret nz

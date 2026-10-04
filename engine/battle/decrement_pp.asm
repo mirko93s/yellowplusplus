@@ -1,4 +1,7 @@
 DecrementPP:
+	ld a, CHEAT_PP
+	call CheckCheat
+	ret nz
 ; after using a move, decrement pp in battle and (if not transformed?) in party
 	ld a, [de]
 	cp STRUGGLE
