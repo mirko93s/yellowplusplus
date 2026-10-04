@@ -521,6 +521,7 @@ PrintNamingText:
 	call PlaceString
 	ld hl, $0
 	add hl, bc
+	ld [hl], CHARVAL("'s")
 	hlcoord 1, 3
 	ld de, NicknameTextString
 	jr .placeString
