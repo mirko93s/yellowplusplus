@@ -2483,27 +2483,22 @@ SimulatedInputBattleItemList:
 	db -1 ; end
 
 DisplayPlayerBag:
-	; get the pointer to player's bag when in a normal battle
-	ld hl, wNumBagItems
-	ld a, l
-	ld [wListPointer], a
-	ld a, h
-	ld [wListPointer + 1], a
+	ld a, BAG_CONTEXT_BATTLE
+	ld [wBagContext], a
+	farcall DisplayPocketBag
+	jp c, DisplayBattleMenu
+	jr UseBagItem
 
+; The Old Man uses an explicit simulated inventory, never the player's Pack.
 DisplayBagMenu:
 	xor a
 	ld [wPrintItemPrices], a
+	ld [wCurrentMenuItem], a
+	ld [wListScrollOffset], a
 	ld a, ITEMLISTMENU
 	ld [wListMenuID], a
-	ld a, [wBagSavedMenuItem]
-	ld [wCurrentMenuItem], a
 	call DisplayListMenuID
-	ld a, [wCurrentMenuItem]
-	ld [wBagSavedMenuItem], a
-	ld a, $0
-	ld [wMenuWatchMovingOutOfBounds], a
-	ld [wMenuItemToSwap], a
-	jp c, DisplayBattleMenu ; go back to battle menu if an item was not selected
+	jp c, DisplayBattleMenu
 
 UseBagItem:
 	; either use an item from the bag or use a safari zone item

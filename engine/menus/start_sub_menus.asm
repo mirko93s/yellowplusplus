@@ -316,8 +316,7 @@ ErasePartyMenuCursors::
 	ret
 
 ItemMenuLoop:
-	call LoadScreenTilesFromBuffer2DisableBGTransfer ; restore saved screen
-	call RunDefaultPaletteCommand
+; Return directly to the active Pack; item-use paths restore their own host.
 
 StartMenu_Item::
 	ld a, [wLinkState]
@@ -327,62 +326,24 @@ StartMenu_Item::
 	call PrintText
 	jr .exitMenu
 .notInCableClubRoom
-	; store item bag pointer in wListPointer (for DisplayListMenuID)
-	ld hl, wListPointer
-	ld [hl], LOW(wNumBagItems)
-	inc hl
-	ld [hl], HIGH(wNumBagItems)
 	xor a
-	ld [wPrintItemPrices], a
-	ld a, ITEMLISTMENU
-	ld [wListMenuID], a
-	ld a, [wBagSavedMenuItem]
-	ld [wCurrentMenuItem], a
-	call DisplayListMenuID
-	ld a, [wCurrentMenuItem]
-	ld [wBagSavedMenuItem], a
+	ld [wUpdateSpritesEnabled], a ; keep sprites hidden through Pack actions
+	ld [wBagContext], a
+	farcall DisplayPocketBag
 	jr nc, .choseItem
 .exitMenu
 	call LoadScreenTilesFromBuffer2 ; restore saved screen
 	call LoadTextBoxTilePatterns
+	ld a, 1
+	ld [wUpdateSpritesEnabled], a
 	call UpdateSprites
 	jp RedisplayStartMenu
 .choseItem
-; erase menu cursor (blank each tile in front of an item name)
-	ld a, ' '
-	ldcoord_a 5, 4
-	ldcoord_a 5, 6
-	ldcoord_a 5, 8
-	ldcoord_a 5, 10
-	call PlaceUnfilledArrowMenuCursor
-	xor a
-	ld [wMenuItemToSwap], a
 	ld a, [wCurItem]
 	cp BICYCLE
-	jp z, .useOrTossItem
-.notBicycle1
-	ld a, USE_INFO_TOSS_MENU_TEMPLATE
-	ld [wTextBoxID], a
-	call DisplayTextBoxID
-	ld hl, wTopMenuItemY
-	ld a, 11
-	ld [hli], a ; top menu item Y
-	ld a, 14
-	ld [hli], a ; top menu item X
-	xor a
-	ld [hli], a ; current menu item ID
-	inc hl
-	ld a, 2
-	ld [hli], a ; max menu item ID (USE/INFO/TOSS)
-	ld a, A_BUTTON | B_BUTTON
-	ld [hli], a ; menu watched keys
-	xor a
-	ld [hl], a ; old menu item id
-	call HandleMenuInput
-	call PlaceUnfilledArrowMenuCursor
-	bit BIT_B_BUTTON, a
 	jr z, .useOrTossItem
-	jp ItemMenuLoop
+	farcall BagFieldActions
+	jp c, ItemMenuLoop
 .useOrTossItem ; if the player made the choice to use or toss the item
 	ld a, [wCurItem]
 	ld [wNamedObjectIndex], a
@@ -399,14 +360,9 @@ StartMenu_Item::
 	jp ItemMenuLoop
 .notBicycle2
 	ld a, [wCurrentMenuItem]
-	cp a, 2
+	cp 1
 	jr z, .tossItem
-	cp a, 1
-	jp z, .infoItem
-	; and a
-	; jr nz, .tossItem
-; use item
-	; ld [wPseudoItemID], a ; a must be 0 due to above conditional jump
+; Use the selected item.
 	xor a
 	ld [wPseudoItemID], a
 	ld a, [wCurItem]
@@ -457,15 +413,13 @@ StartMenu_Item::
 	call IsItemHM
 	jr c, .skipAskingQuantity
 	call DisplayChooseQuantityMenu
-	inc a
-	jr z, .tossZeroItems
+	ld a, [wQuantityMenuResult]
+	and a
+	jr nz, .tossZeroItems
 .skipAskingQuantity
 	ld hl, wNumBagItems
 	call TossItem
 .tossZeroItems
-	jp ItemMenuLoop
-.infoItem
-	farcall DisplayItemDescription
 	jp ItemMenuLoop
 
 CannotUseItemsHereText:

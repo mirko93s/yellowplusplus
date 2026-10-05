@@ -201,154 +201,7 @@ DisplayListMenuIDLoop::
 	jp DisplayListMenuIDLoop
 
 DisplayChooseQuantityMenu::
-; text box dimensions/coordinates for just quantity
-	hlcoord 15, 9
-	lb bc, 1, 3 ; height and width
-	ld a, [wListMenuID]
-	cp PRICEDITEMLISTMENU
-	jr nz, .drawTextBox
-; text box dimensions/coordinates for quantity and price
-	hlcoord 7, 9
-	lb bc, 1, 11  ; height and width
-.drawTextBox
-	call TextBoxBorder
-	hlcoord 16, 10
-	ld a, [wListMenuID]
-	cp PRICEDITEMLISTMENU
-	jr nz, .printInitialQuantity
-	hlcoord 8, 10
-.printInitialQuantity
-	ld de, InitialQuantityText
-	call PlaceString
-	xor a
-	ld [wItemQuantity], a ; initialize current quantity to 0
-	jp .incrementQuantity
-.waitForKeyPressLoop
-	call JoypadLowSensitivity
-	ldh a, [hJoyPressed] ; newly pressed buttons
-	bit BIT_A_BUTTON, a
-	jp nz, .buttonAPressed
-	bit BIT_B_BUTTON, a
-	jp nz, .buttonBPressed
-	bit BIT_D_UP, a
-	jr nz, .incrementQuantity
-	bit BIT_D_DOWN, a
-	jr nz, .decrementQuantity
-	bit BIT_D_RIGHT, a
-	jr nz, .incrementQuantityLarge
-	bit BIT_D_LEFT, a
-	jr nz, .decrementQuantityLarge
-	jr .waitForKeyPressLoop
-.incrementQuantityLarge
-	ld a, [wMaxItemQuantity]
-	ld b, a
-	ld a, [wItemQuantity]
-    add a, 10
-    cp b
-    jr nc, .maxQuantity
-    ld [wItemQuantity], a
-    jr .handleNewQuantity
-.maxQuantity
-	ld a, b ; Set quantity to wMaxItemQuantity if adding 10 exceeds it       
-    ld [wItemQuantity], a ; Store the max quantity back at the location
-	jr .handleNewQuantity
-.incrementQuantity
-	ld a, [wMaxItemQuantity]
-	inc a
-	ld b, a
-	ld hl, wItemQuantity ; current quantity
-	inc [hl]
-	ld a, [hl]
-	cp b
-	jr nz, .handleNewQuantity
-; wrap to 1 if the player goes above the max quantity
-	ld a, 1
-	ld [hl], a
-	jr .handleNewQuantity
-.decrementQuantityLarge
-	ld hl, wItemQuantity
-	ld a, [hl]
-	sub 10
-	jr z, .setTo1 ; if quantity is 0, set to 1
-	jr nc, .storeNewQuantity
-.setTo1
-	ld a, 1 ; If underflow occurred, set to 1
-	jr .storeNewQuantity
-.decrementQuantity
-	ld hl, wItemQuantity ; current quantity
-	dec [hl]
-	jr nz, .handleNewQuantity
-; wrap to the max quantity if the player goes below 1
-	ld a, [wMaxItemQuantity]
-.storeNewQuantity:
-	ld [hl], a
-.handleNewQuantity
-	hlcoord 17, 10
-	ld a, [wListMenuID]
-	cp PRICEDITEMLISTMENU
-	jr nz, .printQuantity
-.printPrice
-	ld c, $03
-	ld a, [wItemQuantity]
-	ld b, a
-	ld hl, hMoney ; total price
-; initialize total price to 0
-	xor a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-.addLoop ; loop to multiply the individual price by the quantity to get the total price
-	ld de, hMoney + 2
-	ld hl, hItemPrice + 2
-	push bc
-	predef AddBCDPredef ; add the individual price to the current sum
-	pop bc
-	dec b
-	jr nz, .addLoop
-	ldh a, [hHalveItemPrices]
-	and a ; should the price be halved (for selling items)?
-	jr z, .skipHalvingPrice
-	xor a
-	ldh [hDivideBCDDivisor], a
-	ldh [hDivideBCDDivisor + 1], a
-	ld a, $04
-	ldh [hDivideBCDDivisor + 2], a
-	predef DivideBCDPredef3 ; halves the price
-; store the halved price
-	ldh a, [hDivideBCDQuotient]
-	ldh [hMoney], a
-	ldh a, [hDivideBCDQuotient + 1]
-	ldh [hMoney + 1], a
-	ldh a, [hDivideBCDQuotient + 2]
-	ldh [hMoney + 2], a
-.skipHalvingPrice
-	hlcoord 12, 10
-	ld de, SpacesBetweenQuantityAndPriceText
-	call PlaceString
-	ld de, hMoney ; total price
-	ld c, $a3
-	call PrintBCDNumber
-	hlcoord 9, 10
-.printQuantity
-	ld de, wItemQuantity ; current quantity
-	lb bc, LEADING_ZEROES | 1, 2 ; 1 byte, 2 digits
-	call PrintNumber
-	jp .waitForKeyPressLoop
-.buttonAPressed ; the player chose to make the transaction
-	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
-	ret
-.buttonBPressed ; the player chose to cancel the transaction
-	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
-	ld a, $ff
-	ret
-
-InitialQuantityText::
-	db "×01@"
-
-SpacesBetweenQuantityAndPriceText::
-	db "      @"
+	farjp DisplayChooseQuantityMenu_
 
 ExitListMenu::
 	ld a, [wCurrentMenuItem]
@@ -499,14 +352,8 @@ PrintListMenuEntries::
 	cp ITEMLISTMENU
 	jr nz, .nextListEntry
 .printItemQuantity
-	ld a, [wNamedObjectIndex]
-	ld [wCurItem], a
-	call IsKeyItem ; check if item is unsellable
-	ld a, [wIsKeyItem]
-	and a ; is the item unsellable?
-	jr nz, .skipPrintingItemQuantity ; if so, don't print the quantity
 	push hl
-	ld bc, SCREEN_WIDTH + 8 ; 1 row down and 8 columns right
+	ld bc, SCREEN_WIDTH + 7 ; 1 row down and 8 columns right
 	add hl, bc
 	ld a, '×'
 	ld [hli], a
@@ -517,7 +364,7 @@ PrintListMenuEntries::
 	push de
 	ld de, wTempByteValue
 	ld [de], a
-	lb bc, 1, 2
+	lb bc, 1, 3
 	call PrintNumber
 	pop de
 	pop af

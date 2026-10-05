@@ -1,151 +1,480 @@
-; function to add an item (in varying quantities) to the player's bag or PC box
-; INPUT:
-; hl = address of inventory (either wNumBagItems or wNumBoxItems)
-; [wCurItem] = item ID
-; [wItemQuantity] = item quantity
-; sets carry flag if successful, unsets carry flag if unsuccessful
+; Four-pocket inventory. The legacy wNumBagItems label is the bag token.
+; Public add/remove routines preserve BC, DE, HL and wItemQuantity.
+; Only wNumBoxItems bypasses pocket dispatch.
+
+GetItemPocket::
+; A = item ID. A = pocket or $ff. Preserve BC, DE, HL.
+	push bc
+	push hl
+	ld c, a
+	cp HM01
+	jr c, .ordinary
+	cp TM01 + NUM_TMS
+	jr nc, .invalid
+	ld a, TMHM_POCKET
+	jr .done
+.ordinary
+	and a
+	jr z, .invalid
+	cp NUM_ITEMS + 1
+	jr nc, .invalid
+	ld b, 0
+	ld hl, ItemPocketTable
+	add hl, bc
+	ld a, [hl]
+	jr .done
+.invalid
+	ld a, $ff
+.done
+	pop hl
+	pop bc
+	ret
+
+KeyItemIDs:
+	db TOWN_MAP, BICYCLE, OLD_AMBER, DOME_FOSSIL, HELIX_FOSSIL
+	db SECRET_KEY, BIKE_VOUCHER, CARD_KEY, S_S_TICKET, GOLD_TEETH
+	db COIN_CASE, OAKS_PARCEL, ITEMFINDER, SILPH_SCOPE, POKE_FLUTE
+	db LIFT_KEY, EXP_ALL, OLD_ROD, GOOD_ROD, SUPER_ROD
+KeyItemIDsEnd:
+	ASSERT KeyItemIDsEnd - KeyItemIDs == NUM_BAG_KEY_ITEMS
+
+ItemPocketTable:
+FOR item, 0, NUM_ITEMS + 1
+	IF item >= MASTER_BALL && item <= POKE_BALL
+		db BALLS_POCKET
+	ELIF item == TOWN_MAP || item == BICYCLE || item == OLD_AMBER || item == DOME_FOSSIL || item == HELIX_FOSSIL || item == SECRET_KEY || item == BIKE_VOUCHER || item == CARD_KEY || item == S_S_TICKET || item == GOLD_TEETH || item == COIN_CASE || item == OAKS_PARCEL || item == ITEMFINDER || item == SILPH_SCOPE || item == POKE_FLUTE || item == LIFT_KEY || item == EXP_ALL || item == OLD_ROD || item == GOOD_ROD || item == SUPER_ROD
+		db KEY_POCKET
+	ELIF item == NO_ITEM || item == SURFBOARD || item == SAFARI_BALL || item == POKEDEX || (item >= BOULDERBADGE && item <= EARTHBADGE) || item == COIN
+		db $ff
+	ELSE
+		db ITEMS_POCKET
+	ENDC
+ENDR
+
+GetOwnershipBit::
+; A = valid key/machine ID. HL = ownership byte, B = bit mask,
+; C = logical bit index. Carry if valid. Clobbers DE.
+	ld e, a
+	call GetItemPocket
+	cp KEY_POCKET
+	jr z, .key
+	cp TMHM_POCKET
+	jr nz, .invalid
+	ld a, e
+	cp TM01
+	jr c, .hm
+	sub TM01
+	jr .machine
+.hm
+	sub HM01
+	add NUM_TMS
+.machine
+	ld c, a
+	ld hl, wOwnedTMHMs
+	jr GetOwnershipBitByIndex
+.key
+	ld hl, KeyItemIDs
+	ld c, 0
+.keyLoop
+	ld a, [hli]
+	cp e
+	jr z, .foundKey
+	inc c
+	ld a, c
+	cp NUM_BAG_KEY_ITEMS
+	jr c, .keyLoop
+.invalid
+	and a
+	ret
+.foundKey
+	ld hl, wOwnedKeyItems
+GetOwnershipBitByIndex::
+; HL = bitfield base, C = logical index. Preserve C; return HL/B, carry.
+	ld a, c
+	and 7
+	ld b, 1
+	jr z, .byte
+.shift
+	sla b
+	dec a
+	jr nz, .shift
+.byte
+	ld a, c
+	srl a
+	srl a
+	srl a
+	ld e, a
+	ld d, 0
+	add hl, de
+	scf
+	ret
+
+BagIsProtected::
+; Preserve original Master Ball protection independently of its pocket.
+	ld a, [wCurItem]
+	cp MASTER_BALL
+	jr z, .protected
+	call GetItemPocket
+	cp KEY_POCKET
+	jr z, .protected
+	cp TMHM_POCKET
+	jr z, .protected
+	cp $ff
+	jr z, .protected
+	xor a
+	ld [wIsKeyItem], a
+	ret
+.protected
+	ld a, 1
+	ld [wIsKeyItem], a
+	ret
+
+GetPocketStackPointer::
+; A = ITEMS_POCKET or BALLS_POCKET. HL = count, D = capacity.
+	ld hl, wNumItems
+	ld d, BAG_ITEM_CAPACITY
+	cp BALLS_POCKET
+	ret nz
+	ld hl, wNumBalls
+	ld d, BALL_ITEM_CAPACITY
+	ret
+
 AddItemToInventory_::
-	ld a, [wItemQuantity] ; a = item quantity
-	push af
 	push bc
 	push de
 	push hl
-	push hl
-	ld d, PC_ITEM_CAPACITY ; how many items the PC can hold
-	ld a, LOW(wNumBagItems)
-	cp l
-	jr nz, .checkIfInventoryFull
-	ld a, HIGH(wNumBagItems)
-	cp h
-	jr nz, .checkIfInventoryFull
-; if the destination is the bag
-	ld d, BAG_ITEM_CAPACITY ; how many items the bag can hold
-.checkIfInventoryFull
-	ld a, [hl]
-	sub d
-	ld d, a
-	ld a, [hli]
+	ld a, [wItemQuantity]
+	push af
 	and a
-	jr z, .addNewItem
-.notAtEndOfInventory
-	ld a, [hli]
-	ld b, a ; b = ID of current item in table
-	ld a, [wCurItem] ; a = ID of item being added
-	cp b ; does the current item in the table match the item being added?
-	jp z, .increaseItemQuantity ; if so, increase the item's quantity
-	inc hl
-.addAnotherStackOfItem
-	ld a, [hl]
-	cp $ff ; is it the end of the table?
-	jr nz, .notAtEndOfInventory
-.addNewItem ; add an item not yet in the inventory
-	pop hl
-	ld a, d
-	and a ; is there room for a new item slot?
-	jr z, .done
-; if there is room
-	inc [hl] ; increment the number of items in the inventory
-	ld a, [hl] ; the number of items will be the index of the new item
-	add a
-	dec a
-	ld c, a
-	ld b, 0
-	add hl, bc ; hl = address to store the item
+	jp z, .failure
+	ld a, h
+	cp HIGH(wNumBoxItems)
+	jr nz, .bag
+	ld a, l
+	cp LOW(wNumBoxItems)
+	jr z, .pc
+.bag
 	ld a, [wCurItem]
-	ld [hli], a ; store item ID
+	call GetItemPocket
+	cp $ff
+	jp z, .failure
+	cp KEY_POCKET
+	jr nc, .ownership
+	call GetPocketStackPointer
+	jr .stacks
+.pc
+	ld a, [wCurItem]
+	call GetItemPocket
+	cp KEY_POCKET
+	jp nc, .failure ; PC storage is exclusively quantity-bearing stacks
+	ld d, PC_ITEM_CAPACITY
+.stacks
+; Preflight: any free slot can hold the entire request. Otherwise check
+; space across matching stacks without mutating them.
+	ld a, [hl]
+	cp d
+	jr c, .insert
+	ld c, a
 	ld a, [wItemQuantity]
-	ld [hli], a ; store item quantity
-	ld [hl], $ff ; store terminator
-	jp .success
-.increaseItemQuantity ; increase the quantity of an item already in the inventory
-	ld a, [wItemQuantity]
-	ld b, a ; b = quantity to add
-	ld a, [hl] ; a = existing item quantity
-	add b ; a = new item quantity
-	cp 100
-	jp c, .storeNewQuantity ; if the new quantity is less than 100, store it
-; if the new quantity is greater than or equal to 100,
-; try to max out the current slot and add the rest in a new slot
-	sub 99
-	ld [wItemQuantity], a ; a = amount left over (to put in the new slot)
-	ld a, d
-	and a ; is there room for a new item slot?
-	jr z, .increaseItemQuantityFailed
-; if so, store 99 in the current slot and store the rest in a new slot
-	ld a, 99
-	ld [hli], a
-	jp .addAnotherStackOfItem
-.increaseItemQuantityFailed
+	ld b, a
+	push hl
+	inc hl
+.preflight
+	ld a, [wCurItem]
+	cp [hl]
+	inc hl
+	jr nz, .preflightNext
+	ld a, [hl]
+	cpl
+	cp b
+	jr nc, .preflightOK
+	ld e, a
+	ld a, b
+	sub e
+	ld b, a
+.preflightNext
+	inc hl
+	dec c
+	jr nz, .preflight
 	pop hl
+	jp .failure
+.preflightOK
+	pop hl
+.insert
+	push hl
+	ld c, [hl]
+	inc hl
+	ld a, [wItemQuantity]
+	ld b, a
+	ld a, c
 	and a
-	jr .done
-.storeNewQuantity
+	jr z, .append
+.fillLoop
+	ld a, [wCurItem]
+	cp [hl]
+	inc hl
+	jr nz, .fillNext
+	ld a, [hl]
+	cpl
+	cp b
+	jr nc, .fits
+	ld e, a
+	ld a, b
+	sub e
+	ld b, a
+	ld [hl], MAX_ITEM_STACK
+.fillNext
+	inc hl
+	dec c
+	jr nz, .fillLoop
+.append
+	ld a, [wCurItem]
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	ld [hl], $ff
+	pop hl
+	inc [hl]
+	jr .success
+.fits
+	ld a, [hl]
+	add b
 	ld [hl], a
 	pop hl
+	jr .success
+.ownership
+	ld a, [wCurItem]
+	call GetOwnershipBit
+	jr nc, .failure
+	ld a, [hl]
+	or b
+	ld [hl], a
 .success
+	pop bc
+	ld a, b
+	ld [wItemQuantity], a
+	pop hl
+	pop de
+	pop bc
 	scf
+	ret
+.failure
+	pop bc
+	ld a, b
+	ld [wItemQuantity], a
+	pop hl
+	pop de
+	pop bc
+	and a
+	ret
+
+RemoveItemFromInventory_::
+	push bc
+	push de
+	push hl
+	ld a, h
+	cp HIGH(wNumBoxItems)
+	jr nz, .bag
+	ld a, l
+	cp LOW(wNumBoxItems)
+	jr nz, .bag
+	ld a, [wWhichPokemon]
+	ld c, a
+	jr .remove
+.bag
+	ld a, [wCurItem]
+	call GetItemPocket
+	cp KEY_POCKET
+	jp z, .key
+	cp TMHM_POCKET
+	jp nc, .done ; machines are never removed
+	call GetPocketStackPointer
+; Use the stable selected stack only when its ID still matches.
+	ld a, [wBagSelectedItem]
+	ld b, a
+	ld a, [wCurItem]
+	cp b
+	jr nz, .find
+	ld a, [wBagSelectedIndex]
+	cp [hl]
+	jr nc, .find
+	ld c, a
+	push hl
+	call GetStackEntry
+	ld a, [wCurItem]
+	cp [hl]
+	pop hl
+	jr z, .remove
+.find
+	push hl
+	ld b, [hl]
+	inc hl
+	ld c, 0
+.findLoop
+	ld a, b
+	and a
+	jr z, .notFound
+	ld a, [wCurItem]
+	cp [hl]
+	jr z, .found
+	inc hl
+	inc hl
+	inc c
+	dec b
+	jr .findLoop
+.notFound
+	pop hl
+	jr .done
+.found
+	pop hl
+.remove
+	ld a, c
+	cp [hl]
+	jr nc, .done
+	push hl
+	call GetStackEntry
+	inc hl
+	ld a, [wItemQuantity]
+	ld e, a
+	and a
+	jr z, .unchanged
+	ld a, [hl]
+	sub e
+	jr c, .unchanged
+	ld [hl], a
+	ld [wMaxItemQuantity], a
+	and a
+	jr nz, .unchanged
+	dec hl
+	ld d, h
+	ld e, l
+	inc hl
+	inc hl
+; Copy pairs; $ff in a quantity must never terminate compaction.
+.compact
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp $ff
+	jr z, .compacted
+	ld a, [hli]
+	ld [de], a
+	inc de
+	jr .compact
+.compacted
+	pop hl
+	dec [hl]
+	ld a, [hl]
+	ld [wListCount], a
+; Generic PC lists still expect their shared cursor to reset on compaction.
+; The Pack owns separate per-pocket state and clamps it on the next redraw.
+	ld a, h
+	cp HIGH(wNumBoxItems)
+	jr nz, .done
+	ld a, l
+	cp LOW(wNumBoxItems)
+	jr nz, .done
+	xor a
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	jr .done
+.unchanged
+	pop hl
+	jr .done
+.key
+	ld a, [wCurItem]
+	call GetOwnershipBit
+	jr nc, .done
+	ld a, b
+	cpl
+	and [hl]
+	ld [hl], a
 .done
 	pop hl
 	pop de
 	pop bc
-	pop bc
-	ld a, b
-	ld [wItemQuantity], a ; restore the initial value from when the function was called
 	ret
 
-; function to remove an item (in varying quantities) from the player's bag or PC box
-; INPUT:
-; hl = address of inventory (either wNumBagItems or wNumBoxItems)
-; [wWhichPokemon] = index (within the inventory) of the item to remove
-; [wItemQuantity] = quantity to remove
-RemoveItemFromInventory_::
-	push hl
-	inc hl
-	ld a, [wWhichPokemon] ; index (within the inventory) of the item being removed
+GetStackEntry::
+; HL = count byte, C = zero-based stack index. Preserve C.
+	ld a, c
 	add a
-	add l
-	ld l, a
-	jr nc, .noCarry
-	inc h
-.noCarry
-	inc hl
-	ld a, [wItemQuantity] ; quantity being removed
+	inc a
 	ld e, a
-	ld a, [hl] ; a = current quantity
-	sub e
-	ld [hld], a ; store new quantity
-	ld [wMaxItemQuantity], a
-	and a
-	jr nz, .skipMovingUpSlots
-; if the remaining quantity is 0,
-; remove the emptied item slot and move up all the following item slots
-.moveSlotsUp
-	ld e, l
-	ld d, h
-	inc de
-	inc de ; de = address of the slot following the emptied one
-.loop ; loop to move up the following slots
-	ld a, [de]
-	inc de
-	ld [hli], a
+	ld d, 0
+	add hl, de
+	ret
+
+BagQuantity_::
+; wTempByteValue = ID -> first matching quantity or 0/1 ownership.
+	push de
+	push hl
+	ld a, [wTempByteValue]
+	ld e, a
+	call GetItemPocket
 	cp $ff
-	jr nz, .loop
-; update menu info
-	xor a
-	ld [wListScrollOffset], a
-	ld [wCurrentMenuItem], a
-	ld [wBagSavedMenuItem], a
-	ld [wSavedListScrollOffset], a
-	pop hl
-	ld a, [hl] ; a = number of items in inventory
-	dec a ; decrement the number of items
-	ld [hl], a ; store new number of items
-	ld [wListCount], a
-	cp 2
-	jr c, .done
-	ld [wMaxMenuItem], a
+	jr z, .absent
+	cp KEY_POCKET
+	jr nc, .ownership
+	call GetPocketStackPointer
+	ld b, [hl]
+	inc hl
+.loop
+	ld a, b
+	and a
+	jr z, .absent
+	ld a, [hli]
+	cp e
+	jr z, .found
+	inc hl
+	dec b
+	jr .loop
+.found
+	ld b, [hl]
 	jr .done
-.skipMovingUpSlots
-	pop hl
+.ownership
+	ld a, e
+	call GetOwnershipBit
+	jr nc, .absent
+	ld a, [hl]
+	and b
+	jr z, .absent
+	ld b, 1
+	jr .done
+.absent
+	ld b, 0
 .done
+	ld a, b
+	ld [wTempByteValue], a
+	pop hl
+	pop de
+	ret
+
+RemoveBagItemByID_::
+	ldh a, [hItemToRemoveID]
+	ld [wCurItem], a
+	ld [wBagSelectedItem], a
+	ld a, $ff
+	ld [wBagSelectedIndex], a
+	ld a, 1
+	ld [wItemQuantity], a
+	ld hl, wNumItems
+	jp RemoveItemFromInventory_
+
+InitializePocketBag_::
+	xor a
+	ld [wNumItems], a
+	ld [wNumBalls], a
+	ld hl, wOwnedKeyItems
+	ld bc, (NUM_BAG_KEY_ITEMS + 7) / 8 + (NUM_TM_HM + 7) / 8
+	call FillMemory
+	ld hl, wBagPocket
+	ld bc, wQuantityMenuResult - wBagPocket + 1
+	xor a
+	call FillMemory
+	ld a, $ff
+	ld [wItems], a
+	ld [wBalls], a
+	ld [wBagSwapIndex], a
+	ld [wBagSelectedIndex], a
 	ret

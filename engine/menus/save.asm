@@ -1,4 +1,4 @@
-LoadSAV:
+LoadSAV_::
 ;(if carry -> write
 ;"the file data is destroyed")
 	call ClearScreen
@@ -127,10 +127,8 @@ SAVGoodChecksum:
 	ret
 
 LoadSAVIgnoreBadCheckSum:
-; unused function that loads save data and ignores bad checksums
-	call LoadSAV0
-	call LoadSAV1
-	jp LoadSAV2
+; Use the normal loader so transient Pack state is reset too.
+	farjp LoadSAV
 
 SaveSAV:
 	farcall PrintSaveScreenText
@@ -252,7 +250,7 @@ SaveSAVtoSRAM2:
 	ld bc, wPokedexSeenEnd - wPokedexOwned
 	call CopyData
 	ld hl, wPikachuHappiness
-	ld de, sMainData + $179
+	ld de, sMainData + (wPikachuHappiness - wMainDataStart)
 	ld a, [hli]
 	ld [de], a
 	inc de

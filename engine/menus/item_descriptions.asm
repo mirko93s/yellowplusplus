@@ -289,3 +289,76 @@ ItemDescriptionPointers:
 	db '@'
 	text_far _TM50Description
 	db '@'
+; Automatic Pack descriptions: use the existing far text and compact DOWN rows,
+; but never invoke the dialogue processor or PROMPT input handling.
+DrawBagDescription_::
+	ld a, [wCurItem]
+	dec a
+	cp HM01 - 1
+	jr c, .index
+	sub HM01 - FLOOR_B2F
+.index
+	ld hl, ItemDescriptionPointers
+	ld bc, 5
+	call AddNTimes
+	inc hl ; skip TX_FAR
+	ld a, [hli]
+	ld e, a
+	ld a, [hli]
+	ld d, a
+	ld a, [hl] ; text bank
+	ld [wTempByteValue], a
+	ld h, d
+	ld l, e
+	inc hl ; skip TX_START
+	push hl
+	ld de, wNameBuffer
+	ld bc, NAME_BUFFER_LENGTH
+	call FarCopyData
+	ld hl, wNameBuffer
+	call .terminateLine
+	pop hl
+	jr nc, .firstOnly
+	ld b, 0
+	add hl, bc
+	ld a, [wTempByteValue]
+	ld de, wStringBuffer
+	ld bc, 20
+	call FarCopyData
+	ld hl, wStringBuffer
+	call .terminateLine
+	hlcoord 1, 16
+	ld de, wStringBuffer
+	call PlaceString
+.firstOnly
+	hlcoord 1, 15
+	ld de, wNameBuffer
+	jp PlaceString
+
+.terminateLine
+; Terminate a copied line at DOWN or any dialogue end. C = next offset.
+	ld c, 0
+.scan
+	ld a, [hl]
+	inc c
+	cp '<DOWN>'
+	jr z, .nextLine
+	cp '@'
+	jr z, .end
+	cp '<PROMPT>'
+	jr z, .end
+	cp '<DONE>'
+	jr z, .end
+	ld a, c
+	cp 19
+	jr nc, .end
+	inc hl
+	jr .scan
+.end
+	ld [hl], '@'
+	and a
+	ret
+.nextLine
+	ld [hl], '@'
+	scf
+	ret

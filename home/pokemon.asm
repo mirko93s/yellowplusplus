@@ -171,6 +171,16 @@ GetCryData::
 	ret
 
 DisplayPartyMenu::
+	; Keep item messages over the Pack until a party screen is actually needed.
+	push af
+	push bc
+	push de
+	push hl
+	farcall ClosePocketBagUIForParty
+	pop hl
+	pop de
+	pop bc
+	pop af
 	ldh a, [hTileAnimations]
 	push af
 	xor a

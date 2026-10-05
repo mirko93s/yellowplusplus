@@ -230,8 +230,11 @@ HandlePrizeChoice:
 	jr nz, .giveMon
 	ld a, [wNamedObjectIndex]
 	ld b, a
-	ld a, 1
-	ld c, a
+	push bc
+	call IsItemInBag
+	pop bc
+	jr nz, .alreadyOwned
+	ld c, 1
 	call GiveItem
 	jr nc, .bagFull
 	jr .subtractCoins
@@ -272,6 +275,9 @@ HandlePrizeChoice:
 	ld c, $02 ; how many bytes
 	predef SubBCDPredef
 	jp PrintPrizePrice
+.alreadyOwned
+	ld hl, AlreadyOwnedMachineText
+	jp PrintText
 .bagFull
 	ld hl, PrizeRoomBagIsFullTextPtr
 	jp PrintText
@@ -326,3 +332,8 @@ GetPrizeMonLevel:
 	ret
 
 INCLUDE "data/events/prize_mon_levels.asm"
+
+AlreadyOwnedMachineText:
+	text "You already own"
+	line "that machine!"
+	prompt

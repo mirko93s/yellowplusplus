@@ -101,12 +101,11 @@ HandleItemListSwapping::
 	ld b, a
 	ld a, [de]
 	add b ; a = sum of both item quantities
-	cp 100 ; is the sum too big for one item slot?
-	jr c, .combineItemSlots
+	jr nc, .combineItemSlots ; a carry means the sum exceeds 255
 ; swap enough items from the first slot to max out the second slot if they can't be combined
-	sub 99
+	inc a ; wrapped sum + 1 is the remainder above 255
 	ld [de], a
-	ld a, 99
+	ld a, MAX_ITEM_STACK
 	ld [hl], a
 	jr .done
 .combineItemSlots

@@ -587,7 +587,6 @@ INCLUDE "engine/movie/title_yellow.asm"
 INCLUDE "engine/menus/link_menu.asm"
 INCLUDE "engine/menus/unused_input.asm"
 INCLUDE "engine/overworld/field_move_messages.asm"
-INCLUDE "engine/items/inventory.asm"
 INCLUDE "gfx/trainer_card.asm"
 INCLUDE "engine/items/super_rod.asm"
 INCLUDE "engine/battle/init_battle.asm"
@@ -741,3 +740,12 @@ INCLUDE "engine/battle/move_menu_icons.asm"
 SECTION "Move Learning Menu", ROMX
 
 INCLUDE "engine/pokemon/move_learning_menu.asm"
+
+SECTION "Pocket Inventory", ROMX
+INCLUDE "engine/items/inventory.asm"
+INCLUDE "engine/menus/pocket_bag.asm"
+
+INCLUDE "engine/menus/bag_graphics.asm"
+INCLUDE "engine/menus/bag_palettes.asm"
+INCLUDE "engine/menus/bag_fast.asm"
+INCLUDE "engine/menus/bag_submenus.asm"

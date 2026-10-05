@@ -366,7 +366,7 @@ wPartyAndBillsPCSavedMenuItem:: db
 
 ; It is used by the bag list to remember the cursor position while the menu
 ; isn't active.
-wBagSavedMenuItem:: db
+wBagSavedMenuItem:: db ; retained for legacy list callers; Pack uses per-pocket state
 
 ; It is used by the start menu to remember the cursor position while the menu
 ; isn't active.
@@ -1917,6 +1917,18 @@ wSavedNPCMovementDirections2Index:: db
 wPlayerName:: ds NAME_LENGTH
 
 
+wBagPocket:: db
+wBagPocketCursor:: ds NUM_BAG_POCKETS
+wBagPocketScroll:: ds NUM_BAG_POCKETS
+wBagContext:: db
+wBagSelectedIndex:: db
+wBagSelectedItem:: db
+wUsedItem:: db ; original item ID, preserved across item-effect menus
+wBagSwapIndex:: db
+wBagUISavedSpriteState:: db
+wBagUIActive:: db ; BG5/BG6 belong to the Pack while set
+wQuantityMenuResult:: db
+
 SECTION "Party Data", WRAM0
 
 wPartyDataStart::
@@ -1956,9 +1968,15 @@ wPokedexOwnedEnd::
 wPokedexSeen:: flag_array NUM_POKEMON_INDEXES
 wPokedexSeenEnd::
 
-wNumBagItems:: db
-; item, quantity
-wBagItems:: ds BAG_ITEM_CAPACITY * 2 + 1
+; Legacy labels remain as the bag-dispatch token, never a combined inventory.
+wNumBagItems::
+wNumItems:: db
+wBagItems::
+wItems:: ds BAG_ITEM_CAPACITY * 2 + 1
+wNumBalls:: db
+wBalls:: ds BALL_ITEM_CAPACITY * 2 + 1
+wOwnedKeyItems:: ds (NUM_BAG_KEY_ITEMS + 7) / 8
+wOwnedTMHMs:: ds (NUM_TM_HM + 7) / 8
 
 wPlayerMoney:: ds 3 ; BCD
 

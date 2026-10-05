@@ -21,8 +21,7 @@ InitPlayerData2:
 	call InitializeEmptyList
 	ld hl, wBoxCount
 	call InitializeEmptyList
-	ld hl, wNumBagItems
-	call InitializeEmptyList
+	farcall InitializePocketBag_
 	ld hl, wNumBoxItems
 	call InitializeEmptyList
 

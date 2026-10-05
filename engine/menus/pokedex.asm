@@ -1,4 +1,5 @@
 ShowPokedexMenu:
+	farcall ClosePocketBagUIForParty
 	call GBPalWhiteOut
 	call ClearScreen
 	call UpdateSprites

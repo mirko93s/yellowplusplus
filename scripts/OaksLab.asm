@@ -645,25 +645,9 @@ OaksLabScript22:
 	ret
 
 OaksLabScript_RemoveParcel:
-	ld hl, wBagItems
-	ld bc, 0
-.loop
-	ld a, [hli]
-	cp $ff
-	ret z
-	cp OAKS_PARCEL
-	jr z, .foundParcel
-	inc hl
-	inc c
-	jr .loop
-.foundParcel
-	ld hl, wNumBagItems
-	ld a, c
-	ld [wWhichPokemon], a
-	ld a, 1
-	ld [wItemQuantity], a
-	call RemoveItemFromInventory
-	ret
+	ld a, OAKS_PARCEL
+	ldh [hItemToRemoveID], a
+	farjp RemoveBagItemByID_
 
 OaksLabScript_1c8b9:
 	ld a, $7c

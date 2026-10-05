@@ -1,18 +1,13 @@
 GetQuantityOfItemInBag:
-; In: b = item ID
-; Out: b = how many of that item are in the bag
+; B = item ID -> B = quantity, or 0/1 ownership. Preserve the caller's wCurItem.
 	call GetPredefRegisters
-	ld hl, wNumBagItems
-.loop
-	inc hl
-	ld a, [hli]
-	cp $ff
-	jr z, .notInBag
-	cp b
-	jr nz, .loop
-	ld a, [hl]
+	ld a, [wTempByteValue]
+	push af
+	ld a, b
+	ld [wTempByteValue], a
+	farcall BagQuantity_
+	ld a, [wTempByteValue]
 	ld b, a
-	ret
-.notInBag
-	ld b, 0
+	pop af
+	ld [wTempByteValue], a
 	ret

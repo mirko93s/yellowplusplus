@@ -1,4 +1,6 @@
 UseItem_::
+	ld a, [wCurItem]
+	ld [wUsedItem], a
 	ld a, 1
 	ld [wActionResultOrTookBattleTurn], a ; initialise to success value
 	ld a, [wCurItem] ;contains item_ID
@@ -633,14 +635,7 @@ ItemUseBall:
 	ret nz ; if so, don't remove a ball from the bag
 
 ; Remove a ball from the bag.
-	ld a, CHEAT_ITEMS
-	call CheckCheat
-	ret nz
-	xor a
-	ld hl, wNumBagItems
-	inc a
-	ld [wItemQuantity], a
-	jp RemoveItemFromInventory
+	jp RemoveUsedItem
 
 .emptyString
 	db '@'
@@ -870,13 +865,7 @@ ItemUseEvoStone:
 	callfar TryEvolvingMon ; try to evolve pokemon
 	pop af
 	ld [wWhichPokemon], a
-	ld hl, wNumBagItems
-	ld a, CHEAT_ITEMS
-	call CheckCheat
-	ret nz
-	ld a, 1 ; remove 1 stone
-	ld [wItemQuantity], a
-	jp RemoveItemFromInventory
+	jp RemoveUsedItem
 
 .noEffect
 	call ItemUseNoEffect
@@ -2492,6 +2481,10 @@ UnusableItem:
 	jp ItemUseNotTime
 
 ItemUseTMHM:
+	ld a, [wCurItem]
+	ld b, a
+	call IsItemInBag
+	jp z, ItemUseNotTime
 	ld a, [wIsInBattle]
 	and a
 	jp nz, ItemUseNotTime
@@ -2642,6 +2635,9 @@ RemoveUsedItem:
 	ld a, CHEAT_ITEMS
 	call CheckCheat
 	ret nz
+	; Effects may overwrite wCurItem (move menus, nickname menus, etc.).
+	ld a, [wUsedItem]
+	ld [wCurItem], a
 	ld hl, wNumBagItems
 	ld a, 1 ; one item
 	ld [wItemQuantity], a
@@ -3016,32 +3012,7 @@ TooImportantToTossText:
 ; 00: item is not key item
 ; 01: item is key item
 IsKeyItem_::
-	ld a, $01
-	ld [wIsKeyItem], a
-	ld a, [wCurItem]
-	cp HM01 ; is the item an HM or TM?
-	ret nc ; if hm or tm don't show quantity
-	push af
-	ld hl, KeyItemFlags
-	ld de, wBuffer
-	ld bc, 15 ; only 11 bytes are actually used
-	ASSERT 15 >= (NUM_ITEMS + 7) / 8
-	call CopyData
-	pop af
-	dec a
-	ld c, a
-	ld hl, wBuffer
-	ld b, FLAG_TEST
-	predef FlagActionPredef
-	ld a, c
-	and a
-	ret nz
-	; not a key item, draw quantity
-	xor a
-	ld [wIsKeyItem], a
-	ret
-
-INCLUDE "data/items/key_items.asm"
+	farjp BagIsProtected
 
 SendNewMonToBox:
 	ld de, wBoxCount
@@ -3244,6 +3215,8 @@ INCLUDE "data/tilesets/water_tilesets.asm"
 ; reloads map view and processes sprite data
 ; for items that cause the overworld to be displayed
 ItemUseReloadOverworldData:
+	; Successful field effects deliberately return to the map; failed uses do not.
+	farcall ClosePocketBagUI
 	call LoadCurrentMapView
 	jp UpdateSprites
 

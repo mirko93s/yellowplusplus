@@ -1,6 +1,7 @@
 DEF NOT_VISITED EQU $fe
 
 DisplayTownMap:
+	farcall ClosePocketBagUIForParty
 	call LoadTownMap
 	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]

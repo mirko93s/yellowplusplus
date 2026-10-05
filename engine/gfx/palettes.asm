@@ -1363,8 +1363,7 @@ _UpdateGBCPal_BGP::
 	call BufferBGPPal
 
 	call TransferBGPPals
-	call UpdateBattleMoveTypePalette
-	call UpdateBattleMoveCategoryPalette
+	farcall UpdateIconOrBagPalettes
 	ret
 
 _UpdateGBCPal_OBP::

@@ -15,6 +15,7 @@ PlayerPC::
 	call PrintText
 
 PlayerPCMenu:
+	farcall ClosePocketBagUI
 	ld hl, wStatusFlags5
 	set 6, [hl]
 	ld a, [wParentMenuItem]
@@ -86,8 +87,10 @@ PlayerPCDeposit:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wListScrollOffset], a
-	ld a, [wNumBagItems]
-	and a
+	ld a, [wNumItems]
+	ld b, a
+	ld a, [wNumBalls]
+	or b
 	jr nz, .loop
 	ld hl, NothingToDepositText
 	call PrintText
@@ -95,29 +98,16 @@ PlayerPCDeposit:
 .loop
 	ld hl, WhatToDepositText
 	call PrintText
-	ld hl, wNumBagItems
-	ld a, l
-	ld [wListPointer], a
-	ld a, h
-	ld [wListPointer + 1], a
-	xor a
-	ld [wPrintItemPrices], a
-	ld a, ITEMLISTMENU
-	ld [wListMenuID], a
-	call DisplayListMenuID
+	ld a, BAG_CONTEXT_DEPOSIT
+	ld [wBagContext], a
+	farcall DisplayPocketBag
 	jp c, PlayerPCMenu
-	call IsKeyItem
-	ld a, 1
-	ld [wItemQuantity], a
-	ld a, [wIsKeyItem]
-	and a
-	jr nz, .next
-; if it's not a key item, there can be more than one of the item
 	ld hl, DepositHowManyText
 	call PrintText
 	call DisplayChooseQuantityMenu
-	cp $ff
-	jp z, .loop
+	ld a, [wQuantityMenuResult]
+	and a
+	jp nz, .loop
 .next
 	ld hl, wNumBoxItems
 	call AddItemToInventory
@@ -160,18 +150,12 @@ PlayerPCWithdraw:
 	ld [wListMenuID], a
 	call DisplayListMenuID
 	jp c, PlayerPCMenu
-	call IsKeyItem
-	ld a, 1
-	ld [wItemQuantity], a
-	ld a, [wIsKeyItem]
-	and a
-	jr nz, .next
-; if it's not a key item, there can be more than one of the item
 	ld hl, WithdrawHowManyText
 	call PrintText
 	call DisplayChooseQuantityMenu
-	cp $ff
-	jp z, .loop
+	ld a, [wQuantityMenuResult]
+	and a
+	jp nz, .loop
 .next
 	ld hl, wNumBagItems
 	call AddItemToInventory
@@ -233,8 +217,9 @@ PlayerPCToss:
 	call PrintText
 	call DisplayChooseQuantityMenu
 	pop hl
-	cp $ff
-	jp z, .loop
+	ld a, [wQuantityMenuResult]
+	and a
+	jp nz, .loop
 .next
 	call TossItem ; disallows tossing key items
 	jp .loop

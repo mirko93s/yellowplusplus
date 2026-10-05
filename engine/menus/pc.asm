@@ -116,26 +116,4 @@ AccessedMyPCText:
 
 ; removes one of the specified item ID [hItemToRemoveID] from bag (if existent)
 RemoveItemByID::
-	ld hl, wBagItems
-	ldh a, [hItemToRemoveID]
-	ld b, a
-	xor a
-	ldh [hItemToRemoveIndex], a
-.loop
-	ld a, [hli]
-	cp -1 ; reached terminator?
-	ret z
-	cp b
-	jr z, .foundItem
-	inc hl
-	ldh a, [hItemToRemoveIndex]
-	inc a
-	ldh [hItemToRemoveIndex], a
-	jr .loop
-.foundItem
-	ld a, $1
-	ld [wItemQuantity], a
-	ldh a, [hItemToRemoveIndex]
-	ld [wWhichPokemon], a
-	ld hl, wNumBagItems
-	jp RemoveItemFromInventory
+	farjp RemoveBagItemByID_

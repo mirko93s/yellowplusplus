@@ -44,8 +44,10 @@ DisplayPokemartDialogue_::
 	ld [wInitListType], a
 	callfar InitList
 
-	ld a, [wNumBagItems]
-	and a
+	ld a, [wNumItems]
+	ld b, a
+	ld a, [wNumBalls]
+	or b
 	jp z, .bagEmpty
 	ld hl, PokemonSellingGreetingText
 	call PrintText
@@ -55,17 +57,9 @@ DisplayPokemartDialogue_::
 	ld a, MONEY_BOX
 	ld [wTextBoxID], a
 	call DisplayTextBoxID ; draw money text box
-	ld hl, wNumBagItems
-	ld a, l
-	ld [wListPointer], a
-	ld a, h
-	ld [wListPointer + 1], a
-	xor a
-	ld [wPrintItemPrices], a
-	ld [wCurrentMenuItem], a
-	ld a, ITEMLISTMENU
-	ld [wListMenuID], a
-	call DisplayListMenuID
+	ld a, BAG_CONTEXT_SELL
+	ld [wBagContext], a
+	farcall DisplayPocketBag
 	jp c, .returnToMainPokemartMenu ; if the player closed the menu
 .confirmItemSale ; if the player is trying to sell a specific item
 	call IsKeyItem
@@ -79,8 +73,9 @@ DisplayPokemartDialogue_::
 	ld [wListMenuID], a
 	ldh [hHalveItemPrices], a ; halve prices when selling
 	call DisplayChooseQuantityMenu
-	inc a
-	jr z, .sellMenuLoop ; if the player closed the choose quantity menu with the B button
+	ld a, [wQuantityMenuResult]
+	and a
+	jr nz, .sellMenuLoop ; if the player closed the choose quantity menu with the B button
 	ld hl, PokemartTellSellPriceText
 	lb bc, 14, 1 ; location that PrintText always prints to, this is useless
 	call PrintText
@@ -149,13 +144,14 @@ DisplayPokemartDialogue_::
 	ld [wListMenuID], a
 	call DisplayListMenuID
 	jr c, .returnToMainPokemartMenu ; if the player closed the menu
-	ld a, 99
+	ld a, MAX_ITEM_STACK
 	ld [wMaxItemQuantity], a
 	xor a
 	ldh [hHalveItemPrices], a ; don't halve item prices when buying
 	call DisplayChooseQuantityMenu
-	inc a
-	jr z, .buyMenuLoop ; if the player closed the choose quantity menu with the B button
+	ld a, [wQuantityMenuResult]
+	and a
+	jr nz, .buyMenuLoop ; if the player closed the choose quantity menu with the B button
 	ld a, [wCurItem] ; item ID
 	ld [wNamedObjectIndex], a ; store item ID for GetItemName
 	call GetItemName
@@ -197,6 +193,7 @@ DisplayPokemartDialogue_::
 	call PrintText
 	jp .buyMenuLoop
 .returnToMainPokemartMenu
+	farcall ClosePocketBagUI
 	call LoadScreenTilesFromBuffer1
 	ld a, MONEY_BOX
 	ld [wTextBoxID], a
