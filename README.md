@@ -47,6 +47,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - Shop quantity adjustment with left/right  
 - Fully decapitalized text  
 - Color correction settings (Uncorrected, GBC, DMG, Black/White)
+- Learning moves screen shows power, accuracy and a description
 
 ### Backported / Updated Mechanics
 - **Running shoes** (press B)  
