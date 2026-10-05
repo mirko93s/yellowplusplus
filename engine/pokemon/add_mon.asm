@@ -128,10 +128,7 @@ _AddPartyMon::
 	jr nz, .maxedDVs
 	ld a, CHEAT_SHINY
 	call CheckCheat
-	jr z, .checkStarterDVs
-	ld a, $aa
-	ld b, a
-	jr .next4
+	jr nz, .shinyDVs
 .checkStarterDVs
 	ld a, [wCurPartySpecies]
 	cp STARTER_PIKACHU
@@ -142,20 +139,9 @@ _AddPartyMon::
 	res 1, [hl]
 	pop hl
 	jr z, .randomDVs
-	; ( xx1x 1010 "x" bits can be randomized to get a shiny with random atk)
+.shinyDVs
 	call Random ; random shiny atk
-	sla a
-	sla a
-	sla a
-	sla a
-	add a, $a ; def set to 10
-	push hl
-	ld [wRandomShinyATK], a
-	ld hl, wRandomShinyATK
-	set 5, [hl] ; atk value set to one of the shiny ones (2, 3, 6, 7, 10, 11, 14, 15)
-	pop hl
-	ld a, [wRandomShinyATK]
-	ld b, $aa ; speed and special set to 10
+	call GenerateShinyDVs
 	jr .next4
 .maxedDVs
 	ld a, $ff

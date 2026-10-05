@@ -6656,8 +6656,8 @@ LoadEnemyMonData:
 	ld a, CHEAT_SHINY
 	call CheckCheat
 	jr z, .normalWildDVs
-	ld a, $aa
-	ld b, a
+	call BattleRandom
+	call GenerateShinyDVs
 	jr .storeDVs
 .normalWildDVs
 	; if oak vs starter pikachu set pikachu dvs
