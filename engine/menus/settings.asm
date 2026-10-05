@@ -218,7 +218,7 @@ SettingsValuePosition:
 	pop bc
 	ret
 SettingsValueColumns:
-	db 14, 14, 14, 14, 15, 14 ; Print Bright needs one extra tile for its label
+	db 14, 14, 14, 14, 14, 14
 
 DrawSettingsPage:
 	ld a, [wOptionsCursorLocation]
@@ -374,7 +374,7 @@ OptionsLabels:
 .sound
 	db "Sound@"
 .print
-	db "Print Bright@"
+	db "Print Light@"
 .color
 	db "Color Corr.@"
 

@@ -206,12 +206,12 @@ Earphone3SoundText:
 OptionsMenu_GBPrinterBrightness:
 	call Func_41e7b
 	ldh a, [hJoy5]
-	bit 4, a
-	jr nz, .pressedRight
-	bit 5, a
-	jr nz, .pressedLeft
+	bit BIT_D_RIGHT, a
+	jr nz, .increaseLight
+	bit BIT_D_LEFT, a
+	jr nz, .decreaseLight
 	jr .asm_41e32
-.pressedRight
+.decreaseLight
 	ld a, c
 	cp $4
 	jr c, .asm_41e22
@@ -220,7 +220,7 @@ OptionsMenu_GBPrinterBrightness:
 	inc c
 	ld a, e
 	jr .asm_41e2e
-.pressedLeft
+.increaseLight
 	ld a, c
 	and a
 	jr nz, .asm_41e2c
