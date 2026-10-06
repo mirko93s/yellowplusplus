@@ -50,6 +50,7 @@ MainMenu:
 	call PlaceString
 .next2
 	call DrawCheatsEnabled
+	call DrawMainMenuGithub
 	hlcoord 0, 17
 	ld de, VersionText
 	call PlaceString
@@ -197,6 +198,41 @@ NewGameText:
 
 VersionText:
 	INCLUDE "version_number.asm"
+
+DrawMainMenuGithub:
+	ld de, MainMenuGithubGraphics
+	ld hl, vChars2
+	lb bc, BANK(MainMenuGithubGraphics), 32
+	call CopyVideoData
+	hlcoord 13, 13
+	ld de, MainMenuGithubText
+	call PlaceString
+	hlcoord 12, 14
+	xor a
+	ld b, 4
+.row
+	ld c, 8
+.tile
+	ld [hli], a
+	inc a
+	dec c
+	jr nz, .tile
+	ld de, SCREEN_WIDTH - 8
+	add hl, de
+	dec b
+	jr nz, .row
+	ret
+
+MainMenuGithubText:
+	db "Github@"
+
+PUSHS
+SECTION "Main Menu Github Graphics", ROMX
+MainMenuGithubGraphics:
+	INCBIN "gfx/title/github.2bpp"
+MainMenuGithubGraphicsEnd:
+	ASSERT MainMenuGithubGraphicsEnd - MainMenuGithubGraphics == 32 tiles
+POPS
 
 DisplayContinueGameInfo:
 	xor a
