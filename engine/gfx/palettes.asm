@@ -882,14 +882,6 @@ SetBattleMoveTypeAttributes:
 	and a
 	ret z
 	di
-	ldh a, [rLCDC]
-	bit 7, a
-	jr z, .lcdOff
-.waitVBlank
-	ldh a, [rLY]
-	cp 144 ; start of VBlank: enough time for all four attribute writes
-	jr nz, .waitVBlank
-.lcdOff
 	ldh a, [rVBK]
 	push af
 	ld a, 1
@@ -907,23 +899,36 @@ SetBattleMoveTypeAttributes:
 	jr nz, .categoryPaletteReady
 	ld a, PAL_BG_MOVE_CATEGORY
 .categoryPaletteReady
-	ld b, a
-	ld [hli], a
-	ld [hli], a
+	ld d, a
+	ld e, 2
+.row
+	ld a, d
+	call .writePair
 	ld a, c
-	ld [hli], a
-	ld [hl], a
-	ld de, BG_MAP_WIDTH - 3
+	call .writePair
+	push de
+	ld de, BG_MAP_WIDTH - 4
 	add hl, de
-	ld a, b
-	ld [hli], a
-	ld [hli], a
-	ld a, c
-	ld [hli], a
-	ld [hl], a
+	pop de
+	dec e
+	jr nz, .row
 	pop af
 	ldh [rVBK], a
 	ei
+	ret
+
+.writePair
+; Check each two-byte pair instead of waiting for the next VBlank.
+; Both writes fit within mode 2 even if HBlank ends after the check.
+; Interrupts remain disabled while VRAM bank 1 is selected.
+	push af
+.waitVRAM
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .waitVRAM
+	pop af
+	ld [hli], a
+	ld [hli], a
 	ret
 
 UpdateBattleMoveTypePalette:

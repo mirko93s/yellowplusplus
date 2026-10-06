@@ -7,7 +7,7 @@ DrawBattleMoveIcons::
 	call GetTypeIconGraphicsAddress
 	ld hl, vFont tile (MOVE_TYPE_ICON_TILE - $80)
 	lb bc, BANK(BattleMoveTypeGraphics), 4
-	call CopyVideoData
+	call CopyBattleMoveIconTiles
 	ld a, [wTempMoveID]
 	ld l, a
 	ld h, 0
@@ -20,7 +20,7 @@ DrawBattleMoveIcons::
 	ld e, l
 	ld hl, vFont tile (MOVE_CATEGORY_ICON_TILE - $80)
 	lb bc, BANK(BattleMoveCategoryGraphics), 2
-	call CopyVideoData
+	call CopyBattleMoveIconTiles
 
 	hlcoord 3, 13
 	ld a, MOVE_TYPE_ICON_TILE
@@ -48,6 +48,27 @@ DrawBattleMoveIcons::
 	ENDR
 	db 9, 10, 11, 12, 13, 14, 15
 	assert_table_length NUM_TYPES
+
+; These small uploads use graphics in the current ROM bank. Copy during
+; accessible LCD modes instead of waiting a whole frame for each icon.
+; Keep interrupts out of the STAT-check/write pair so VRAM stays accessible.
+CopyBattleMoveIconTiles:
+	ld a, c
+	swap a ; four or two tiles -> 64 or 32 bytes
+	ld c, a
+.byte
+	di
+.waitVRAM
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .waitVRAM
+	ld a, [de]
+	ld [hli], a
+	ei
+	inc de
+	dec c
+	jr nz, .byte
+	ret
 
 ; Grayscale PNGs use the existing PNG-to-2bpp graphics rule.
 ; Status icons share this artwork and these six battle-only font tiles.
