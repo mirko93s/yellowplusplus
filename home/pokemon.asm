@@ -7,7 +7,7 @@ DrawHPBar::
 	push de
 
 	; Left
-	ld a, $71 ; "HP:"
+	ld a, $7f ; blank tile before HP bar
 	ld [hli], a
 	ld a, $62
 	ld [hli], a

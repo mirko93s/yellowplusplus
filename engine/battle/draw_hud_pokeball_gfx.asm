@@ -17,8 +17,6 @@ LoadPartyPokeballGfx:
 	jp CopyVideoData
 
 SetupOwnPartyPokeballs:
-	; ld hl, PlayerHUDTilesBeforeStart
-	; call PlaceHUDTilesBeforeStart
 	ld hl, wPartyMon1
 	ld de, wPartyCount
 	call SetupPokeballs
@@ -122,33 +120,16 @@ WritePokeballOAMData:
 	ret
 
 PlacePlayerHUDTiles:
-	ld hl, PlayerBattleHUDGraphicsTiles
-PlaceHUDTilesBeforeStart:
-	ld de, wHUDGraphicsTiles
-	ld bc, $3
-	call CopyData
 	hlcoord 18, 10
-	ld de, -1
-	ld a, $72 ; empty tile
-	jr PlaceHUDTiles
-
-PlayerBattleHUDGraphicsTiles:
-; The tile numbers for specific parts of the battle display for the player's pokemon
-	db $73 ; unused ($73 is hardcoded into the routine that uses these bytes)
-	db $74 ; xp bar right end ("xp" text)
-	db $78 ; xp bar left end
-
-PlayerHUDTilesBeforeStart:
-	db $72
-	db $75
-	db $6F
+	ld a, $7f ; empty tile
+	ld [hl], a
+	hlcoord 18, 11
+	ld [hl], $6f ; XP label
+	hlcoord 9, 11
+	ld [hl], $70 ; EXP bar left endpoint
+	ret
 
 PlaceEnemyHUDTiles:
-	ld hl, EnemyBattleHUDGraphicsTiles
-	ld de, wHUDGraphicsTiles
-	ld bc, $3
-	call CopyData
-
 	; place the 'already owned' pokeball tile
 	; if the player owns the wild pokemon
 	ld a, [wIsInBattle]
@@ -188,28 +169,6 @@ PlaceEnemyHUDTiles:
 .noNuzlocked
 	pop hl
 	pop af
-
-EnemyBattleHUDGraphicsTiles:
-; The tile numbers for specific parts of the battle display for the enemy
-	db $73 ; unused ($73 is hardcoded in the routine that uses these bytes)
-	db $74 ; lower-left corner tile of the HUD
-	db $78 ; lower-right triangle tile of the HUD
-
-PlaceHUDTiles:
-	ld [hl], a
-	ld bc, SCREEN_WIDTH
-	add hl, bc
-	ld a, [wHUDGraphicsTiles + 1] ; leftmost tile
-	ld [hl], a
-	ld a, 8
-.loop
-	add hl, de
-	ld [hl], $76
-	dec a
-	jr nz, .loop
-	add hl, de
-	ld a, [wHUDGraphicsTiles + 2] ; rightmost tile
-	ld [hl], a
 	ret
 
 SetupPlayerAndEnemyPokeballs:
