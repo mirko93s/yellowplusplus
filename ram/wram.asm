@@ -2413,7 +2413,9 @@ wExtraOptions:: db ; sound bits 0-1; font bit 2 (0: Nes, 1: OG)
 wEnemyCheatFlags:: dw ; matching flag bits for Enemy/Both battle settings
 wCheatWildLevel:: db ; 0 = Off, otherwise 2-255
 wCheatWildSpecies:: db ; 0 = Off, otherwise dex number 1-151
-	ds 7 ; still unused
+wGBCObj0BasePalPointer:: dw ; rebuilt on palette initialization, not loaded as state
+wGBCOverworldPalettes:: db ; set only while sending overworld palette packets
+	ds 4 ; still unused
 
 ; individual trainer name
 wCurTrainerName::

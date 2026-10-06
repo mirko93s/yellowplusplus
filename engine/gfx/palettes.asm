@@ -7,6 +7,7 @@ _RunPaletteCommand:
 .not_default
 	cp SET_PAL_PARTY_MENU_HP_BARS
 	jp z, UpdatePartyMenuBlkPacket
+	push af
 	ld l, a
 	ld h, 0
 	add hl, hl
@@ -15,7 +16,8 @@ _RunPaletteCommand:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld de, SendSGBPackets
+	pop af
+	call GetPalettePacketSender
 	push de
 	jp hl
 
@@ -770,7 +772,7 @@ Wait7000:
 	jr nz, .loop
 	ret
 
-SendSGBPackets:
+SendSGBPackets::
 	ldh a, [hGBC]
 	and a
 	jr z, .notGBC
@@ -814,6 +816,9 @@ InitGBCPalettes:
 		ld [wGBCBasePalPointers + index * 2], a
 		ld a, d
 		ld [wGBCBasePalPointers + index * 2 + 1], a
+		IF index == 0
+			call StoreGBCObj0BasePalPointer
+		ENDC
 
 		xor a ; CONVERT_BGP
 		call DMGPalToGBCPal
@@ -821,12 +826,7 @@ InitGBCPalettes:
 		call TransferCurBGPData
 
 		IF index == 0
-			push de
-			ld a, PAL_NPC
-			call GetGBCBasePalAddress
-			ld a, CONVERT_OBP0
-			call DMGPalToGBCPal
-			pop de
+			call ConvertGBCObj0Palette
 		ELSE
 			ld a, CONVERT_OBP0
 			call DMGPalToGBCPal
@@ -1288,7 +1288,7 @@ TransferBGPPals::
 	jr nz, .loop
 	ret
 
-TransferCurOBPData:
+TransferCurOBPData::
 	push de
 	add a
 	add a
@@ -1372,8 +1372,7 @@ _UpdateGBCPal_OBP::
 			ld a, c
 			cp CONVERT_OBP0
 			jr nz, .useMapPal0
-			ld a, PAL_NPC
-			call GetGBCBasePalAddress
+			call GetGBCObj0BasePalPointer
 			jr .gotPal0
 	.useMapPal0
 		ENDC

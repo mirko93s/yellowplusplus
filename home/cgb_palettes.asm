@@ -1,3 +1,61 @@
+GetPalettePacketSender::
+	push af
+	xor a
+	ld [wGBCOverworldPalettes], a
+	pop af
+	ld de, SendSGBPackets
+	cp SET_PAL_TOWN_MAP
+	jr z, .npcSprites
+	cp SET_PAL_OVERWORLD
+	ret nz
+.npcSprites
+	ld de, SendOverworldSGBPackets
+	ret
+
+StoreGBCObj0BasePalPointer::
+	ld a, [wGBCOverworldPalettes]
+	and a
+	jr z, .store
+	push de
+	ld a, PAL_NPC
+	call GetGBCBasePalAddress
+	call .store
+	pop de
+	ret
+.store
+	ld a, e
+	ld [wGBCObj0BasePalPointer], a
+	ld a, d
+	ld [wGBCObj0BasePalPointer + 1], a
+	ret
+
+GetGBCObj0BasePalPointer::
+	ld a, [wGBCObj0BasePalPointer]
+	ld e, a
+	ld a, [wGBCObj0BasePalPointer + 1]
+	ld d, a
+	ret
+
+; Overworld and town map sprites share the NPC palette.
+; Called by the palette command dispatcher with BANK(SendSGBPackets) loaded.
+; Keep this wrapper in ROM0 because the palette bank is full.
+SendOverworldSGBPackets::
+	ld a, 1
+	ld [wGBCOverworldPalettes], a
+	call SendSGBPackets
+	xor a
+	ld [wGBCOverworldPalettes], a
+	ret
+
+; Initialize OBJ0 with its selected source before any frames can be displayed.
+ConvertGBCObj0Palette::
+	push de
+	call GetGBCObj0BasePalPointer
+	ld a, CONVERT_OBP0
+	call DMGPalToGBCPal
+	pop de
+	ret
+
 GetShopBasePaletteAddress::
 ; Resolve the city's raw/corrected/monochrome source without losing A to farcall.
 	ldh a, [hLoadedROMBank]
