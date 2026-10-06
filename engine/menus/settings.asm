@@ -19,7 +19,7 @@ DisplaySettingsMenu:
 	call TextBoxBorder
 	call DrawSettingsPage
 .loop
-	call JoypadLowSensitivity
+	call SettingsReadJoypad
 	ldh a, [hJoy5]
 	and B_BUTTON | START
 	jp nz, .exit
@@ -127,6 +127,25 @@ DisplaySettingsMenu:
 	pop af
 	ld [wStatusFlags5], a
 	ret
+
+SettingsReadJoypad:
+	ldh a, [hJoy7]
+	push af
+	ld a, 1
+	ldh [hJoy7], a
+	call JoypadLowSensitivity
+	pop af
+	ldh [hJoy7], a
+	; Repeat D-pad directions; other controls require a new press.
+	ldh a, [hJoy5]
+	and D_LEFT | D_RIGHT | D_UP | D_DOWN
+	ld b, a
+	ldh a, [hJoyPressed]
+	and $ff ^ (D_LEFT | D_RIGHT | D_UP | D_DOWN)
+	or b
+	ldh [hJoy5], a
+	ret
+
 SettingsItemCount:
 	ld a, [wSettingsMenuKind]
 	and a
