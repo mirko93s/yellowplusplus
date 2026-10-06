@@ -23,7 +23,7 @@ CeladonPrizeMenu::
 	ld [wTopMenuItemX], a
 	call PrintPrizePrice
 	hlcoord 0, 2
-	lb bc, 8, 16
+	lb bc, 8, SCREEN_WIDTH - 2
 	call TextBoxBorder
 	call GetPrizeMenuId
 	call UpdateSprites
@@ -96,19 +96,16 @@ GetPrizeMenuId:
 	jr nz, .putMonName
 	ld a, [wPrize1]
 	ld [wNamedObjectIndex], a
-	call GetItemName
 	hlcoord 2, 4
-	call PlaceString
+	call PlacePrizeTMName
 	ld a, [wPrize2]
 	ld [wNamedObjectIndex], a
-	call GetItemName
 	hlcoord 2, 6
-	call PlaceString
+	call PlacePrizeTMName
 	ld a, [wPrize3]
 	ld [wNamedObjectIndex], a
-	call GetItemName
 	hlcoord 2, 8
-	call PlaceString
+	call PlacePrizeTMName
 	jr .putNoThanksText
 .putMonName
 	ld a, [wPrize1]
@@ -132,23 +129,49 @@ GetPrizeMenuId:
 	call PlaceString
 ; put prices on the right side of the textbox
 	ld de, wPrize1Price
-	hlcoord 13, 5
+	hlcoord 15, 5
 ; reg. c:
 ; [low nybble] number of bytes
 ; [bits 765 = %100] space-padding (not zero-padding)
 	ld c, (1 << 7 | 2)
 	call PrintBCDNumber
 	ld de, wPrize2Price
-	hlcoord 13, 7
+	hlcoord 15, 7
 	ld c, (1 << 7 | 2)
 	call PrintBCDNumber
 	ld de, wPrize3Price
-	hlcoord 13, 9
+	hlcoord 15, 9
 	ld c, (1 << 7 | 2)
 	jp PrintBCDNumber
 
 NoThanksText:
 	db "No Thanks@"
+
+PlacePrizeTMName:
+	call GetItemName
+	call PlaceString
+	ld h, b
+	ld l, c
+	ld [hl], ' '
+	inc hl
+	push hl
+	call GetPrizeTMName
+	pop hl
+	jp PlaceString
+
+GetPrizeTMName:
+	ld a, [wNamedObjectIndex]
+	push af ; keep the item ID for awarding the selected TM
+	sub TM01
+	inc a
+	ld [wTempTMHM], a
+	predef TMToMove
+	ld a, [wTempTMHM]
+	ld [wNamedObjectIndex], a
+	call GetMoveName
+	pop af
+	ld [wNamedObjectIndex], a
+	ret
 
 INCLUDE "data/events/prizes.asm"
 
@@ -202,7 +225,7 @@ HandlePrizeChoice:
 	ld a, [wWhichPrizeWindow]
 	cp 2 ; is prize a TM?
 	jr nz, .getMonName
-	call GetItemName
+	call GetPrizeTMName
 	jr .givePrize
 .getMonName
 	ld a, [wExtraFlags]
