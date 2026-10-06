@@ -69,6 +69,7 @@ MainMenu:
 	ld [wMenuWatchedKeys], a
 	ld a, [wSaveFileStatus]
 	ld [wMaxMenuItem], a
+.handleMenuInput
 	ld a, 2
 	ld [wSettingsMenuKind], a
 	call HandleMenuInput
@@ -112,8 +113,24 @@ MainMenu:
 	bit BIT_A_BUTTON, a
 	jr nz, .pressedA
 	bit BIT_B_BUTTON, a
-	jp nz, .mainMenuLoop ; pressed B
+	jr nz, .cancelContinue
 	jr .inputLoop
+.cancelContinue
+; Remove only the save information box, preserving the main menu.
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	hlcoord 11, 0
+	lb bc, 9, 9
+	call ClearScreenArea
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
+.waitForBRelease
+	call DelayFrame
+	call Joypad
+	ldh a, [hJoyHeld]
+	and B_BUTTON
+	jr nz, .waitForBRelease
+	jp .handleMenuInput
 .pressedA
 	call LatchCheatUnlock
 	call GBPalWhiteOutWithDelay3
