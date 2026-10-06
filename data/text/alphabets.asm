@@ -12,6 +12,6 @@ UpperCaseAlphabet:
 	db "JKLMNOPQR"
 	db "STUVWXYZ "
 	db "×():;[]<PK><MN>"
-	db "-?!♂♀/<DOT>,'"
+	db "-?!♂♀/.,'"
 	db "SELECT:lower case<NEXT>"
 	db "B:Del  START:Exit@"

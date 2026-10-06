@@ -6,10 +6,6 @@ DisplayCheatMenu_:
 	ld a, 1
 DisplaySettingsMenu:
 	ld [wSettingsMenuKind], a
-	and a
-	jr nz, .fontReady
-	call LoadSettingsPlusGlyph
-.fontReady
 	ld a, [wStatusFlags5]
 	push af
 	or 1 << 6 ; settings strings render immediately
@@ -131,14 +127,6 @@ DisplaySettingsMenu:
 	pop af
 	ld [wStatusFlags5], a
 	ret
-LoadSettingsPlusGlyph:
-	ld de, .plusGlyph
-	ld hl, vFont tile ('+' - $80)
-	lb bc, BANK(.plusGlyph), 1
-	jp CopyVideoDataDoubleAlternate
-.plusGlyph
-	db $00, $10, $10, $7c, $10, $10, $00, $00
-
 SettingsItemCount:
 	ld a, [wSettingsMenuKind]
 	and a

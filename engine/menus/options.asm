@@ -305,7 +305,6 @@ OptionsMenu_Font:
 	call .draw
 	call Delay3 ; let the updated value reach VRAM before loading the font
 	call LoadFontTilePatterns
-	call LoadSettingsPlusGlyph
 	and a
 	ret
 .draw

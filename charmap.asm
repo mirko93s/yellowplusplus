@@ -65,7 +65,6 @@
 
 ; Actual characters (from gfx/font/font.png)
 	charmap "%",         $cd
-	charmap "+",         $ce ; loaded by the Options menu
 
 	charmap "A",         $80
 	charmap "B",         $81
@@ -135,23 +134,13 @@
 	charmap "'t",        $be
 	charmap "'v",        $bf
 	; status effect font
-	charmap "_S",		 $d0
-	charmap "_L",		 $d1
-	charmap "_P",		 $d2
-	charmap "_N",		 $d3
-	charmap "_B",		 $d4
-	charmap "_R",		 $d5
-	charmap "_F",		 $d6
-	charmap "_Z",		 $d7
-	charmap "_A",		 $d8
-	charmap "_T",		 $d9
-	; physical, special, status
-	charmap "<pL>",      $da ; physical left tile
-	charmap "<pR>",      $db ; physical right tile
-	charmap "<sL>",      $dc ; special left tile
-	charmap "<sR>",      $dd ; special right tile
-	charmap "<oL>",      $de ; status left tile
-	charmap "<oR>",      $df ; status right tile
+	charmap "<BRN>",     $d0
+	charmap "<FRZ>",     $d1
+	charmap "<SLP>",     $d2
+	charmap "<FNT>",     $d3
+	charmap "<PAR>",     $d4
+	charmap "<PSN>",     $d5
+	; unused d6-df
 	
 	charmap "'",         $e0
 	charmap "<PK>",      $e1
@@ -167,7 +156,7 @@
 
 	charmap "◓",         $e9 ; pokeball
 	charmap "⁂",         $ea ; shiny
-	charmap "fullslash",  $eb
+	charmap "<FULLSLASH>",$eb
 
 	charmap "▷",         $ec
 	charmap "▶",         $ed
@@ -175,7 +164,7 @@
 	charmap "♂",         $ef
 	charmap "¥",         $f0
 	charmap "×",         $f1
-	charmap "<DOT>",     $f2 ; decimal point; same as "." in English
+	charmap "+",         $f2
 	charmap "/",         $f3
 	charmap ",",         $f4
 	charmap "♀",         $f5

@@ -1995,7 +1995,7 @@ DrawPlayerHUDAndHPBar:
 	ld de, wLoadedMonLevel
 	ld bc, wBattleMonPP - wBattleMonLevel
 	call CopyData
-	hlcoord 11, 8
+	hlcoord 13, 8
 	ld de, wLoadedMonStatus
 	call PrintStatusConditionNotFainted
 	hlcoord 15, 8
@@ -2045,7 +2045,7 @@ DrawEnemyHUDAndHPBar:
 	call PlaceString
 	call PrintEnemyMonShiny
 	call PrintEnemyMonGender
-	hlcoord 5, 1
+	hlcoord 6, 1
 	ld de, wEnemyMonStatus
 	call PrintStatusConditionNotFainted
 	ld a, [wEnemyMonLevel]
@@ -3257,9 +3257,9 @@ PrintMenuItem:
 	; ld de, TypeText
 	; call PlaceString
 	hlcoord 3, 15
-	ld [hl], 'fullslash'
+	ld [hl], '<FULLSLASH>'
 	hlcoord 2, 16
-	ld [hl], 'fullslash'
+	ld [hl], '<FULLSLASH>'
 	; hlcoord 5, 9
 	; ld [hl], '/'
 

@@ -10,37 +10,19 @@ PrintStatusAilment::
 	jr nz, .par
 	and SLP_MASK
 	ret z
-	ld a, '_S'
-	ld [hli], a
-	ld a, '_L'
-	ld [hli], a
-	ld [hl], '_P'
-	ret
+	ld a, '<SLP>'
+	jr .place
 .psn
-	ld a, '_P'
-	ld [hli], a
-	ld a, '_S'
-	ld [hli], a
-	ld [hl], '_N'
-	ret
+	ld a, '<PSN>'
+	jr .place
 .brn
-	ld a, '_B'
-	ld [hli], a
-	ld a, '_R'
-	ld [hli], a
-	ld [hl], '_N'
-	ret
+	ld a, '<BRN>'
+	jr .place
 .frz
-	ld a, '_F'
-	ld [hli], a
-	ld a, '_R'
-	ld [hli], a
-	ld [hl], '_Z'
-	ret
+	ld a, '<FRZ>'
+	jr .place
 .par
-	ld a, '_P'
-	ld [hli], a
-	ld a, '_A'
-	ld [hli], a
-	ld [hl], '_R'
+	ld a, '<PAR>'
+.place
+	ld [hl], a
 	ret
