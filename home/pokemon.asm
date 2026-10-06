@@ -362,6 +362,7 @@ PrintStatusConditionNotFainted::
 ; [wLoadedMonLevel] = level
 PrintLevel::
 	ld a, '<LV>' ; ":L" tile ID
+PrintLevelWithTile::
 	ld [hli], a
 	ld c, 2 ; number of digits
 	ld a, [wLoadedMonLevel] ; level
@@ -370,7 +371,8 @@ PrintLevel::
 ; if level at least 100, write over the ":L" tile
 	dec hl
 	; inc c ; increment number of digits to 3
-	jr PrintLevelFull
+	ld a, [hl] ; preserve the caller's level tile
+	jr PrintLevelFullWithTile
 
 ; prints the level without leaving off ":L" regardless of level
 ; INPUT:
@@ -378,6 +380,7 @@ PrintLevel::
 ; [wLoadedMonLevel] = level
 PrintLevelFull::
 	ld a, '<LV>' ; ":L" tile ID
+PrintLevelFullWithTile:
 	ld [hli], a
 	ld c, 3 ; number of digits
 	ld a, [wLoadedMonLevel] ; level

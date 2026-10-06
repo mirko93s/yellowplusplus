@@ -1999,7 +1999,8 @@ DrawPlayerHUDAndHPBar:
 	ld de, wLoadedMonStatus
 	call PrintStatusConditionNotFainted
 	hlcoord 15, 8
-	call PrintLevel
+	ld a, $6d ; battle Lv tile
+	call PrintLevelWithTile
 	ld a, [wLoadedMonSpecies]
 	ld [wCurPartySpecies], a
 	hlcoord 10, 9
@@ -2050,7 +2051,8 @@ DrawEnemyHUDAndHPBar:
 	ld a, [wEnemyMonLevel]
 	ld [wLoadedMonLevel], a
 	hlcoord 1, 1
-	call PrintLevel
+	ld a, $6d ; battle Lv tile
+	call PrintLevelWithTile
 	ld hl, wEnemyMonHP
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -7183,13 +7185,13 @@ LoadHudTilePatterns:
 	jr c, .lcdEnabled
 .lcdDisabled
 	ld hl, BattleHudTiles
-	ld de, vChars2 tile $6e
+	ld de, vChars2 tile $6d
 	ld bc, BattleHudTilesEnd - BattleHudTiles
 	ld a, BANK(BattleHudTiles)
 	jp FarCopyDataDouble
 .lcdEnabled
 	ld de, BattleHudTiles
-	ld hl, vChars2 tile $6e
+	ld hl, vChars2 tile $6d
 	lb bc, BANK(BattleHudTiles), (BattleHudTilesEnd - BattleHudTiles) / $8
 	jp CopyVideoDataDouble
 

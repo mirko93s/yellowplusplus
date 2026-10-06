@@ -4,8 +4,12 @@ FontGraphicsEnd::
 
 ABTiles: INCBIN "gfx/font/AB.2bpp"
 
-HpBarAndStatusGraphics:: INCBIN "gfx/font/font_battle_extra.2bpp"
+; Packed shared tiles; the loader preserves their original VRAM IDs.
+HpBarAndStatusGraphics:: INCBIN "gfx/font/font_battle_extra.2bpp", 0, 11 tiles
 HpBarAndStatusGraphicsEnd::
+SharedLevelGraphics:: INCBIN "gfx/font/font_battle_extra.2bpp", 11 tiles, 1 tiles
+SharedIDGraphics:: INCBIN "gfx/font/font_battle_extra.2bpp", 12 tiles, 2 tiles
+SharedNamingGraphics:: INCBIN "gfx/font/font_battle_extra.2bpp", 14 tiles, 2 tiles
 
 BattleHudTiles:: INCBIN "gfx/battle/battle_hud.1bpp"
 BattleHudTilesEnd::

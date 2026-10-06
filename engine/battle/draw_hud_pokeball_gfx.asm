@@ -124,9 +124,9 @@ PlacePlayerHUDTiles:
 	ld a, $7f ; empty tile
 	ld [hl], a
 	hlcoord 18, 11
-	ld [hl], $6f ; XP label
+	ld [hl], $6e ; XP label
 	hlcoord 9, 11
-	ld [hl], $70 ; EXP bar left endpoint
+	ld [hl], $6f ; EXP bar left endpoint
 	ret
 
 PlaceEnemyHUDTiles:

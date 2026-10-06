@@ -35,6 +35,19 @@ LoadHpBarAndStatusTilePatterns::
 	ld hl, vChars2 tile $62
 	lb bc, BANK(HpBarAndStatusGraphics), (HpBarAndStatusGraphicsEnd - HpBarAndStatusGraphics) / $10
 	call GoodCopyVideoData
+	ld de, SharedLevelGraphics
+	ld hl, vChars2 tile $6e
+	lb bc, BANK(SharedLevelGraphics), 1
+	call GoodCopyVideoData
+	ld de, SharedIDGraphics
+	ld hl, vChars2 tile $73
+	lb bc, BANK(SharedIDGraphics), 2
+	call GoodCopyVideoData
+	ld de, SharedNamingGraphics
+	ld hl, vChars2 tile $76
+	lb bc, BANK(SharedNamingGraphics), 2
+	call GoodCopyVideoData
+	call LoadTextBoxTilePatterns
 	ld de, EXPBarGraphics
 	ld hl, vChars1 tile $40
 	lb bc, BANK(EXPBarGraphics), (EXPBarShinySparkleGraphicsEnd - EXPBarGraphics) / $10
