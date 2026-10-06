@@ -246,7 +246,7 @@ DrawSettingsPage:
 	ld b, a
 	ld a, [wCurrentPage]
 	add '1'
-	hlcoord 16, 1
+	hlcoord 15, 1
 	ld [hli], a
 	ld a, '/'
 	ld [hli], a
