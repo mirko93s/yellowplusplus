@@ -2409,7 +2409,7 @@ wSeedString::
 wCheatDataMarker:: ds 2
 wCheatFlags:: dw ; toggle bits, including permanent menu unlock
 wCheatMultipliers:: db ; EXP bits 0-2, money bits 3-5
-wSoundSettings:: db
+wExtraOptions:: db ; sound bits 0-1; font bit 2 (0: Nes, 1: OG)
 wEnemyCheatFlags:: dw ; matching flag bits for Enemy/Both battle settings
 wCheatWildLevel:: db ; 0 = Off, otherwise 2-255
 wCheatWildSpecies:: db ; 0 = Off, otherwise dex number 1-151

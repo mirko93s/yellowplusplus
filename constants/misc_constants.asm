@@ -9,6 +9,10 @@ DEF TRUE  EQU 1
 	const FLAG_TEST  ; 2
 
 ; wOptions
+DEF TEXT_SPEED_MASK EQU %00001111
+
+; wExtraOptions: bits 0-1 = sound, bit 2 = original font
+DEF BIT_FONT_OG EQU 2
 DEF TEXT_DELAY_FAST   EQU %001 ; 1
 DEF TEXT_DELAY_MEDIUM EQU %011 ; 3
 DEF TEXT_DELAY_SLOW   EQU %101 ; 5

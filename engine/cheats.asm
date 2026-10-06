@@ -29,9 +29,17 @@ ValidateCheatData_::
 	and 7
 	cp 5
 	jr nc, InitializeCheatData_
-	ld a, [wSoundSettings]
-	and 3
-	ld [wSoundSettings], a
+	ld a, [wExtraOptions]
+	and 7
+	ld [wExtraOptions], a
+	; Move the previous font flag out of the text-speed byte on old saves.
+	ld hl, wOptions
+	bit 3, [hl]
+	jr z, .fontReady
+	res 3, [hl]
+	ld hl, wExtraOptions
+	set BIT_FONT_OG, [hl]
+.fontReady
 	ld a, [wCheatWildLevel]
 	cp 1
 	jr nz, .species

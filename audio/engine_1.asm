@@ -1561,7 +1561,7 @@ Audio1_HWChannelDisableMasks:
 Audio1_ApplyMonoStereo:
 	push af
 	push bc
-	ld a, [wSoundSettings]
+	ld a, [wExtraOptions]
 	and 3 ; independent channel options
 	add a
 	add a

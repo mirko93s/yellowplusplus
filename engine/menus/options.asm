@@ -28,7 +28,7 @@ OptionsMenu_TextSpeed:
 .save
 	ld b, a
 	ld a, [wOptions]
-	and $f0
+	and ~TEXT_SPEED_MASK
 	or b
 	ld [wOptions], a
 .nonePressed
@@ -60,7 +60,7 @@ SlowText:
 
 GetTextSpeed:
 	ld a, [wOptions]
-	and $f
+	and TEXT_SPEED_MASK
 	cp $5
 	jr z, .slowTextOption
 	cp $1
@@ -156,7 +156,7 @@ BattleStyleSetText:
 	db "Set  @"
 
 OptionsMenu_SpeakerSettings:
-	ld a, [wSoundSettings]
+	ld a, [wExtraOptions]
 	and 3
 	ld c, a
 	ldh a, [hJoy5]
@@ -172,7 +172,10 @@ OptionsMenu_SpeakerSettings:
 	ld a, c
 	and 3
 	ld c, a
-	ld [wSoundSettings], a
+	ld a, [wExtraOptions]
+	and $fc
+	or c
+	ld [wExtraOptions], a
 	xor a
 	ldh [rNR51], a
 .draw
@@ -291,6 +294,35 @@ Func_41e7b:
 	ld c, $4
 	lb de, $60, $0
 	ret
+
+OptionsMenu_Font:
+	ldh a, [hJoy5]
+	and D_LEFT | D_RIGHT
+	jr z, .draw
+	ld a, [wExtraOptions]
+	xor 1 << BIT_FONT_OG
+	ld [wExtraOptions], a
+	call .draw
+	call Delay3 ; let the updated value reach VRAM before loading the font
+	call LoadFontTilePatterns
+	call LoadSettingsPlusGlyph
+	and a
+	ret
+.draw
+	ld de, .current
+	ld a, [wExtraOptions]
+	bit BIT_FONT_OG, a
+	jr z, .place
+	ld de, .original
+.place
+	call SettingsValuePosition
+	call PlaceString
+	and a
+	ret
+.current
+	db "Nes@"
+.original
+	db "OG @"
 
 OptionsMenu_Dummy:
 	and a

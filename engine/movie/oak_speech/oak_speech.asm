@@ -3,7 +3,7 @@ SetDefaultNames:
 	push af
 	ld a, [wOptions]
 	push af
-	ld a, [wSoundSettings]
+	ld a, [wExtraOptions]
 	push af
 IF DEF(_DEBUG)
 	ld a, [wStatusFlags6]
@@ -36,7 +36,7 @@ IF DEF(_DEBUG)
 	ld [wStatusFlags6], a
 	pop af
 ENDC
-	ld [wSoundSettings], a
+	ld [wExtraOptions], a
 	pop af
 	ld [wOptions], a
 	pop af

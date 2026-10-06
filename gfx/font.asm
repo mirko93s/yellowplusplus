@@ -1,6 +1,9 @@
 PokemonLogoJapanGraphics: INCBIN "gfx/title/pokemon_logo_japan.2bpp"
 FontGraphics:: INCBIN "gfx/font/font.1bpp"
 FontGraphicsEnd::
+OriginalFontGraphics:: INCBIN "gfx/font/font_og.1bpp"
+OriginalFontGraphicsEnd::
+	ASSERT OriginalFontGraphicsEnd - OriginalFontGraphics == FontGraphicsEnd - FontGraphics
 
 ABTiles: INCBIN "gfx/font/AB.2bpp"
 

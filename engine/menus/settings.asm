@@ -8,10 +8,7 @@ DisplaySettingsMenu:
 	ld [wSettingsMenuKind], a
 	and a
 	jr nz, .fontReady
-	ld de, .plusGlyph
-	ld hl, vFont tile ('+' - $80)
-	lb bc, BANK(.plusGlyph), 1
-	call CopyVideoDataDoubleAlternate
+	call LoadSettingsPlusGlyph
 .fontReady
 	ld a, [wStatusFlags5]
 	push af
@@ -134,6 +131,11 @@ DisplaySettingsMenu:
 	pop af
 	ld [wStatusFlags5], a
 	ret
+LoadSettingsPlusGlyph:
+	ld de, .plusGlyph
+	ld hl, vFont tile ('+' - $80)
+	lb bc, BANK(.plusGlyph), 1
+	jp CopyVideoDataDoubleAlternate
 .plusGlyph
 	db $00, $10, $10, $7c, $10, $10, $00, $00
 
@@ -199,6 +201,7 @@ OptionMenuJumpTable:
 	dw OptionsMenu_GBPrinterBrightness
 	dw OptionsMenu_ColorCorrection
 	dw OptionsMenu_Frame
+	dw OptionsMenu_Font
 
 SettingsValuePosition:
 	push bc
@@ -219,7 +222,7 @@ SettingsValuePosition:
 	pop bc
 	ret
 SettingsValueColumns:
-	db 14, 14, 14, 14, 14, 14, 14
+	db 14, 14, 14, 14, 14, 14, 14, 14
 
 DrawSettingsPage:
 	ld a, [wOptionsCursorLocation]
@@ -364,7 +367,7 @@ SettingsUpdateCursor:
 	ret
 
 OptionsLabels:
-	dw .speed, .animation, .style, .sound, .print, .color, .frame
+	dw .speed, .animation, .style, .sound, .print, .color, .frame, .font
 .end
 .speed
 	db "Text Speed@"
@@ -380,6 +383,8 @@ OptionsLabels:
 	db "Color Corr.@"
 .frame
 	db "Frame@"
+.font
+	db "Font@"
 
 CheatSettings:
 ; Battle effects and capture.
