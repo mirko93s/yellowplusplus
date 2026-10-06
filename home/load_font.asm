@@ -15,19 +15,28 @@ LoadFontTilePatterns::
 	jp CopyVideoDataDouble ; if LCD is on, transfer during V-blank
 
 LoadTextBoxTilePatterns::
+	ld a, [wTextboxFrame]
+	cp NUM_TEXTBOX_FRAMES
+	jr c, .valid
+	xor a ; old saves can have any value in this formerly unused byte
+	ld [wTextboxFrame], a
+.valid
+	ld hl, TextBoxGraphics
+	ld bc, TEXTBOX_FRAME_TILES tiles
+	call AddNTimes
 	ldh a, [rLCDC]
 	bit 7, a ; is the LCD enabled?
 	jr nz, .on
 .off
-	ld hl, TextBoxGraphics
 	ld de, vChars2 tile $79
-	ld bc, TextBoxGraphicsEnd - TextBoxGraphics
+	ld bc, TEXTBOX_FRAME_TILES tiles
 	ld a, BANK(TextBoxGraphics)
 	jp FarCopyData ; if LCD is off, transfer all at once
 .on
-	ld de, TextBoxGraphics
+	ld d, h
+	ld e, l
 	ld hl, vChars2 tile $79
-	lb bc, BANK(TextBoxGraphics), (TextBoxGraphicsEnd - TextBoxGraphics) / $10
+	lb bc, BANK(TextBoxGraphics), TEXTBOX_FRAME_TILES
 	jp CopyVideoData ; if LCD is on, transfer during V-blank
 
 LoadHpBarAndStatusTilePatterns::

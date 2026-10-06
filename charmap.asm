@@ -27,7 +27,7 @@
 	charmap "<ROCKET>",  $5e ; "ROCKET"
 	; charmap "<DEXEND>",  $5f ; unused since pokedex moves addition
 
-; Actual characters (from gfx/font/font_extra.png)
+; Textbox border tiles (from gfx/frames/*.png)
 
 	charmap "┌",         $79
 	charmap "─",         $7a

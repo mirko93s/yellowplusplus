@@ -499,15 +499,12 @@ DrawTrainerInfo:
 	ld bc, 8 * 8 tiles
 	ld a, BANK(GymLeaderFaceAndBadgeTileGraphics)
 	call FarCopyData
-	ld hl, TextBoxGraphics
-	ld de, 13 tiles
-	add hl, de ; hl = colon tile pattern
-	ld de, vChars1 tile $56
+	ld de, FontGraphics + (':' - $80) * 8
+	ld hl, vChars1 tile $56
+	ld bc, 8
+	ld a, BANK(FontGraphics)
+	call FarCopyDataDouble
 	ld bc, 1 tiles
-	ld a, BANK(TextBoxGraphics)
-	push bc
-	call FarCopyData
-	pop bc
 	ld hl, TrainerInfoTextBoxTileGraphics tile 8  ; background tile pattern
 	ld de, vChars1 tile $57
 	call TrainerInfo_FarCopyData

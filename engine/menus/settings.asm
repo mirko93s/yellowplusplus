@@ -198,6 +198,7 @@ OptionMenuJumpTable:
 	dw OptionsMenu_SpeakerSettings
 	dw OptionsMenu_GBPrinterBrightness
 	dw OptionsMenu_ColorCorrection
+	dw OptionsMenu_Frame
 
 SettingsValuePosition:
 	push bc
@@ -218,7 +219,7 @@ SettingsValuePosition:
 	pop bc
 	ret
 SettingsValueColumns:
-	db 14, 14, 14, 14, 14, 14
+	db 14, 14, 14, 14, 14, 14, 14
 
 DrawSettingsPage:
 	ld a, [wOptionsCursorLocation]
@@ -363,7 +364,7 @@ SettingsUpdateCursor:
 	ret
 
 OptionsLabels:
-	dw .speed, .animation, .style, .sound, .print, .color
+	dw .speed, .animation, .style, .sound, .print, .color, .frame
 .end
 .speed
 	db "Text Speed@"
@@ -377,6 +378,8 @@ OptionsLabels:
 	db "Print Light@"
 .color
 	db "Color Corr.@"
+.frame
+	db "Frame@"
 
 CheatSettings:
 ; Battle effects and capture.

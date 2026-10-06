@@ -37,8 +37,6 @@ DEF START_MONEY EQU $5000
 	ld [wMonDataLocation], a
 
 	ld hl, wObtainedBadges
-	ld [hli], a
-
 	ld [hl], a
 
 	ld hl, wPlayerCoins

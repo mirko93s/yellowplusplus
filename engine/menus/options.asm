@@ -296,6 +296,56 @@ OptionsMenu_Dummy:
 	and a
 	ret
 
+OptionsMenu_Frame:
+	ld a, [wTextboxFrame]
+	cp NUM_TEXTBOX_FRAMES
+	jr c, .valid
+	xor a
+	ld [wTextboxFrame], a
+.valid
+	ld c, a
+	ldh a, [hJoy5]
+	bit BIT_D_RIGHT, a
+	jr nz, .right
+	bit BIT_D_LEFT, a
+	jr z, .draw
+	ld a, c
+	and a
+	jr nz, .left
+	ld c, NUM_TEXTBOX_FRAMES
+.left
+	dec c
+	jr .save
+.right
+	inc c
+	ld a, c
+	cp NUM_TEXTBOX_FRAMES
+	jr c, .save
+	ld c, 0
+.save
+	ld a, c
+	ld [wTextboxFrame], a
+	call LoadTextBoxTilePatterns ; preview immediately without clearing the menu
+.draw
+	call SettingsValuePosition
+	ld a, [wTextboxFrame]
+	inc a
+	ld b, '0'
+.tens
+	cp 10
+	jr c, .digits
+	sub 10
+	inc b
+	jr .tens
+.digits
+	ld [hl], b
+	inc hl
+	add '0'
+	ld [hli], a
+	ld [hl], ' '
+	and a
+	ret
+
 OptionsMenu_ColorCorrection:
     ldh a, [hJoy5]
     ld b, a

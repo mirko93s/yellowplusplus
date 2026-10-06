@@ -11,6 +11,8 @@ IF DEF(_DEBUG)
 ENDC
 	ld a, [wPrinterSettings]
 	push af
+	ld a, [wTextboxFrame]
+	push af
 	ld hl, wPlayerName
 	ld bc, wBoxDataEnd - wPlayerName
 	xor a
@@ -25,6 +27,8 @@ ENDC
 	ld [wSurfingMinigameHiScore], a
 	ld [wSurfingMinigameHiScore + 1], a
 	ld [wSurfingMinigameHiScore + 2], a
+	pop af
+	ld [wTextboxFrame], a
 	pop af
 	ld [wPrinterSettings], a
 	pop af

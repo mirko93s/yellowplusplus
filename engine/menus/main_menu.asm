@@ -141,6 +141,8 @@ InitOptions:
 	ld [wOptions], a
 	ld a, 64 ; audio?
 	ld [wPrinterSettings], a
+	xor a
+	ld [wTextboxFrame], a
 	ret
 
 Func_5cc1:
