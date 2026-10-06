@@ -56,7 +56,7 @@ DisplayPocketBag::
 	call BagRefreshContents
 .wait
 	call JoypadLowSensitivity
-	ldh a, [hJoy5]
+	ldh a, [hJoyPressed]
 	bit BIT_B_BUTTON, a
 	jp nz, .cancel
 	; Pocket navigation uses press edges; vertical movement retains key repeat.
@@ -70,6 +70,8 @@ DisplayPocketBag::
 	jr nz, .up
 	bit BIT_D_DOWN, a
 	jr nz, .down
+	; Moving items requires a fresh Select press, never a held-button repeat.
+	ldh a, [hJoyPressed]
 	bit BIT_SELECT, a
 	jp nz, .swap
 	bit BIT_A_BUTTON, a
@@ -810,15 +812,17 @@ DisplayChooseQuantityMenu_::
 	jp .handleNewQuantity
 .waitForKeyPressLoop
 	call JoypadLowSensitivity
-	ldh a, [hJoy5]
+	ldh a, [hJoyPressed]
 	bit BIT_A_BUTTON, a
 	jp nz, .accepted
 	bit BIT_B_BUTTON, a
 	jp nz, .cancelled
+	ldh a, [hJoy5]
 	bit BIT_D_UP, a
 	jr nz, .increment
 	bit BIT_D_DOWN, a
 	jr nz, .decrement
+	ldh a, [hJoyPressed]
 	bit BIT_D_RIGHT, a
 	jr nz, .plusTen
 	bit BIT_D_LEFT, a
