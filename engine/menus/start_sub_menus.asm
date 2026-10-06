@@ -170,9 +170,8 @@ StartMenu_Pokemon::
 	bit 1, [hl]
 	res 1, [hl]
 	jp z, .loop
-	ld a, [wCurItem]
-	cp STARTER_PIKACHU
-	jr z, .surfingPikachu
+	callfar IsThisPartymonStarterPikachu_Party
+	jr c, .surfingPikachu
 	ld a, $1
 	jr .continue
 .surfingPikachu

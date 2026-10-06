@@ -42,6 +42,8 @@ IF DEF(_DEBUG)
 	ld [wObtainedBadges], a
 
 	call SetDebugTeam
+	ld de, wPartyMon4
+	callfar InitializeStarterPikachu
 
 	; Pikachu gets Surf.
 	ld a, SURF

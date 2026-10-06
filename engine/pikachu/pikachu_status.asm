@@ -13,6 +13,15 @@ IsStarterPikachuInOurParty::
 	jr nz, .curMonNotPlayerPikachu
 	ld h, d
 	ld l, e
+	push bc
+	ld bc, wPartyMon1CatchRate - wPartyMon1OTID
+	add hl, bc
+	pop bc
+	ld a, [hl]
+	cp LIGHT_BALL_GSC
+	jr nz, .curMonNotPlayerPikachu
+	ld h, d
+	ld l, e
 	ld a, [wPlayerID]
 	cp [hl]
 	jr nz, .curMonNotPlayerPikachu
@@ -81,7 +90,12 @@ asm_fce21:
 	ld a, [hl]
 	cp STARTER_PIKACHU
 	jr nz, .notPlayerPikachu
-	ld bc, wPartyMon1OTID - wPartyMon1
+	ld bc, wPartyMon1CatchRate - wPartyMon1
+	add hl, bc
+	ld a, [hl]
+	cp LIGHT_BALL_GSC
+	jr nz, .notPlayerPikachu
+	ld bc, wPartyMon1OTID - wPartyMon1CatchRate
 	add hl, bc
 	ld a, [wPlayerID]
 	cp [hl]
@@ -193,6 +207,10 @@ IsSurfingPikachuInThePlayersParty::
 	jr nz, .curMonNotSurfingPlayerPikachu
 	ld h, d
 	ld l, e
+	dec hl ; stored catch rate immediately precedes moves
+	ld a, [hli]
+	cp LIGHT_BALL_GSC
+	jr nz, .curMonNotSurfingPlayerPikachu
 	push hl
 	push bc
 	ld b, NUM_MOVES

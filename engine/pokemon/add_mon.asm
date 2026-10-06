@@ -122,17 +122,13 @@ _AddPartyMon::
 	and a ; is this a wild mon caught in battle?
 	jr nz, .copyEnemyMonData
 
-; starter pikachu gets maxed IVs
+; Explicit DV cheats apply to all gift Pokemon.
 	ld a, CHEAT_PERFECT_DVS
 	call CheckCheat
 	jr nz, .maxedDVs
 	ld a, CHEAT_SHINY
 	call CheckCheat
 	jr nz, .shinyDVs
-.checkStarterDVs
-	ld a, [wCurPartySpecies]
-	cp STARTER_PIKACHU
-	jr z, .maxedDVs
 	push hl
 	ld hl, wExtraFlags
 	bit 1, [hl]
@@ -287,6 +283,64 @@ _AddPartyMon::
 	call CalcStats         ; calculate fresh set of stats
 .done
 	scf
+	ret
+
+InitializeStarterPikachu::
+; DE points to the newly given starter's party struct (callfar overwrites HL).
+; Keep its existing shiny-cheat DVs, unless perfect DVs take precedence.
+	ld h, d
+	ld l, e
+	push hl
+	ld bc, wPartyMon1CatchRate - wPartyMon1
+	add hl, bc
+	ld a, LIGHT_BALL_GSC
+	ld [hl], a
+	ld a, CHEAT_PERFECT_DVS
+	call CheckCheat
+	jr nz, .perfectDVs
+	ld a, CHEAT_SHINY
+	call CheckCheat
+	jr nz, .keepDVs
+.perfectDVs
+	pop hl
+	push hl
+	ld bc, wPartyMon1DVs - wPartyMon1
+	add hl, bc
+	ld a, $ff
+	ld [hli], a
+	ld [hl], a
+	pop hl
+	push hl
+	ld a, [hl]
+	ld [wCurSpecies], a
+	call GetMonHeader
+	pop hl
+	push hl
+	ld bc, wPartyMon1Level - wPartyMon1
+	add hl, bc
+	ld a, [hli]
+	ld [wCurEnemyLevel], a
+	ld d, h
+	ld e, l ; maximum HP and remaining stats
+	pop hl
+	push hl
+	ld bc, wPartyMon1HPExp - 1 - wPartyMon1
+	add hl, bc
+	ld b, 1
+	call CalcStats
+	pop hl
+	push hl
+	ld bc, wPartyMon1MaxHP - wPartyMon1
+	add hl, bc
+	ld a, [hli]
+	ld b, [hl]
+	pop hl
+	inc hl ; current HP
+	ld [hli], a
+	ld [hl], b
+	ret
+.keepDVs
+	pop hl
 	ret
 
 LoadMovePPs:

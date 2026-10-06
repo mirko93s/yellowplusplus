@@ -76,39 +76,12 @@ IsSurfingPikachuInParty::
 	ld a, [wPikachuSpawnStateFlags]
 	and $3f
 	ld [wPikachuSpawnStateFlags], a
-	ld hl, wPartyMon1
-	ld c, PARTY_LENGTH
-	ld b, SURF
-.loop
-	ld a, [hl]
-	cp STARTER_PIKACHU
-	jr nz, .notPikachu
-	push hl
-	ld de, $8
-	add hl, de
-	ld a, [hli]
-	cp b ; does pikachu have surf as one of its moves
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr z, .hasSurf
-	ld a, [hli]
-	cp b
-	jr nz, .noSurf
-.hasSurf
+	callfar IsSurfingPikachuInThePlayersParty
+	jr nc, .noSurf
 	ld a, [wPikachuSpawnStateFlags]
 	set 6, a
 	ld [wPikachuSpawnStateFlags], a
 .noSurf
-	pop hl
-.notPikachu
-	ld de, wPartyMon2 - wPartyMon1
-	add hl, de
-	dec c
-	jr nz, .loop
 	call Func_3467
 	ret
 

@@ -1014,8 +1014,8 @@ OaksLabText18:
 	ld [wPokedexNum], a
 	ld [wCurPartySpecies], a
 	call AddPartyMon
-	ld a, LIGHT_BALL_GSC
-	ld [wPartyMon1CatchRate], a
+	ld de, wPartyMon1
+	callfar InitializeStarterPikachu
 	call DisablePikachuOverworldSpriteDrawing
 	SetEvent EVENT_GOT_STARTER
 	ld hl, wStatusFlags4
