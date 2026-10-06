@@ -1,3 +1,19 @@
+; Both move-detail screens follow the same color option as the icon palettes.
+; The caller converts the selected palette from BANK(SuperPalettes).
+GetMoveStatsPaletteAddress::
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, StatusMoveStatsPalette
+	ret z
+	ld de, StatusMoveStatsPaletteCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	ret z
+	ld de, StatusMoveStatsPaletteDMG
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	ret z
+	ld de, StatusMoveStatsPaletteCorrected
+	ret
+
 InitMapSprites::
 	jpfar _InitMapSprites
 

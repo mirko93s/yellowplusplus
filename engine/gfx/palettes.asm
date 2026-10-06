@@ -933,7 +933,7 @@ UpdateBattleMoveTypePalette:
 	ld a, [wCurrentPage]
 	cp 2
 	jr nz, .typeIcon
-	ld de, StatusMoveStatsPalette
+	call GetMoveStatsPaletteAddress
 	jr .convert
 .typeIcon
 	ld a, [wMoveTypeIconPalette]
@@ -1076,7 +1076,7 @@ SetStatusMoveStatsAttributes:
 	ret
 
 SetMoveLearningDetailsPalette::
-	ld de, StatusMoveStatsPalette
+	call GetMoveStatsPaletteAddress
 	jp UpdateBattleMoveTypePalette.convert
 
 ApplyStatusTypeIconAttributes::

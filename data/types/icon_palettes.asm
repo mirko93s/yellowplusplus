@@ -5,9 +5,19 @@ ASSERT BANK(BattleMoveTypePalettesCorrected) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettes) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettesCorrected) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPalette) == BANK(SuperPalettes)
+ASSERT BANK(StatusMoveStatsPaletteCorrected) == BANK(SuperPalettes)
+ASSERT BANK(StatusMoveStatsPaletteDMG) == BANK(SuperPalettes)
 
-StatusMoveStatsPalette:
+StatusMoveStatsPalette::
 	RGB 31,31,31, 27,27,27, 24,24,24, 22,22,22
+
+StatusMoveStatsPaletteCorrected::
+; Gambatte accurate correction, central frontlight (gamma 1.7, luminance 0.94).
+	RGB 30,30,30, 27,27,27, 25,25,25, 23,23,23
+
+StatusMoveStatsPaletteDMG::
+; Keep detail text light, interpolating the DMG palette's two lightest shades.
+	RGB 28,31,26, 24,29,22, 22,27,19, 19,26,17
 
 BattleMoveTypePalettes:
 	table_width PALETTE_SIZE, BattleMoveTypePalettes
