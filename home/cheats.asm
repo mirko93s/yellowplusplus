@@ -212,14 +212,14 @@ CheckKonamiCode::
 
 ; Redrawn when returning from Options or the Continue information screen.
 DrawCheatsEnabled::
-	hlcoord 0, 14
+	hlcoord 0, 11
 	ld bc, SCREEN_WIDTH
 	ld a, ' '
 	call FillMemory
 	ld a, [wNextGameCheats]
 	and a
 	ret z
-	hlcoord 3, 14
+	hlcoord 3, 11
 	ld de, .enabled
 	jp PlaceString
 .enabled
