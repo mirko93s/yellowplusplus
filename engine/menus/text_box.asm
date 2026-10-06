@@ -164,9 +164,10 @@ DoBuySellQuitMenu:
 	ld [wTopMenuItemY], a
 	ld a, $1
 	ld [wTopMenuItemX], a
-	xor a
+	ld a, [wMartMenuSelection]
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
+	xor a
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld a, [wStatusFlags5]
 	res 6, a ; turn on the printing delay

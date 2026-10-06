@@ -289,9 +289,10 @@ ItemDescriptionPointers:
 	db '@'
 	text_far _TM50Description
 	db '@'
-; Automatic Pack descriptions: use the existing far text and compact DOWN rows,
+; Automatic Pack/shop descriptions: use existing far text and compact DOWN rows,
 ; but never invoke the dialogue processor or PROMPT input handling.
 DrawBagDescription_::
+DrawMenuItemDescription_::
 	ld a, [wCurItem]
 	dec a
 	cp HM01 - 1

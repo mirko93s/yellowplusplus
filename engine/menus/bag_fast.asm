@@ -135,7 +135,12 @@ BagUploadCell:
 	lb bc, 1, 1
 	jp BagUploadRectangle
 
+MenuUIUploadCursor::
+	call BagCursorPointer
+	jp BagUploadCell
+
 BagCellAddress:
+MenuUICellAddress:
 ; HL = tilemap cell -> DE = matching hardware cell. Preserve HL.
 	push hl
 	ld de, wTileMap

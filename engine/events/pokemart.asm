@@ -4,6 +4,7 @@ DisplayPokemartDialogue_::
 	call UpdateSprites
 	xor a
 	ld [wBoughtOrSoldItemInMart], a
+	ld [wMartMenuSelection], a
 .loop
 	xor a
 	ld [wListScrollOffset], a
@@ -29,6 +30,7 @@ DisplayPokemartDialogue_::
 	cp CANCELLED_MENU
 	jp z, .done
 	ld a, [wChosenMenuItem]
+	ld [wMartMenuSelection], a
 	and a ; buying?
 	jp z, .buyMenu
 	dec a ; selling?
@@ -44,6 +46,8 @@ DisplayPokemartDialogue_::
 	ld [wInitListType], a
 	callfar InitList
 
+	ld a, ITEMS_POCKET
+	ld [wBagPocket], a
 	ld a, [wNumItems]
 	ld b, a
 	ld a, [wNumBalls]
@@ -53,10 +57,7 @@ DisplayPokemartDialogue_::
 	call PrintText
 	call SaveScreenTilesToBuffer1 ; save screen
 .sellMenuLoop
-	call LoadScreenTilesFromBuffer1 ; restore saved screen
-	ld a, MONEY_BOX
-	ld [wTextBoxID], a
-	call DisplayTextBoxID ; draw money text box
+	; Keep the Pack visible through quantity/confirmation and completed sales.
 	ld a, BAG_CONTEXT_SELL
 	ld [wBagContext], a
 	farcall DisplayPocketBag
@@ -127,22 +128,7 @@ DisplayPokemartDialogue_::
 	call PrintText
 	call SaveScreenTilesToBuffer1
 .buyMenuLoop
-	call LoadScreenTilesFromBuffer1
-	ld a, MONEY_BOX
-	ld [wTextBoxID], a
-	call DisplayTextBoxID
-	ld hl, wItemList
-	ld a, l
-	ld [wListPointer], a
-	ld a, h
-	ld [wListPointer + 1], a
-	xor a
-	ld [wCurrentMenuItem], a
-	inc a
-	ld [wPrintItemPrices], a
-	inc a ; a = 2 (PRICEDITEMLISTMENU)
-	ld [wListMenuID], a
-	call DisplayListMenuID
+	farcall DisplayShopUI
 	jr c, .returnToMainPokemartMenu ; if the player closed the menu
 	ld a, MAX_ITEM_STACK
 	ld [wMaxItemQuantity], a
@@ -193,6 +179,7 @@ DisplayPokemartDialogue_::
 	call PrintText
 	jp .buyMenuLoop
 .returnToMainPokemartMenu
+	farcall CloseShopUI
 	farcall ClosePocketBagUI
 	call LoadScreenTilesFromBuffer1
 	ld a, MONEY_BOX

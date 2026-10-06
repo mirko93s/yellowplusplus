@@ -103,6 +103,7 @@ BagApplyAttributes:
 	lb bc, SCREEN_HEIGHT, SCREEN_WIDTH
 ; fall through
 BagUploadRectangle:
+MenuUIUploadRectangle:
 ; HL = source, DE = hardware target, B/C = height/width.
 ; Upload only changed regions, with paired CGB tiles/attributes.
 	di
@@ -120,7 +121,7 @@ BagUploadRectangle:
 	ldh [rVBK], a
 	dec hl
 	ld a, [hli]
-	call BagTilePalette
+	call MenuUITilePalette
 	push af
 .waitAttribute
 	ldh a, [rSTAT]
@@ -161,6 +162,17 @@ BagUploadRectangle:
 	ldh [rVBK], a
 	ei
 	ret
+
+MenuUITilePalette:
+	push af
+	ld a, [wShopUIActive]
+	and a
+	jr z, .bag
+	pop af
+	jp ShopTilePalette
+.bag
+	pop af
+	jp BagTilePalette
 
 BagUITiles:
 	INCBIN "gfx/bag/bag.2bpp", 0, BAG_UI_TILE_COUNT * 16

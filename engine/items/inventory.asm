@@ -469,7 +469,7 @@ InitializePocketBag_::
 	ld bc, (NUM_BAG_KEY_ITEMS + 7) / 8 + (NUM_TM_HM + 7) / 8
 	call FillMemory
 	ld hl, wBagPocket
-	ld bc, wQuantityMenuResult - wBagPocket + 1
+	ld bc, wShopBoxHeight - wBagPocket + 1
 	xor a
 	call FillMemory
 	ld a, $ff

@@ -153,7 +153,11 @@ PlaceMenuCursor::
 	jr nz, .oldMenuItemLoop
 .checkForArrow1
 	ld a, [hl]
-	cp '▶' ; was an arrow next to the previously selected menu item?
+	push bc
+	ld b, a
+	call MenuCursorTile
+	cp b ; was an arrow next to the previously selected menu item?
+	pop bc
 	jr nz, .skipClearingArrow
 .clearArrow
 	ld a, [wTileBehindCursor]
@@ -177,11 +181,16 @@ PlaceMenuCursor::
 	jr nz, .currentMenuItemLoop
 .checkForArrow2
 	ld a, [hl]
-	cp '▶' ; has the right arrow already been placed?
+	push bc
+	ld b, a
+	call MenuCursorTile
+	cp b ; has the right arrow already been placed?
+	pop bc
 	jr z, .skipSavingTile ; if so, don't lose the saved tile
+	ld a, [hl]
 	ld [wTileBehindCursor], a ; save tile before overwriting with right arrow
 .skipSavingTile
-	ld a, '▶' ; place right arrow
+	call MenuCursorTile
 	ld [hl], a
 	ld a, l
 	ld [wMenuCursorLocation], a
@@ -189,6 +198,34 @@ PlaceMenuCursor::
 	ld [wMenuCursorLocation + 1], a
 	ld a, [wCurrentMenuItem]
 	ld [wLastMenuItem], a
+	ld a, [wShopUIActive]
+	and a
+	jr nz, .uploadCursor
+	ld a, [wBagUIActive]
+	and a
+	ret z
+.uploadCursor
+	push hl
+	push bc
+	push de
+	farcall MenuUIUploadCursor
+	pop de
+	pop bc
+	pop hl
+	ret
+
+MenuCursorTile:
+	ld a, [wShopUIActive]
+	and a
+	jr z, .bag
+	ld a, SHOP_UI_CURSOR
+	ret
+.bag
+	ld a, [wBagUIActive]
+	and a
+	ld a, '▶'
+	ret z
+	ld a, BAG_UI_TILE_BASE + 15
 	ret
 
 ; This is used to mark a menu cursor other than the one currently being

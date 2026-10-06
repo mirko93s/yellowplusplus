@@ -1,4 +1,7 @@
 UpdateIconOrBagPalettes::
+	ld a, [wShopUIActive]
+	and a
+	jp nz, UpdateShopUIPalettes
 	ld a, [wBagUIActive]
 	and a
 	jr nz, UpdateBagUIPalettes
@@ -10,6 +13,9 @@ UpdateBagUIPalettes::
 	ldh a, [hGBC]
 	and a
 	ret z
+	ld a, [wBagContext]
+	cp BAG_CONTEXT_SELL
+	jr z, UpdateSellBagUIPalettes
 	xor a
 	call BagConvertPalette
 	xor a ; neutral BG0 text
@@ -28,9 +34,27 @@ UpdateBagUIPalettes::
 	call BagUploadPalette
 	ret
 
+UpdateSellBagUIPalettes:
+; Match Buy even when Sell is entered directly, before any shop UI was opened.
+	call ShopResolveCityPalette
+	ld [wShopCityPalette], a
+	call GetShopBasePaletteAddress
+	ld a, BANK(SuperPalettes)
+	call MenuUIConvertPalette
+	xor a
+	call MenuUIUploadPalette
+	ld a, PAL_BG_BAG_FRAME
+	call MenuUIUploadPalette
+	call ShopAccentPaletteAddress
+	call MenuUIConvertPalette
+	ld a, PAL_BG_BAG_ACCENT
+	jp MenuUIUploadPalette
+
 BagConvertPalette:
 ; Reuse existing name and palette scratch; apply the current BGP mapping.
 	call GetBagUIPaletteAddress
+MenuUIConvertPalette:
+; A = ROM bank, DE = source palette. Map its colors through rBGP.
 	ld h, d
 	ld l, e
 	ld de, wNameBuffer
@@ -66,6 +90,7 @@ BagConvertPalette:
 	ret
 
 BagUploadPalette:
+MenuUIUploadPalette:
 ; LCD-safe direct upload, matching the icon path without its bank argument.
 	add a
 	add a

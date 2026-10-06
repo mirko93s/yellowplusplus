@@ -34,13 +34,13 @@ ItemPrices::
 	bcd3 3000  ; FIRE_STONE
 	bcd3 3000  ; THUNDER_STONE
 	bcd3 3000  ; WATER_STONE
-	bcd3 10000 ; HP_UP
-	bcd3 10000 ; PROTEIN
-	bcd3 10000 ; IRON
-	bcd3 10000 ; CARBOS
-	bcd3 10000 ; CALCIUM
-	bcd3 10000 ; ZINC
-	bcd3 10000 ; RARE_CANDY
+	bcd3 9999  ; HP_UP
+	bcd3 9999  ; PROTEIN
+	bcd3 9999  ; IRON
+	bcd3 9999  ; CARBOS
+	bcd3 9999  ; CALCIUM
+	bcd3 9999  ; ZINC
+	bcd3 9999  ; RARE_CANDY
 	bcd3 0     ; DOME_FOSSIL
 	bcd3 0     ; HELIX_FOSSIL
 	bcd3 0     ; SECRET_KEY
@@ -48,7 +48,7 @@ ItemPrices::
 	bcd3 1000  ; X_ACCURACY
 	bcd3 3000  ; LEAF_STONE
 	bcd3 0     ; CARD_KEY
-	bcd3 20000 ; NUGGET
+	bcd3 19998 ; NUGGET ; sell-only: one sells for 4999 at the /4 sale rate
 	bcd3 0     ; XXX PP_UP ; unused
 	bcd3 300   ; POKE_DOLL
 	bcd3 400   ; FULL_HEAL
@@ -79,7 +79,7 @@ ItemPrices::
 	bcd3 0     ; OLD_ROD
 	bcd3 0     ; GOOD_ROD
 	bcd3 0     ; SUPER_ROD
-	bcd3 10000 ; PP_UP
+	bcd3 9999  ; PP_UP
 	bcd3 1200  ; ETHER
 	bcd3 2000  ; MAX_ETHER
 	bcd3 3000  ; ELIXER

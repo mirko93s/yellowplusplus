@@ -1929,6 +1929,17 @@ wBagUISavedSpriteState:: db
 wBagUIActive:: db ; BG5/BG6 belong to the Pack while set
 wQuantityMenuResult:: db
 
+; Transient shop/menu state, outside the saved inventory.
+wShopUIActive:: db
+wShopUISavedSpriteState:: db
+wShopCursor:: db
+wShopScroll:: db
+wShopCityPalette:: db
+wShopDrawRow:: db
+wShopBoxHeight:: db
+wMenuUIBoxColumn:: db ; scratch for frame-connected submenu corners
+wMartMenuSelection:: db ; Buy/Sell/Quit selection for the current mart visit
+
 SECTION "Party Data", WRAM0
 
 wPartyDataStart::

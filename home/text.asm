@@ -1,5 +1,31 @@
 TextBoxBorder::
 ; Draw a c×b text box at hl.
+	ld a, [wShopUIActive]
+	and a
+	jr nz, .skin
+	ld a, [wBagUIActive]
+	and a
+	jr z, StandardTextBoxBorder
+.skin
+	push hl
+	push bc
+	ld d, h
+	ld e, l
+	ld a, b ; farcall consumes A/B; keep height in scratch, width in C, origin in DE
+	ld [wShopBoxHeight], a
+	ld a, [wShopUIActive]
+	and a
+	jr z, .bag
+	farcall ShopTextBoxBorder
+	jr .done
+.bag
+	farcall BagTextBoxBorder
+.done
+	pop bc
+	pop hl
+	ret
+
+StandardTextBoxBorder::
 
 	; top row
 	push hl

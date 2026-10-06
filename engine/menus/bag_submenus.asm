@@ -1,8 +1,14 @@
+BagTextBoxBorder::
+; Adapter for generic quantity/confirmation/message boxes while Pack is active.
+	ld a, [wShopBoxHeight]
+	ld b, a
+	ld h, d
+	ld l, e
+; fall through
 BagSkinBox:
-; Pack-only border; shared TextBoxBorder remains unchanged.
 	push hl
 	push bc
-	call TextBoxBorder
+	call StandardTextBoxBorder
 	pop bc
 	pop hl
 	push hl
@@ -45,6 +51,7 @@ BagSkinBox:
 	ld [hl], BAG_UI_TILE_BASE + 3
 	pop bc
 	pop hl
+	call MenuUIFixBoxCorners
 	push bc
 	push hl
 	call BagCellAddress
@@ -55,6 +62,103 @@ BagSkinBox:
 	inc c
 	inc c
 	jp BagUploadRectangle
+
+MenuUIFixBoxCorners:
+; HL = box origin, B/C = interior height/width. Preserve HL/BC.
+; Outer frame posts continue through attached corners, except at screen bottom.
+	push hl
+	push bc
+	call MenuUICellAddress
+	pop bc
+	ld a, e
+	and BG_MAP_WIDTH - 1
+	ld [wMenuUIBoxColumn], a
+	push hl
+	and a
+	ld a, 0 ; free top-left
+	jr nz, .topLeft
+	ld a, 4 ; left frame junction
+.topLeft
+	call .tile
+	ld [hl], a
+	ld e, c
+	inc e
+	ld d, 0
+	add hl, de
+	ld a, [wMenuUIBoxColumn]
+	add c
+	inc a
+	cp SCREEN_WIDTH - 1
+	ld a, 1 ; free top-right
+	jr nz, .topRight
+	ld a, 5 ; right frame junction
+.topRight
+	call .tile
+	ld [hl], a
+	pop hl
+	push bc
+	ld a, b
+	inc a
+	ld bc, SCREEN_WIDTH
+	call AddNTimes
+	pop bc
+	ld a, [wMenuUIBoxColumn]
+	and a
+	ld a, 2 ; terminating bottom-left
+	jr nz, .bottomLeft
+	call .aboveBottom
+	ld a, 2
+	jr nc, .bottomLeft
+	ld a, 4
+.bottomLeft
+	call .tile
+	ld [hl], a
+	ld e, c
+	inc e
+	ld d, 0
+	add hl, de
+	ld a, [wMenuUIBoxColumn]
+	add c
+	inc a
+	cp SCREEN_WIDTH - 1
+	ld a, 3 ; terminating bottom-right
+	jr nz, .bottomRight
+	call .aboveBottom
+	ld a, 3
+	jr nc, .bottomRight
+	ld a, 5
+.bottomRight
+	call .tile
+	ld [hl], a
+	pop hl
+	ret
+.aboveBottom
+	ld a, h
+	cp HIGH(wTileMap + (SCREEN_HEIGHT - 1) * SCREEN_WIDTH)
+	ret nz
+	ld a, l
+	cp LOW(wTileMap + (SCREEN_HEIGHT - 1) * SCREEN_WIDTH)
+	ret
+.tile
+	push hl
+	push de
+	ld e, a
+	ld d, 0
+	ld a, [wShopUIActive]
+	and a
+	ld hl, .bagTiles
+	jr z, .lookup
+	ld hl, .shopTiles
+.lookup
+	add hl, de
+	ld a, [hl]
+	pop de
+	pop hl
+	ret
+.bagTiles
+	db $62, $63, $64, $65, $6b, $6c
+.shopTiles
+	db $6e, $6f, $6b, $6c, $68, $69
 
 BagActionCursor:
 	hlcoord 13, 10
@@ -102,7 +206,7 @@ BagUploadQuantityBox:
 	ld a, [wListMenuID]
 	cp PRICEDITEMLISTMENU
 	jr nz, .upload
-	hlcoord 5, 9
+	hlcoord 6, 9
 	lb bc, 3, 14
 .upload
 	push bc

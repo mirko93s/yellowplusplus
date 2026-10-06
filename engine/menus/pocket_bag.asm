@@ -1,4 +1,4 @@
-; Pack is a dedicated 20x18-tile menu. Generic PC/mart lists remain unchanged.
+; Pack is a dedicated 20x18-tile menu, separate from shop and generic lists.
 DisplayPocketBag::
 	ld a, [wBagUIActive]
 	and a
@@ -31,6 +31,7 @@ DisplayPocketBag::
 	ld a, [wBagPocket]
 	and NUM_BAG_POCKETS - 1
 	ld [wBagPocket], a
+	call BagRestrictSellPocket
 	ld a, $ff
 	ld [wBagSwapIndex], a
 	ld a, 1
@@ -41,6 +42,7 @@ DisplayPocketBag::
 	call BagDraw
 	jr .wait
 .resume
+	call BagRestrictSellPocket
 	call BagRestoreFrames
 	ld a, ITEMLISTMENU
 	ld [wListMenuID], a
@@ -82,6 +84,15 @@ DisplayPocketBag::
 	inc a
 .switch
 	and NUM_BAG_POCKETS - 1
+	ld b, a
+	ld a, [wBagContext]
+	cp BAG_CONTEXT_SELL
+	ld a, b
+	jr nz, .setPocket
+	; With two sellable pockets, either direction selects the other one.
+	ld a, [wBagPocket]
+	xor 1
+.setPocket
 	ld [wBagPocket], a
 	ld a, $ff
 	ld [wBagSwapIndex], a
@@ -103,7 +114,7 @@ DisplayPocketBag::
 	ld hl, wListScrollOffset
 	ld a, [hl]
 	and a
-	jr z, .wait
+	jp z, .wait
 	dec [hl]
 	jr .scrolled
 .down
@@ -111,11 +122,11 @@ DisplayPocketBag::
 	ld b, a
 	ld a, [wListCount]
 	and a
-	jr z, .wait
+	jp z, .wait
 	dec a
 	cp b
-	jr z, .wait
-	jr c, .wait
+	jp z, .wait
+	jp c, .wait
 	ld a, [wCurrentMenuItem]
 	cp BAG_VISIBLE_ROWS - 1
 	jr z, .scrollDown
@@ -196,6 +207,7 @@ DisplayPocketBag::
 	push bc
 	ld a, [wBagPocket]
 	call GetPocketStackPointer
+	call BagStackOrdinalToIndex
 	call GetStackEntry
 	pop bc
 	push hl
@@ -203,6 +215,7 @@ DisplayPocketBag::
 	ld c, b
 	ld a, [wBagPocket]
 	call GetPocketStackPointer
+	call BagStackOrdinalToIndex
 	call GetStackEntry
 	ld d, h
 	ld e, l
@@ -239,6 +252,11 @@ DisplayPocketBag::
 	ld [wCurItem], a
 	ld [wBagSelectedItem], a
 	ld a, [wBagSwapIndex]
+	ld c, a
+	ld a, [wBagPocket]
+	call GetPocketStackPointer
+	call BagStackOrdinalToIndex
+	ld a, c
 	ld [wBagSelectedIndex], a
 	ld a, [wBagPocket]
 	call GetPocketStackPointer
@@ -265,6 +283,18 @@ DisplayPocketBag::
 	pop af
 	ld [wStatusFlags5], a
 	scf
+	ret
+
+BagRestrictSellPocket:
+; Opening Sell from Key/TM-HM falls back to Items; other contexts keep all pockets.
+	ld a, [wBagContext]
+	cp BAG_CONTEXT_SELL
+	ret nz
+	ld a, [wBagPocket]
+	cp KEY_POCKET
+	ret c
+	ld a, ITEMS_POCKET
+	ld [wBagPocket], a
 	ret
 
 BagPocketCapacity:
@@ -392,7 +422,26 @@ BagCountEntries:
 	call GetPocketStackPointer
 	ld a, [hl]
 	ld [wListCount], a
-	ret
+	ld a, [wBagContext]
+	cp BAG_CONTEXT_SELL
+	ret nz
+	ld b, [hl]
+	inc hl
+.stacks
+	ld a, b
+	and a
+	ret z
+	ld a, [hli]
+	cp MASTER_BALL
+	jr nz, .nextStack
+	ld a, [wListCount]
+	dec a
+	ld [wListCount], a
+.nextStack
+	inc hl
+	dec b
+	jr .stacks
+
 .ownership
 	ld c, 0
 .loop
@@ -409,6 +458,39 @@ BagCountEntries:
 	jr nz, .loop
 	ret
 
+BagStackOrdinalToIndex:
+; HL = stack count, C = displayed ordinal -> C = inventory index.
+; Only Sell hides Master Ball stacks. Preserve B and HL for stack callers.
+	ld a, [wBagContext]
+	cp BAG_CONTEXT_SELL
+	ret nz
+	push hl
+	push bc
+	ld b, [hl]
+	inc hl
+	ld d, 0
+.loop
+	ld a, b
+	and a
+	jr z, .done
+	ld a, [hli]
+	cp MASTER_BALL
+	jr z, .next
+	ld a, c
+	and a
+	jr z, .done
+	dec c
+.next
+	inc hl
+	inc d
+	dec b
+	jr .loop
+.done
+	pop bc
+	ld c, d
+	pop hl
+	ret
+
 BagResolveEntry:
 ; A = visible ordinal. Returns A/wCurItem = ID, wWhichPokemon = logical
 ; index, wMaxItemQuantity = quantity. $ff = end of list.
@@ -420,10 +502,11 @@ BagResolveEntry:
 	ld a, [wBagPocket]
 	cp KEY_POCKET
 	jr nc, .ownership
-	ld a, c
-	ld [wWhichPokemon], a
 	ld a, [wBagPocket]
 	call GetPocketStackPointer
+	call BagStackOrdinalToIndex
+	ld a, c
+	ld [wWhichPokemon], a
 	call GetStackEntry
 	ld a, [hli]
 	ld [wCurItem], a
@@ -694,7 +777,11 @@ DisplayChooseQuantityMenu_::
 	ld a, [wBagUIActive]
 	and a
 	jr z, .standardBox
+	ld a, [wListMenuID]
+	cp PRICEDITEMLISTMENU
+	jr z, .bagBox
 	dec hl
+.bagBox
 	call BagSkinBox
 	jr .boxReady
 .standardBox
@@ -710,7 +797,11 @@ DisplayChooseQuantityMenu_::
 	ld a, [wBagUIActive]
 	and a
 	jr z, .initialText
+	ld a, [wListMenuID]
+	cp PRICEDITEMLISTMENU
+	jr z, .bagInitialText
 	dec hl
+.bagInitialText
 	ld de, InitialBagQuantityText
 .initialText
 	call PlaceString
@@ -793,11 +884,6 @@ DisplayChooseQuantityMenu_::
 	jr .printPrice
 .priceFits
 	hlcoord 12, 10
-	ld a, [wBagUIActive]
-	and a
-	jr z, .pricePositioned
-	dec hl
-.pricePositioned
 	ld de, SpacesBetweenQuantityAndPriceText
 	call PlaceString
 	ld de, hMoney ; total price
@@ -807,6 +893,9 @@ DisplayChooseQuantityMenu_::
 .printQuantity
 	ld a, [wBagUIActive]
 	and a
+	jr z, .quantityPositioned
+	ld a, [wListMenuID]
+	cp PRICEDITEMLISTMENU
 	jr z, .quantityPositioned
 	dec hl
 .quantityPositioned
@@ -838,7 +927,7 @@ SpacesBetweenQuantityAndPriceText::
 LoadSAV::
 	farcall LoadSAV_
 	ld hl, wBagPocket
-	ld bc, wQuantityMenuResult - wBagPocket + 1
+	ld bc, wShopBoxHeight - wBagPocket + 1
 	xor a
 	call FillMemory
 	ld a, $ff

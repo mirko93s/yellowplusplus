@@ -1,3 +1,15 @@
+GetShopBasePaletteAddress::
+; Resolve the city's raw/corrected/monochrome source without losing A to farcall.
+	ldh a, [hLoadedROMBank]
+	push af
+	ld a, BANK(GetGBCBasePalAddress)
+	call BankswitchCommon
+	ld a, [wShopCityPalette]
+	call GetGBCBasePalAddress
+	pop bc
+	ld a, b
+	jp BankswitchCommon
+
 UpdateGBCPal_BGP::
 	push af
 	ldh a, [hGBC]
