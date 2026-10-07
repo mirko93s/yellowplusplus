@@ -155,6 +155,10 @@ UpdateBattleMoveEffectivenessPalette::
 	ldh a, [hGBC]
 	and a
 	ret z
+	; Status indicators own BG7; never upload the battle's immune-red palette.
+	ld a, [wStatusFlags2]
+	bit 1, a
+	ret nz
 	ld a, [wMoveCategoryIconPalette]
 	bit 7, a
 	jr z, .battle

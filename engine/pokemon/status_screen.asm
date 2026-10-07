@@ -79,7 +79,7 @@ StatusScreen:
 	ld de, StatusScreenTile
 	ld hl, vChars2 tile $6d
 	lb bc, BANK(StatusScreenTile), 18
-	call CopyVideoDataDouble ; bold P (for PP)
+	call CopyVideoData
 	ldh a, [hTileAnimations]
 	push af
 	xor a
@@ -176,10 +176,19 @@ ClearStatusScreen:
 	call ClearScreenArea
 	; Hidden redraws need no intermediate tilemap transfer. Visible page
 	; changes must remove icon tiles before restoring text attributes.
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	jr z, .resetAttributes
 	ldh a, [rBGP]
 	and a
 	call nz, Delay3
+.resetAttributes
 	farcall ResetStatusTypeIconAttributes
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	jr z, .drawDivider
+	farcall ApplyStatusIndicatorColors
+.drawDivider
 	; reset middle line
 	ld b, SCREEN_WIDTH
 	hlcoord 0, 7
@@ -876,7 +885,7 @@ PrintEVs:
 	jp PrintNumber
 	ret	
 
-StatusScreenTile: INCBIN "gfx/battle/status_screen.1bpp"
+StatusScreenTile: INCBIN "gfx/battle/status_screen.2bpp"
 
 ; Draws a vertical line starting from hl long b
 DrawVerticalLine:
@@ -965,8 +974,16 @@ StatusScreenLoop:
 	; fallthrough
 .ok
 	ld [wCurrentPage], a
+	ldh a, [hAutoBGTransferEnabled]
+	push af
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	ld a, [wCurrentPage]
 	ld hl, .pagesTable
 	call CallFunctionInTable
+	farcall CommitStatusPage
+	pop af
+	ldh [hAutoBGTransferEnabled], a
 	jr .loop
 .pagesTable:
 	dw Page0

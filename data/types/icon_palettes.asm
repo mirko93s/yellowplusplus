@@ -10,8 +10,25 @@ ASSERT BANK(StatusMoveStatsPalette) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPaletteCorrected) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPaletteDMG) == BANK(SuperPalettes)
 
+ASSERT BANK(StatusIndicatorPalettes) == BANK(SuperPalettes)
+ASSERT BANK(StatusIndicatorPalettesCorrected) == BANK(SuperPalettes)
+
+; Shade 0 stays white outside the masked areas; shade 1 is the page tint.
+StatusIndicatorPalettes::
+	RGB 31,31,31, 17,24,31, 03,03,03, 03,03,03
+	RGB 31,31,31, 19,28,16, 03,03,03, 03,03,03
+	RGB 31,31,31, 26,19,31, 03,03,03, 03,03,03
+	RGB 31,31,31, 31,23,14, 03,03,03, 03,03,03
+
+StatusIndicatorPalettesCorrected::
+	RGB 30,30,30, 19,25,30, 05,05,05, 05,05,05
+	RGB 30,30,30, 21,28,18, 05,05,05, 05,05,05
+	RGB 30,30,30, 26,21,30, 05,05,05, 05,05,05
+	RGB 30,30,30, 30,24,17, 05,05,05, 05,05,05
+
 StatusMoveStatsPalette::
 	RGB 31,31,31, 27,27,27, 24,24,24, 22,22,22
+
 
 StatusMoveStatsPaletteCorrected::
 ; Gambatte accurate correction, central frontlight (gamma 1.7, luminance 0.94).

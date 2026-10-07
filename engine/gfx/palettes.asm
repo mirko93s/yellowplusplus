@@ -849,6 +849,7 @@ InitGBCPalettes:
 	call UpdateBattleMoveTypePalette
 	call UpdateBattleMoveCategoryPalette
 	farcall UpdateBattleMoveEffectivenessPalette
+	call UpdateStatusIndicatorPalette
 	ret
 
 ; Type uses BG palette 5; category uses palette 6 with its own three shades.
@@ -1010,6 +1011,9 @@ UpdateStatusSecondTypePalette:
 	jp TransferCurBGPData
 
 SetStatusTypeIconPalettes::
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z ; page changes upload these palettes during their final commit
 	ldh a, [hGBC]
 	and a
 	ret z
@@ -1185,13 +1189,277 @@ StorageCommitPreview::
 	jr nz, .byte
 	ret
 
+; BG7 is reserved for the status indicators while this screen is active.
+UpdateStatusIndicatorPalette::
+	ld a, [wStatusFlags2]
+	bit 1, a
+	ret z
+	call PrepareStatusIndicatorPalette
+	ld a, 7
+	jp TransferCurBGPData
+
+PrepareStatusIndicatorPalette:
+	ld a, [wCurrentPage]
+	ld c, a
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, StatusIndicatorPalettes
+	jr z, .table
+	ld de, StatusIndicatorPalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .table
+	ld de, DMGGreenPalette
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	jr z, .convert
+	ld de, DMGGrayPalette
+	jr .convert
+.table
+	ld a, c
+	add a
+	add a
+	add a
+	add e
+	ld e, a
+	jr nc, .convert
+	inc d
+.convert
+	xor a
+	jp DMGPalToGBCPal
+
+ApplyStatusIndicatorColors::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ldh a, [hAutoBGTransferEnabled]
+	push af
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	; Set the WRAM tiles first so automatic transfers cannot restore the old
+	; marker after the atomic VRAM update below.
+	hlcoord 11, 6
+	ld c, 0
+.page
+	ld a, [wCurrentPage]
+	cp c
+	ld a, $75
+	jr nz, .pair
+	ld a, $77
+.pair
+	ld [hli], a
+	inc a
+	ld [hli], a
+	inc c
+	ld a, c
+	cp 4
+	jr nz, .page
+	call PrepareStatusIndicatorPalette
+	di
+	ldh a, [rLCDC]
+	bit 7, a
+	jr z, .ready
+.waitVBlank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .waitVBlank
+.ready
+	; Palette, attributes and marker tiles all commit in the same VBlank.
+	ld a, $80 | 7 * PALETTE_SIZE
+	ldh [rBGPI], a
+	ld hl, wGBCPal
+	ld b, PALETTE_SIZE
+.palette
+	ld a, [hli]
+	ldh [rBGPD], a
+	dec b
+	jr nz, .palette
+	ldh a, [rVBK]
+	push af
+	ld a, 1
+	ldh [rVBK], a
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 6 * BG_MAP_WIDTH + 11
+	add hl, de
+	push hl
+	ld b, 8
+.indicator
+	ld a, 7
+	ld [hli], a
+	dec b
+	jr nz, .indicator
+	pop hl
+	xor a
+	ldh [rVBK], a
+	decoord 11, 6
+	ld b, 8
+.tiles
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec b
+	jr nz, .tiles
+	pop af
+	ldh [rVBK], a
+	pop af
+	ldh [hAutoBGTransferEnabled], a
+	; A page commit keeps interrupts disabled until its lower-half copy ends.
+	and a
+	ret z
+	ei
+	ret
+
+CommitStatusPage::
+	ldh a, [hGBC]
+	and a
+	jr z, .dmg
+	ldh a, [rKEY1]
+	push af
+	farcall GBCSetCPU2xSpeed
+	call ApplyStatusIndicatorColors
+	call UpdateBattleMoveTypePalette
+	xor a
+	ld c, a
+	call SetStatusMoveStatsAttributes.lcdOff
+	xor a
+	ld c, a
+	call SetStatusTypeIconAttributes.lcdOff
+	ld a, [wCurrentPage]
+	and a
+	jr nz, .moveDetails
+	ld c, PAL_BG_MOVE_TYPE
+	call SetStatusTypeIconAttributes.lcdOff
+	jr .attributesReady
+.moveDetails
+	cp 2
+	jr nz, .attributesReady
+	ld c, PAL_BG_MOVE_TYPE
+	call SetStatusMoveStatsAttributes.lcdOff
+.attributesReady
+	di
+	ldh a, [rVBK]
+	push af
+	xor a
+	ldh [rVBK], a
+	; Start in VBlank. Checked pairs remain safe if palette work uses the
+	; rest of VBlank; lower rows finish before the raster reaches them.
+	call .fastCopy
+	pop af
+	ldh [rVBK], a
+	ei
+	pop af
+	ld d, a
+	farjp GBCRestoreCPUSpeed
+.fastCopy
+	ld [hSPTemp], sp
+	hlcoord 0, 6
+	ld sp, hl
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 6 * BG_MAP_WIDTH
+	add hl, de
+	ld b, 12
+.fastRow
+	ld c, SCREEN_WIDTH / 2
+.fastPair
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .fastPair
+	pop de
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	inc hl
+	dec c
+	jr nz, .fastPair
+	ld a, l
+	add BG_MAP_WIDTH - SCREEN_WIDTH
+	ld l, a
+	jr nc, .fastNextRow
+	inc h
+.fastNextRow
+	dec b
+	jr nz, .fastRow
+	ldh a, [hSPTemp]
+	ld l, a
+	ldh a, [hSPTemp + 1]
+	ld h, a
+	ld sp, hl
+	ret
+.dmg
+	; Commit the indicator in VBlank, then copy rows from top to bottom.
+	; LCD-safe writes may extend into the following frame's upper header,
+	; but each lower row is ready before the raster reaches it.
+	farcall ApplyStatusIndicatorColors
+	di
+	ldh a, [hGBC]
+	and a
+	jr nz, .ready
+.waitVBlank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .waitVBlank
+.ready
+	ldh a, [hGBC]
+	and a
+	jr z, .bankReady
+	ldh a, [rVBK]
+	push af
+	xor a
+	ldh [rVBK], a
+.bankReady
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 6 * BG_MAP_WIDTH
+	add hl, de
+	decoord 0, 6
+	ld b, 12
+.row
+	ld c, SCREEN_WIDTH
+.byte
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .byte
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec c
+	jr nz, .byte
+	ld a, l
+	add BG_MAP_WIDTH - SCREEN_WIDTH
+	ld l, a
+	jr nc, .nextRow
+	inc h
+.nextRow
+	dec b
+	jr nz, .row
+	ldh a, [hGBC]
+	and a
+	jr z, .done
+	pop af
+	ldh [rVBK], a
+.done
+	ei
+	ret
+
 ResetStatusTypeIconAttributes::
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z ; retain the previous page's attributes until its tiles are replaced
 	xor a ; status-screen text uses palette 0
 	call SetStatusMoveStatsAttributes
 	xor a
 	jr SetStatusTypeIconAttributes
 
 ApplyStatusMoveStatsAttributes::
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z
 	call UpdateBattleMoveTypePalette
 	ld a, PAL_BG_MOVE_TYPE
 SetStatusMoveStatsAttributes:
@@ -1222,6 +1490,12 @@ SetStatusMoveStatsAttributes:
 .row
 	ld e, 12
 .column
+	; A deferred page commit can outlast VBlank. Check every write rather
+	; than assuming the whole attribute block remains accessible.
+.waitVRAM
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .waitVRAM
 	ld [hl], c
 	inc hl
 	dec e
@@ -1232,6 +1506,9 @@ SetStatusMoveStatsAttributes:
 	jr nz, .row
 	pop af
 	ldh [rVBK], a
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z
 	ei
 	ret
 
@@ -1240,6 +1517,9 @@ SetMoveLearningDetailsPalette::
 	jp UpdateBattleMoveTypePalette.convert
 
 ApplyStatusTypeIconAttributes::
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z
 	ld a, PAL_BG_MOVE_TYPE
 SetStatusTypeIconAttributes:
 	ld c, a
@@ -1268,8 +1548,7 @@ SetStatusTypeIconAttributes:
 	ld b, 2
 .row
 	ld a, c
-	ld [hli], a
-	ld [hli], a
+	call .writePair
 	and a
 	jr z, .secondReady
 	ld a, [wMoveTypeIconPalette]
@@ -1281,15 +1560,28 @@ SetStatusTypeIconAttributes:
 	jr z, .secondReady
 	ld a, PAL_BG_MOVE_CATEGORY
 .secondReady
-	ld [hli], a
-	ld [hl], a
-	ld de, BG_MAP_WIDTH - 3
+	call .writePair
+	ld de, BG_MAP_WIDTH - 4
 	add hl, de
 	dec b
 	jr nz, .row
 	pop af
 	ldh [rVBK], a
+	ldh a, [hAutoBGTransferEnabled]
+	and a
+	ret z
 	ei
+	ret
+
+.writePair
+	push af
+.waitVRAM
+	ldh a, [rSTAT]
+	and %10
+	jr nz, .waitVRAM
+	pop af
+	ld [hli], a
+	ld [hli], a
 	ret
 
 GetGBCBasePalAddress::
@@ -1524,6 +1816,7 @@ _UpdateGBCPal_BGP::
 
 	call TransferBGPPals
 	farcall UpdateIconOrBagPalettes
+	call UpdateStatusIndicatorPalette
 	ret
 
 _UpdateGBCPal_OBP::
