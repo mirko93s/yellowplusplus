@@ -17,6 +17,7 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **New battle HUD**  
 - **Colored moves type and category icons in battle and status screen**
 - **NES-style font**  
+- **Two selectable fonts and 15 selectable text box frames**
 - **Mew obtainable through easter egg**  
 - **Changed all trainer parties**  
 - **Rebalanced trainer and wild Pokémon levels** (up to Lv. 85 for final rival)  
@@ -24,6 +25,9 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **New game modes: HARD and NUZLOCKE** (can be combined and with an optional dupe clause)  
 - **Brand new status screen** inspired by Gen 2 (made from scratch by me)  
 - **Built-in Wild Pokémon Randomizer with User-Entered Seeds**  
+- **Gen 3-style Bill's PC revamp** with Pokémon sprites and minisprites
+- **Fully revamped bag with pockets in Gen 2-style**  
+- Move power and accuracy shown in the status screen
 - Changed all wild Pokémon and levels (mix of RBY)  
 - Changed all Pokémon trades and casino prizes  
 - All gym leaders and Elite Four have unique sprites and custom movesets  
@@ -33,18 +37,20 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - Unique overworld Pokémon sprites  
 
 ### Quality of Life
-- **Cheats menu** — unlock with Konami Codew (↑↑↓↓←→←→BA) in the main menu  
+- **Cheats menu** — unlock with Konami Code (↑↑↓↓←→←→BA) in the main menu  
 - **Countless original bugs fixed**  
-- **Fully revamped bag with pockets**  
 - **More Info in the Pokédex** (Base stats, Types, Evolutions, Levelup Movesets)
+- **Revamped shop UI** with left/right quantity adjustment  
+- Type effectiveness indicators in the battle HUD
+- Status effect icons
 - Press SELECT in the Pokédex entry page to alternate Normal/Shiny Sprites
 - Item descriptions and box reminders  
-- Prompt to use CUT and SURF  
+- Prompt to use CUT, SURF and STRENGTH  
+- Repel prompts
 - Metric system in Pokédex  
 - Switch Pokémon box without PC (SELECT while on "Pokémon" in pause menu)  
 - Starter Pikachu has maxed DVs  
 - "Press B to RUN" in wild battles  
-- Shop quantity adjustment with left/right  
 - Fully decapitalized text  
 - Color correction settings (Uncorrected, GBC, DMG, Black/White)
 - Learning moves screen shows power, accuracy and a description
