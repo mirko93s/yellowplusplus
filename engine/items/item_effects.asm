@@ -962,16 +962,6 @@ ItemUseMedicine:
 	ld e, a
 	ld [wCurSpecies], a
 	pop af
-	push af
-	cp CALCIUM + 1
-	jr nc, .noHappinessBoost
-	push hl
-	push de
-	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDITEM
-	pop de
-	pop hl
-.noHappinessBoost
-	pop af
 	ld [wCurItem], a
 	pop af
 	ld [wWhichPokemon], a
@@ -1366,6 +1356,7 @@ ItemUseMedicine:
 	and a ; using Softboiled?
 	jr nz, .skipRemovingItem ; no item to remove if using Softboiled
 	push hl
+	call .boostItemHappiness
 	call RemoveUsedItem
 	pop hl
 .skipRemovingItem
@@ -1428,6 +1419,24 @@ ItemUseMedicine:
 	and a
 	ret nz
 	jp ReloadMapData
+
+.boostItemHappiness
+	ld a, [wCurItem]
+	cp CALCIUM + 1
+	ret nc
+	; Only reward an item that actually worked, using its selected target.
+	push hl
+	push de
+	ld a, [wWhichPokemon]
+	push af
+	ld a, [wUsedItemOnWhichPokemon]
+	ld [wWhichPokemon], a
+	callabd_ModifyPikachuHappiness PIKAHAPPY_USEDITEM
+	pop af
+	ld [wWhichPokemon], a
+	pop de
+	pop hl
+	ret
 
 .useVitamin
 	push hl
@@ -1493,6 +1502,7 @@ ItemUseMedicine:
 	call PlaySound
 	ld hl, VitaminStatRoseText
 	call PrintText
+	call .boostItemHappiness
 	jp RemoveUsedItem
 
 .vitaminNoEffect
