@@ -4,6 +4,9 @@ TryFieldMove:: ; predef
 	call GetPredefRegisters
 
 .Main:
+	; Hidden items can reach this check without movement refreshing the tile.
+	; Read the current map view so a removed tree cannot prompt Cut again.
+	predef GetTileAndCoordsInFrontOfPlayer
 	call TrySurf
 	ret z
 	call TryCut
