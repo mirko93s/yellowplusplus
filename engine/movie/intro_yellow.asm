@@ -747,6 +747,9 @@ Func_f9e5f:
 
 YellowIntro_BlankPalsDelay2AndDisableLCD:
 	xor a
+	; Palette uploads poll STAT. Suspend scanline interrupts during scene
+	; transitions so the HBlank handler cannot consume their write window.
+	ldh [rSTAT], a
 	ldh [rBGP], a
 	ldh [rOBP0], a
 	ldh [rOBP1], a
@@ -776,6 +779,8 @@ Func_f9e9a:
 	call UpdateGBCPal_BGP
 	call UpdateGBCPal_OBP0
 	call UpdateGBCPal_OBP1
+	ld a, $8
+	ldh [rSTAT], a
 	ret
 
 YellowIntro_Copy8BitSineWave:
