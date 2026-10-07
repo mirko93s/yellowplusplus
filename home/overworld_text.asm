@@ -14,8 +14,9 @@ GroundRoseText::
 	text_end
 
 BoulderText::
-	text_far _BoulderText
-	text_end
+	text_asm
+	farcall TryStrength
+	jp TextScriptEnd
 
 MartSignText::
 	text_far _MartSignText

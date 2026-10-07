@@ -23,18 +23,14 @@ TrySurf:
 	jr nz, .no
 
 	ld a, [wObtainedBadges] ;can make it check for badge, but, meh.
-	bit 4, a ; SOUL_BADGE
+	bit BIT_SOULBADGE, a
 	jr z, .no
 
 	call Text2_EnterTheText
 	ld hl,WaterIsCalmTxt
-	call PrintText
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
+	call ConfirmFieldMove
 	jr nz, .no2
 	
-	call GetPartyMonName2
 	ld a, SURFBOARD
 	ld [wCurItem], a
 	;ld [wd152], a;???
@@ -66,16 +62,12 @@ TryCut:
 	jr nz, .no2
 
 	ld a, [wObtainedBadges]
-	bit 1, a ; CASCADE_BADGE
+	bit BIT_CASCADEBADGE, a
 	jr z, .no2
 
 	ld hl,WantToCutTxt
-	call PrintText
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
-	and a
+	call ConfirmFieldMove
 	jr nz, .no2
-	call GetPartyMonName2
 	farcall UsedCut;Cut2 ;farcall
 	call Text3_DrakesDeception
 
@@ -90,6 +82,54 @@ TryCut:
 	and a
 	ret
 
+
+; BoulderText already opens and closes the dialogue, unlike Cut and Surf.
+TryStrength::
+	ld a, [wStatusFlags1]
+	bit 0, a ; already using Strength on this map?
+	jr nz, .active
+	ld d, STRENGTH
+	call HasPartyMove
+	jr nz, .unavailable
+	ld a, [wObtainedBadges]
+	bit BIT_RAINBOWBADGE, a
+	jr z, .unavailable
+	ld hl, WantToStrengthTxt
+	call ConfirmFieldMove
+	; Yes/No and the success text handle their own input. Do not wait again
+	; when DisplayTextID finishes the outer boulder dialogue.
+	ld a, 1
+	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+	ret nz
+	predef PrintStrengthTxt
+	ret
+.unavailable
+	ld hl, StrengthRequiredTxt
+	jp PrintText
+.active
+	ld a, 1
+	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+	ld hl, StrengthActiveTxt
+	jp PrintText
+
+; Print the prompt and prepare the first party member with the requested move.
+; Return nz on No/B, z on Yes. HasPartyMove supplies wWhichPokemon.
+ConfirmFieldMove:
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	ret nz
+	call GetPartyMonName2
+	ld a, [wWhichPokemon]
+	ld c, a
+	ld b, 0
+	ld hl, wPartySpecies
+	add hl, bc
+	ld a, [hl]
+	ld [wCurPartySpecies], a
+	xor a
+	ret
 
 IsSurfTile:
 	ld a, [wCurMapTileset]
@@ -238,3 +278,16 @@ WaterIsCalmTxt:
 	text "The water is calm."
 	line "Would you like to"
 	cont "Surf?@@"
+
+WantToStrengthTxt:
+	text "Would you like to"
+	line "use Strength?@@"
+
+StrengthRequiredTxt:
+	text_far _BoulderText
+	text_end
+
+StrengthActiveTxt:
+	text "Boulders can be"
+	line "moved by Strength."
+	prompt
