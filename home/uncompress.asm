@@ -6,19 +6,24 @@ UncompressSpriteData::
 	push af
 	ld a, b
 	call BankswitchCommon
-	ld a, $0
+	xor a
 	call SwitchSRAMBankAndLatchClockData
+	; Only the decoder runs faster. Restore the incoming speed before the
+	; picture upload and animation code, including callers already at 2x.
+	ldh a, [rKEY1]
+	push af
+	farcall GBCSetCPU2xSpeed
 	call _UncompressSpriteData
+	pop de ; D = original KEY1 speed bit; no saved WRAM is needed
+	farcall GBCRestoreCPUSpeed
 	call PrepareRTCDataAndDisableSRAM
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 ; initializes necessary data to load a sprite and runs UncompressSpriteDataLoop
 _UncompressSpriteData::
 	ld hl, sSpriteBuffer1
-	ld c, LOW(2 * SPRITEBUFFERSIZE)
-	ld b, HIGH(2 * SPRITEBUFFERSIZE)
+	ld bc, 2 * SPRITEBUFFERSIZE
 	xor a
 	call FillMemory           ; clear sprite buffer 1 and 2
 	ld a, $1
@@ -80,7 +85,6 @@ UncompressSpriteDataLoop::
 	call ReadNextInputBit
 	sla c
 	or c                       ; read next two bits into c
-	and a
 	jr z, .readRLEncodedZeros ; 00 -> RLEncoded zeroes following
 	call WriteSpriteBitsToBuffer  ; otherwise write input to output and repeat
 	call MoveToNextBufferPosition

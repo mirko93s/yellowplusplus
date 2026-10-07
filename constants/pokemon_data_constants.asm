@@ -63,6 +63,14 @@ DEF PARTY_LENGTH EQU 6
 DEF MONS_PER_BOX EQU 18 ; Adding special defense means boxed mons will take up more space. Decreased this value from 20 so that the Stack can still have the same size (see ram/wram.asm).
 DEF NUM_BOXES    EQU 12
 
+; Storage keeps the legacy packed records; these maps describe visible slots.
+DEF STORAGE_MAP_SIZE EQU MONS_PER_BOX + 2 ; slots, packed count, checksum
+DEF STORAGE_EMPTY EQU $ff
+DEF STORAGE_TITLE EQU $ff
+DEF STORAGE_PARTY EQU $ff ; source box ID for party records
+DEF STORAGE_MAP_VERSION EQU 1
+DEF STORAGE_JOURNAL_READY EQU $a6
+
 DEF HOF_MON           EQU $10
 DEF HOF_TEAM          EQU PARTY_LENGTH * HOF_MON
 DEF HOF_TEAM_CAPACITY EQU 50

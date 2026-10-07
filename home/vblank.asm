@@ -4,6 +4,14 @@ VBlank::
 	push bc
 	push de
 	push hl
+	ld a, [wStorageUIActive]
+	and a
+	jr z, .normalTileMode
+	; The preview uses the signed $8800-$97ff region above the split.
+	ldh a, [rLCDC]
+	and ~$10
+	ldh [rLCDC], a
+.normalTileMode
 
 	ldh a, [rVBK] ; vram bank
 	push af

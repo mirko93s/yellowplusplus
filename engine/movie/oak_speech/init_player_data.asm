@@ -1,5 +1,6 @@
 InitPlayerData:
 InitPlayerData2:
+	farcall StorageResetMetadata
 
 	call Random
 	ldh a, [hRandomSub]

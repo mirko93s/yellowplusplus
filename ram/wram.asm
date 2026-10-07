@@ -263,6 +263,58 @@ NEXTU
 wTempPic:: ds 7 * 7 tiles
 
 NEXTU
+; PC-only scratch. Front-sprite/status helpers use the first 784 bytes.
+; Printing backs this state up to SRAM before borrowing the map buffer.
+	ds 800
+wStorageState::
+wStoragePanel:: db ; 0 box, 1 party
+wStorageCursor:: db ; visible slot, or STORAGE_TITLE
+wStorageLastCursor:: db
+wStorageAnimCounter:: db
+wStorageAnimFrame:: db
+wStorageFontReady:: db
+wStorageFrontBase:: db ; alternating 49-tile previews at $9000/$9310
+wStorageFrontSpecies:: db
+wStorageFrontValid:: db
+wStorageAttributesReady:: db ; both maps have the current grid attributes
+wStorageRedrawHidden:: db
+wStorageMiniCacheReady:: db
+wStorageMiniTiles:: ds MONS_PER_BOX + PARTY_LENGTH
+wStorageMiniPreviousTiles:: ds MONS_PER_BOX + PARTY_LENGTH
+wStorageMiniSpecies:: ds MONS_PER_BOX + PARTY_LENGTH + 3
+wStorageMiniPalettes:: ds MONS_PER_BOX + PARTY_LENGTH
+wStorageDisplayBox:: db
+wStorageColumn:: db
+wStorageHolding:: db
+wStorageSourceBox:: db ; STORAGE_PARTY, or 0..11
+wStorageSourceSlot:: db
+wStorageTargetBox:: db
+wStorageTargetSlot:: db
+wStorageTargetOccupied:: db
+wStorageOriginalBox:: db
+wStorageSavedSpriteState:: db
+wStorageSavedTileAnimations:: db
+wStorageSavedLCDC:: db
+wStorageSavedSTAT:: db
+wStorageSavedLYC:: db
+wStorageSavedIE:: db
+wStorageSavedSCX:: db
+wStorageSavedSCY:: db
+wStorageSavedBGDest:: dw
+wStorageBGBackupReady:: db
+wStorageDrawSlot:: db
+wStorageDrawTile:: db
+wStorageDrawPalette:: db
+wStorageIndex:: db
+wStorageMenuChoice:: db
+wStorageMap:: ds MONS_PER_BOX
+wStorageHeld:: ds STORAGE_RECORD_SIZE
+wStorageOther:: ds STORAGE_RECORD_SIZE
+wStorageIconBuffer:: ds 8 tiles
+wStorageStateEnd::
+	ASSERT wStorageStateEnd - wOverworldMap <= 1300
+
+NEXTU
 wTempMoveID::
 wTempDVs::
 wGenderTemp::
@@ -1909,7 +1961,8 @@ wPseudoItemID:: db
 
 wUnusedAlreadyOwnedFlag:: db ; unused ??? nothing ever reads it
 
-	ds 2
+wStorageUIActive:: db ; 0=off, 1=storage, 2/3=printer map, 4=printer return
+wStorageEditing:: db ; suppress legacy map hooks during journal preparation
 
 wEvoStoneItemID:: db
 

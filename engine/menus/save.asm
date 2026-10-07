@@ -4,6 +4,7 @@ LoadSAV_::
 	call ClearScreen
 	call LoadFontTilePatterns
 	call LoadTextBoxTilePatterns
+	farcall StorageRecoverJournal
 	call LoadSAV0
 	jr c, .badsum
 	call LoadSAV1
@@ -193,6 +194,7 @@ OlderFileWillBeErasedText:
 	text_end
 
 SaveSAVtoSRAM0:
+	farcall StorageSyncMap
 	call EnableSRAMAndLatchClockData
 	ld a, $1
 	ld [MBC1SRamBank], a
@@ -223,6 +225,7 @@ SaveSAVtoSRAM0:
 
 SaveSAVtoSRAM1:
 ; stored pokémon
+	farcall StorageSyncMap
 	call EnableSRAMAndLatchClockData
 	ld a, $1
 	ld [MBC1SRamBank], a

@@ -59,6 +59,12 @@ LoadPartyMonSprite:
 	ld bc, $0080
 	jp FarCopyData
 
+; Bankswitch uses A for the ROM bank; read the species after entering it.
+LoadStorageMonIcon::
+	ld a, [wLoadedMonSpecies]
+	ld de, wStorageIconBuffer
+	jp LoadPartyMonSprite
+
 PlacePartyMonSprite:
 	push hl
 	push de

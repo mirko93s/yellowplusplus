@@ -1,4 +1,5 @@
 _RemovePokemon::
+	farcall StorageMapOnRemove
 	ld hl, wPartyCount
 	ld a, [wRemoveMonFromBox]
 	and a

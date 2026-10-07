@@ -1833,7 +1833,7 @@ LoadPlayerSpriteGraphicsCommon::
 	push hl
 	push bc
 	ld c, $c
-	call CopyVideoData
+	call CopyVideoDataAlternate
 	pop bc
 	pop hl
 	pop de
@@ -1845,7 +1845,7 @@ LoadPlayerSpriteGraphicsCommon::
 .noCarry
 	set 3, h
 	ld c, $c
-	jp CopyVideoData
+	jp CopyVideoDataAlternate
 
 ; function to load data from the map header
 LoadMapHeader::

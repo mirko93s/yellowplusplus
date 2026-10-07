@@ -1016,6 +1016,175 @@ SetStatusTypeIconPalettes::
 	call UpdateBattleMoveTypePalette
 	jp UpdateStatusSecondTypePalette
 
+; BG0 text, BG1 preview, BG2 gold box minis, BG3 shared purple shinies,
+; BG4 blue party minis, BG5/6 types, BG7 the custom storage frame.
+StorageUpdatePalettes::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld a, PAL_GREYMON
+	ld b, 0
+	call StorageUploadPalette
+	call StorageUpdateFramePalette
+	ld a, [wCurPartySpecies]
+	and a
+	ld a, PAL_GREYMON
+	jr z, .front
+	ld a, [wCurPartySpecies]
+	call DeterminePaletteIDOutOfBattle
+.front
+	ld b, 1
+	call StorageUploadPalette
+	ld a, PAL_MEWMON
+	ld b, 2
+	call StorageUploadPalette
+	ld a, PAL_PURPLEMON
+	ld b, 3
+	call StorageUploadPalette
+	ld a, PAL_BLUEMON
+	ld b, 4
+	call StorageUploadPalette
+	call UpdateBattleMoveTypePalette
+	jp UpdateStatusSecondTypePalette
+
+StorageUpdateFramePalette:
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	jr nc, .monochrome
+	ld hl, .colors
+	and a
+	jr z, .selectedColors
+	ld hl, .correctedColors
+.selectedColors
+	ld de, wGBCPal
+	ld bc, PALETTE_SIZE
+	call CopyData
+	jr .upload
+.monochrome
+	ld a, PAL_GREYMON
+	call GetGBCBasePalAddress
+	xor a
+	call DMGPalToGBCPal
+.upload
+	; BG7 has no saved palette buffer; do not index past wBGPPalsBuffer.
+	ld a, 7
+	jp TransferCurBGPData
+.colors
+	RGB 31, 31, 31
+	RGB 222 / 8, 224 / 8, 232 / 8 ; #dee0e8
+	RGB 142 / 8, 142 / 8, 150 / 8 ; #8e8e96
+	RGB 0, 0, 0
+.correctedColors
+	; Gambatte accurate matrix, gamma 1.7, luminance 0.94; same correction
+	; and white/black endpoints as the game's other corrected palettes.
+	RGB 30, 30, 30
+	RGB 27, 28, 28
+	RGB 19, 19, 20
+	RGB 5, 5, 5
+
+StorageUploadPalette:
+	push bc
+	call GetGBCBasePalAddress
+	xor a
+	call DMGPalToGBCPal
+	pop bc
+	push bc
+	ld a, b
+	call BufferBGPPal
+	pop bc
+	ld a, b
+	jp TransferCurBGPData
+
+; Convert the three changing preview palettes without touching the visible
+; hardware colors. The raw-picture scratch is free after the VRAM upload.
+StoragePreparePreviewPalettes::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld a, [wCurPartySpecies]
+	and a
+	ld a, PAL_GREYMON
+	jr z, .front
+	ld a, [wCurPartySpecies]
+	call DeterminePaletteIDOutOfBattle
+.front
+	call GetGBCBasePalAddress
+	xor a
+	call DMGPalToGBCPal
+	ld a, 1
+	call BufferBGPPal
+	ld hl, wGBCPal
+	ld de, wTempPic
+	ld bc, PALETTE_SIZE
+	call CopyData
+	ld a, [wMoveTypeIconPalette]
+	ld e, a
+	farcall GetMoveTypeIconPaletteAddress
+	xor a
+	call DMGPalToGBCPal
+	ld hl, wGBCPal
+	ld de, wTempPic + PALETTE_SIZE
+	ld bc, PALETTE_SIZE
+	call CopyData
+	ld a, [wMoveCategoryIconPalette]
+	and $7f
+	ld e, a
+	farcall GetMoveTypeIconPaletteAddress
+	xor a
+	call DMGPalToGBCPal
+	ld hl, wGBCPal
+	ld de, wTempPic + 2 * PALETTE_SIZE
+	ld bc, PALETTE_SIZE
+	jp CopyData
+
+; Commit all changing colors and the completed map in the same VBlank.
+; No pixels from the old picture are displayed with the new palette.
+StorageCommitPreview::
+	; Keep the line-71 tile split running while waiting. Disabling interrupts
+	; for the whole wait displays front tiles in unsigned mode or minisprites
+	; in signed mode for a frame. Only lock the end of the last visible line.
+	ei
+.lastLine
+	ldh a, [rLY]
+	cp 143
+	jr nz, .lastLine
+	di
+.vblank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .vblank
+	ldh a, [hGBC]
+	and a
+	jr z, .reveal
+	ld hl, wTempPic
+	ld a, $80 | 1 * PALETTE_SIZE
+	call .palette
+	ld a, $80 | PAL_BG_MOVE_TYPE * PALETTE_SIZE
+	call .palette
+	ld a, $80 | PAL_BG_MOVE_CATEGORY * PALETTE_SIZE
+	call .palette
+.reveal
+	ldh a, [hAutoBGTransferDest + 1]
+	and 4
+	add a
+	ld b, a
+	ldh a, [rLCDC]
+	and ~8
+	or b
+	ldh [rLCDC], a
+	ei
+	ret
+.palette
+	ldh [rBGPI], a
+	ld c, PALETTE_SIZE
+.byte
+	ld a, [hli]
+	ldh [rBGPD], a
+	dec c
+	jr nz, .byte
+	ret
+
 ResetStatusTypeIconAttributes::
 	xor a ; status-screen text uses palette 0
 	call SetStatusMoveStatsAttributes

@@ -240,6 +240,13 @@ PrintPCBox::
 	xor a
 	ldh [rIF], a
 	ld a, $9
+	ld b, a
+	ld a, [wStorageUIActive]
+	cp 2
+	ld a, b
+	jr c, .printerInterrupts
+	or 1 << LCD_STAT
+.printerInterrupts
 	ldh [rIE], a
 	call SaveScreenTilesToBuffer1
 	xor a
@@ -573,8 +580,15 @@ GBPrinter_UpdateStatusMessage:
 	hlcoord 2, 15
 	ld de, .PressBToCancel
 	call PlaceString
+	ld a, [wStorageUIActive]
+	cp 2
+	jr c, .showMessage
+	farcall StorageShowPrinterMessage
+	jr .messageReady
+.showMessage
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
+.messageReady
 	xor a
 	ld [wPrinterStatusIndicator], a
 	ret
@@ -823,9 +837,13 @@ PrintPCBox_DrawPage2:
 	call ClearScreen
 	call PrintPCBox_PlaceHorizontalLines
 	call PrintPCBox_DrawLeftAndRightBorders
+	ld a, [wStorageUIActive]
+	cp 2
+	jr nc, .mappedPage
 	ld a, [wBoxDataStart]
 	cp 4
 	ret c
+.mappedPage
 	hlcoord 4, 0
 	ld de, wBoxSpecies + 3
 	ld c, 6
@@ -836,9 +854,13 @@ PrintPCBox_DrawPage3:
 	call ClearScreen
 	call PrintPCBox_PlaceHorizontalLines
 	call PrintPCBox_DrawLeftAndRightBorders
+	ld a, [wStorageUIActive]
+	cp 2
+	jr nc, .mappedPage
 	ld a, [wBoxDataStart]
 	cp 10
 	ret c
+.mappedPage
 	hlcoord 4, 0
 	ld de, wBoxSpecies + 9
 	ld c, 6
@@ -855,9 +877,13 @@ PrintPCBox_DrawPage4:
 	ld bc, 2 * SCREEN_WIDTH
 	ld a, ' '
 	call FillMemory
+	ld a, [wStorageUIActive]
+	cp 2
+	jr nc, .mappedPage
 	ld a, [wBoxDataStart]
 	cp 16
 	ret c
+.mappedPage
 	hlcoord 4, 0
 	ld de, wBoxSpecies + 15
 	ld c, 5
@@ -868,11 +894,28 @@ PrintPCBox_PlaceBoxMonInfo:
 .loop
 	ld a, c
 	and a
-	jr z, .done
+	jp z, .done
 	dec c
+	ld a, [wStorageUIActive]
+	cp 2
+	jr c, .packedSpecies
+	call PrintPCBox_RecordIndex
+	jr c, .emptySlot
+	push hl
+	push de
+	ld e, a
+	ld d, 0
+	ld hl, wBoxSpecies
+	add hl, de
+	ld a, [hl]
+	pop de
+	pop hl
+	jr .speciesReady
+.packedSpecies
 	ld a, [de]
 	cp $ff
 	jr z, .done
+.speciesReady
 	ld [wPokedexNum], a
 	push bc
 	push hl
@@ -896,7 +939,12 @@ PrintPCBox_PlaceBoxMonInfo:
 	push hl
 	ld hl, wBoxMonNicks
 	ld bc, NAME_LENGTH
+	ld a, [wStorageUIActive]
+	cp 2
 	ld a, [wBoxNumString]
+	jr c, .nicknameIndex
+	call PrintPCBox_RecordIndex
+.nicknameIndex
 	call AddNTimes
 	ld e, l
 	ld d, h
@@ -914,9 +962,30 @@ PrintPCBox_PlaceBoxMonInfo:
 	add hl, bc
 	pop bc
 	inc de
-	jr .loop
+	jp .loop
+
+.emptySlot
+	push bc
+	ld bc, 3 * SCREEN_WIDTH
+	add hl, bc
+	pop bc
+	inc de
+	ld a, [wBoxNumString]
+	inc a
+	ld [wBoxNumString], a
+	jp .loop
 
 .done
+	ret
+
+PrintPCBox_RecordIndex:
+	; farcall itself loads B/HL before entering the preserving helper.
+	push bc
+	push hl
+	farcall StoragePrinterRecordIndex
+	pop hl
+	pop bc
+	ld a, [wWhichPokemon]
 	ret
 
 PrintPCBox_DrawTopBorder:

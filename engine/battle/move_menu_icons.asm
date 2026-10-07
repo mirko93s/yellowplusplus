@@ -270,6 +270,45 @@ DrawStatusTypeIcons::
 	ld [hl], a
 	ret
 
+; Upload into the unused type-badge buffer without waiting a frame per icon.
+StorageLoadTypeIcons::
+	ld a, [wMoveTypeIconPalette]
+	call GetTypeIconGraphicsAddress
+	ld hl, vFont tile (MOVE_TYPE_ICON_TILE - $80)
+	ld a, [wStorageFrontBase]
+	and a
+	jr z, .first
+	ld hl, vFont tile ($c0 - $80)
+.first
+	lb bc, BANK(BattleMoveTypeGraphics), 4
+	call CopyBattleMoveIconTiles
+	ld a, [wMoveTypeIconPalette]
+	ld b, a
+	ld a, [wMoveCategoryIconPalette]
+	and $7f
+	cp b
+	ret z
+	call GetTypeIconGraphicsAddress
+	ld a, [wStorageFrontBase]
+	and a
+	jr z, .originalSecond
+	ld hl, vFont tile ($c4 - $80)
+	lb bc, BANK(BattleMoveTypeGraphics), 4
+	jp CopyBattleMoveIconTiles
+.originalSecond
+	push de
+	ld hl, vFont tile (MOVE_CATEGORY_ICON_TILE - $80)
+	lb bc, BANK(BattleMoveTypeGraphics), 2
+	call CopyBattleMoveIconTiles
+	pop hl
+	ld de, 2 tiles
+	add hl, de
+	ld d, h
+	ld e, l
+	ld hl, vFont tile ($ce - $80)
+	lb bc, BANK(BattleMoveTypeGraphics), 2
+	jp CopyBattleMoveIconTiles
+
 ; a = type ID; de = address of its four row-major tiles.
 GetTypeIconGraphicsAddress:
 	cp NUM_TYPES

@@ -1,4 +1,11 @@
 UpdateIconOrBagPalettes::
+	ld a, [wStorageUIActive]
+	cp 2 ; printer owns the storage scratch; retain its existing colors
+	ret nc
+	and a
+	jr z, .notStorage
+	farjp StorageUpdatePalettes
+.notStorage
 	ld a, [wShopUIActive]
 	and a
 	jp nz, UpdateShopUIPalettes

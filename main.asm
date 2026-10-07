@@ -131,6 +131,11 @@ SECTION "Bill's PC", ROMX
 
 INCLUDE "engine/pokemon/bills_pc.asm"
 
+SECTION "Storage Engine", ROMX
+INCLUDE "engine/pokemon/storage.asm"
+INCLUDE "engine/menus/storage.asm"
+INCLUDE "gfx/storage_fronts.asm"
+
 
 SECTION "Battle Engine 3", ROMX
 
@@ -478,6 +483,8 @@ INCLUDE "engine/items/town_map.asm"
 INCLUDE "engine/gfx/mon_icons.asm"
 INCLUDE "engine/events/in_game_trades.asm"
 INCLUDE "engine/gfx/palettes.asm"
+
+SECTION "Save Engine", ROMX
 INCLUDE "engine/menus/save.asm"
 
 
@@ -750,3 +757,6 @@ INCLUDE "engine/menus/bag_palettes.asm"
 INCLUDE "engine/menus/bag_fast.asm"
 INCLUDE "engine/menus/bag_submenus.asm"
 INCLUDE "engine/menus/shop.asm"
+
+SECTION "GBC CPU Speed", ROMX
+INCLUDE "engine/gfx/gbc_cpu_speed.asm"
