@@ -863,6 +863,107 @@ StorageDrawCursor:
 ; Existing uncompressed PNG-derived fronts avoid the slow battle sprite
 ; decompressor. Upload into the unused preview buffer while the old one is
 ; still displayed. Neither the saved records nor artwork are changed.
+LoadMenuFastFront::
+; Use the same raw fronts as storage, without changing its sprite cache.
+; DE = top-left tile of an already cleared seven-by-seven picture area.
+; wTempPic aliases the live overworld map. Borrow the original loader's
+; contiguous SRAM sprite buffers 1 and 2 instead (784 bytes total).
+	push de
+	xor a
+	call SwitchSRAMBankAndLatchClockData
+	ld a, [wMonHIndex]
+	dec a
+	ld l, a
+	ld h, 0
+	add hl, hl
+	add hl, hl
+	ld de, StorageFrontPointers
+	add hl, de
+	ld de, sSpriteBuffer1
+	ld bc, 4
+	ld a, BANK(StorageFrontPointers)
+	call FarCopyData
+	ld a, [sSpriteBuffer1 + 3]
+	ld l, a
+	ld h, 0
+	REPT 4
+		add hl, hl
+	ENDR
+	ld b, h
+	ld c, l
+	push bc
+	ld a, [sSpriteBuffer1 + 1]
+	ld l, a
+	ld a, [sSpriteBuffer1 + 2]
+	ld h, a
+	ld a, [sSpriteBuffer1]
+	ld de, sSpriteBuffer1
+	call FarCopyData
+	pop bc
+	push bc
+	ld hl, sSpriteBuffer1
+.mirror
+	ld a, [hl]
+	push hl
+	ld l, a
+	ld h, HIGH(StorageReverseBits)
+	ld a, [hl]
+	pop hl
+	ld [hli], a
+	dec bc
+	ld a, b
+	or c
+	jr nz, .mirror
+	pop bc
+	ld hl, sSpriteBuffer1
+	ld de, vFrontPic
+	call StorageCopyToVRAM
+	call PrepareRTCDataAndDisableSRAM
+	pop hl
+	; Raw tiles are row-major; mirror columns and bottom-align as before.
+	ld a, [wMonHSpriteDim]
+	and $f
+	ld c, a
+	ld a, [wMonHSpriteDim]
+	swap a
+	and $f
+	ld b, a
+	ld a, 7
+	sub b
+	ld de, SCREEN_WIDTH
+.alignY
+	and a
+	jr z, .alignX
+	add hl, de
+	dec a
+	jr .alignY
+.alignX
+	ld a, 8
+	sub c
+	srl a
+	ld e, a
+	ld a, 6
+	sub e
+	ld e, a
+	ld d, 0
+	add hl, de
+	xor a
+.row
+	push bc
+	push hl
+.column
+	ld [hld], a
+	inc a
+	dec c
+	jr nz, .column
+	pop hl
+	ld de, SCREEN_WIDTH
+	add hl, de
+	pop bc
+	dec b
+	jr nz, .row
+	ret
+
 StorageDrawFastFront:
 	ld a, [wStorageFrontValid]
 	and a

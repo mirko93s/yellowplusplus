@@ -598,11 +598,11 @@ DrawDexEntryOnScreen:
 	push de
 	push hl
 
+	call GetMonHeader ; load pokemon picture location
+	decoord 1, 1
+	farcall LoadMenuFastFront
 	call Delay3
 	call GBPalNormal
-	call GetMonHeader ; load pokemon picture location
-	hlcoord 1, 1
-	call LoadFlippedFrontSpriteByMonIndex ; draw pokemon picture
 	ld a, [wCurPartySpecies]
 	call PlayCry ; play pokemon cry
 

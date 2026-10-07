@@ -63,7 +63,7 @@ StatusScreen:
 	set 1, [hl]
 	ld a, $33
 	ldh [rNR50], a ; Reduce the volume
-	call GBPalWhiteOutWithDelay3
+	call GBPalWhiteOut
 	call ClearScreen
 	call UpdateSprites
 	call LoadHpBarAndStatusTilePatterns
@@ -133,8 +133,8 @@ StatusScreen:
 	ld b, SET_PAL_STATUS_SCREEN
 	call RunPaletteCommand
 	; pokemon sprite
-	hlcoord 1, 0
-	call LoadFlippedFrontSpriteByMonIndex ; draw Pokémon picture
+	decoord 1, 0
+	farcall LoadMenuFastFront
 	pop af
 	ret
 
@@ -174,7 +174,11 @@ ClearStatusScreen:
 	hlcoord 0, 8
 	lb bc, 10, 20
 	call ClearScreenArea
-	call Delay3 ; remove icon tiles before restoring the text attributes
+	; Hidden redraws need no intermediate tilemap transfer. Visible page
+	; changes must remove icon tiles before restoring text attributes.
+	ldh a, [rBGP]
+	and a
+	call nz, Delay3
 	farcall ResetStatusTypeIconAttributes
 	; reset middle line
 	ld b, SCREEN_WIDTH
