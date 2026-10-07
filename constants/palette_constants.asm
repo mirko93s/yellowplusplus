@@ -14,6 +14,7 @@ DEF NUM_BG_PALS EQU NUM_ACTIVE_PALS + 1 ; buffered base palettes and EXP bar
 	; Icon palettes are uploaded directly, without extra WRAM buffers.
 DEF PAL_BG_MOVE_TYPE EQU 5
 DEF PAL_BG_MOVE_CATEGORY EQU 6 ; uploaded separately; no extra palette buffer
+DEF PAL_BG_MOVE_EFFECTIVENESS EQU 7 ; independent selected-move indicator
 
 ; pal/blk packets
 ; SetPalFunctions indexes (see engine/gfx/palettes.asm)

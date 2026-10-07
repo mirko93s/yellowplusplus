@@ -848,6 +848,7 @@ InitGBCPalettes:
 	call TransferCurBGPData
 	call UpdateBattleMoveTypePalette
 	call UpdateBattleMoveCategoryPalette
+	farcall UpdateBattleMoveEffectivenessPalette
 	ret
 
 ; Type uses BG palette 5; category uses palette 6 with its own three shades.
@@ -910,6 +911,11 @@ SetBattleMoveTypeAttributes:
 	ld de, BG_MAP_WIDTH - 4
 	add hl, de
 	pop de
+	ld a, c
+	cp PAL_BG_MOVE_TYPE
+	jr nz, .nextRow
+	ld d, PAL_BG_MOVE_EFFECTIVENESS
+.nextRow
 	dec e
 	jr nz, .row
 	pop af
@@ -942,41 +948,13 @@ UpdateBattleMoveTypePalette:
 	jr .convert
 .typeIcon
 	ld a, [wMoveTypeIconPalette]
-	call GetMoveTypeIconPaletteAddress
+	ld e, a
+	farcall GetMoveTypeIconPaletteAddress
 .convert
 	xor a ; CONVERT_BGP, so fades also affect the type icon
 	call DMGPalToGBCPal
 	ld a, PAL_BG_MOVE_TYPE
 	jp TransferCurBGPData
-
-; a = type ID; de = palette selected by the current color option.
-GetMoveTypeIconPaletteAddress:
-	cp NUM_TYPES
-	jr c, .validType
-	ld a, TYPELESS
-.validType
-	ld l, a
-	ld h, 0
-	REPT 3
-		add hl, hl
-	ENDR
-	ld a, [wOptions]
-	and COLOR_MODE_MASK
-	ld de, BattleMoveTypePalettes
-	jr z, .gotTable
-	ld de, BattleMoveTypePalettesCorrected
-	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
-	jr z, .gotTable
-	ld de, DMGGreenPalette
-	ld hl, 0
-	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
-	jr z, .gotTable
-	ld de, DMGGrayPalette
-.gotTable
-	add hl, de
-	ld d, h
-	ld e, l
-	ret
 
 ; Regenerate palette 6 from its saved category or second type on BGP updates.
 ; Both icon palettes use LCD-safe direct uploads to avoid WRAM buffers.
@@ -984,6 +962,7 @@ UpdateBattleMoveCategoryPalette:
 	ld a, [wMoveCategoryIconPalette]
 	bit 7, a
 	jr nz, UpdateStatusSecondTypePalette
+	and 3 ; upper bits hold the effectiveness indicator
 	cp OTHER_M + 1
 	jr c, .validCategory
 	xor a
@@ -1014,10 +993,17 @@ UpdateBattleMoveCategoryPalette:
 	ld a, PAL_BG_MOVE_CATEGORY
 	jp TransferCurBGPData
 
+ConvertBattleMoveEffectivenessPalette::
+	xor a ; CONVERT_BGP
+	call DMGPalToGBCPal
+	ld a, PAL_BG_MOVE_EFFECTIVENESS
+	jp TransferCurBGPData
+
 UpdateStatusSecondTypePalette:
 	ld a, [wMoveCategoryIconPalette]
 	and $7f
-	call GetMoveTypeIconPaletteAddress
+	ld e, a
+	farcall GetMoveTypeIconPaletteAddress
 	xor a ; CONVERT_BGP
 	call DMGPalToGBCPal
 	ld a, PAL_BG_MOVE_CATEGORY

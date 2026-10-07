@@ -3282,6 +3282,32 @@ PrintMenuItem:
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
 
+; Return the selected move's type multiplier against defender type d in e.
+; Bankswitch overwrites a and bc on return. Keep damage and AI state untouched.
+GetBattleMoveEffectiveness::
+	ld a, [wPlayerMoveType]
+	ld b, a
+	ld hl, TypeEffects
+.loop
+	ld a, [hli]
+	cp $ff
+	jr z, .neutral
+	cp b
+	jr nz, .next
+	ld a, [hl]
+	cp d
+	jr nz, .next
+	inc hl
+	ld e, [hl]
+	ret
+.next
+	inc hl
+	inc hl
+	jr .loop
+.neutral
+	ld e, 10
+	ret
+
 DisabledText:
 	db "Dsbl@"
 

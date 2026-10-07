@@ -2724,7 +2724,8 @@ wLastOBP0:: db
 wLastOBP1:: db
 wdef4:: db
 wMoveTypeIconPalette:: db ; type ID for BG palette 5, including fades
-wMoveCategoryIconPalette:: db ; category ID, or bit 7 set + second type ID
+wMoveCategoryIconPalette:: db ; category in bits 0-1, effectiveness in 2-6;
+                            ; or bit 7 set + second type ID
 wBGPPalsBuffer:: ds NUM_BG_PALS * PALETTE_SIZE
 
 

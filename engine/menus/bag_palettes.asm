@@ -7,7 +7,7 @@ UpdateIconOrBagPalettes::
 	jr nz, UpdateBagUIPalettes
 	farcall UpdateBattleMoveTypePalette
 	farcall UpdateBattleMoveCategoryPalette
-	ret
+	farjp UpdateBattleMoveEffectivenessPalette
 
 UpdateBagUIPalettes::
 	ldh a, [hGBC]

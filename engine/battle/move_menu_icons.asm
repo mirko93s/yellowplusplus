@@ -38,7 +38,7 @@ DrawBattleMoveIcons::
 	inc a
 	ld [hl], a
 	farcall SetBattleMoveTypePalette
-	ret
+	jp DrawBattleMoveEffectiveness
 
 .TypeGraphicsIndexes
 	table_width 1, .TypeGraphicsIndexes
@@ -48,6 +48,149 @@ DrawBattleMoveIcons::
 	ENDR
 	db 9, 10, 11, 12, 13, 14, 15
 	assert_table_length NUM_TYPES
+
+DrawBattleMoveEffectiveness:
+	ld c, 4 ; quarter/half/neutral/double/quadruple = 1/2/4/8/16
+	ld a, [wEnemyMonType]
+	ld d, a
+	push bc
+	farcall GetBattleMoveEffectiveness
+	pop bc
+	ld a, e
+	call .applyMultiplier
+	ld a, [wEnemyMonType + 1]
+	cp d
+	jr z, .draw ; a single type is stored twice
+	ld d, a
+	push bc
+	farcall GetBattleMoveEffectiveness
+	pop bc
+	ld a, e
+	call .applyMultiplier
+.draw
+	ld a, c
+	add a
+	add a
+	ld b, a
+	ld a, [wMoveCategoryIconPalette]
+	and 3
+	or b
+	ld [wMoveCategoryIconPalette], a
+	push bc
+	call UpdateBattleMoveEffectivenessPalette
+	pop bc
+	ld a, c
+	hlcoord 1, 14
+	and a
+	jr z, .immune
+	cp 4
+	ret z ; the menu already cleared both tiles
+	ld a, '-'
+	jr c, .resisted
+	ld a, '+'
+	ld [hli], a
+	bit 4, c ; quadruple effectiveness
+	ret z
+	ld [hl], a
+	ret
+.resisted
+	ld [hli], a
+	bit 0, c ; quarter effectiveness
+	ret z
+	ld [hl], a
+	ret
+.immune
+	ld [hl], '×' ; charmap $f1
+	ret
+.applyMultiplier
+	and a
+	jr z, .noEffect
+	cp NOT_VERY_EFFECTIVE
+	jr z, .half
+	cp SUPER_EFFECTIVE
+	ret nz
+	sla c
+	ret
+.half
+	srl c
+	ret
+.noEffect
+	ld c, 0
+	ret
+
+; e = type ID; de = palette selected by the current color option.
+; Bankswitch replaces a on entry, so pass the requested type in e.
+GetMoveTypeIconPaletteAddress::
+	ld a, e
+	cp NUM_TYPES
+	jr c, .validType
+	ld a, TYPELESS
+.validType
+	ld l, a
+	ld h, 0
+	REPT 3
+		add hl, hl
+	ENDR
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, BattleMoveTypePalettes
+	jr z, .gotTable
+	ld de, BattleMoveTypePalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld de, DMGGreenPalette
+	ld hl, 0
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld de, DMGGrayPalette
+.gotTable
+	add hl, de
+	ld d, h
+	ld e, l
+	ret
+
+; Palette 7 colors the two text tiles independently of the category icon.
+; Regenerate it on BGP changes so fades and monochrome options still work.
+UpdateBattleMoveEffectivenessPalette::
+	ldh a, [hGBC]
+	and a
+	ret z
+	ld a, [wMoveCategoryIconPalette]
+	bit 7, a
+	jr z, .battle
+	xor a ; the status screen has no effectiveness indicator
+.battle
+	and $7c
+	srl a
+	srl a
+	ld hl, 0
+	and a
+	jr z, .indexed
+.index
+	inc l
+	srl a
+	jr nz, .index
+.indexed
+	REPT 3
+		add hl, hl
+	ENDR
+	ld de, BattleMoveEffectivenessPalettes
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	jr z, .gotTable
+	ld de, BattleMoveEffectivenessPalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld hl, 0
+	ld de, DMGGreenPalette
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	jr z, .gotTable
+	ld de, DMGGrayPalette
+.gotTable
+	add hl, de
+	ld d, h
+	ld e, l
+	farjp ConvertBattleMoveEffectivenessPalette
 
 ; These small uploads use graphics in the current ROM bank. Copy during
 ; accessible LCD modes instead of waiting a whole frame for each icon.

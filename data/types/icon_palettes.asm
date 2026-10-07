@@ -4,6 +4,8 @@ ASSERT BANK(BattleMoveTypePalettes) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveTypePalettesCorrected) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettes) == BANK(SuperPalettes)
 ASSERT BANK(BattleMoveCategoryPalettesCorrected) == BANK(SuperPalettes)
+ASSERT BANK(BattleMoveEffectivenessPalettes) == BANK(SuperPalettes)
+ASSERT BANK(BattleMoveEffectivenessPalettesCorrected) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPalette) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPaletteCorrected) == BANK(SuperPalettes)
 ASSERT BANK(StatusMoveStatsPaletteDMG) == BANK(SuperPalettes)
@@ -18,6 +20,27 @@ StatusMoveStatsPaletteCorrected::
 StatusMoveStatsPaletteDMG::
 ; Keep detail text light, interpolating the DMG palette's two lightest shades.
 	RGB 28,31,26, 24,29,22, 22,27,19, 19,26,17
+
+; Font ink uses shade 3. Keep white backgrounds for both indicator tiles.
+BattleMoveEffectivenessPalettes:
+	table_width PALETTE_SIZE, BattleMoveEffectivenessPalettes
+	RGB 31,31,31, 31,31,31, 31,31,31, 31,00,00 ; immune: red
+	RGB 31,31,31, 31,31,31, 31,31,31, 31,16,00 ; quarter: orange
+	RGB 31,31,31, 31,31,31, 31,31,31, 31,26,00 ; half: yellow
+	RGB 31,31,31, 31,31,31, 31,31,31, 31,31,31 ; neutral: hide old ink until tilemap clears
+	RGB 31,31,31, 31,31,31, 31,31,31, 00,13,00 ; double: dark green
+	RGB 31,31,31, 31,31,31, 31,31,31, 00,31,00 ; quadruple: bright green
+	assert_table_length 6
+
+BattleMoveEffectivenessPalettesCorrected:
+	table_width PALETTE_SIZE, BattleMoveEffectivenessPalettesCorrected
+	RGB 30,30,30, 30,30,30, 30,30,30, 29,08,08 ; immune: red
+	RGB 30,30,30, 30,30,30, 30,30,30, 30,18,08 ; quarter: orange
+	RGB 30,30,30, 30,30,30, 30,30,30, 30,25,08 ; half: yellow
+	RGB 30,30,30, 30,30,30, 30,30,30, 30,30,30 ; neutral: hide old ink until tilemap clears
+	RGB 30,30,30, 30,30,30, 30,30,30, 04,13,04 ; double: dark green
+	RGB 30,30,30, 30,30,30, 30,30,30, 08,29,08 ; quadruple: bright green
+	assert_table_length 6
 
 BattleMoveTypePalettes:
 	table_width PALETTE_SIZE, BattleMoveTypePalettes
