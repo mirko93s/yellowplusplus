@@ -1774,7 +1774,60 @@ ItemUseRepelCommon:
 	jp nz, ItemUseNotTime
 	ld a, b
 	ld [wRepelRemainingSteps], a
+	ld a, [wCurItem]
+	ld [wLastRepelItem], a
 	jp PrintItemUseTextAndRemoveItem
+
+OfferAnotherRepel::
+	; Return carry if a prompt was answered, so no extra button press is needed.
+	ld a, [wLastRepelItem]
+	; Ignore unset or stale values rather than offering a different item.
+	cp REPEL
+	jr z, .checkBag
+	cp SUPER_REPEL
+	jr z, .checkBag
+	cp MAX_REPEL
+	jr nz, .noPrompt
+.checkBag
+	ld b, a
+	call IsItemInBag
+	ret z
+	ld a, [wLastRepelItem]
+	ld [wNamedObjectIndex], a
+	call GetItemName
+	call CopyToStringBuffer
+	ld hl, UseAnotherRepelText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .promptHandled
+	ld a, [wLastRepelItem]
+	ld b, 100
+	cp REPEL
+	jr z, .use
+	ld b, 200
+	cp SUPER_REPEL
+	jr z, .use
+	ld b, 250
+.use
+	ldh [hItemToRemoveID], a
+	ld a, b
+	ld [wRepelRemainingSteps], a
+	ld a, CHEAT_ITEMS
+	call CheckCheat
+	jr nz, .promptHandled
+	callfar RemoveItemByID
+.promptHandled
+	scf
+	ret
+.noPrompt
+	and a
+	ret
+
+UseAnotherRepelText:
+	text_far _UseAnotherRepelText
+	text_end
 
 ; handles X Accuracy item
 ItemUseXAccuracy:

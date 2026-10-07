@@ -1747,7 +1747,8 @@ wSavedTileAnimations:: db
 
 wDamage:: dw
 
-	ds 2
+wLastRepelItem:: db
+	ds 1
 
 wRepelRemainingSteps:: db
 

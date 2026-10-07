@@ -213,6 +213,8 @@ PlayerBlackedOutText::
 DisplayRepelWoreOffText::
 	ld hl, RepelWoreOffText
 	call PrintText
+	callfar OfferAnotherRepel
+	jp c, HoldTextDisplayOpen ; the yes/no choice already acknowledged the text
 	jp AfterDisplayingTextID
 
 RepelWoreOffText::

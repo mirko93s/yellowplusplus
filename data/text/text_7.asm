@@ -26,6 +26,13 @@ _RepelWoreOffText::
 	line "wore off."
 	done
 
+_UseAnotherRepelText::
+	text "Use another"
+	line "@"
+	text_ram wStringBuffer
+	text "?"
+	done
+
 _PokemartBuyingGreetingText::
 	text "Take your time."
 	done
