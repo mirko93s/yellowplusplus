@@ -263,6 +263,8 @@ OverworldLoopLessDelay::
 	cp a, $02
 	jr z, .surfFaster
 	; Add running shoes
+	CheckEvent EVENT_GOT_RUNNING_SHOES
+	jr z, .notRunning
 	ld a, [hJoyHeld] ; Check what buttons are being pressed
 	and B_BUTTON ; Are you holding B?
 	jr z, .notRunning ; If you aren't holding B, skip ahead to step normally.

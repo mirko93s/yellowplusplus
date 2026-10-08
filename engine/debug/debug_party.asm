@@ -29,6 +29,8 @@ DebugTeam:
 
 DebugStart:
 IF DEF(_DEBUG)
+	SetEvent EVENT_GOT_RUNNING_SHOES
+
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 

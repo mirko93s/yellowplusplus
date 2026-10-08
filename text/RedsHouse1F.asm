@@ -1,3 +1,30 @@
+_MomRunningShoesCallText::
+	text "Mom: <PLAYER>!"
+	line "Before you go,"
+	cont "come here a sec!"
+	done
+
+_MomRunningShoesGiftText::
+	text "Mom: Off on an"
+	line "adventure, huh?"
+
+	para "You'll need these"
+	line "running shoes!"
+
+	para "<PLAYER> received"
+	line "running shoes!@"
+	text_end
+
+_MomRunningShoesInstructionsText::
+	text_start
+	para "Mom: Hold B while"
+	line "walking to run."
+
+	para "Now go see Prof."
+	line "Oak! Take care,"
+	cont "sweetie!"
+	done
+
 _MomWakeUpText::
 	text "Mom: Right."
 	line "All boys leave"
