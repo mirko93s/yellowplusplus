@@ -241,7 +241,7 @@ _NoSurfingHereText::
 	prompt
 
 _BoxFullCannotThrowBallText::
-	text "The #mon Box"
+	text "#mon storage"
 	line "is full! Can't"
 	cont "use that item!"
 	prompt

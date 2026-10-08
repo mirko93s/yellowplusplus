@@ -921,9 +921,8 @@ Data_feded:
 	db -1 ; end
 
 Func_fedfe:
-	ld a, [wBoxCount]
-	cp 30
-	jp nc, Func_ff1ad
+	farcall StorageHasRoom
+	jp c, Func_ff1ad
 	call ClearScreen
 	call UpdateSprites
 	ld a, [wLetterPrintingDelayFlags]
@@ -1439,6 +1438,9 @@ Func_ff1b9:
 	ld hl, Text_ff28f
 	call PrintText
 	callfar EmptyAllSRAMBoxes
+	farcall StorageResetMetadata
+	ld a, $80
+	ld [wCurrentBoxNum], a
 	ld hl, wBoxCount
 	xor a
 	ld [hli], a
@@ -1489,16 +1491,6 @@ Func_ff231:
 
 Func_ff236:
 	ld c, 0
-	ld d, 0
-.asm_ff23a
-	push bc
-	push de
-	call Func_ff295
-	ld hl, wChangeMonPicEnemyTurnSpecies
-	inc [hl]
-	pop de
-	pop bc
-	ld b, 30
 .asm_ff247
 	inc c
 	push bc
@@ -1518,10 +1510,7 @@ Func_ff236:
 	ld a, c
 	cp NUM_POKEMON_INDEXES
 	jr z, Func_ff286
-	dec b
-	jr nz, .asm_ff247
-	inc d
-	jr .asm_ff23a
+	jr .asm_ff247
 	; fallthrough
 Func_ff286:
 	ld a, 1
@@ -1537,104 +1526,6 @@ Text_ff290:
 	text_far _BoxWillBeClearedText
 	text_end
 
-Func_ff295:
-	push de
-	ld a, SFX_SAVE
-	call PlaySoundWaitForCurrent
-	call WaitForSoundToFinish
-	call Func_ff2d1
-	ld e, l
-	ld d, h
-	ld hl, wBoxCount
-	call Func_ff2f3
-	pop de
-	ld a, d
-	set 7, a
-	ld [wCurrentBoxNum], a
-	push de
-	call Func_ff2d1
-	ld de, wBoxCount
-	call Func_ff2f3
-	ld a, [wLetterPrintingDelayFlags]
-	push af
-	ld a, 1
-	ld [wLetterPrintingDelayFlags], a
-	callfar SaveSAVtoSRAM
-	pop af
-	ld [wLetterPrintingDelayFlags], a
-	pop de
-	ret
-
-Func_ff2d1:
-	ld hl, Data_ff2eb
-	ld a, [wCurrentBoxNum]
-	and %01111111
-	cp 4
-	ld b, 2
-	jr c, .asm_ff2e2
-	inc b
-	and 3
-.asm_ff2e2
-	ld e, a
-	ld d, 0
-	add hl, de
-	add hl, de
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ret
-
-Data_ff2eb:
-	dw sBox1
-	dw sBox2
-	dw sBox3
-	dw sBox4
-
-Func_ff2f3:
-	push hl
-	call Func_ff316
-	ld a, b
-	ld [MBC1SRamBank], a
-	ld bc, sBox2 - sBox1
-	call CopyData
-	pop hl
-	xor a
-	ld [hli], a
-	dec a
-	ld [hl], a
-	ld hl, sBox1
-	ld bc, sBox5 - sBox1 + 1
-	call Func_ff32a
-	ld [sBox5], a
-	call Func_ff321
-	ret
-
-Func_ff316:
-	ld a, 1
-	ld [MBC1SRamBankingMode], a
-	ld a, SRAM_ENABLE
-	ld [MBC1SRamEnable], a
-	ret
-
-Func_ff321:
-	ld a, 0
-	ld [MBC1SRamBankingMode], a
-	ld [MBC1SRamEnable], a
-	ret
-
-Func_ff32a:
-	ld d, 0
-.asm_ff32c
-	ld a, [hli]
-	add d
-	ld d, a
-	dec bc
-	ld a, b
-	or c
-	jr nz, .asm_ff32c
-	ld a, d
-	cpl
-	ret
 ELSE
 	ret
 ENDC

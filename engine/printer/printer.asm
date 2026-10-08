@@ -809,7 +809,7 @@ PrintPCBox_DrawPage1:
 	hlcoord 7, 6
 	ld de, .BoxString
 	call PlaceString
-	hlcoord 11, 6
+	hlcoord 12, 6
 	ld a, [wCurrentBoxNum]
 	and $7f
 	cp 9
@@ -831,7 +831,7 @@ PrintPCBox_DrawPage1:
 	ret
 
 .PokemonListString: db "POKéMON LIST@"
-.BoxString: db "BOX@"
+.BoxString: db "PAGE@"
 
 PrintPCBox_DrawPage2:
 	call ClearScreen

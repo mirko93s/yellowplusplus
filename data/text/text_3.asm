@@ -217,50 +217,6 @@ _WhatText::
 	text "What?"
 	done
 
-_DepositWhichMonText::
-	text "Deposit which"
-	line "#mon?"
-	done
-
-_MonWasStoredText::
-	text_ram wStringBuffer
-	text " was"
-	line "stored in Box @"
-	text_ram wBoxNumString
-	text '.'
-	prompt
-
-_CantDepositLastMonText::
-	text "You can't deposit"
-	line "the last #mon!"
-	prompt
-
-_BoxFullText::
-	text "Oops! This Box is"
-	line "full of #mon."
-	prompt
-
-_MonIsTakenOutText::
-	text_ram wStringBuffer
-	text " is"
-	line "taken out."
-	cont "Got @"
-	text_ram wStringBuffer
-	text '.'
-	prompt
-
-_NoMonText::
-	text "What? There are"
-	line "no #mon here!"
-	prompt
-
-_CantTakeMonText::
-	text "You can't take"
-	line "any more #mon."
-
-	para "Deposit #mon"
-	line "first."
-	prompt
 
 _PikachuUnhappyText::
 	text_ram wNameBuffer
@@ -268,27 +224,6 @@ _PikachuUnhappyText::
 	line "unhappy about it!"
 	prompt
 
-_ReleaseWhichMonText::
-	text "Release which"
-	line "#mon?"
-	done
-
-_OnceReleasedText::
-	text "Once released,"
-	line '@'
-	text_ram wStringBuffer
-	text " is"
-	cont "gone forever. Ok?"
-	done
-
-_MonWasReleasedText::
-	text_ram wStringBuffer
-	text " was"
-	line "released outside."
-	cont "Bye @"
-	text_ram wStringBuffer
-	text "!"
-	prompt
 
 _RequireCoinCaseText::
 	text "A Coin Case is"

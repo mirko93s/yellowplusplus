@@ -49,9 +49,6 @@ StoragePC::
 	ld [wStorageSavedTileAnimations], a
 	xor a
 	ldh [hTileAnimations], a
-	ld a, [wCurrentBoxNum]
-	and $7f
-	ld [wStorageOriginalBox], a
 	ld hl, wCurrentBoxNum
 	bit 7, [hl]
 	jr nz, .boxesReady
@@ -507,7 +504,10 @@ StorageDrawScreen:
 	lb bc, 1, 10
 	call StorageTextBoxBorder
 	hlcoord 8, 2
-	lb bc, 5, 10
+	lb bc, 3, 10
+	call StorageTextBoxBorder
+	hlcoord 8, 6
+	lb bc, 1, 10
 	call StorageTextBoxBorder
 	hlcoord 0, 8
 	lb bc, 6, 18
@@ -517,21 +517,32 @@ StorageDrawScreen:
 	ldcoord_a 8, 0
 	ld a, $67
 	ldcoord_a 8, 2
+	ldcoord_a 8, 6
 	ldcoord_a 0, 8
 	ld a, $68
 	ldcoord_a 19, 2
+	ldcoord_a 19, 6
 	ldcoord_a 19, 8
 	ld a, $69
 	ldcoord_a 8, 8
 	call StorageDrawTitleArrows
-	hlcoord 11, 1
+	farcall StorageCountMons
+	ld a, e
+	ld [wStorageDrawSlot], a
+	hlcoord 10, 1
+	ld de, wStorageDrawSlot
+	lb bc, 1, 3
+	call PrintNumber
+	ld de, .capacityText
+	call PlaceString
+	hlcoord 11, 7
 	ld de, .boxText
 	call PlaceString
 	ld a, [wCurrentBoxNum]
 	and $7f
 	inc a
 	ld [wStorageDrawSlot], a
-	hlcoord 15, 1
+	hlcoord 16, 7
 	ld de, wStorageDrawSlot
 	lb bc, LEFT_ALIGN | 1, 2
 	call PrintNumber
@@ -598,7 +609,9 @@ StorageDrawScreen:
 	farcall StorageCommitPreview
 	ret
 .boxText
-	db "Box @"
+	db "Page @"
+.capacityText
+	db "/216◓@"
 
 ; HL = top-left icon tile for visible slot A (six columns, three rows).
 StorageSlotCoord:
@@ -740,10 +753,10 @@ StorageDrawPreview:
 .details
 	hlcoord 9, 3
 	call PlaceString
-	hlcoord 9, 5
+	hlcoord 9, 4
 	ld de, .levelText
 	call PlaceString
-	hlcoord 11, 5
+	hlcoord 11, 4
 	ld de, wLoadedMonLevel
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
@@ -759,14 +772,14 @@ StorageDrawPreview:
 	jr z, .gender
 	ld a, '♀'
 .gender
-	ldcoord_a 9, 7
+	ldcoord_a 9, 5
 .shiny
 	ld de, wLoadedMonDVs
 	farcall IsMonShiny
 	ld a, 0
 	jr z, .notShiny
 	inc a
-	ld hl, wTileMap + 7 * SCREEN_WIDTH + 10
+	ld hl, wTileMap + 5 * SCREEN_WIDTH + 10
 	ld [hl], '⁂'
 .notShiny
 	ld [wShinyMonFlag], a
@@ -791,7 +804,7 @@ StorageDrawPreview:
 
 StorageDrawTypes:
 	farcall StorageLoadTypeIcons
-	hlcoord 15, 5
+	hlcoord 15, 4
 	ld a, MOVE_TYPE_ICON_TILE
 	ld b, a
 	ld a, [wStorageFrontBase]
@@ -807,7 +820,7 @@ StorageDrawTypes:
 	and $7f
 	cp b
 	ret z
-	hlcoord 17, 5
+	hlcoord 17, 4
 	ld a, MOVE_CATEGORY_ICON_TILE
 	ld b, a
 	ld a, [wStorageFrontBase]
@@ -819,7 +832,7 @@ StorageDrawTypes:
 	ld [hli], a
 	inc a
 	ld [hl], a
-	hlcoord 17, 6
+	hlcoord 17, 5
 	ld a, $ce
 	ld b, a
 	ld a, [wStorageFrontBase]
@@ -849,7 +862,7 @@ StorageDrawCursor:
 	call StorageCursorVisualIndex
 	cp STORAGE_TITLE
 	jr nz, .slot
-	hlcoord 18, 1
+	hlcoord 18, 7
 	jr .draw
 .slot
 	call StorageSlotCoord
@@ -1129,7 +1142,7 @@ StorageIconTile:
 
 ; Three spare four-tile slots ($6d-$78) stage changed icons off-screen.
 ; Normal/shiny swaps reuse their existing slots and update only the hidden
-; map and attributes. Full box changes can fall back to replacing old slots.
+; map and attributes. Page changes can fall back to replacing old slots.
 StorageMiniCacheIndex:
 	cp $6d
 	jr c, .regular
@@ -1317,14 +1330,14 @@ StorageDrawTitleArrows:
 	jr nz, .left
 	ld a, $d6
 .left
-	ldcoord_a 9, 1
+	ldcoord_a 9, 7
 	ld a, [wStorageCursor]
 	cp STORAGE_TITLE
 	ld a, ' '
 	jr nz, .right
 	ld a, '▶'
 .right
-	ldcoord_a 18, 1
+	ldcoord_a 18, 7
 	ret
 
 ; Cursor movement keeps all grid tiles in VRAM and never blanks the LCD.
@@ -1374,7 +1387,7 @@ StorageRefreshSelection:
 	lb bc, 7, 7
 	call ClearScreenArea
 	hlcoord 9, 3
-	lb bc, 5, 10
+	lb bc, 3, 10
 	call ClearScreenArea
 	call StorageDrawPreview
 	call StorageDrawCursor
@@ -1629,15 +1642,15 @@ StorageSetAttributes:
 	ld a, [wStorageDrawSlot]
 	cp MONS_PER_BOX + PARTY_LENGTH
 	jr c, .icon
-	ld hl, vBGMap0 + 5 * BG_MAP_WIDTH + 15
+	ld hl, vBGMap0 + 4 * BG_MAP_WIDTH + 15
 	lb bc, 2, 2
 	ld a, PAL_BG_MOVE_TYPE
 	call .rectangle
-	ld hl, vBGMap1 + 5 * BG_MAP_WIDTH + 15
+	ld hl, vBGMap1 + 4 * BG_MAP_WIDTH + 15
 	lb bc, 2, 2
 	ld a, PAL_BG_MOVE_TYPE
 	call .rectangle
-	ld hl, vBGMap0 + 5 * BG_MAP_WIDTH + 17
+	ld hl, vBGMap0 + 4 * BG_MAP_WIDTH + 17
 	lb bc, 2, 2
 	ld a, PAL_BG_MOVE_CATEGORY
 	call .rectangle
@@ -1665,7 +1678,7 @@ StorageSetAttributes:
 	lb bc, 1, 2
 	ld a, 4
 	call .rectangle
-	ld hl, vBGMap1 + 5 * BG_MAP_WIDTH + 17
+	ld hl, vBGMap1 + 4 * BG_MAP_WIDTH + 17
 	lb bc, 2, 2
 	ld a, PAL_BG_MOVE_CATEGORY
 	call .rectangle
@@ -1803,13 +1816,13 @@ StorageRestorePreviewData:
 	ret
 
 StorageMonMenu:
-	ld hl, vBGMap0 + 7 * BG_MAP_WIDTH + 8
-	lb bc, 9, 12
+	ld hl, vBGMap0 + 7 * BG_MAP_WIDTH + 7
+	lb bc, 9, 13
 	call StorageNeutralOverlay
-	hlcoord 8, 7
-	lb bc, 7, 10
+	hlcoord 7, 7
+	lb bc, 7, 11
 	call TextBoxBorder
-	hlcoord 10, 8
+	hlcoord 9, 8
 	ld de, .actions
 	call PlaceString
 	lb bc, 8, 3
@@ -1825,14 +1838,14 @@ StorageMonMenu:
 .actions
 	db "Summary"
 	next "Release"
-	next "Print Box"
+	next "Print Page"
 	next "Cancel@"
 
 ; B = first row, C = highest menu item. Return A=item, carry on B.
 StorageActionInput:
 	ld a, b
 	ld [wTopMenuItemY], a
-	ld a, 9
+	ld a, 8
 	ld [wTopMenuItemX], a
 	ld a, c
 	ld [wMaxMenuItem], a

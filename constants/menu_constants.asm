@@ -106,8 +106,7 @@ DEF CHOSE_SECOND_ITEM EQU 2
 
 ; move mon constants
 	const_def
-	const BOX_TO_PARTY     ; 0
-	const PARTY_TO_BOX     ; 1
+	const_skip 2          ; reserved legacy PC transfer IDs
 	const DAYCARE_TO_PARTY ; 2
 	const PARTY_TO_DAYCARE ; 3
 

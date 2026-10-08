@@ -848,34 +848,3 @@ SwitchPartyMon_InitVarOrSwapData:
 	pop de
 	pop hl
 	ret
-
-StartMenu_SelectPressed::
-	ld a, [wCurrentMenuItem]
-	ld [wBattleAndStartSavedMenuItem], a ; save current menu selection
-	ld a, [wCurMapTextPtr]
-	ld b, a
-	ld a, [wCurMapTextPtr + 1]
-	ld c, a
-	push bc ; save the current maptextptr for later because that property can be modified by changing boxes
-	call SaveScreenTilesToBuffer2 ; copy background from wTileMap to wTileMapBackup2
-	ld hl, vChars2 tile $78
-	ld de, PokeballTileGraphics
-	lb bc, BANK(PokeballTileGraphics), 1
-	call CopyVideoData
-	push hl
-	ld hl, wExtraFlags
-	set 0, [hl]
-	pop hl
-	farcall ChangeBox
-	; ld b, SET_PAL_OVERWORLD
-	; call RunPaletteCommand
-	call LoadScreenTilesFromBuffer2 ; restore saved screen
-	call LoadTextBoxTilePatterns
-	call UpdateSprites
-	pop bc ; recover the original maptextptr in case we changed the value by changing boxes
-	ld a, b
-	ld [wCurMapTextPtr], a 
-	ld a, c
-	ld [wCurMapTextPtr + 1], a
-.done
-	jp RedisplayStartMenu

@@ -92,7 +92,8 @@ StorageChecksum:
 	ret
 
 ; Preserve all callers' registers; safe outside the PC (no map-buffer scratch).
-; Newly caught/gifted Pokémon append to the first free visible slot.
+; Repair legacy maps after packed append writers; catches/gifts use the
+; dedicated incoming-record hook to preserve their chosen visible slot.
 StorageSyncMap::
 	push af
 	ld a, [wStorageEditing]
@@ -300,6 +301,11 @@ StorageBoxAddress:
 	dw sBox1, sBox2, sBox3, sBox4, sBox5, sBox6
 
 StorageLoadBox::
+	call StorageLoadBoxData
+	jp StorageReadMap
+
+; Load records without touching the PC's map/UI buffer (overworld scratch).
+StorageLoadBoxData:
 	set 7, a
 	ld [wCurrentBoxNum], a
 	call StorageBoxAddress
@@ -315,9 +321,230 @@ StorageLoadBox::
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
 	call StorageCloseSRAM
-	jp StorageReadMap
+	ret
 
-; Copies without clearing the source, unlike the old ChangeBox helper.
+; Return E = occupied collection slots, excluding party members.
+; Use the live page's WRAM count rather than its possibly stale SRAM mirror.
+StorageCountMons::
+	push bc
+	push hl
+	ld a, [wBoxCount]
+	ld e, a
+	ld a, [wCurrentBoxNum]
+	bit 7, a
+	jr z, .done
+	ld c, 0
+.page
+	ld a, [wCurrentBoxNum]
+	and $7f
+	cp c
+	jr z, .next
+	push bc
+	push de
+	ld a, c
+	call StorageBoxAddress
+	push hl
+	xor a
+	call SwitchSRAMBankAndLatchClockData
+	ld a, b
+	ld [MBC1SRamBank], a
+	pop hl
+	ld a, [hl]
+	push af
+	call StorageCloseSRAM
+	pop af
+	pop de
+	pop bc
+	add e
+	ld e, a
+.next
+	inc c
+	ld a, c
+	cp NUM_BOXES
+	jr c, .page
+.done
+	pop hl
+	pop bc
+	ret
+
+; Capacity checks must not change the live page before a ball succeeds.
+; The current page's WRAM count is authoritative; other counts live in SRAM.
+StorageHasRoom::
+	ld a, [wBoxCount]
+	cp MONS_PER_BOX
+	jr c, .room
+	ld a, [wCurrentBoxNum]
+	bit 7, a
+	jr z, .room ; backing pages have not been initialized yet
+	push bc
+	push de
+	push hl
+	ld c, 0
+.page
+	ld a, [wCurrentBoxNum]
+	and $7f
+	cp c
+	jr z, .next
+	push bc
+	ld a, c
+	call StorageBoxAddress
+	push hl
+	xor a
+	call SwitchSRAMBankAndLatchClockData
+	ld a, b
+	ld [MBC1SRamBank], a
+	pop hl
+	ld a, [hl]
+	cp MONS_PER_BOX
+	push af
+	call StorageCloseSRAM
+	pop af
+	pop bc
+	jr c, .found
+.next
+	inc c
+	ld a, c
+	cp NUM_BOXES
+	jr c, .page
+	pop hl
+	pop de
+	pop bc
+	scf
+	ret
+.found
+	pop hl
+	pop de
+	pop bc
+.room
+	and a
+	ret
+
+; Return carry if all 216 slots are occupied, otherwise E = destination slot.
+; E survives the farcall trampoline, which overwrites A and BC on return.
+; Append after the last visible Pokemon, using the first hole only when the
+; collection ends at slot 216. No UI state is borrowed, even during battle.
+StoragePrepareIncomingMon::
+	push de
+	push hl
+	ld a, [wCurrentBoxNum]
+	push af
+	bit 7, a
+	jr nz, .initialized
+	farcall EmptyAllSRAMBoxes
+	ld hl, wCurrentBoxNum
+	set 7, [hl]
+.initialized
+	call StorageSyncMap
+	call StorageStoreBox
+	ld de, $ffff ; D = first hole, E = last occupied global slot
+	ld c, 0 ; global slot, 0..215
+	xor a
+.page
+	push bc
+	push de
+	call StorageLoadBoxData
+	call StorageSyncMap ; validate/rebuild legacy slot maps against records
+	call StorageOpenMaps
+	ld a, [wCurrentBoxNum]
+	call StorageMapAddress
+	pop de
+	pop bc
+	ld b, MONS_PER_BOX
+.slot
+	ld a, [hli]
+	cp STORAGE_EMPTY
+	jr nz, .occupied
+	ld a, d
+	cp STORAGE_EMPTY
+	jr nz, .next
+	ld d, c
+	jr .next
+.occupied
+	ld e, c
+.next
+	inc c
+	dec b
+	jr nz, .slot
+	call StorageCloseSRAM
+	ld a, [wCurrentBoxNum]
+	and $7f
+	inc a
+	cp NUM_BOXES
+	jr c, .page
+	ld a, e
+	inc a ; $ff (empty collection) wraps to slot zero
+	cp NUM_BOXES * MONS_PER_BOX
+	jr c, .destination
+	ld a, d
+	cp STORAGE_EMPTY
+	jr nz, .destination
+	; Nothing fits: restore the original live page and report full storage.
+	pop af
+	call StorageLoadBoxData
+	pop hl
+	pop de
+	scf
+	ret
+.destination
+	ld b, a
+	pop af ; discard the original page; destination becomes the live page
+	xor a
+.divide
+	ld c, a
+	ld a, b
+	cp MONS_PER_BOX
+	jr c, .load
+	sub MONS_PER_BOX
+	ld b, a
+	ld a, c
+	inc a
+	jr .divide
+.load
+	push bc
+	ld a, c
+	call StorageLoadBoxData
+	pop bc
+	pop hl
+	pop de
+	ld e, b
+	and a
+	ret
+
+; E = chosen visible slot. SendNewMonToBox prepends packed record zero;
+; shift existing visible record indices and put zero in the chosen hole.
+StorageFinishIncomingMon::
+	ld a, e
+	push af
+	call StorageOpenMaps
+	ld a, [wCurrentBoxNum]
+	call StorageMapAddress
+	push hl
+	ld b, MONS_PER_BOX
+.shift
+	ld a, [hl]
+	cp STORAGE_EMPTY
+	jr z, .next
+	inc [hl]
+.next
+	inc hl
+	dec b
+	jr nz, .shift
+	ld a, [wBoxCount]
+	ld [hl], a
+	pop hl
+	pop af
+	push hl
+	ld e, a
+	ld d, 0
+	add hl, de
+	ld [hl], 0
+	pop hl
+	ld bc, MONS_PER_BOX + 1
+	call StorageChecksum
+	ld [hl], a
+	jp StorageCloseSRAM
+
+; Preserve the live page while updating its canonical SRAM records.
 StorageStoreBox::
 	ld a, [wCurrentBoxNum]
 	call StorageBoxAddress

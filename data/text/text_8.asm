@@ -109,30 +109,18 @@ _SentToBoxText::
 	cont '@'
 	text_ram wBoxMonNicks
 	text " was"
-	cont "sent to #mon"
-	cont "Box @"
-	text_ram wStringBuffer
-	text " on PC!"
+	cont "sent to storage"
+	cont "on the PC!"
 	done
 
 _BoxIsFullText::
 	text "There's no more"
 	line "room for #mon!"
 
-	para "The #mon Box"
+	para "#mon storage"
 	line "is full and can't"
 	cont "accept any more!"
 
-	para "Change the Box at"
-	line "a #mon Center!"
+	para "Make room at a"
+	line "#mon Center!"
 	done
-
-_BoxIsFullReminderText::
-	text "The #mon Box"
-	line "is now full."
-	cont "It won't hold"
-	cont "more #mon!"
-
-	para "Change the Box at"
-	line "a #mon Center!"
-	prompt

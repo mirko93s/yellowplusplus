@@ -291,7 +291,7 @@ wStorageSourceSlot:: db
 wStorageTargetBox:: db
 wStorageTargetSlot:: db
 wStorageTargetOccupied:: db
-wStorageOriginalBox:: db
+	db ; reserved legacy original-box field; preserve storage backup offsets
 wStorageSavedSpriteState:: db
 wStorageSavedTileAnimations:: db
 wStorageSavedLCDC:: db
@@ -843,8 +843,8 @@ NEXTU
 wFallingObjectsMovementData:: ds 20
 
 NEXTU
-; array of the number of mons in each box
-wBoxMonCounts:: ds NUM_BOXES
+; Reserved legacy box-count scratch; keep union allocation unchanged.
+	ds NUM_BOXES
 
 NEXTU
 wPriceTemp:: ds 3 ; BCD
@@ -1046,7 +1046,8 @@ wEmotionBubbleSpriteIndex:: db
 wWhichEmotionBubble:: db
 
 NEXTU
-wChangeBoxSavedMapTextPointer:: dw
+; Reserved legacy change-box pointer; keep union allocation unchanged.
+	dw
 
 NEXTU
 wSavedY::
@@ -2264,8 +2265,8 @@ wGrassTile:: db
 
 	ds 4
 
-; bits 0-6: box number
-; bit 7: whether the player has changed boxes before
+; bits 0-6: live backing storage page (0..11)
+; bit 7: backing SRAM pages have been initialized
 wCurrentBoxNum:: dw
 
 ; number of HOF teams
@@ -2425,7 +2426,7 @@ wStatusScreenDVs::
 wStatusScreenHPDVs::
 	ds 2
 	
-; Bit 0 is set if change box menu was opened from pause menu so we don't change the ow palette
+; Bit 0 is unused (formerly the pause-menu change-box palette flag)
 ; Bit 1 is set if the next gifted pokemon will be shiny (see magikarp at mt.moon)
 ; Bit 2 is set if the difficulty is set in hard mode
 ; Bit 3 is set if the nuzlocke mode is enabled

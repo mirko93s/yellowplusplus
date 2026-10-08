@@ -16,7 +16,7 @@ DrawStartMenu::
 	inc b
 .borderReady
 	call TextBoxBorder
-	ld a, D_DOWN | D_UP | START | B_BUTTON | A_BUTTON | SELECT
+	ld a, D_DOWN | D_UP | START | B_BUTTON | A_BUTTON
 	ld [wMenuWatchedKeys], a
 	ld a, 4
 	ld [wTopMenuItemY], a ; Y position of first menu choice

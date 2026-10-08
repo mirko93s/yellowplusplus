@@ -44,16 +44,17 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - Type effectiveness indicators in the battle HUD
 - Status effect icons
 - Press SELECT in the Pokédex entry page to alternate Normal/Shiny Sprites
-- Item descriptions and box reminders  
+- Item descriptions
 - Prompt to use CUT, SURF and STRENGTH  
 - Repel prompts
 - Metric system in Pokédex  
-- Switch Pokémon box without PC (SELECT while on "Pokémon" in pause menu)  
+- One Pokémon collection with 216 fixed slots across 12 pages
 - Starter Pikachu has maxed DVs  
 - "Press B to RUN" in wild battles  
 - Fully decapitalized text  
 - Color correction settings (Uncorrected, GBC, DMG, Black/White)
 - Learning moves screen shows power, accuracy and a description
+- In battle move power, accuracy and effects descriptions (hold LEFT or RIGHT)  
 
 ### Backported / Updated Mechanics
 - **Running shoes** (press B)  

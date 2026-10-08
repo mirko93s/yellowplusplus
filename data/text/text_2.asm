@@ -23,11 +23,11 @@ _AIBattleUseItemText::
 	prompt
 
 _BoxFullDebugText::
-	text "The Box is full!"
+	text "Storage is full!"
 	done
 
 _BoxWillBeClearedText::
-	text "The Box will be"
+	text "Storage will be"
 	line "cleared."
 	done
 

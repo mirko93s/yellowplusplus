@@ -6,7 +6,7 @@ BorderPalettes:
 	RGB 24,  6,  6
 	RGB 31, 25,  9
 	RGB 25, 10, 10
-	RGB  0,  0,  0
+	RGB 03,03,03
 
 	RGB 31, 31, 25
 	RGB 31, 31, 25
@@ -26,7 +26,7 @@ BorderPalettes:
 	RGB 18, 24, 18
 	RGB 25, 10, 10
 	RGB 15, 25, 15
-	RGB  0,  0,  0
+	RGB 03,03,03
 
 	RGB 31, 31, 25
 	RGB 31, 31, 25
@@ -46,7 +46,7 @@ BorderPalettes:
 	RGB 18,  6, 31
 	RGB 31, 25,  9
 	RGB 15, 25, 15
-	RGB  0,  0,  0
+	RGB 03,03,03
 
 	RGB 31, 31, 25
 	RGB 31, 31, 25

@@ -128,9 +128,8 @@ ItemUseBall:
 	ld a, [wPartyCount] ; is party full?
 	cp PARTY_LENGTH
 	jr nz, .canUseBall
-	ld a, [wBoxCount] ; is box full?
-	cp MONS_PER_BOX
-	jp z, BoxFullCannotThrowBall
+	farcall StorageHasRoom
+	jp c, BoxFullCannotThrowBall
 
 .canUseBall
 	xor a
@@ -613,12 +612,6 @@ ItemUseBall:
 	jr nz, .printTransferredToPCText
 	ld hl, ItemUseBallText08
 .printTransferredToPCText
-	call PrintText
-	;add reminder that box is now full
-	ld a,[wBoxCount] ; is box full?
-	cp MONS_PER_BOX
-	jr nz, .done
-	ld hl, BoxFullReminderTXT
 	call PrintText
 	jr .done
 
@@ -2805,10 +2798,6 @@ DontHavePokemonText:
 	text_far _DontHavePokemonText
 	text_end
 
-;add a reminder that the box is full
-BoxFullReminderTXT:
-	text_far _BoxIsFullReminderText
-	text_end
 
 ItemUseText00:
 	text_far _ItemUseText001
@@ -3078,6 +3067,11 @@ IsKeyItem_::
 	farjp BagIsProtected
 
 SendNewMonToBox:
+	; Keep the chosen visible slot on the stack through the naming screen.
+	farcall StoragePrepareIncomingMon
+	ret c
+	ld b, e
+	push bc
 	ld de, wBoxCount
 	ld a, [de]
 	inc a
@@ -3247,6 +3241,9 @@ SendNewMonToBox:
 	ld a, TWISTEDSPOON_GSC
 	ld [wBoxMon1CatchRate], a
 .notKadabra
+	pop bc
+	ld e, b
+	farcall StorageFinishIncomingMon
 	ret
 
 ; checks if the tile in front of the player is a shore or water tile

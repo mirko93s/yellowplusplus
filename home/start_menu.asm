@@ -15,8 +15,6 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	call HandleMenuInput
 	ld b, a
 .checkIfUpPressed
-	bit BIT_SELECT, a
-	jp nz, .selectPressed ; NEW: if pressing SELECT while the cursor is over the POKEMON option - we can change PC boxes.
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
 	ld a, [wCurrentMenuItem] ; menu selection
@@ -75,13 +73,6 @@ RedisplayStartMenu_DoNotDrawStartMenu::
 	cp 6
 	jp z, StartMenu_Cheats
 	jp CloseStartMenu
-.selectPressed
-	CheckEvent EVENT_GOT_POKEDEX
-	jp z, .loop
-	ld a, [wCurrentMenuItem]
-	cp 1 ; are we currently on POKEMON menu index? (need to be to do the below action)
-	jp nz, .loop
-	jp StartMenu_SelectPressed
 
 ; EXIT falls through to here
 CloseStartMenu::

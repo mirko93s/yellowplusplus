@@ -1133,7 +1133,7 @@ StorageUpdateFramePalette:
 	RGB 31, 31, 31
 	RGB 222 / 8, 224 / 8, 232 / 8 ; #dee0e8
 	RGB 142 / 8, 142 / 8, 150 / 8 ; #8e8e96
-	RGB 0, 0, 0
+	RGB 03,03,03
 .correctedColors
 	; Gambatte accurate matrix, gamma 1.7, luminance 0.94; same correction
 	; and white/black endpoints as the game's other corrected palettes.

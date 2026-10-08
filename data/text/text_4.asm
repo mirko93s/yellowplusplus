@@ -23,18 +23,6 @@ _OlderFileWillBeErasedText::
 	cont "save. Okay?"
 	done
 
-_WhenYouChangeBoxText::
-	text "When you change a"
-	line "#mon Box, data"
-	cont "will be saved."
-
-	para "Is that okay?"
-	done
-
-_ChooseABoxText::
-	text "Choose a"
-	line "<PKMN> Box.@"
-	text_end
 
 _EvolvedText::
 	text_ram wStringBuffer

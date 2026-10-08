@@ -4,39 +4,39 @@ BagUIPalettes:
 	RGB 31,31,31
 	RGB 22,22,22
 	RGB 13,13,13
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 15,22,30
 	RGB 3,11,24
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 31,23,10
 	RGB 27,12,2
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 30,17,16
 	RGB 24,4,5
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 13,26,26
 	RGB 2,16,18
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 30,27,12
 	RGB 24,17,1
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 24,19,30
 	RGB 14,7,24
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 17,27,17
 	RGB 3,17,7
-	RGB 0,0,0
+	RGB 03,03,03
 	RGB 31,31,31
 	RGB 30,19,26
 	RGB 24,6,17
-	RGB 0,0,0
+	RGB 03,03,03
 BagUIPalettesCorrected:
 ; Gambatte accurate matrix, gamma 1.7, luminance 0.94; match base black floor.
 ; https://github.com/libretro/glsl-shaders/blob/master/handheld/shaders/color/gbc-color.glsl

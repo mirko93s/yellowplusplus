@@ -435,53 +435,33 @@ _AddEnemyMonToPlayerParty::
 	ret                  ; return success
 
 _MoveMon::
+	; Only daycare transfers use this legacy helper; PC moves use StoragePC.
 	ld a, [wMoveMonType]
-	and a   ; BOX_TO_PARTY
-	jr z, .checkPartyMonSlots
-	cp DAYCARE_TO_PARTY
-	jr z, .checkPartyMonSlots
 	cp PARTY_TO_DAYCARE
 	ld hl, wDayCareMon
 	jr z, .findMonDataSrc
-	; else it's PARTY_TO_BOX
-	ld hl, wBoxCount
-	ld a, [hl]
-	cp MONS_PER_BOX
-	jr nz, .partyOrBoxNotFull
-	jr .boxFull
 .checkPartyMonSlots
 	ld hl, wPartyCount
 	ld a, [hl]
 	cp PARTY_LENGTH
 	jr nz, .partyOrBoxNotFull
-.boxFull
+.partyFull
 	scf
 	ret
 .partyOrBoxNotFull
 	inc a
-	ld [hl], a           ; increment number of mons in party/box
+	ld [hl], a           ; increment number of mons in party
 	ld c, a
 	ld b, 0
 	add hl, bc
-	ld a, [wMoveMonType]
-	cp DAYCARE_TO_PARTY
 	ld a, [wDayCareMon]
-	jr z, .copySpecies
-	ld a, [wCurPartySpecies]
 .copySpecies
 	ld [hli], a          ; write new mon ID
 	ld [hl], $ff         ; write new sentinel
 .findMonDataDest
-	ld a, [wMoveMonType]
-	dec a
 	ld hl, wPartyMons
 	ld bc, wPartyMon2 - wPartyMon1 ; $31
 	ld a, [wPartyCount]
-	jr nz, .addMonOffset
-	; if it's PARTY_TO_BOX
-	ld hl, wBoxMons
-	ld bc, wBoxMon2 - wBoxMon1 ; $23
-	ld a, [wBoxCount]
 .addMonOffset
 	dec a
 	call AddNTimes
@@ -490,10 +470,6 @@ _MoveMon::
 	ld e, l
 	ld d, h
 	ld a, [wMoveMonType]
-	and a
-	ld hl, wBoxMons
-	ld bc, wBoxMon2 - wBoxMon1 ; $23
-	jr z, .addMonOffset2
 	cp DAYCARE_TO_PARTY
 	ld hl, wDayCareMon
 	jr z, .copyMonData
@@ -510,8 +486,6 @@ _MoveMon::
 	pop de
 	pop hl
 	ld a, [wMoveMonType]
-	and a ; BOX_TO_PARTY
-	jr z, .findOTdest
 	cp DAYCARE_TO_PARTY
 	jr z, .findOTdest
 	ld bc, wBoxMon2 - wBoxMon1
@@ -526,22 +500,15 @@ _MoveMon::
 	cp PARTY_TO_DAYCARE
 	ld de, wDayCareMonOT
 	jr z, .findOTsrc
-	dec a
 	ld hl, wPartyMonOT
 	ld a, [wPartyCount]
-	jr nz, .addOToffset
-	ld hl, wBoxMonOT
-	ld a, [wBoxCount]
 .addOToffset
 	dec a
 	call SkipFixedLengthTextEntries
 	ld d, h
 	ld e, l
 .findOTsrc
-	ld hl, wBoxMonOT
 	ld a, [wMoveMonType]
-	and a
-	jr z, .addOToffset2
 	ld hl, wDayCareMonOT
 	cp DAYCARE_TO_PARTY
 	jr z, .copyOT
@@ -557,22 +524,15 @@ _MoveMon::
 	cp PARTY_TO_DAYCARE
 	ld de, wDayCareMonName
 	jr z, .findNickSrc
-	dec a
 	ld hl, wPartyMonNicks
 	ld a, [wPartyCount]
-	jr nz, .addNickOffset
-	ld hl, wBoxMonNicks
-	ld a, [wBoxCount]
 .addNickOffset
 	dec a
 	call SkipFixedLengthTextEntries
 	ld d, h
 	ld e, l
 .findNickSrc
-	ld hl, wBoxMonNicks
 	ld a, [wMoveMonType]
-	and a
-	jr z, .addNickOffset2
 	ld hl, wDayCareMonName
 	cp DAYCARE_TO_PARTY
 	jr z, .copyNick
@@ -585,8 +545,6 @@ _MoveMon::
 	call CopyData
 	pop hl
 	ld a, [wMoveMonType]
-	cp PARTY_TO_BOX
-	jr z, .done
 	cp PARTY_TO_DAYCARE
 	jr z, .done
 	push hl
