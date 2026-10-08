@@ -70,7 +70,7 @@ _TM46ExplanationText::
 	done
 
 _TM46NoRoomText::
-	text "Your pack is full"
+	text "Your bag is full"
 	line "of other items!"
 	done
 

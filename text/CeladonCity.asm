@@ -58,7 +58,7 @@ _TM41ExplanationText::
 	done
 
 _TM41NoRoomText::
-	text "Oh, your pack is"
+	text "Oh, your bag is"
 	line "full of items!"
 	done
 

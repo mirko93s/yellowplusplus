@@ -57,7 +57,7 @@ DisplayPokemartDialogue_::
 	call PrintText
 	call SaveScreenTilesToBuffer1 ; save screen
 .sellMenuLoop
-	; Keep the Pack visible through quantity/confirmation and completed sales.
+	; Keep the Bag visible through quantity/confirmation and completed sales.
 	ld a, BAG_CONTEXT_SELL
 	ld [wBagContext], a
 	farcall DisplayPocketBag

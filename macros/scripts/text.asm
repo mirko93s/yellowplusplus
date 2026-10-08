@@ -183,10 +183,7 @@ MACRO script_bills_pc
 	db TX_SCRIPT_BILLS_PC
 ENDM
 
-	const TX_SCRIPT_PLAYERS_PC ; $fc
-MACRO script_players_pc
-	db TX_SCRIPT_PLAYERS_PC
-ENDM
+	const_skip ; $fc unused (formerly item storage PC)
 
 	const_skip ; $fb
 

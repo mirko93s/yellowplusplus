@@ -71,7 +71,7 @@ _HM04ExplanationText::
 	done
 
 _HM04NoRoomText::
-	text "Your pack is"
+	text "Your bag is"
 	line "stuffed full!"
 	done
 

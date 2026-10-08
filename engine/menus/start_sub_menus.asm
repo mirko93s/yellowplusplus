@@ -315,7 +315,7 @@ ErasePartyMenuCursors::
 	ret
 
 ItemMenuLoop:
-; Return directly to the active Pack; item-use paths restore their own host.
+; Return directly to the active Bag; item-use paths restore their own host.
 
 StartMenu_Item::
 	ld a, [wLinkState]
@@ -326,7 +326,7 @@ StartMenu_Item::
 	jr .exitMenu
 .notInCableClubRoom
 	xor a
-	ld [wUpdateSpritesEnabled], a ; keep sprites hidden through Pack actions
+	ld [wUpdateSpritesEnabled], a ; keep sprites hidden through Bag actions
 	ld [wBagContext], a
 	farcall DisplayPocketBag
 	jr nc, .choseItem

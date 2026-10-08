@@ -1,5 +1,5 @@
 BagTextBoxBorder::
-; Adapter for generic quantity/confirmation/message boxes while Pack is active.
+; Adapter for generic quantity/confirmation/message boxes while Bag is active.
 	ld a, [wShopBoxHeight]
 	ld b, a
 	ld h, d

@@ -59,4 +59,5 @@ HiddenItemCoords:
 	hidden_item CELADON_CITY,                  48,  15
 	hidden_item SAFARI_ZONE_GATE,              10,   1 ; inaccessible
 	hidden_item POKEMON_MANSION_1F,             8,  16
+	hidden_item REDS_HOUSE_2F,                  0,   1
 	db -1 ; end

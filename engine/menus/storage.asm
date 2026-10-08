@@ -2157,6 +2157,8 @@ StoragePlaceHeld:
 	ld [wStorageTargetOccupied], a
 	call StorageCheckPlacement
 	ret c
+	ld a, SFX_ENTER_PC
+	call PlaySound
 	call StorageSwapMiniSlots
 	ld a, [wStorageSourceBox]
 	ld b, a

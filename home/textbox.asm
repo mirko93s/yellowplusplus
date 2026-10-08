@@ -8,7 +8,7 @@ DisplayTextBoxID::
 	jr nz, .standard
 	ld a, [wBagUIActive]
 	and a
-	ret nz ; sale accounting must not overlay the Pack with the old money box
+	ret nz ; sale accounting must not overlay the Bag with the old money box
 	ld a, [wShopUIActive]
 	and a
 	jr z, .standard

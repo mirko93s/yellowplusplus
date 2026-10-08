@@ -92,7 +92,7 @@ StartMenuPokemonText:
 	db "#mon@"
 
 StartMenuItemText:
-	db "Pack@"
+	db "Bag@"
 
 StartMenuSaveText:
 	db "Save@"

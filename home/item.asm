@@ -12,7 +12,7 @@ UseItem::
 
 ; confirms the item toss and then tosses the item
 ; INPUT:
-; hl = address of inventory (either wNumBagItems or wNumBoxItems)
+; hl = bag inventory token (wNumBagItems)
 ; [wCurItem] = item ID
 ; [wWhichPokemon] = index of item within inventory
 ; [wItemQuantity] = quantity to toss

@@ -128,7 +128,7 @@ SAVGoodChecksum:
 	ret
 
 LoadSAVIgnoreBadCheckSum:
-; Use the normal loader so transient Pack state is reset too.
+; Use the normal loader so transient Bag state is reset too.
 	farjp LoadSAV
 
 SaveSAV:

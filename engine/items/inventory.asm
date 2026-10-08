@@ -1,6 +1,5 @@
 ; Four-pocket inventory. The legacy wNumBagItems label is the bag token.
 ; Public add/remove routines preserve BC, DE, HL and wItemQuantity.
-; Only wNumBoxItems bypasses pocket dispatch.
 
 GetItemPocket::
 ; A = item ID. A = pocket or $ff. Preserve BC, DE, HL.
@@ -147,13 +146,6 @@ AddItemToInventory_::
 	push af
 	and a
 	jp z, .failure
-	ld a, h
-	cp HIGH(wNumBoxItems)
-	jr nz, .bag
-	ld a, l
-	cp LOW(wNumBoxItems)
-	jr z, .pc
-.bag
 	ld a, [wCurItem]
 	call GetItemPocket
 	cp $ff
@@ -161,14 +153,6 @@ AddItemToInventory_::
 	cp KEY_POCKET
 	jr nc, .ownership
 	call GetPocketStackPointer
-	jr .stacks
-.pc
-	ld a, [wCurItem]
-	call GetItemPocket
-	cp KEY_POCKET
-	jp nc, .failure ; PC storage is exclusively quantity-bearing stacks
-	ld d, PC_ITEM_CAPACITY
-.stacks
 ; Preflight: any free slot can hold the entire request. Otherwise check
 ; space across matching stacks without mutating them.
 	ld a, [hl]
@@ -272,16 +256,6 @@ RemoveItemFromInventory_::
 	push bc
 	push de
 	push hl
-	ld a, h
-	cp HIGH(wNumBoxItems)
-	jr nz, .bag
-	ld a, l
-	cp LOW(wNumBoxItems)
-	jr nz, .bag
-	ld a, [wWhichPokemon]
-	ld c, a
-	jr .remove
-.bag
 	ld a, [wCurItem]
 	call GetItemPocket
 	cp KEY_POCKET
@@ -366,17 +340,7 @@ RemoveItemFromInventory_::
 	dec [hl]
 	ld a, [hl]
 	ld [wListCount], a
-; Generic PC lists still expect their shared cursor to reset on compaction.
-; The Pack owns separate per-pocket state and clamps it on the next redraw.
-	ld a, h
-	cp HIGH(wNumBoxItems)
-	jr nz, .done
-	ld a, l
-	cp LOW(wNumBoxItems)
-	jr nz, .done
-	xor a
-	ld [wListScrollOffset], a
-	ld [wCurrentMenuItem], a
+; The Bag owns separate per-pocket state and clamps it on the next redraw.
 	jr .done
 .unchanged
 	pop hl

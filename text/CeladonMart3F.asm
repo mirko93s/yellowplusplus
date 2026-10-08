@@ -94,6 +94,6 @@ _TM18ExplanationText::
 	done
 
 _TM18NoRoomText::
-	text "Your pack is full"
+	text "Your bag is full"
 	line "of items!"
 	done

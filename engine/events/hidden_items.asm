@@ -1,3 +1,8 @@
+RedsPCItem::
+	ld a, SUPER_POTION
+	ld [wHiddenObjectFunctionArgument], a
+	jp HiddenItems
+
 HiddenItems:
 	ld hl, HiddenItemCoords
 	call FindHiddenItemOrCoinsIndex
@@ -19,10 +24,22 @@ HiddenItems:
 	tx_pre_jump FoundHiddenItemText
 
 .itemAlreadyFound
+	ld a, [wCurMap]
+	cp REDS_HOUSE_2F
+	jr z, .redsPC
 	; ld a, $ff
 	; ldh [hItemAlreadyFound], a
 	predef TryFieldMove
 	ret
+
+.redsPC
+	call EnableAutoTextBoxDrawing
+	tx_pre_jump RedBedroomPCText
+
+RedBedroomPCText::
+	text "Enough PC."
+	line "Touch grass!"
+	done
 
 INCLUDE "data/events/hidden_item_coords.asm"
 

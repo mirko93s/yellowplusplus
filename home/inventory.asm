@@ -16,20 +16,19 @@ AddAmountSoldToMoney::
 	call PlaySoundWaitForCurrent
 	jp WaitForSoundToFinish
 
-; function to remove an item (in varying quantities) from the player's bag or PC box
+; function to remove an item (in varying quantities) from the player's bag
 ; INPUT:
-; HL = address of inventory (either wNumBagItems or wNumBoxItems)
+; HL = bag inventory token (wNumBagItems)
 ; [wCurItem] = item ID for pocket dispatch
-; Bag: stable wBagSelectedItem/wBagSelectedIndex, or first matching stack.
-; PC: [wWhichPokemon] = index within the PC inventory.
+; Stable wBagSelectedItem/wBagSelectedIndex, or first matching stack.
 ; [wItemQuantity] = quantity to remove
 RemoveItemFromInventory::
 	homecall RemoveItemFromInventory_
 	ret
 
-; function to add an item (in varying quantities) to the player's bag or PC box
+; function to add an item (in varying quantities) to the player's bag
 ; INPUT:
-; HL = address of inventory (either wNumBagItems or wNumBoxItems)
+; HL = bag inventory token (wNumBagItems)
 ; [wCurItem] = item ID
 ; [wItemQuantity] = item quantity
 ; sets carry flag if successful, unsets carry flag if unsuccessful

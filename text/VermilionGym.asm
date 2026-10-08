@@ -64,7 +64,7 @@ _TM24ExplanationText::
 
 _TM24NoRoomText::
 	text "Yo kid, make room"
-	line "in your pack!"
+	line "in your bag!"
 	done
 
 _ReceivedThunderBadgeText::

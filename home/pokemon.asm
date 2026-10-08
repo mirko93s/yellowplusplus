@@ -171,7 +171,7 @@ GetCryData::
 	ret
 
 DisplayPartyMenu::
-	; Keep item messages over the Pack until a party screen is actually needed.
+	; Keep item messages over the Bag until a party screen is actually needed.
 	push af
 	push bc
 	push de

@@ -1,4 +1,4 @@
-; Pack is a dedicated 20x18-tile menu, separate from shop and generic lists.
+; Bag is a dedicated 20x18-tile menu, separate from shop and generic lists.
 DisplayPocketBag::
 	ld a, [wBagUIActive]
 	and a
@@ -10,7 +10,7 @@ DisplayPocketBag::
 	ld [wUpdateSpritesEnabled], a
 	ld a, [wStatusFlags5]
 	push af
-	set 6, a ; Pack text is always immediate, regardless of dialogue speed
+	set 6, a ; Bag text is always immediate, regardless of dialogue speed
 	ld [wStatusFlags5], a
 	ld a, [wBagUIActive]
 	and a
@@ -159,7 +159,7 @@ DisplayPocketBag::
 	jr c, .chosen
 	ld a, [wBagPocket]
 	cp KEY_POCKET
-	jp nc, .wait ; ownership pockets cannot be sold/deposited
+	jp nc, .wait ; ownership pockets cannot be sold
 .chosen
 	ld a, [wCurItem]
 	ld [wNamedObjectIndex], a
@@ -566,8 +566,8 @@ BagDraw:
 	jp LoadGBPal
 
 BagDrawHeader:
-	hlcoord 1, 1
-	ld de, BagPackText
+	hlcoord 2, 1
+	ld de, BagTitleText
 	call PlaceString
 	ld a, [wBagPocket]
 	add a
@@ -709,8 +709,8 @@ BagDrawSelection:
 	farcall DrawBagDescription_
 	ret
 
-BagPackText:
-	db "Pack@"
+BagTitleText:
+	db "Bag@"
 BagPocketLabels:
 	dw .items, .balls, .key, .machines
 .items
@@ -927,7 +927,7 @@ InitialQuantityText::
 SpacesBetweenQuantityAndPriceText::
 	db "      @"
 
-; Load the save, then reset transient Pack menu state.
+; Load the save, then reset transient Bag menu state.
 LoadSAV::
 	farcall LoadSAV_
 	ld hl, wBagPocket

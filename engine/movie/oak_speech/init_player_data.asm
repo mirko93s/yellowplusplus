@@ -23,8 +23,6 @@ InitPlayerData2:
 	ld hl, wBoxCount
 	call InitializeEmptyList
 	farcall InitializePocketBag_
-	ld hl, wNumBoxItems
-	call InitializeEmptyList
 
 DEF START_MONEY EQU $5000
 	ld hl, wPlayerMoney + 1

@@ -418,7 +418,7 @@ wPartyAndBillsPCSavedMenuItem:: db
 
 ; It is used by the bag list to remember the cursor position while the menu
 ; isn't active.
-wBagSavedMenuItem:: db ; retained for legacy list callers; Pack uses per-pocket state
+wBagSavedMenuItem:: db ; retained for legacy list callers; Bag uses per-pocket state
 
 ; It is used by the start menu to remember the cursor position while the menu
 ; isn't active.
@@ -1980,7 +1980,7 @@ wBagSelectedItem:: db
 wUsedItem:: db ; original item ID, preserved across item-effect menus
 wBagSwapIndex:: db
 wBagUISavedSpriteState:: db
-wBagUIActive:: db ; BG5/BG6 belong to the Pack while set
+wBagUIActive:: db ; BG5/BG6 belong to the Bag while set
 wQuantityMenuResult:: db
 
 ; Transient shop/menu state, outside the saved inventory.
@@ -2263,10 +2263,6 @@ wTilesetTalkingOverTiles:: ds 3
 wGrassTile:: db
 
 	ds 4
-
-wNumBoxItems:: db
-; item, quantity
-wBoxItems:: ds PC_ITEM_CAPACITY * 2 + 1
 
 ; bits 0-6: box number
 ; bit 7: whether the player has changed boxes before

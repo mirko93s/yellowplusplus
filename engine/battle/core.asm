@@ -2490,7 +2490,7 @@ DisplayPlayerBag:
 	jp c, DisplayBattleMenu
 	jr UseBagItem
 
-; The Old Man uses an explicit simulated inventory, never the player's Pack.
+; The Old Man uses an explicit simulated inventory, never the player's Bag.
 DisplayBagMenu:
 	xor a
 	ld [wPrintItemPrices], a

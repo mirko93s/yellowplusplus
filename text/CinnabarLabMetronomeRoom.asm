@@ -25,7 +25,7 @@ _TM35ExplanationText::
 	done
 
 _TM35NoRoomText::
-	text "Your pack is"
+	text "Your bag is"
 	line "crammed full!"
 	done
 

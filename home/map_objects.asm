@@ -26,12 +26,6 @@ DecodeArrowMovementRLE::
 	inc hl
 	jr DecodeArrowMovementRLE
 
-TextScript_ItemStoragePC::
-	call SaveScreenTilesToBuffer2
-	ld b, BANK(PlayerPC)
-	ld hl, PlayerPC
-	jr bankswitchAndContinue
-
 TextScript_BillsPC::
 	call SaveScreenTilesToBuffer2
 	ld b, BANK(BillsPC_)
