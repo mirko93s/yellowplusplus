@@ -760,3 +760,7 @@ INCLUDE "engine/menus/shop.asm"
 
 SECTION "GBC CPU Speed", ROMX
 INCLUDE "engine/gfx/gbc_cpu_speed.asm"
+
+SECTION "Battle Move Descriptions", ROMX
+
+INCLUDE "engine/battle/moves_effect_description.asm"

@@ -64,7 +64,6 @@
 	charmap "<ED>",      $f0 ; gfx/font/ED.1bpp
 
 ; Actual characters (from gfx/font/font.png)
-	charmap "%",         $cd
 
 	charmap "A",         $80
 	charmap "B",         $81
@@ -133,6 +132,13 @@
 	charmap "'s",        $bd
 	charmap "'t",        $be
 	charmap "'v",        $bf
+                       ; $c0
+                       ; used by exp bar and shiny sparkle
+                       ; $cc
+	charmap "%",         $cd
+                       ; $ce
+                       ; used by 2nd type icon in status screen
+                       ; $cf
 	; status effect font
 	charmap "<BRN>",     $d0
 	charmap "<FRZ>",     $d1

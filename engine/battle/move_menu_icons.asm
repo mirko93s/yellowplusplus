@@ -38,7 +38,8 @@ DrawBattleMoveIcons::
 	inc a
 	ld [hl], a
 	farcall SetBattleMoveTypePalette
-	jp DrawBattleMoveEffectiveness
+	call DrawBattleMoveEffectiveness
+	farjp CommitBattleMoveIconPanel
 
 .TypeGraphicsIndexes
 	table_width 1, .TypeGraphicsIndexes

@@ -1953,8 +1953,7 @@ AnimateRetreatingPlayerMon:
 .clearScreenArea
 	hlcoord 1, 5
 	lb bc, 7, 7
-	call ClearScreenArea
-	ret
+	jp ClearScreenArea
 
 ; reads player's current mon's HP into wBattleMonHP
 ReadPlayerMonCurHPAndStatus:
@@ -2834,7 +2833,7 @@ MoveSelectionMenu:
 	jr z, .matchedkeyspicked
 	ld a, [wStatusFlags7]
 	bit BIT_TEST_BATTLE, a
-	ld b, D_UP | D_DOWN | A_BUTTON | B_BUTTON | SELECT
+	ld b, D_UP | D_DOWN | A_BUTTON | B_BUTTON | SELECT | D_LEFT | D_RIGHT
 	jr z, .matchedkeyspicked
 	ld b, $ff
 .matchedkeyspicked
@@ -2873,25 +2872,45 @@ SelectMenuItem:
 	call AddNTimes
 	ld [hl], '▷'
 .select
-	ld hl, hUILayoutFlags
-	set 1, [hl]
-	call HandleMenuInput
-	ld hl, hUILayoutFlags
-	res 1, [hl]
+    ld hl, hUILayoutFlags
+    set 1, [hl]
+    call HandleMenuInput
+    ld hl, hUILayoutFlags
+    res 1, [hl]
+    ld hl, wMenuWatchedKeys
+    and [hl]
+
 	bit BIT_D_UP, a
 	jp nz, SelectMenuItem_CursorUp
 	bit BIT_D_DOWN, a
 	jp nz, SelectMenuItem_CursorDown
+
+    bit BIT_D_LEFT, a
+    jr z, .checkRight
+    callfar HoldBattleMovePowerPane
+    jr .holdDirection
+
+.checkRight
+    bit BIT_D_RIGHT, a
+    jr z, .normalInput
+    callfar HoldBattleMoveEffectPane
+
+.holdDirection
+    call PrintMenuItem
+    jr .select
+
+.normalInput
+
 	bit BIT_SELECT, a
 	jp nz, SwapMovesInMenu
-IF DEF(_DEBUG)
-	bit BIT_START, a
-	jp nz, Func_3d4f5
-	bit BIT_D_RIGHT, a
-	jp nz, Func_3d529
-	bit BIT_D_LEFT, a
-	jp nz, Func_3d523
-ENDC
+; IF DEF(_DEBUG)
+; 	bit BIT_START, a
+; 	jp nz, Func_3d4f5
+; 	bit BIT_D_RIGHT, a
+; 	jp nz, Func_3d529
+; 	bit BIT_D_LEFT, a
+; 	jp nz, Func_3d523
+; ENDC
 	bit BIT_B_BUTTON, a
 	push af
 	xor a
@@ -3310,9 +3329,6 @@ GetBattleMoveEffectiveness::
 
 DisabledText:
 	db "Dsbl@"
-
-TypeText:
-	db "Type@"
 
 SelectEnemyMove:
 	ld a, [wLinkState]
@@ -3766,7 +3782,7 @@ CheckPlayerStatusConditions:
 .HeldInPlaceCheck
 	ld a, [wEnemyBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; is enemy using a multi-turn move like wrap?
-	jp z, .FlinchedCheck
+	jr z, .FlinchedCheck
 	ld hl, CantMoveText
 	call PrintText
 	ld hl, ExecutePlayerMoveDone ; player can't move this turn
@@ -3775,7 +3791,7 @@ CheckPlayerStatusConditions:
 .FlinchedCheck
 	ld hl, wPlayerBattleStatus1
 	bit FLINCHED, [hl]
-	jp z, .HyperBeamCheck
+	jr z, .HyperBeamCheck
 	res FLINCHED, [hl] ; reset player's flinch status
 	ld hl, FlinchedText
 	call PrintText
@@ -6622,7 +6638,7 @@ CheckEnemyStatusConditions:
 GetCurrentMove:
 	ldh a, [hWhoseTurn]
 	and a
-	jp z, .player
+	jr z, .player
 	ld de, wEnemyMoveNum
 	ld a, [wEnemySelectedMove]
 	jr .selected

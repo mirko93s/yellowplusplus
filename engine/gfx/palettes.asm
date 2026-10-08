@@ -871,8 +871,16 @@ SetBattleMoveTypePalette::
 .validCategory
 	ld [wMoveCategoryIconPalette], a
 	call UpdateBattleMoveTypePalette
-	call UpdateBattleMoveCategoryPalette
+	jp UpdateBattleMoveCategoryPalette
+
+CommitBattleMoveIconPanel::
 	ld a, PAL_BG_MOVE_TYPE
+	jr SetBattleMoveTypeAttributes
+
+; Text replaces the icon rows while left/right is held. Use BG0 without
+; changing the palettes reserved for type, category, and effectiveness.
+SetBattleMoveTextAttributes::
+	xor a
 	jr SetBattleMoveTypeAttributes
 
 ResetBattleMoveTypeAttributes::
@@ -884,6 +892,19 @@ SetBattleMoveTypeAttributes:
 	and a
 	ret z
 	di
+	ld a, c
+	cp 2
+	jr z, .ready
+	; Commit the completed panel and its attributes in the same VBlank.
+	; Automatic transfers are disabled while the caller prepares the panel.
+	ldh a, [rLCDC]
+	bit 7, a
+	jr z, .ready
+.waitVBlank
+	ldh a, [rLY]
+	cp 144
+	jr nz, .waitVBlank
+.ready
 	ldh a, [rVBK]
 	push af
 	ld a, 1
@@ -919,6 +940,40 @@ SetBattleMoveTypeAttributes:
 .nextRow
 	dec e
 	jr nz, .row
+	ld a, c
+	cp 2
+	jr z, .restoreBank
+	xor a
+	ldh [rVBK], a
+	ldh a, [hAutoBGTransferDest]
+	ld l, a
+	ldh a, [hAutoBGTransferDest + 1]
+	ld h, a
+	ld de, 13 * BG_MAP_WIDTH + 1
+	add hl, de
+	decoord 1, 13
+	ld b, 4
+.tileRow
+	ld c, 4
+.tile
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec c
+	jr nz, .tile
+	push de
+	ld de, BG_MAP_WIDTH - 4
+	add hl, de
+	pop de
+	ld a, e
+	add SCREEN_WIDTH - 4
+	ld e, a
+	jr nc, .nextTileRow
+	inc d
+.nextTileRow
+	dec b
+	jr nz, .tileRow
+.restoreBank
 	pop af
 	ldh [rVBK], a
 	ei
