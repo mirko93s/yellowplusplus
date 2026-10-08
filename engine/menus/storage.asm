@@ -183,17 +183,27 @@ StoragePC::
 .choose
 	ld a, [wStorageCursor]
 	cp STORAGE_TITLE
+IF DEF(_DEBUG)
+	jp z, .debugStorageMenu
+ELSE
 	jp z, .input
+ENDC
 	ld a, [wStorageHolding]
 	and a
-	jr z, .monMenu
-	call StoragePlaceHeld
-	jp .redraw
+	jp nz, .input ; only SELECT places or swaps a held Pokemon
 .monMenu
 	call StorageSelectMon
 	jp c, .input
 	call StorageMonMenu
 	jp .redraw
+IF DEF(_DEBUG)
+.debugStorageMenu
+	ld a, [wStorageHolding]
+	and a
+	jp nz, .input
+	call StorageDebugMenu
+	jp .redraw
+ENDC
 .move
 	ld a, [wStorageCursor]
 	cp STORAGE_TITLE
@@ -409,6 +419,12 @@ StorageLoadLeftArrow:
 	ret
 
 StorageDrawScreen:
+	xor a
+	jr StorageDrawScreenMode
+StorageDrawScreenForSubmenu:
+	ld a, 1
+StorageDrawScreenMode:
+	push af ; nonzero keeps the completed grid hidden for an overlay
 	call StorageEnableTileSplit
 	xor a
 	ld [wStorageAttributesReady], a
@@ -601,6 +617,10 @@ StorageDrawScreen:
 	ld [wStorageAnimCounter], a
 	ld [wStorageAnimFrame], a
 	call StorageUploadMap
+	pop bc
+	ld a, b
+	and a
+	ret nz ; caller finishes its overlay before revealing this map
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ld a, [wStorageRedrawHidden]
@@ -1285,8 +1305,8 @@ StorageFrameGraphics:
 .End
 	ASSERT .End - StorageFrameGraphics == 10 tiles
 
-; The main storage panels use the supplied ten-tile frame, regardless of
-; the Options frame. Action and confirmation menus keep the standard frame.
+; Storage panels, action menus and release confirmations use the supplied
+; ten-tile frame, regardless of the Options frame.
 StorageTextBoxBorder:
 	push hl
 	ld a, $62
@@ -1816,15 +1836,17 @@ StorageRestorePreviewData:
 	ret
 
 StorageMonMenu:
+	call StorageBeginSubmenu
 	ld hl, vBGMap0 + 7 * BG_MAP_WIDTH + 7
 	lb bc, 9, 13
 	call StorageNeutralOverlay
 	hlcoord 7, 7
 	lb bc, 7, 11
-	call TextBoxBorder
+	call StorageTextBoxBorder
 	hlcoord 9, 8
 	ld de, .actions
 	call PlaceString
+	call StorageCommitSubmenu
 	lb bc, 8, 3
 	call StorageActionInput
 	ret c
@@ -1841,12 +1863,95 @@ StorageMonMenu:
 	next "Print Page"
 	next "Cancel@"
 
+IF DEF(_DEBUG)
+; Press A on the page header in the debug ROM to access storage test tools.
+StorageDebugMenu:
+	call StorageBeginSubmenu
+	ld hl, vBGMap0 + 7 * BG_MAP_WIDTH + 4
+	lb bc, 6, 16
+	call StorageNeutralOverlay
+	hlcoord 4, 7
+	lb bc, 4, 14
+	call TextBoxBorder
+	hlcoord 6, 8
+	ld de, .actions
+	call PlaceString
+	call StorageCommitSubmenu
+	lb bc, 8, 1
+	ld a, 5
+	call StorageActionInputAtColumn
+	ret c
+	and a
+	ret nz
+	jp StorageDebugFill
+.actions
+	db "Fill Storage"
+	next "Cancel@"
+
+; Clone the first party Pokemon into empty slots. Preserve existing records,
+; visible positions and the displayed page; commit each page through the
+; same durable transaction path used by ordinary PC moves.
+StorageDebugFill:
+	ld a, [wPartyCount]
+	and a
+	ret z
+	xor a
+	ld [wWhichPokemon], a
+	ld [wMonDataLocation], a
+	ld [wStorageMenuChoice], a
+	ld de, wStorageHeld
+	call StorageReadRecord
+	call StorageStoreBox
+	ld a, [wCurrentBoxNum]
+	push af
+	xor a
+	ld [wStorageTargetBox], a
+.page
+	ld a, [wStorageTargetBox]
+	call StorageLoadBox
+	ld a, [wBoxCount]
+	cp MONS_PER_BOX
+	jr nc, .nextPage
+	call StorageBeginTransaction
+	xor a
+	ld [wStorageTargetSlot], a
+.slot
+	ld a, [wStorageTargetSlot]
+	ld e, a
+	ld d, 0
+	ld hl, wStorageMap
+	add hl, de
+	ld a, [hl]
+	cp STORAGE_EMPTY
+	jr nz, .nextSlot
+	ld a, [wStorageTargetSlot]
+	ld hl, wStorageHeld
+	call StorageAppendBoxRecord
+.nextSlot
+	ld hl, wStorageTargetSlot
+	inc [hl]
+	ld a, [hl]
+	cp MONS_PER_BOX
+	jr c, .slot
+	call StorageStageBoxA
+	call StorageCommitTransaction
+.nextPage
+	ld hl, wStorageTargetBox
+	inc [hl]
+	ld a, [hl]
+	cp NUM_BOXES
+	jr c, .page
+	pop af
+	jp StorageLoadBox
+ENDC
+
 ; B = first row, C = highest menu item. Return A=item, carry on B.
 StorageActionInput:
+	ld a, 8
+StorageActionInputAtColumn:
+	ld [wTopMenuItemX], a
 	ld a, b
 	ld [wTopMenuItemY], a
-	ld a, 8
-	ld [wTopMenuItemX], a
 	ld a, c
 	ld [wMaxMenuItem], a
 	xor a
@@ -2439,11 +2544,25 @@ StorageRelease:
 	callfar IsThisPartymonStarterPikachu_Box
 	jr c, .pikachu
 .confirm
-	hlcoord 1, 10
+	; Replace the action menu entirely off-screen, then reveal confirmation
+	; in one map swap without briefly showing the main grid.
+	call StorageDrawScreenForSubmenu
+	ld hl, vBGMap0 + 9 * BG_MAP_WIDTH
+	lb bc, 7, SCREEN_WIDTH
+	call StorageNeutralOverlay
+	hlcoord 0, 9
+	lb bc, 5, 18
+	call StorageTextBoxBorder
+	hlcoord 2, 10
 	ld de, .question
 	call PlaceString
-	call YesNoChoice
-	ld a, [wCurrentMenuItem]
+	hlcoord 9, 12
+	ld de, .choices
+	call PlaceString
+	call StorageCommitSubmenu
+	lb bc, 12, 1
+	call StorageActionInput
+	ret c
 	and a
 	ret nz
 	call StorageBeginTransaction
@@ -2467,6 +2586,9 @@ StorageRelease:
 	jp StorageMessage
 .question
 	db "Release this <PKMN>?@"
+.choices
+	db "Yes"
+	next "No@"
 .lastText
 	db "Keep one in party.@"
 .pikachuText
@@ -2475,6 +2597,7 @@ StorageRelease:
 ; Small in-screen messages avoid borrowing the overworld/status scratch.
 StorageMessage:
 	push hl
+	call StorageBeginSubmenu
 	ld hl, vBGMap0 + 12 * BG_MAP_WIDTH
 	lb bc, 6, SCREEN_WIDTH
 	call StorageNeutralOverlay
@@ -2488,7 +2611,34 @@ StorageMessage:
 	pop de
 	hlcoord 1, 14
 	call PlaceString
+	call StorageCommitSubmenu
 	call WaitForTextScrollButtonPress
+	ret
+
+; Build overlays on the hidden map with automatic transfers paused. Keep
+; the displayed map's tiles and attributes intact until the overlay is ready.
+StorageBeginSubmenu:
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	ldh a, [hAutoBGTransferDest + 1]
+	xor 4
+	ldh [hAutoBGTransferDest + 1], a
+	jp StorageSetAttributes
+
+StorageCommitSubmenu:
+	ldh a, [hGBC]
+	and a
+	jr z, .tiles
+	ld a, 1
+	ldh [rVBK], a
+	call StorageSetFrameAttributes
+	xor a
+	ldh [rVBK], a
+.tiles
+	call StorageUploadMap
+	call StorageRevealMap
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
 	ret
 
 ; HL = rectangle in map zero, B = rows, C = columns. Clear both maps'
