@@ -1,3 +1,43 @@
+PartyMenuInit_::
+	call LoadHpBarAndStatusTilePatterns
+	ld de, StorageHintGraphics
+	ld hl, vChars2 tile $58
+	lb bc, BANK(StorageHintGraphics), 6
+	call CopyVideoDataAlternate
+	ld hl, wStatusFlags5
+	set 6, [hl] ; turn off letter printing delay
+	xor a ; PLAYER_PARTY_DATA
+	ld [wMonDataLocation], a
+	ld [wMenuWatchMovingOutOfBounds], a
+	ld hl, wTopMenuItemY
+	inc a
+	ld [hli], a ; top menu item Y
+	xor a
+	ld [hli], a ; top menu item X
+	ld a, [wPartyAndBillsPCSavedMenuItem]
+	push af
+	ld [hli], a ; current menu item ID
+	inc hl
+	ld a, [wPartyCount]
+	and a ; are there more than 0 pokemon in the party?
+	jr z, .storeMaxMenuItemID
+	dec a
+; if party is not empty, the max menu item ID is ([wPartyCount] - 1)
+; otherwise, it is 0
+.storeMaxMenuItemID
+	ld [hli], a ; max menu item ID
+	ld a, [wForcePlayerToChooseMon]
+	and a
+	ld a, A_BUTTON | B_BUTTON
+	jr z, .next
+	xor a
+	ld [wForcePlayerToChooseMon], a
+	inc a ; a = A_BUTTON
+.next
+	ld [hli], a ; menu watched keys
+	pop af
+	ld [hl], a ; old menu item ID
+	ret
 DrawPartyMenu_::
 	xor a
 	ldh [hAutoBGTransferEnabled], a
@@ -202,6 +242,21 @@ RedrawPartyMenu_::
 	ld l, a
 	call PrintText
 .done
+	ld a, [wPartyMenuTypeOrMessageID]
+	and a
+	jr z, .drawControls
+	cp SWAP_MONS_PARTY_MENU
+	jr nz, .restoreTextFlags
+.drawControls
+	hlcoord 12, 17
+	ld a, $58
+	ld b, 6
+.controlsLoop
+	ld [hli], a
+	inc a
+	dec b
+	jr nz, .controlsLoop
+.restoreTextFlags
 	pop hl
 	pop af
 	ld [hl], a

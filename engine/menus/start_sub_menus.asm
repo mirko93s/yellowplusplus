@@ -14,13 +14,13 @@ StartMenu_Pokemon::
 	ld [wMenuItemToSwap], a
 	ld [wPartyMenuTypeOrMessageID], a
 	ld [wUpdateSpritesEnabled], a
-	call DisplayPartyMenu
+	call DisplayPartyMenuWithSelect
 	jr .checkIfPokemonChosen
 .loop
 	xor a
 	ld [wMenuItemToSwap], a
 	ld [wPartyMenuTypeOrMessageID], a
-	call GoBackToPartyMenu
+	call GoBackToPartyMenuWithSelect
 .checkIfPokemonChosen
 	jr nc, .chosePokemon
 .exitMenu
@@ -37,7 +37,7 @@ StartMenu_Pokemon::
 	ld [wTextBoxID], a
 	call DisplayTextBoxID ; display pokemon menu options
 	ld hl, wFieldMoves
-	lb bc, 2, 12 ; max menu item ID, top menu item Y
+	lb bc, 1, 14 ; max menu item ID, top menu item Y
 	ld e, 5
 .adjustMenuVariablesLoop
 	dec e
@@ -64,6 +64,8 @@ StartMenu_Pokemon::
 	ld [hli], a ; menu watched keys
 	xor a
 	ld [hl], a
+	ld a, 1
+	ld [wMenuWrappingEnabled], a
 	call HandleMenuInput
 	push af
 	call LoadScreenTilesFromBuffer1 ; restore saved screen
@@ -75,10 +77,7 @@ StartMenu_Pokemon::
 	ld b, a
 	ld a, [wCurrentMenuItem] ; menu selection
 	cp b
-	jp z, .exitMenu ; if the player chose Cancel
-	dec b
-	cp b
-	jr z, .choseSwitch
+	jp z, .loop ; Cancel returns to the party list
 	dec b
 	cp b
 	jp z, .choseStats
@@ -87,15 +86,6 @@ StartMenu_Pokemon::
 	ld hl, wFieldMoves
 	add hl, bc
 	jp .choseOutOfBattleMove
-.choseSwitch
-	ld a, [wPartyCount]
-	cp 2 ; is there more than one pokemon in the party?
-	jp c, StartMenu_Pokemon ; if not, no switching
-	call SwitchPartyMon_InitVarOrSwapData ; init [wMenuItemToSwap]
-	ld a, SWAP_MONS_PARTY_MENU
-	ld [wPartyMenuTypeOrMessageID], a
-	call GoBackToPartyMenu
-	jp .checkIfPokemonChosen
 .choseStats
 	call ClearSprites
 	xor a ; PLAYER_PARTY_DATA

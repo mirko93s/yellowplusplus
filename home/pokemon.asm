@@ -171,6 +171,13 @@ GetCryData::
 	ret
 
 DisplayPartyMenu::
+	xor a
+	jr DisplayPartyMenuCommon
+
+DisplayPartyMenuWithSelect::
+	ld a, SELECT
+
+DisplayPartyMenuCommon:
 	; Keep item messages over the Bag until a party screen is actually needed.
 	push af
 	push bc
@@ -181,62 +188,48 @@ DisplayPartyMenu::
 	pop de
 	pop bc
 	pop af
+	ld b, a
 	ldh a, [hTileAnimations]
 	push af
+	push bc
 	xor a
 	ldh [hTileAnimations], a
 	call GBPalWhiteOutWithDelay3
 	call ClearSprites
 	call PartyMenuInit
 	call DrawPartyMenu
+	pop bc
+	ld a, [wMenuWatchedKeys]
+	or b
+	ld [wMenuWatchedKeys], a
 	jp HandlePartyMenuInput
 
 GoBackToPartyMenu::
+	xor a
+	jr GoBackToPartyMenuCommon
+
+GoBackToPartyMenuWithSelect::
+	ld a, SELECT
+
+GoBackToPartyMenuCommon:
+	ld b, a
 	ldh a, [hTileAnimations]
 	push af
+	push bc
 	xor a
 	ldh [hTileAnimations], a
 	call PartyMenuInit
 	call RedrawPartyMenu
+	pop bc
+	ld a, [wMenuWatchedKeys]
+	or b
+	ld [wMenuWatchedKeys], a
 	jp HandlePartyMenuInput
 
 PartyMenuInit::
 	ld a, 1 ; hardcoded bank
 	call BankswitchHome
-	call LoadHpBarAndStatusTilePatterns
-	ld hl, wStatusFlags5
-	set 6, [hl] ; turn off letter printing delay
-	xor a ; PLAYER_PARTY_DATA
-	ld [wMonDataLocation], a
-	ld [wMenuWatchMovingOutOfBounds], a
-	ld hl, wTopMenuItemY
-	inc a
-	ld [hli], a ; top menu item Y
-	xor a
-	ld [hli], a ; top menu item X
-	ld a, [wPartyAndBillsPCSavedMenuItem]
-	push af
-	ld [hli], a ; current menu item ID
-	inc hl
-	ld a, [wPartyCount]
-	and a ; are there more than 0 pokemon in the party?
-	jr z, .storeMaxMenuItemID
-	dec a
-; if party is not empty, the max menu item ID is ([wPartyCount] - 1)
-; otherwise, it is 0
-.storeMaxMenuItemID
-	ld [hli], a ; max menu item ID
-	ld a, [wForcePlayerToChooseMon]
-	and a
-	ld a, A_BUTTON | B_BUTTON
-	jr z, .next
-	xor a
-	ld [wForcePlayerToChooseMon], a
-	inc a ; a = A_BUTTON
-.next
-	ld [hli], a ; menu watched keys
-	pop af
-	ld [hl], a ; old menu item ID
+	farcall PartyMenuInit_
 	ret
 
 HandlePartyMenuInput::
@@ -267,6 +260,8 @@ HandlePartyMenuInput::
 	ld a, [wMenuItemToSwap]
 	and a
 	jp nz, .swappingPokemon
+	bit BIT_SELECT, b
+	jr nz, .startSwap
 	pop af
 	ldh [hTileAnimations], a
 	bit 1, b
@@ -286,6 +281,17 @@ HandlePartyMenuInput::
 	call BankswitchBack
 	and a
 	ret
+.startSwap
+	ld a, [wPartyCount]
+	cp 2
+	jp c, HandlePartyMenuInput
+	ld a, [wCurrentMenuItem]
+	inc a
+	ld [wMenuItemToSwap], a
+	ld a, SWAP_MONS_PARTY_MENU
+	ld [wPartyMenuTypeOrMessageID], a
+	call RedrawPartyMenu
+	jp HandlePartyMenuInput
 .asm_128f
 	pop af
 	ld hl, PartyMenuText_12cc
