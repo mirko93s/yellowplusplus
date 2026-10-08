@@ -1,4 +1,12 @@
 EmotionBubble:
+	ld c, 60
+	jr EmotionBubbleWithDuration
+
+EmotionBubbleQuick:
+	ld c, 30
+
+EmotionBubbleWithDuration:
+	push bc
 	ld a, [wWhichEmotionBubble]
 	and $f
 	swap a
@@ -57,7 +65,9 @@ EmotionBubble:
 	ld de, EmotionBubblesOAM
 	xor a
 	call WriteOAMBlock
-	ld c, 60
+	pop af
+	pop bc
+	push af
 	call DelayFrames
 	pop af
 	ld [wUpdateSpritesEnabled], a

@@ -1102,7 +1102,10 @@ wRightGBMonSpecies:: db
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
 wMiscFlags:: db
 
-	ds 9
+; Itemfinder state lasts until RAM is cleared on restart.
+wItemFinderItemDirection:: db
+wSawItemFinderText:: db
+	ds 7
 
 ; This has overlapping related uses.
 ; When the player tries to use an item or use certain field moves, 0 is stored

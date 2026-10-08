@@ -44,6 +44,7 @@ HiddenItemNear:
 	add 5
 	cp e
 	jr c, .loop
+	call GetItemFinderFacing
 	scf
 	ret
 
@@ -53,4 +54,45 @@ Sub5ClampTo0:
 	cp $f0
 	ret c
 	xor a
+	ret
+
+; d/e are the hidden item's y/x coordinates. Prefer the vertical axis on ties.
+; A zero direction means the player is standing on the item.
+GetItemFinderFacing:
+	ld bc, 0
+	ld a, [wYCoord]
+	sub d
+	jr nc, .yDistance
+	cpl
+	inc a
+	inc b
+.yDistance
+	ld d, a
+	ld a, [wXCoord]
+	sub e
+	jr nc, .xDistance
+	cpl
+	inc a
+	inc c
+.xDistance
+	ld e, a
+	or d
+	jr z, .done
+	ld a, d
+	cp e
+	jr nc, .vertical
+	ld a, c
+	and a
+	ld a, PLAYER_DIR_LEFT
+	jr z, .done
+	ld a, PLAYER_DIR_RIGHT
+	jr .done
+.vertical
+	ld a, b
+	and a
+	ld a, PLAYER_DIR_UP
+	jr z, .done
+	ld a, PLAYER_DIR_DOWN
+.done
+	ld [wItemFinderItemDirection], a
 	ret

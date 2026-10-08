@@ -2287,10 +2287,18 @@ ItemUseItemfinder:
 	and a
 	jp nz, ItemUseNotTime
 	call ItemUseReloadOverworldData
+	; The pocket Bag closes with sprite updates disabled. Restore the map's
+	; sprites before detecting items or displaying an emotion bubble.
+	ld a, 1
+	ld [wUpdateSpritesEnabled], a
+	call UpdateSprites
 	farcall HiddenItemNear ; check for hidden items
 	ld hl, ItemfinderFoundNothingText
 	jr nc, .printText ; if no hidden items
 	ld c, 4
+	ld a, [wItemFinderItemDirection]
+	and a
+	jr z, .onItemSound
 .loop
 	ld a, SFX_HEALING_MACHINE
 	call PlaySoundWaitForCurrent
@@ -2298,7 +2306,41 @@ ItemUseItemfinder:
 	call PlaySoundWaitForCurrent
 	dec c
 	jr nz, .loop
+	jr .foundItem
+.onItemSound
+	ld a, SFX_PURCHASE
+	call PlaySoundWaitForCurrent
+	dec c
+	jr nz, .onItemSound
+.foundItem
+	ld a, [wSawItemFinderText]
+	and a
+	jr nz, .showDirection
 	ld hl, ItemfinderFoundItemText
+	call PrintText
+	ld a, 1
+	ld [wSawItemFinderText], a
+.showDirection
+	xor a
+	ld [wEmotionBubbleSpriteIndex], a
+	ld a, [wItemFinderItemDirection]
+	and a
+	jr z, .onItem
+	ld [wPlayerMovingDirection], a
+	call UpdateSprites
+	ld a, SFX_ARROW_TILES
+	call PlaySoundWaitForCurrent
+	ld a, QUESTION_BUBBLE
+	ld [wWhichEmotionBubble], a
+	predef EmotionBubbleQuick
+	ret
+.onItem
+	ld a, SFX_SWAP
+	call PlaySoundWaitForCurrent
+	ld a, EXCLAMATION_BUBBLE
+	ld [wWhichEmotionBubble], a
+	predef EmotionBubble
+	ret
 .printText
 	jp PrintText
 
