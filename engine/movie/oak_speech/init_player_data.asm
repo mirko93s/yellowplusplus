@@ -2,6 +2,22 @@ InitPlayerData:
 InitPlayerData2:
 	farcall StorageResetMetadata
 
+IF DEF(_DEBUG)
+	; Start new debug games near the playtime limit: 99999:50:00.
+	ld a, $01
+	ld [wPlayTimeHours], a
+	ld a, $86
+	ld [wPlayTimeHours + 1], a
+	ld a, $9f
+	ld [wPlayTimeHours + 2], a
+	ld a, 50
+	ld [wPlayTimeMinutes], a
+	xor a
+	ld [wPlayTimeSeconds], a
+	ld [wPlayTimeFrames], a
+	ld [wPlayTimeMaxed], a
+ENDC
+
 	call Random
 	ldh a, [hRandomSub]
 	ld [wPlayerID], a
@@ -25,6 +41,8 @@ InitPlayerData2:
 	farcall InitializePocketBag_
 
 DEF START_MONEY EQU $5000
+	xor a
+	ld [wPlayerMoneyMillions], a
 	ld hl, wPlayerMoney + 1
 	ld a, HIGH(START_MONEY)
 	ld [hld], a

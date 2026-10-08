@@ -41,6 +41,8 @@ A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-o
 - **Countless original bugs fixed**  
 - **More Info in the Pokédex** (Base stats, Types, Evolutions, Levelup Movesets)
 - **Revamped shop UI** with left/right quantity adjustment  
+- Money limit raised to 9,999,999 (originally 999,999)  
+- Playtime tracks up to 99,999 hours (originally 255), 59 minutes, 59 seconds
 - Type effectiveness indicators in the battle HUD
 - Status effect icons
 - Press SELECT in the Pokédex entry page to alternate Normal/Shiny Sprites

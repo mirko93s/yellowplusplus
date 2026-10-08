@@ -2712,9 +2712,14 @@ wOpponentAfterWrongAnswer:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-	ds 7
+; Full BCD shop total, including the millions digit. Transient menu state.
+wShopTransactionPrice:: ds 4
 
-wPlayTimeHours:: db
+; Seventh money digit, saved in formerly unused padding (0-9).
+wPlayerMoneyMillions:: db
+
+; Big-endian hours. Reuse two padding bytes to preserve the save layout.
+wPlayTimeHours:: ds 3
 wPlayTimeMaxed:: db
 wPlayTimeMinutes:: db
 wPlayTimeSeconds:: db

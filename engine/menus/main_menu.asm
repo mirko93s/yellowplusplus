@@ -12,6 +12,10 @@ MainMenu:
 	call ValidateCheatData
 
 .mainMenuLoop
+	; LoadSAV restores overworld animation state. The GitHub graphic reuses
+	; the water/flower tile slots, so keep them static throughout this menu.
+	xor a
+	ldh [hTileAnimations], a
 	ld c, 20
 	call DelayFrames
 	xor a ; LINK_STATE_NONE
@@ -122,6 +126,11 @@ MainMenu:
 	hlcoord 11, 0
 	lb bc, 9, 9
 	call ClearScreenArea
+	; The wider information box shares the main menu's right edge.
+	hlcoord 10, 0
+	ld [hl], '┐'
+	hlcoord 10, 8
+	ld [hl], '┘'
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 .waitForBRelease
@@ -254,8 +263,17 @@ POPS
 DisplayContinueGameInfo:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
+	call GetContinuePlayTimeDigits
+	ld a, c
+	cp 5
+	jr z, .wideBox
 	hlcoord 11, 0
 	lb bc, 7, 7
+	jr .drawBox
+.wideBox
+	hlcoord 10, 0
+	lb bc, 7, 8
+.drawBox
 	call TextBoxBorder
 	hlcoord 12, 2
 	ld de, SaveScreenInfoTextMenu
@@ -267,12 +285,47 @@ DisplayContinueGameInfo:
 	call PrintNumBadges
 	hlcoord 16, 5
 	call PrintNumOwnedMons
+	call GetContinuePlayTimeDigits
 	hlcoord 13, 7
-	call PrintPlayTime
+	ld a, c
+	cp 3
+	jr z, .printTime
+	dec hl
+	cp 4
+	jr z, .printTime
+	dec hl
+.printTime
+	call PrintPlayTimeDigits
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ld c, 30
 	jp DelayFrames
+
+GetContinuePlayTimeDigits:
+; Preserve the original three-digit layout, expanding only as needed.
+	ld c, 5
+	ld a, [wPlayTimeHours]
+	and a
+	ret nz
+	ld a, [wPlayTimeHours + 1]
+	cp HIGH(10000)
+	jr c, .under10000
+	ret nz
+	ld a, [wPlayTimeHours + 2]
+	cp LOW(10000)
+	ret nc
+.under10000
+	ld c, 4
+	ld a, [wPlayTimeHours + 1]
+	cp HIGH(1000)
+	jr c, .under1000
+	ret nz
+	ld a, [wPlayTimeHours + 2]
+	cp LOW(1000)
+	ret nc
+.under1000
+	ld c, 3
+	ret
 
 SaveScreenInfoTextMenu:
 	db " Badges"
@@ -297,7 +350,7 @@ PrintSaveScreenText:
 	call PrintNumBadges
 	hlcoord 16, 6
 	call PrintNumOwnedMons
-	hlcoord 13, 8
+	hlcoord 11, 8
 	call PrintPlayTime
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
@@ -325,8 +378,10 @@ PrintNumOwnedMons:
 	jp PrintNumber
 
 PrintPlayTime:
+	ld c, 5
+PrintPlayTimeDigits:
 	ld de, wPlayTimeHours
-	lb bc, 1, 3
+	ld b, 3
 	call PrintNumber
 	ld [hl], ':'
 	inc hl

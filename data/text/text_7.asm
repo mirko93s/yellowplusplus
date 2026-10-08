@@ -42,7 +42,7 @@ _PokemartTellBuyPriceText::
 	text "?"
 	line "That will be"
 	cont "¥@"
-	text_bcd hMoney, 3 | LEADING_ZEROES | LEFT_ALIGN
+	text_bcd wShopTransactionPrice, 4 | LEADING_ZEROES | LEFT_ALIGN
 	text ". Ok?"
 	done
 
@@ -69,7 +69,7 @@ _PokemonSellingGreetingText::
 _PokemartTellSellPriceText::
 	text "I can pay you"
 	line "¥@"
-	text_bcd hMoney, 3 | LEADING_ZEROES | LEFT_ALIGN
+	text_bcd wShopTransactionPrice, 4 | LEADING_ZEROES | LEFT_ALIGN
 	text " for that."
 	done
 

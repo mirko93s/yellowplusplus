@@ -251,9 +251,9 @@ HoFDisplayPlayerStats:
 	hlcoord 1, 6
 	ld de, HoFPlayTimeText
 	call PlaceString
-	hlcoord 5, 7
+	hlcoord 3, 7
 	ld de, wPlayTimeHours
-	lb bc, 1, 3
+	lb bc, 3, 5
 	call PrintNumber
 	ld [hl], ':'
 	inc hl
@@ -263,10 +263,10 @@ HoFDisplayPlayerStats:
 	hlcoord 1, 9
 	ld de, HoFMoneyText
 	call PlaceString
-	hlcoord 4, 10
+	hlcoord 3, 10
 	ld de, wPlayerMoney
 	ld c, $a3
-	call PrintBCDNumber
+	predef PrintPlayerMoney
 	ld hl, DexSeenOwnedText
 	call HoFPrintTextAndDelay
 	ld hl, DexRatingText

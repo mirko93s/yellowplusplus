@@ -89,11 +89,11 @@ Func_e9ad3:
 	lb bc, 1, 11
 	call Diploma_Surfing_CopyBox
 	ld de, String_e9bd5
-	hlcoord 2, 15
+	hlcoord 1, 15
 	call PlaceString
-	hlcoord 12, 15
+	hlcoord 11, 15
 	ld de, wPlayTimeHours
-	lb bc, $40 | 1, 3
+	lb bc, LEFT_ALIGN | 3, 5
 	call PrintNumber
 	ld [hl], $16
 	inc hl

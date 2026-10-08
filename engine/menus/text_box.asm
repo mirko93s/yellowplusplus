@@ -133,13 +133,13 @@ DisplayMoneyBox:
 	ld a, MONEY_BOX_TEMPLATE
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
-	hlcoord 13, 1
-	lb bc, 1, 6
+	hlcoord 11, 1
+	lb bc, 1, 8
 	call ClearScreenArea
-	hlcoord 12, 1
+	hlcoord 11, 1
 	ld de, wPlayerMoney
 	ld c, $a3
-	call PrintBCDNumber
+	predef PrintPlayerMoney
 	ld hl, wStatusFlags5
 	res 6, [hl]
 	ret

@@ -16,6 +16,10 @@ TrackPlayTime::
 	ret nz
 	xor a
 	ld [wPlayTimeFrames], a
+	farcall CheckPlayTimeLimit
+	ld a, [wPlayTimeMaxed]
+	and a
+	ret nz
 	ld a, [wPlayTimeSeconds]
 	inc a
 	ld [wPlayTimeSeconds], a
@@ -30,20 +34,17 @@ TrackPlayTime::
 	ret nz
 	xor a
 	ld [wPlayTimeMinutes], a
-	ld a, [wPlayTimeHours]
-	inc a
-	ld [wPlayTimeHours], a
-	cp $ff
+	ld hl, wPlayTimeHours + 2
+	inc [hl]
 	ret nz
-	ld hl, wd479
-	set 0, [hl]
+	dec hl
+	inc [hl]
+	ret nz
+	dec hl
+	inc [hl]
+	ret
 .maxIGT
-	ld a, 59
-	ld [wPlayTimeSeconds], a
-	ld [wPlayTimeMinutes], a
-	ld a, $ff
-	ld [wPlayTimeHours], a
-	ld [wPlayTimeMaxed], a
+	farcall SetMaxPlayTime
 	ret
 
 CountDownIgnoreInputBitReset:

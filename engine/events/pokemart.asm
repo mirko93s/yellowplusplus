@@ -189,10 +189,8 @@ DisplayPokemartDialogue_::
 	call PrintText
 	jp .loop
 .isThereEnoughMoney
-	ld de, wPlayerMoney
-	ld hl, hMoney
-	ld c, 3 ; length of money in bytes
-	jp StringCmp
+	farcall HasEnoughShopMoney
+	ret
 .notEnoughMoney
 	ld hl, PokemartNotEnoughMoneyText
 	call PrintText

@@ -197,17 +197,17 @@ ShopDraw:
 
 ShopDrawMoney::
 ; Purchase accounting redraws MONEY_BOX; keep it in the existing shop header.
-	hlcoord 12, 1
+	hlcoord 11, 1
 	push hl
-	lb bc, 1, 7
+	lb bc, 1, 8
 	call ClearScreenArea
 	pop hl
 	ld de, wPlayerMoney
 	ld c, $a3
-	call PrintBCDNumber
-	hlcoord 12, 1
+	predef PrintPlayerMoney
+	hlcoord 11, 1
 	call MenuUICellAddress
-	lb bc, 1, 7
+	lb bc, 1, 8
 	jp MenuUIUploadRectangle
 
 ShopDrawRows:

@@ -117,6 +117,8 @@ IF DEF(_DEBUG)
 	ld [hl], a ; hl = wPlayerStarter
 
 	; Give max money.
+	ld a, 9
+	ld [wPlayerMoneyMillions], a
 	ld hl, wPlayerMoney
 	ld a, $99
 	ld [hli], a

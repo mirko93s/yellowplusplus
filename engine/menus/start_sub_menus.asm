@@ -557,7 +557,7 @@ DrawTrainerInfo:
 	hlcoord 7, 2
 	ld de, wPlayerMoney
 	ld c, $e3
-	call PrintBCDNumber
+	predef PrintPlayerMoney
 	; seed
 	ld a, [wExtraFlags]
 	bit 5, a
@@ -583,7 +583,7 @@ DrawTrainerInfo:
 	call PlaceString
 	hlcoord 7, 3
 	ld de, wPlayTimeHours ; hours
-	lb bc, LEFT_ALIGN | 1, 3
+	lb bc, LEFT_ALIGN | 3, 5
 	call PrintNumber
 	ld [hl], ':' ; colon tile ID
 	inc hl

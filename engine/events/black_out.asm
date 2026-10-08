@@ -19,24 +19,7 @@ ResetStatusAndHalveMoneyOnBlackout::
 	jr c, .lostmoney ; never happens
 
 	; Halve the player's money.
-	ld a, [wPlayerMoney]
-	ldh [hMoney], a
-	ld a, [wPlayerMoney + 1]
-	ldh [hMoney + 1], a
-	ld a, [wPlayerMoney + 2]
-	ldh [hMoney + 2], a
-	xor a
-	ldh [hDivideBCDDivisor], a
-	ldh [hDivideBCDDivisor + 1], a
-	ld a, 2
-	ldh [hDivideBCDDivisor + 2], a
-	predef DivideBCDPredef3
-	ldh a, [hDivideBCDQuotient]
-	ld [wPlayerMoney], a
-	ldh a, [hDivideBCDQuotient + 1]
-	ld [wPlayerMoney + 1], a
-	ldh a, [hDivideBCDQuotient + 2]
-	ld [wPlayerMoney + 2], a
+	predef HalvePlayerMoney
 
 .lostmoney
 	ld hl, wStatusFlags6

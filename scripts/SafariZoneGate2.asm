@@ -8,6 +8,9 @@ Func_f1f77::
 	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, .declined
+	ld a, [wPlayerMoneyMillions]
+	and a
+	jr nz, .has_positive_balance
 	ld hl, wPlayerMoney
 	ld a, [hli]
 	or [hl]

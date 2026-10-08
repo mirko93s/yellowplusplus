@@ -876,23 +876,23 @@ DisplayChooseQuantityMenu_::
 	jr nz, .printQuantity
 .printPrice
 ; Compute in four BCD bytes before applying the existing sale divisor.
-; Clip transactions above the six-digit money range, never undercharge.
+; Clip transactions above the seven-digit money range, never undercharge.
 	call BagTransactionPrice
-	ld a, [wQuantityMenuResult]
-	and a
-	jr z, .priceFits
+	ld a, [wShopTransactionPrice]
+	cp $10
+	jr c, .priceFits
 	ld hl, wItemQuantity
 	dec [hl]
 	ld a, [hl]
 	ld [wMaxItemQuantity], a
 	jr .printPrice
 .priceFits
-	hlcoord 12, 10
+	hlcoord 11, 10
 	ld de, SpacesBetweenQuantityAndPriceText
 	call PlaceString
-	ld de, hMoney ; total price
+	hlcoord 11, 10
 	ld c, $a3
-	call PrintBCDNumber
+	predef PrintShopTransactionPrice
 	hlcoord 8, 10
 .printQuantity
 	ld a, [wBagUIActive]
@@ -925,7 +925,7 @@ InitialBagQuantityText:
 InitialQuantityText::
 	db "×001@"
 SpacesBetweenQuantityAndPriceText::
-	db "      @"
+	db "        @"
 
 ; Load the save, then reset transient Bag menu state.
 LoadSAV::
@@ -940,19 +940,18 @@ LoadSAV::
 	ret
 
 BagTransactionPrice::
-; hItemPrice * quantity -> high BCD byte in wQuantityMenuResult, low
-; three bytes in hMoney. Apply the hack's existing /4 sale rate afterwards.
-; wQuantityMenuResult is scratch until Accept/Cancel stores its final result.
+; hItemPrice * quantity -> four-byte BCD wShopTransactionPrice.
+; Apply the hack's existing /4 sale rate afterwards.
 	xor a
-	ld [wQuantityMenuResult], a
-	ldh [hMoney], a
-	ldh [hMoney + 1], a
-	ldh [hMoney + 2], a
+	ld [wShopTransactionPrice], a
+	ld [wShopTransactionPrice + 1], a
+	ld [wShopTransactionPrice + 2], a
+	ld [wShopTransactionPrice + 3], a
 	ld a, [wItemQuantity]
 	ld b, a
 .sum
 	ld hl, hItemPrice + 2
-	ld de, hMoney + 2
+	ld de, wShopTransactionPrice + 3
 	ld c, 3
 	and a
 .byte
@@ -964,10 +963,10 @@ BagTransactionPrice::
 	dec hl
 	dec c
 	jr nz, .byte
-	ld a, [wQuantityMenuResult]
+	ld a, [wShopTransactionPrice]
 	adc 0
 	daa
-	ld [wQuantityMenuResult], a
+	ld [wShopTransactionPrice], a
 	dec b
 	jr nz, .sum
 	ldh a, [hHalveItemPrices]
@@ -976,18 +975,18 @@ BagTransactionPrice::
 	ld e, 2
 .divide
 	ld b, 0
-	ld a, [wQuantityMenuResult]
+	ld a, [wShopTransactionPrice]
 	call .halfByte
-	ld [wQuantityMenuResult], a
-	ldh a, [hMoney]
+	ld [wShopTransactionPrice], a
+	ld a, [wShopTransactionPrice + 1]
 	call .halfByte
-	ldh [hMoney], a
-	ldh a, [hMoney + 1]
+	ld [wShopTransactionPrice + 1], a
+	ld a, [wShopTransactionPrice + 2]
 	call .halfByte
-	ldh [hMoney + 1], a
-	ldh a, [hMoney + 2]
+	ld [wShopTransactionPrice + 2], a
+	ld a, [wShopTransactionPrice + 3]
 	call .halfByte
-	ldh [hMoney + 2], a
+	ld [wShopTransactionPrice + 3], a
 	dec e
 	jr nz, .divide
 	ret

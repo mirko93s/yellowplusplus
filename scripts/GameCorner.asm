@@ -479,12 +479,12 @@ CeladonGameCornerText_48f19:
 CeladonGameCornerScript_DrawUpdateMenu:
 	ld hl, wStatusFlags5
 	set 6, [hl]
-	hlcoord 11, 0
-	lb bc, 5, 7
+	hlcoord 10, 0
+	lb bc, 5, 8
 	call TextBoxBorder
 	call UpdateSprites
-	hlcoord 12, 1
-	lb bc, 4, 7
+	hlcoord 11, 1
+	lb bc, 4, 8
 	call ClearScreenArea
 	hlcoord 12, 2
 	ld de, GameCornerMoneyText
@@ -492,10 +492,10 @@ CeladonGameCornerScript_DrawUpdateMenu:
 	hlcoord 12, 3
 	ld de, GameCornerBlankText1
 	call PlaceString
-	hlcoord 12, 3
+	hlcoord 11, 3
 	ld de, wPlayerMoney
 	ld c, 3 | MONEY_SIGN | LEADING_ZEROES
-	call PrintBCDNumber
+	predef PrintPlayerMoney
 	hlcoord 12, 4
 	ld de, GameCornerCoinText
 	call PlaceString

@@ -1,6 +1,9 @@
 HasEnoughMoney::
 ; Check if the player has at least as much
 ; money as the 3-byte BCD value at hMoney.
+	ld a, [wPlayerMoneyMillions]
+	and a
+	ret nz ; any million covers a three-byte price; carry is clear
 	ld de, wPlayerMoney
 	ld hl, hMoney
 	ld c, 3

@@ -167,6 +167,13 @@ AddBCDPredef::
 	call GetPredefRegisters
 
 AddBCD::
+	ld a, d
+	cp HIGH(wPlayerMoney + 2)
+	jr nz, .normal
+	ld a, e
+	cp LOW(wPlayerMoney + 2)
+	jp z, AddPlayerMoney
+.normal
 	and a
 	ld b, c
 .add
@@ -194,6 +201,16 @@ SubBCDPredef::
 	call GetPredefRegisters
 
 SubBCD::
+	ld a, d
+	cp HIGH(wPlayerMoney + 2)
+	jr nz, .normal
+	ld a, e
+	cp LOW(wPlayerMoney + 2)
+	jr nz, .normal
+	ld a, [wPlayerMoneyMillions]
+	and a
+	jp nz, SubPlayerMoney
+.normal
 	and a
 	ld b, c
 .sub
