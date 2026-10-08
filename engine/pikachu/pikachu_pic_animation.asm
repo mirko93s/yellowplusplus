@@ -104,7 +104,12 @@ StarterPikachuEmotionCommand_pikapic:
 
 .RunPikapic:
 	call PlacePikapicTextBoxBorder
+	; The portrait changes BG palettes while overworld sprites remain visible.
+	ld a, 1
+	ld [wGBCOverworldPalettes], a
 	callfar LoadOverworldPikachuFrontpicPalettes
+	xor a
+	ld [wGBCOverworldPalettes], a
 	call ResetPikaPicAnimBuffer
 	call LoadCurrentPikaPicAnimScriptPointer
 	call ExecutePikaPicAnimScript
