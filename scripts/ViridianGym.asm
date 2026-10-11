@@ -282,7 +282,7 @@ GiovanniText:
 	call SaveEndBattleTextPointers
 	ld a, OPP_GIOVANNI
 	ld [wCurOpponent], a
-	ld a, 2
+	ld a, 4
 	ld [wTrainerNo], a
 	jr .endBattle
 .refused
