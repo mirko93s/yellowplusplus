@@ -197,10 +197,13 @@ GainExperience:
 	ld a, [hl] ; current level
 	cp d
 	jp z, .nextMon ; if level didn't change, go to next mon
+	push af ; remember the level before gaining experience
 	call KeepEXPBarFull
+	pop bc ; b = old level
 	ld a, [wCurEnemyLevel]
 	push af
 	push hl
+	push bc
 	ld a, d
 	ld [wCurEnemyLevel], a
 	ld [hl], a
@@ -294,11 +297,32 @@ GainExperience:
 	callfar PrintStatsBox
 	call WaitForTextScrollButtonPress
 	call LoadScreenTilesFromBuffer1
+	pop bc ; b = old level
+	ld a, [wCurEnemyLevel]
+	ld c, a ; c = final level
+.learnGainedLevelMoves
+	inc b
+	ld a, b
+	ld [wCurEnemyLevel], a
+	push bc
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
-	ld a, [wCurSpecies]
+	; GetMoveName overwrites wCurSpecies (also wNameListIndex).
+	; Read the actual species again after each move-learning prompt.
+	ld hl, wPartySpecies
+	ld a, [wWhichPokemon]
+	ld c, a
+	ld b, 0
+	add hl, bc
+	ld a, [hl]
 	ld [wPokedexNum], a
 	predef LearnMoveFromLevelUp
+	pop bc
+	ld a, b
+	cp c
+	jr c, .learnGainedLevelMoves
+	ld a, c
+	ld [wCurEnemyLevel], a
 	ld hl, wCanEvolveFlags
 	ld a, [wWhichPokemon]
 	ld c, a
