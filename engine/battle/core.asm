@@ -3304,6 +3304,10 @@ PrintMenuItem:
 ; Return the selected move's type multiplier against defender type d in e.
 ; Bankswitch overwrites a and bc on return. Keep damage and AI state untouched.
 GetBattleMoveEffectiveness::
+	; Sand-Attack ignores type matchups, including Flying's Ground immunity.
+	ld a, [wPlayerSelectedMove]
+	cp SAND_ATTACK
+	jr z, .neutral
 	ld a, [wPlayerMoveType]
 	ld b, a
 	ld hl, TypeEffects
