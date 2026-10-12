@@ -1,7 +1,7 @@
 PartyMenuInit_::
 	call LoadHpBarAndStatusTilePatterns
 	ld de, StorageHintGraphics
-	ld hl, vChars2 tile $58
+	ld hl, vFont tile ($da - $80)
 	lb bc, BANK(StorageHintGraphics), 6
 	call CopyVideoDataAlternate
 	ld hl, wStatusFlags5
@@ -249,7 +249,7 @@ RedrawPartyMenu_::
 	jr nz, .restoreTextFlags
 .drawControls
 	hlcoord 12, 17
-	ld a, $58
+	ld a, $da
 	ld b, 6
 .controlsLoop
 	ld [hli], a
