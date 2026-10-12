@@ -32,11 +32,23 @@ SchedulePikachuSpawnForAfterText::
 	ret
 
 .normal_spawn_state
-	call CalculatePikachuPlacementCoords
+	; Connected maps already translated Pikachu's map coordinates. Keep the
+	; unfinished step and follow queue in sync with his existing screen position.
 	xor a
 	ld [wPikachuSpawnState], a
-	ld a, [wSpritePlayerStateData1FacingDirection]
-	ld [wSpritePikachuStateData1FacingDirection], a
+	ret
+
+TranslatePikachuConnectedMapCoords::
+	; de = player's coordinates in the previous map (y, x).
+	ld a, [wYCoord]
+	sub d
+	ld hl, wSpritePikachuStateData2MapY
+	add [hl]
+	ld [hli], a
+	ld a, [wXCoord]
+	sub e
+	add [hl]
+	ld [hl], a
 	ret
 
 ClearPikachuSpriteStateData::

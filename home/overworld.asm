@@ -549,6 +549,12 @@ WarpFound2::
 
 ; if no matching warp was found
 CheckMapConnections::
+	; Preserve the old coordinate origin for the follower's pending movement.
+	ld a, [wYCoord]
+	ld d, a
+	ld a, [wXCoord]
+	ld e, a
+	push de
 .checkWestMap
 	ld a, [wXCoord]
 	cp $ff
@@ -684,10 +690,12 @@ CheckMapConnections::
 	ld a, h
 	ld [wCurrentTileBlockMapViewPointer + 1], a
 .loadNewMap ; load the connected map that was entered
+	pop de
+	; Translate Pikachu into the new map without changing his distance from
+	; the player, screen position, step progress, or queued follow commands.
+	callfar TranslatePikachuConnectedMapCoords
 	ld hl, wPikachuOverworldStateFlags
 	set 4, [hl]
-	ld a, $2
-	ld [wPikachuSpawnState], a
 	call LoadMapHeader
 	call PlayDefaultMusicFadeOutCurrent
 	ld b, SET_PAL_OVERWORLD
@@ -699,6 +707,7 @@ CheckMapConnections::
 	jp OverworldLoopLessDelay
 
 .didNotEnterConnectedMap
+	pop de
 	jp OverworldLoop
 
 ; function to play a sound when changing maps
