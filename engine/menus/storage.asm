@@ -2191,6 +2191,11 @@ StorageSummary:
 	call StorageSelectMon
 	ret c
 	call StorageBackupState
+	call GBPalWhiteOut
+	; Turn off the display so every storage palette disappears together.
+	xor a
+	ldh [hAutoBGTransferEnabled], a
+	call DisableLCD
 	xor a
 	ld [wStorageUIActive], a
 	ldh a, [rSTAT]
@@ -2199,6 +2204,18 @@ StorageSummary:
 	ldh a, [rLCDC]
 	and ~$10
 	ldh [rLCDC], a
+	; Restart on a blank map while the status screen loads its graphics.
+	ld hl, wTileMap
+	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
+	ld a, ' '
+	call FillMemory
+	call StorageCopyScreenNow
+	call StorageClearAttributes
+	; Storage footer graphics overwrite font tiles used by status icons.
+	call LoadFontTilePatterns
+	call EnableLCD
+	ld a, 1
+	ldh [hAutoBGTransferEnabled], a
 	predef StatusScreenOriginal
 	call StorageRestoreState
 	call StorageBlankTransition
