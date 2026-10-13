@@ -182,6 +182,9 @@ setNuzlockeFlag::
 
 .routeRegion4
 	inc hl
+	; B1F's map ID is beyond the final-region cutoff, but shares 1F's flag.
+	cp ROCK_TUNNEL_B1F
+	jr z, .nuzRockTunnelFlag
 	cp MR_FUJIS_HOUSE
 	jr nc, .finalRegion
 	cp ROUTE_24
@@ -195,8 +198,6 @@ setNuzlockeFlag::
 	cp CERULEAN_GYM ; The gym counts for Cerulean city
 	jp z, .nuzCeruleanCityFlag
 	cp ROCK_TUNNEL_1F
-	jr z, .nuzRockTunnelFlag
-	cp ROCK_TUNNEL_B1F
 	jr z, .nuzRockTunnelFlag
 	cp POWER_PLANT
 	jr z, .nuzPowerPlantFlag
@@ -240,7 +241,10 @@ setNuzlockeFlag::
 	cp DIGLETTS_CAVE
 	jr z, .nuzDiglettsCaveFlag
 	cp ROCKET_HIDEOUT_B1F ; Checks for victory road 2F and 3F
-	jr c, .nuzVictoryRoadFlag
+	jr nc, .notVictoryRoad
+	dec hl ; Victory Road's flag is in the previous region byte.
+	jr .nuzVictoryRoadFlag
+.notVictoryRoad
 	cp SAFARI_ZONE_EAST ; Check pokemon mansion 2F, 3F, and B1F
 	jr c, .nuzPokemonMansionFlag
 	cp SAFARI_ZONE_CENTER_REST_HOUSE
@@ -447,6 +451,9 @@ checkNuzlockeStatus::
 
 .routeRegion4
 	inc hl
+	; Check B1F before advancing to the final region's flag byte.
+	cp ROCK_TUNNEL_B1F
+	jr z, .nuzRockTunnel
 	cp MR_FUJIS_HOUSE
 	jr nc, .finalRegion
 	cp ROUTE_24
@@ -460,8 +467,6 @@ checkNuzlockeStatus::
 	cp CERULEAN_GYM ; The gym counts for Cerulean city
 	jp z, .nuzCeruleanCity
 	CP ROCK_TUNNEL_1F
-	jr z, .nuzRockTunnel
-	cp ROCK_TUNNEL_B1F
 	jr z, .nuzRockTunnel
 	cp POWER_PLANT
 	jr z, .nuzPowerPlant
@@ -505,7 +510,10 @@ checkNuzlockeStatus::
 	cp DIGLETTS_CAVE
 	jr z, .nuzDiglettsCave
 	cp ROCKET_HIDEOUT_B1F ; Checks for victory road 2F and 3F
-	jr c, .nuzVictoryRoad
+	jr nc, .notVictoryRoad
+	dec hl ; Match the flag byte used by Victory Road 1F.
+	jr .nuzVictoryRoad
+.notVictoryRoad
 	cp SAFARI_ZONE_EAST ; Check pokemon mansion 2F, 3F, and B1F
 	jr c, .nuzPokemonMansion
 	cp SAFARI_ZONE_CENTER_REST_HOUSE
