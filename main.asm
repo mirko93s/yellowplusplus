@@ -765,3 +765,5 @@ INCLUDE "engine/gfx/gbc_cpu_speed.asm"
 SECTION "Battle Move Descriptions", ROMX
 
 INCLUDE "engine/battle/moves_effect_description.asm"
+
+INCLUDE "engine/debug/sound_test_names.asm"

@@ -17,11 +17,11 @@ IF DEF(_DEBUG)
 	call ClearSprites
 	call RunDefaultPaletteCommand
 
-	hlcoord 5, 6
-	lb bc, 3, 9
+	hlcoord 4, 6
+	lb bc, 5, 11
 	call TextBoxBorder
 
-	hlcoord 7, 7
+	hlcoord 6, 7
 	ld de, DebugMenuOptions
 	call PlaceString
 
@@ -32,11 +32,11 @@ IF DEF(_DEBUG)
 	ld [wMenuWatchedKeys], a
 	xor a
 	ld [wMenuJoypadPollCount], a
-	inc a
+	ld a, 2
 	ld [wMaxMenuItem], a
 	ld a, 7
 	ld [wTopMenuItemY], a
-	dec a
+	ld a, 5
 	ld [wTopMenuItemX], a
 	xor a
 	ld [wCurrentMenuItem], a
@@ -51,6 +51,8 @@ IF DEF(_DEBUG)
 	ld a, [wCurrentMenuItem]
 	and a ; FIGHT?
 	jp z, TestBattle
+	cp 2
+	jp z, SoundTestDebugMenu
 
 	; DEBUG
 	ld hl, wStatusFlags6
@@ -66,7 +68,10 @@ DebugRivalName:
 
 DebugMenuOptions:
 	db   "Fight"
-	next "Debug@"
+	next "Debug"
+	next "Sound Test@"
+
+INCLUDE "engine/debug/sound_test.asm"
 
 TestBattle:
 	ld a, 1
@@ -877,7 +882,7 @@ FightTestText:
 	db   "Test Fight@" ; "FIGHT TEST@"
 
 PlayerIdNameLvlText:
-	db   "№．  Name       Lvl@" ; "№．  NAME  LEVEL@"
+	db   "№   Name       Lvl@" ; "№．  NAME  LEVEL@"
 
 PlayerEmptyListText:
 	db   "000 ーーーーーーーーーー 000"
@@ -900,7 +905,7 @@ TrainerText:
 	db   "Trainer     @" ; "TRAINER@"
 
 EnemyIdNameLvlText:
-	db   "№．  Name       Lvl" ; "№．  NAME     LABEL"
+	db   "№   Name       Lvl" ; "№．  NAME     LABEL"
 	next ""
 
 EnemyEmptyLineText:

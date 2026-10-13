@@ -65,6 +65,14 @@ VBlank::
 	ldh [hFrameCounter], a
 
 .skipDec
+IF DEF(_DEBUG)
+	; Count actual audio frames, including frames spent redrawing the player.
+	ld a, [wSoundTestProgressActive]
+	and a
+	jr z, .soundTestTimerDone
+	farcall SoundTestProgressTick
+.soundTestTimerDone
+ENDC
 	call FadeOutAudio
 
 	ld a, BANK(Music_DoLowHealthAlarm)

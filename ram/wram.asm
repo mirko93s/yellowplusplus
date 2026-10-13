@@ -2788,6 +2788,19 @@ wMoveCategoryIconPalette:: db ; category in bits 0-1, effectiveness in 2-6;
 wBGPPalsBuffer:: ds NUM_BG_PALS * PALETTE_SIZE
 
 
+IF DEF(_DEBUG)
+SECTION "Debug Sound Test Progress", WRAM0
+wSoundTestProgressActive:: db
+wSoundTestProgressChannel:: db
+wSoundTestElapsedFrames:: dw
+wSoundTestDurationFrames:: dw
+wSoundTestLoopFrames:: dw
+wSoundTestRatioResult:: db
+wSoundTestPaused:: db
+wSoundTestSavedPanning:: db
+wSoundTestProgressPixels:: db
+ENDC
+
 SECTION "Stack", WRAM0
 
 ; the stack grows downward

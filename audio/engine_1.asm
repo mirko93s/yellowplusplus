@@ -1,6 +1,11 @@
 ; The first of four partially duplicated sound engines.
 
 Audio1_UpdateMusic::
+IF DEF(_DEBUG)
+	ld a, [wSoundTestPaused]
+	and a
+	ret nz
+ENDC
 	ld c, CHAN1
 .loop
 	ld b, 0
@@ -319,6 +324,28 @@ Audio1_sound_loop:
 	ld [hl], a
 	; fall through
 .infiniteLoop ; overwrite current address with pointer
+IF DEF(_DEBUG)
+	; Reset the player's bar only at the primary channel's infinite loop.
+	push af
+	ld a, e
+	and a
+	jr nz, .soundTestLoopDone
+	ld a, [wSoundTestProgressActive]
+	and a
+	jr z, .soundTestLoopDone
+	ld a, [wSoundTestProgressChannel]
+	cp c
+	jr nz, .soundTestLoopDone
+	xor a
+	ld [wSoundTestElapsedFrames], a
+	ld [wSoundTestElapsedFrames + 1], a
+	ld a, [wSoundTestLoopFrames]
+	ld [wSoundTestDurationFrames], a
+	ld a, [wSoundTestLoopFrames + 1]
+	ld [wSoundTestDurationFrames + 1], a
+.soundTestLoopDone
+	pop af
+ENDC
 	call Audio1_GetNextMusicByte
 	push af
 	call Audio1_GetNextMusicByte

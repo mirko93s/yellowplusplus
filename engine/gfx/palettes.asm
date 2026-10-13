@@ -1142,6 +1142,65 @@ StorageUpdateFramePalette:
 	RGB 19, 19, 20
 	RGB 5, 5, 5
 
+IF DEF(_DEBUG)
+GetSoundTestPaletteAddress::
+	; A selects a player palette. Follow standard color-mode selection.
+	ld l, a
+	ld h, 0
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld a, [wOptions]
+	and COLOR_MODE_MASK
+	ld de, SoundTestPalettes
+	jr z, .table
+	ld de, SoundTestPalettesCorrected
+	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
+	jr z, .table
+	ld de, DMGGreenPalette
+	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
+	ret z
+	ld de, DMGGrayPalette
+	ret
+.table
+	add hl, de
+	ld d, h
+	ld e, l
+	ret
+
+SoundTestUploadPalette::
+	; Far calls consume A/B, so receive the player's palette index in C.
+	push bc
+	ld a, c
+	dec a
+	call GetSoundTestPaletteAddress
+	pop bc
+	push bc
+	; Save the base pointers so standard palette updates/fades use them too.
+	ld a, c
+	cp NUM_ACTIVE_PALS
+	jr nc, .convert
+	add a
+	ld l, a
+	ld h, 0
+	ld bc, wGBCBasePalPointers
+	add hl, bc
+	ld [hl], e
+	inc hl
+	ld [hl], d
+.convert
+	xor a ; CONVERT_BGP
+	call DMGPalToGBCPal
+	pop bc
+	push bc
+	ld a, c
+	cp NUM_BG_PALS
+	call c, BufferBGPPal
+	pop bc
+	ld a, c
+	jp TransferCurBGPData
+ENDC
+
 StorageUploadPalette:
 	push bc
 	call GetGBCBasePalAddress

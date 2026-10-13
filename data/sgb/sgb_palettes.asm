@@ -519,6 +519,26 @@ GBCBasePalettesCorrected:
 	RGB 30,30,30, 30,27,27, 29,23,17, 05,05,05 ; PAL_NPC
 	assert_table_length NUM_SGB_PALS
 
+IF DEF(_DEBUG)
+; Debug player palettes use the same bank, conversion and color-mode rules
+; as the standard palettes. Shade 3 is the game's normal dark ink.
+SoundTestPalettes::
+	RGB 31,31,31, 16,00,31, 16,00,31, 03,03,03 ; note: #8700FF
+	RGB 31,31,31, 00,18,31, 00,18,31, 03,03,03 ; progress: #0094FF
+	RGB 31,31,31, 00,18,31, 31,13,00, 03,03,03 ; corners: light #0094FF/dark #FF6A00
+	RGB 31,31,31, 31,00,13, 31,13,00, 03,03,03 ; lines: light #FF006E/dark #FF6A00
+	RGB 31,31,31, 00,31,04, 31,27,00, 03,03,03 ; labels #00FF21/actions #FFD800
+	RGB 31,31,31, 31,27,00, 31,27,00, 03,03,03 ; transport icons: #FFD800
+SoundTestPalettesCorrected::
+; Gambatte accurate correction, central frontlight (gamma 1.7, luminance .94).
+	RGB 30,30,30, 15,16,27, 15,16,27, 05,05,05
+	RGB 30,30,30, 07,21,27, 07,21,27, 05,05,05
+	RGB 30,30,30, 07,21,27, 28,17,15, 05,05,05
+	RGB 30,30,30, 27,14,19, 28,17,15, 05,05,05
+	RGB 30,30,30, 16,25,10, 30,25,16, 05,05,05
+	RGB 30,30,30, 30,25,16, 30,25,16, 05,05,05
+ENDC
+
 DMGGreenPalette:
 	; DMG color correction applied to SuperPalettes
 	RGB 28,31,26, 17,24,14, 06,13,10, 01,03,04
