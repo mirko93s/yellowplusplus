@@ -526,9 +526,8 @@ Func_fc7aa:
 	ld [hl], a
 	cp $4
 	jp z, Func_fca0a
-	ld a, [hJoyHeld] ; Check what buttons are being pressed
-	and B_BUTTON ; Are you holding B?
-	jp nz, FastPikachuFollow ; If you're holding B, make Pikachu move faster
+	call IsRunning
+	jp nz, FastPikachuFollow ; Match the player's running shoes and run control.
 	call AreThereAtLeastTwoStepsInPikachuFollowCommandBuffer
 	jp c, FastPikachuFollow
 	jp NormalPikachuFollow

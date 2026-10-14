@@ -323,6 +323,25 @@ OptionsMenu_Font:
 .original
 	db "OG @"
 
+OptionsMenu_AlwaysRun:
+	ldh a, [hJoy5]
+	and D_LEFT | D_RIGHT
+	jr z, .draw
+	ld a, [wExtraOptions]
+	xor 1 << BIT_ALWAYS_RUN
+	ld [wExtraOptions], a
+.draw
+	ld de, AnimationOffText
+	ld a, [wExtraOptions]
+	bit BIT_ALWAYS_RUN, a
+	jr z, .place
+	ld de, AnimationOnText
+.place
+	call SettingsValuePosition
+	call PlaceString
+	and a
+	ret
+
 OptionsMenu_Dummy:
 	and a
 	ret

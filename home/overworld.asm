@@ -262,14 +262,10 @@ OverworldLoopLessDelay::
 	ld a,[wWalkBikeSurfState]
 	cp a, $02
 	jr z, .surfFaster
-	; Add running shoes
-	CheckEvent EVENT_GOT_RUNNING_SHOES
+	call IsRunning
 	jr z, .notRunning
-	ld a, [hJoyHeld] ; Check what buttons are being pressed
-	and B_BUTTON ; Are you holding B?
-	jr z, .notRunning ; If you aren't holding B, skip ahead to step normally.
 .surfFaster
-	call DoBikeSpeedup ; Make you go faster if you were holding B
+	call DoBikeSpeedup
 .notRunning ; Normal code resumes here
 	call AdvancePlayerSprite
 	ld a, [wWalkCounter]
@@ -363,6 +359,20 @@ NewBattle::
 	farjp InitBattle
 .noBattle
 	and a
+	ret
+
+; Returns NZ when running shoes and the current run control enable running.
+; Only affects a and flags so Pikachu's sprite registers stay intact.
+IsRunning::
+	CheckEvent EVENT_GOT_RUNNING_SHOES
+	ret z
+	ld a, [wExtraOptions]
+	bit BIT_ALWAYS_RUN, a
+	ldh a, [hJoyHeld]
+	jr z, .holdToRun
+	xor B_BUTTON ; Always Run: holding B walks instead.
+.holdToRun
+	and B_BUTTON
 	ret
 
 ; function to make bikes twice as fast as walking
@@ -1484,8 +1494,7 @@ LoadCurrentMapView::
 	dec b
 	jr nz, .rowLoop2
 	pop af
-	call BankswitchCommon ; restore previous ROM bank
-	ret
+	jp BankswitchCommon ; restore previous ROM bank
 
 AdvancePlayerSprite::
 	ld a, [wUpdateSpritesEnabled]
@@ -1640,8 +1649,7 @@ JoypadOverworld::
 	call RunMapScript
 	call Joypad
 	call ForceBikeDown
-	call AreInputsSimulated
-	ret
+	jp AreInputsSimulated
 
 ForceBikeDown::
 	ld a, [wStatusFlags7]
@@ -1989,8 +1997,7 @@ asm_0dbd:
 	ld a, [hl]
 	ld [wMapMusicROMBank], a ; music 2
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 ; function to copy map connection data from ROM to WRAM
 ; Input: hl = source, de = destination
@@ -2051,8 +2058,7 @@ LoadMapData::
 	call PlayDefaultMusicFadeOutCurrent ; music related
 .restoreRomBank
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 LoadScreenRelatedData::
 	call LoadTileBlockMap

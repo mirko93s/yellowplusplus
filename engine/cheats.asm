@@ -30,7 +30,7 @@ ValidateCheatData_::
 	cp 5
 	jr nc, InitializeCheatData_
 	ld a, [wExtraOptions]
-	and 7
+	and $0f
 	ld [wExtraOptions], a
 	; Move the previous font flag out of the text-speed byte on old saves.
 	ld hl, wOptions

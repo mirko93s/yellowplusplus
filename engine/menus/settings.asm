@@ -209,6 +209,7 @@ OptionMenuJumpTable:
 	dw OptionsMenu_ColorCorrection
 	dw OptionsMenu_Frame
 	dw OptionsMenu_Font
+	dw OptionsMenu_AlwaysRun
 
 SettingsValuePosition:
 	push bc
@@ -229,7 +230,7 @@ SettingsValuePosition:
 	pop bc
 	ret
 SettingsValueColumns:
-	db 14, 14, 14, 14, 14, 14, 14, 14
+	db 14, 14, 14, 14, 14, 14, 14, 14, 14
 
 DrawSettingsPage:
 	ld a, [wOptionsCursorLocation]
@@ -374,7 +375,7 @@ SettingsUpdateCursor:
 	ret
 
 OptionsLabels:
-	dw .speed, .animation, .style, .sound, .print, .color, .frame, .font
+	dw .speed, .animation, .style, .sound, .print, .color, .frame, .font, .run
 .end
 .speed
 	db "Text Speed@"
@@ -392,6 +393,8 @@ OptionsLabels:
 	db "Frame@"
 .font
 	db "Font@"
+.run
+	db "Always Run@"
 
 CheatSettings:
 ; Battle effects and capture.
