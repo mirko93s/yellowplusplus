@@ -37,5 +37,4 @@ GetItemPrice::
 .done
 	ld de, hItemPrice
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon

@@ -293,5 +293,4 @@ DetermineAudioFunction::
 
 .done
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon

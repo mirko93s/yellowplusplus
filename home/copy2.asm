@@ -34,8 +34,7 @@ FarCopyDataDouble::
 	dec b
 	jr nz, .expandloop
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 CopyVideoData::
 ; Wait for the next VBlank, then copy c 2bpp

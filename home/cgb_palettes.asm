@@ -151,5 +151,4 @@ Func_3082::
 	call BankswitchCommon
 	call Audio1_UpdateMusic
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon

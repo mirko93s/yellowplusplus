@@ -27,8 +27,7 @@ Predef::
 .done
 
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 GetPredefRegisters::
 ; Restore the contents of register pairs

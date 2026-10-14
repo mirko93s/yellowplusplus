@@ -455,8 +455,7 @@ GetMonHeader::
 	pop de
 	pop bc
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 ; copy party pokemon's name to wNameBuffer
 GetPartyMonName2::

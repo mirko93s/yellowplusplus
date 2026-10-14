@@ -7,8 +7,7 @@ FarCopyData::
 	call BankswitchCommon
 	call CopyData
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 CopyData::
 ; Copy bc bytes from hl to de.

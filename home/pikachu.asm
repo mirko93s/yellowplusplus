@@ -112,5 +112,4 @@ ApplyPikachuMovementData::
 	call BankswitchCommon
 	call ApplyPikachuMovementData_
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon

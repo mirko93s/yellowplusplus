@@ -12,5 +12,4 @@ UpdateSprites::
 	ld a, $1
 	ld [wUpdateSpritesEnabled], a
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon

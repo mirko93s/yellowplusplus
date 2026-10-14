@@ -6,8 +6,7 @@ FarPrintText::
 	call BankswitchCommon
 	call PrintText
 	pop af
-	call BankswitchCommon
-	ret
+	jp BankswitchCommon
 
 PrintNumber::
 ; Print the c-digit, b-byte value at de.
