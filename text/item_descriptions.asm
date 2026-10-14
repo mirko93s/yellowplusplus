@@ -23,6 +23,11 @@ _TownMapDescription::
 	down "location."
 	prompt
 
+_TypeChartDescription::
+	text "Shows how types"
+	down "affect each other."
+	prompt
+
 _BicycleDescription::
 	text "A collapsible bike"
 	down "for fast movement."

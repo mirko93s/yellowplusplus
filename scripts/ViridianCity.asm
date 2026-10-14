@@ -17,6 +17,8 @@ ViridianCity_ScriptPointers:
 	dw ViridianCityScript8
 	dw ViridianCityScript9
 	dw ViridianCityScript10
+	dw ViridianCitySchoolAlignPlayer
+	dw ViridianCitySchoolFinishGuide
 
 ViridianCityScript0:
 	call ViridianCityScript_1905b
@@ -216,13 +218,17 @@ ViridianCityScript8:
 	ret
 
 ViridianCityScript9:
-	ld de, ViridianCityOldManMovementData2
+	; Clear the junction before aligning the player one tile behind him.
+	ld de, ViridianCityOldManClearPathRight
 	ld a, [wXCoord]
 	cp 19
-	jr z, .asm_191e4
+	jr nz, .stepRight
+	ld de, ViridianCityOldManClearPathDown
+	jr .move
+.stepRight
 	callfar Func_f1a01
-	ld de, ViridianCityOldManMovementData1
-.asm_191e4
+	ld de, ViridianCityOldManClearPathRight
+.move
 	ld a, $8
 	ldh [hSpriteIndexOrTextID], a
 	call MoveSprite
@@ -230,29 +236,138 @@ ViridianCityScript9:
 	ld [wViridianCityCurScript], a
 	ret
 
-ViridianCityOldManMovementData1:
+ViridianCityOldManClearPathRight:
 	db NPC_MOVEMENT_RIGHT
-ViridianCityOldManMovementData2:
 	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_DOWN
+	db NPC_MOVEMENT_LEFT
+	db -1
+ViridianCityOldManClearPathDown:
 	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_DOWN
-	db NPC_MOVEMENT_DOWN
-	db NPC_MOVEMENT_DOWN
-	db $ff
+	db -1
 
 ViridianCityScript10:
 	ld a, [wStatusFlags5]
 	bit 0, a
 	ret nz
-	ld a, $3
-	ld [wMissableObjectIndex], a
-	predef HideObject
-	xor a
+	ld de, ViridianCitySchoolPlayerFromBelow
+	ld a, [wXCoord]
+	cp 19
+	jr z, .fromRight
+	cp 17
+	jr z, .fromLeft
+	ld a, [wYCoord]
+	cp 8
+	jr nz, .align
+	ld de, ViridianCitySchoolPlayerFromAbove
+	jr .align
+.fromRight
+	ld de, ViridianCitySchoolPlayerFromRight
+	jr .align
+.fromLeft
+	ld de, ViridianCitySchoolPlayerFromLeft
+.align
+	ld a, $ff
 	ld [wJoyIgnore], a
-	ld a, $2
+	ld hl, wSimulatedJoypadStatesEnd
+	call DecodeRLEList
+	dec a
+	ld [wSimulatedJoypadStatesIndex], a
+	call StartSimulatingJoypadStates
+	ld a, 11
 	ld [wViridianCityCurScript], a
 	ret
+
+ViridianCitySchoolPlayerFromRight:
+	db NO_INPUT, 1, D_LEFT, 1, D_DOWN, 1, -1
+ViridianCitySchoolPlayerFromLeft:
+	db NO_INPUT, 1, D_DOWN, 1, D_RIGHT, 1, -1
+ViridianCitySchoolPlayerFromAbove:
+	db NO_INPUT, 1, D_DOWN, 2, -1
+ViridianCitySchoolPlayerFromBelow:
+	db NO_INPUT, 1, -1
+
+ViridianCitySchoolAlignPlayer:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	ld a, [wWalkCounter]
+	and a
+	ret nz
+	xor a
+	ld [wNPCMovementScriptFunctionNum], a
+	ld a, 8
+	ld [wSpriteIndex], a
+	ld a, 4
+	ld [wNPCMovementScriptPointerTableNum], a
+	ld a, BANK(ViridianSchoolGuideMovementScriptPointers)
+	ld [wNPCMovementScriptBank], a
+	ld a, 12
+	ld [wViridianCityCurScript], a
+	ret
+
+ViridianSchoolGuideMovementScriptPointers::
+	dw ViridianSchoolGuideStart
+	dw ViridianSchoolGuideDone
+
+ViridianSchoolGuideStart:
+	ld a, $ff
+	ld [wJoyIgnore], a
+	ld a, $80 ; sprite 8 walks in sync with the player
+	ld [wNPCMovementScriptSpriteOffset], a
+	call StartSimulatingJoypadStates
+	ld hl, wSimulatedJoypadStatesEnd
+	ld de, ViridianSchoolGuidePlayerPath
+	call DecodeRLEList
+	dec a
+	ld [wSimulatedJoypadStatesIndex], a
+	ld hl, wNPCMovementDirections2
+	ld de, ViridianSchoolGuideOldManPath
+	call DecodeRLEList
+	ld hl, wStatusFlags4
+	res 7, [hl]
+	ld a, 1
+	ld [wNPCMovementScriptFunctionNum], a
+	ret
+
+ViridianSchoolGuidePlayerPath:
+	; Simulated player inputs are consumed backwards; NPC directions forwards.
+	db NO_INPUT, 1, D_RIGHT, 3, D_DOWN, 6, -1 ; (18,10) -> (21,16)
+ViridianSchoolGuideOldManPath:
+	db NPC_MOVEMENT_DOWN, 5, NPC_MOVEMENT_RIGHT, 4, -1 ; (18,11) -> (22,16)
+
+ViridianSchoolGuideDone:
+	ld a, [wSimulatedJoypadStatesIndex]
+	and a
+	ret nz
+	ld a, [wWalkCounter]
+	and a
+	ret nz
+	jp EndNPCMovementScript
+
+ViridianCitySchoolFinishGuide:
+	ld a, [wNPCMovementScriptPointerTableNum]
+	and a
+	ret nz
+	ld a, $ff
+	ld [wJoyIgnore], a
+	; Keep him at the end of the synchronized path during the door step.
+	ld a, 16 + 4
+	ld [wSprite08StateData2MapY], a
+	ld a, 22 + 4
+	ld [wSprite08StateData2MapX], a
+	; Enter the school without giving control back at the doorstep.
+	; Reset the city state before the warp so returning cannot replay it.
+	ld a, $2
+	ld [wViridianCityCurScript], a
+	ld hl, wSimulatedJoypadStatesEnd
+	ld [hl], NO_INPUT
+	inc hl
+	ld [hl], D_UP
+	ld a, 2
+	ld [wSimulatedJoypadStatesIndex], a
+	jp StartSimulatingJoypadStates
 
 ViridianCity_TextPointers:
 	dw ViridianCityText_0

@@ -34,6 +34,7 @@ KeyItemIDs:
 	db SECRET_KEY, BIKE_VOUCHER, CARD_KEY, S_S_TICKET, GOLD_TEETH
 	db COIN_CASE, OAKS_PARCEL, ITEMFINDER, SILPH_SCOPE, POKE_FLUTE
 	db LIFT_KEY, EXP_ALL, OLD_ROD, GOOD_ROD, SUPER_ROD
+	db TYPE_CHART ; append to preserve existing ownership bit indices
 KeyItemIDsEnd:
 	ASSERT KeyItemIDsEnd - KeyItemIDs == NUM_BAG_KEY_ITEMS
 
@@ -41,7 +42,7 @@ ItemPocketTable:
 FOR item, 0, NUM_ITEMS + 1
 	IF item >= MASTER_BALL && item <= POKE_BALL
 		db BALLS_POCKET
-	ELIF item == TOWN_MAP || item == BICYCLE || item == OLD_AMBER || item == DOME_FOSSIL || item == HELIX_FOSSIL || item == SECRET_KEY || item == BIKE_VOUCHER || item == CARD_KEY || item == S_S_TICKET || item == GOLD_TEETH || item == COIN_CASE || item == OAKS_PARCEL || item == ITEMFINDER || item == SILPH_SCOPE || item == POKE_FLUTE || item == LIFT_KEY || item == EXP_ALL || item == OLD_ROD || item == GOOD_ROD || item == SUPER_ROD
+	ELIF item == TYPE_CHART || item == TOWN_MAP || item == BICYCLE || item == OLD_AMBER || item == DOME_FOSSIL || item == HELIX_FOSSIL || item == SECRET_KEY || item == BIKE_VOUCHER || item == CARD_KEY || item == S_S_TICKET || item == GOLD_TEETH || item == COIN_CASE || item == OAKS_PARCEL || item == ITEMFINDER || item == SILPH_SCOPE || item == POKE_FLUTE || item == LIFT_KEY || item == EXP_ALL || item == OLD_ROD || item == GOOD_ROD || item == SUPER_ROD
 		db KEY_POCKET
 	ELIF item == NO_ITEM || item == SURFBOARD || item == SAFARI_BALL || item == POKEDEX || (item >= BOULDERBADGE && item <= EARTHBADGE) || item == COIN
 		db $ff

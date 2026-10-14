@@ -27,7 +27,8 @@
 	const_next $28
 	const EVENT_VIRIDIAN_GYM_OPEN
 	const EVENT_GOT_TM42
-	const_skip 2
+	const EVENT_GOT_TYPE_CHART
+	const_skip
 	const EVENT_02C
 	const EVENT_02D
 	const EVENT_02E

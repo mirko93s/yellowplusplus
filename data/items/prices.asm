@@ -49,7 +49,7 @@ ItemPrices::
 	bcd3 3000  ; LEAF_STONE
 	bcd3 0     ; CARD_KEY
 	bcd3 19998 ; NUGGET ; sell-only: one sells for 4999 at the /4 sale rate
-	bcd3 0     ; XXX PP_UP ; unused
+	bcd3 0     ; TYPE_CHART
 	bcd3 300   ; POKE_DOLL
 	bcd3 400   ; FULL_HEAL
 	bcd3 2000  ; REVIVE

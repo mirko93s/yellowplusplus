@@ -33,6 +33,19 @@ _OldManTextAfterBattle::
 
 	para "I have to get some"
 	line "at #mon Mart."
+
+	para "You should visit"
+	line "the school first!"
+
+	para "The teacher knows"
+	line "all about #mon"
+	cont "type matchups."
+
+	para "I'll show you the"
+	line "way while I head"
+	cont "to the Mart."
+
+	para "Follow me!"
 	done
 
 _ViridianCityText1::

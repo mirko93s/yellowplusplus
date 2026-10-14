@@ -140,6 +140,7 @@ DebugSetPokedexEntries:
 DebugItemsList:
 	db MASTER_BALL, 99
 	db TOWN_MAP, 1
+	db TYPE_CHART, 1
 	db ITEMFINDER, 1
 	db BICYCLE, 1
 	db FULL_RESTORE, 99

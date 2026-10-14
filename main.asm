@@ -488,6 +488,9 @@ INCLUDE "engine/gfx/palettes.asm"
 SECTION "Save Engine", ROMX
 INCLUDE "engine/menus/save.asm"
 
+SECTION "Type Chart", ROMX
+INCLUDE "engine/items/type_chart.asm"
+
 
 SECTION "Itemfinder 1", ROMX
 

@@ -109,7 +109,7 @@ ItemDescriptionPointers:
 	db '@'
 	text_far _NuggetDescription
 	db '@'
-	text_far _HeartStoneDescription
+	text_far _TypeChartDescription
 	db '@'
 	text_far _PokeDollDescription
 	db '@'

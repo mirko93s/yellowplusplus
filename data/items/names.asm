@@ -49,7 +49,7 @@ ItemNames::
 	li "Leaf Stone"
 	li "Card Key"
 	li "Nugget"
-	li "PP Up"
+	li "Type Chart"
 	li "Poké Doll"
 	li "Full Heal"
 	li "Revive"

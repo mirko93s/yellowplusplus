@@ -2302,7 +2302,8 @@ wPalletTownCurScript:: db
 wRedsHouse1FCurScript:: db
 wBluesHouseCurScript:: db
 wViridianCityCurScript:: db
-	ds 2
+wViridianSchoolHouseCurScript:: db
+	ds 1
 wPewterCityCurScript:: db
 wRoute3CurScript:: db
 wRoute4CurScript:: db

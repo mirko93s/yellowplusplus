@@ -68,7 +68,7 @@ ItemUsePtrTable:
 	dw ItemUseEvoStone   ; LEAF_STONE
 	dw ItemUseCardKey    ; CARD_KEY
 	dw UnusableItem      ; NUGGET
-	dw UnusableItem      ; ??? PP_UP
+	dw ItemUseTypeChart  ; TYPE_CHART
 	dw ItemUsePokedoll   ; POKE_DOLL
 	dw ItemUseMedicine   ; FULL_HEAL
 	dw ItemUseMedicine   ; REVIVE
@@ -683,6 +683,12 @@ ItemUseTownMap:
 	and a
 	jp nz, ItemUseNotTime
 	farjp DisplayTownMap
+
+ItemUseTypeChart:
+	ld a, [wIsInBattle]
+	and a
+	jp nz, ItemUseNotTime
+	farjp DisplayTypeChart
 
 ItemUseBicycle:
 	ld a, [wIsInBattle]

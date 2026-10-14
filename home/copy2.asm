@@ -1,7 +1,6 @@
 IsTilePassable::
 ; sets carry if tile is passable, resets carry otherwise
-	homecall_sf _IsTilePassable
-	ret
+	homejp_sf _IsTilePassable
 
 FarCopyDataDouble::
 ; Expand bc bytes of 1bpp image data
