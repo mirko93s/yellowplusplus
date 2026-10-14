@@ -15,6 +15,7 @@
 
 	; tm/hm learnset
 	tmhm
+
 	; end
 
 	db BANK(KakunaPicFront)

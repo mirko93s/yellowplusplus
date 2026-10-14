@@ -14,10 +14,10 @@
 	db GROWTH_SLOW ; growth rate
 
 	; tm/hm learnset
-	tmhm RAZOR_WIND,   WHIRLWIND,    TOXIC,        TAKE_DOWN,    DOUBLE_EDGE,  \
-	     BUBBLEBEAM,   WATER_GUN,    ICE_BEAM,     BLIZZARD,     HYPER_BEAM,   \
-	     RAGE,         MIMIC,        DOUBLE_TEAM,  REFLECT,      BIDE,         \
-	     SWIFT,        SKY_ATTACK,   REST,         SUBSTITUTE,   FLY
+	tmhm RAZOR_WIND   , WHIRLWIND    , TOXIC        , TAKE_DOWN    , DOUBLE_EDGE, \
+	     BUBBLEBEAM   , WATER_GUN    , ICE_BEAM     , BLIZZARD     , HYPER_BEAM, \
+	     RAGE         , MIMIC        , DOUBLE_TEAM  , REFLECT      , BIDE, \
+	     SWIFT        , SKY_ATTACK   , REST         , SUBSTITUTE   , FLY
 	; end
 
 	db BANK(ArticunoPicFront)
