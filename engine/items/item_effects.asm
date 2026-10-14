@@ -1515,6 +1515,17 @@ ItemUseMedicine:
 	jp CalcStats ; recalculate stats
 .useRareCandy
 	push hl
+	ld a, [wExtraFlags]
+	bit 3, a ; Nuzlocke mode
+	jr z, .checkRareCandyLevel
+	ld bc, wPartyMon1HP - wPartyMon1
+	add hl, bc
+	ld a, [hli]
+	or [hl] ; both HP bytes are zero if the Pokémon has fainted
+	jp z, .vitaminNoEffect
+	pop hl
+	push hl
+.checkRareCandyLevel
 	ld bc, wPartyMon1Level - wPartyMon1
 	add hl, bc ; hl now points to level
 	;;;;;;;;;;;;;;; HARD MODE START
