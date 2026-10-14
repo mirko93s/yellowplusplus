@@ -21,7 +21,11 @@ _CalcStat::
 	ld a, b
 	ld d, a
 	push hl
+	call IsStatRecordStarterPikachu
 	ld hl, wMonHeader
+	jr nc, .baseStatsReady
+	ld hl, StarterPikachuBaseStats - 1
+.baseStatsReady
 	ld b, $0
 	add hl, bc
 	ld a, [hl]          ; read base value of stat
@@ -191,4 +195,112 @@ _CalcStat::
 	pop bc
 	pop de
 	pop hl
+	ret
+
+StarterPikachuBaseStats:
+	db 45, 80, 50, 120, 75, 60 ; HP, Attack, Defense, Speed, Sp. Atk, Sp. Def
+
+; HL is the stat-exp base supplied to CalcStat. Only recognize real player
+; records, never enemy records or the enemy-speed calculation's scratch data.
+; Preserve the calculation's registers; carry means the starter was found.
+IsStatRecordStarterPikachu:
+	push bc
+	push de
+	push hl
+	ld bc, -(MON_HP_EXP - 1)
+	add hl, bc
+	ld b, h
+	ld c, l
+	ld de, wPartyMonOT
+	ld hl, wPartyMon1
+	ld a, PARTY_LENGTH
+.partyLoop
+	push af
+	ld a, h
+	cp b
+	jr nz, .nextPartyMon
+	ld a, l
+	cp c
+	jr z, .partyFound
+.nextPartyMon
+	push bc
+	ld bc, PARTYMON_STRUCT_LENGTH
+	add hl, bc
+	ld a, NAME_LENGTH
+	add e
+	ld e, a
+	jr nc, .nextOTReady
+	inc d
+.nextOTReady
+	pop bc
+	pop af
+	dec a
+	jr nz, .partyLoop
+	ld a, b
+	cp HIGH(wLoadedMon)
+	jr nz, .notStarter
+	ld a, c
+	cp LOW(wLoadedMon)
+	jr nz, .notStarter
+	ld hl, wLoadedMon
+	ld a, [wMonDataLocation]
+	and a
+	ld de, wPartyMonOT
+	jr z, .indexedOT
+	cp BOX_DATA
+	ld de, wBoxMonOT
+	jr z, .indexedOT
+	cp DAYCARE_DATA
+	jr nz, .notStarter
+	ld de, wDayCareMonOT
+	jr .checkRecord
+.indexedOT
+	push hl
+	ld h, d
+	ld l, e
+	ld a, [wWhichPokemon]
+	ld bc, NAME_LENGTH
+	call AddNTimes
+	ld d, h
+	ld e, l
+	pop hl
+	jr .checkRecord
+.partyFound
+	pop af
+.checkRecord
+	ld a, [hl]
+	cp STARTER_PIKACHU
+	jr nz, .notStarter
+	ld bc, MON_CATCH_RATE
+	add hl, bc
+	ld a, [hl]
+	cp LIGHT_BALL_GSC
+	jr nz, .notStarter
+	ld bc, MON_OTID - MON_CATCH_RATE
+	add hl, bc
+	ld a, [wPlayerID]
+	cp [hl]
+	jr nz, .notStarter
+	inc hl
+	ld a, [wPlayerID + 1]
+	cp [hl]
+	jr nz, .notStarter
+	ld hl, wPlayerName
+	ld b, 5 ; same original-trainer name comparison as starter behavior
+.nameLoop
+	ld a, [de]
+	cp [hl]
+	jr nz, .notStarter
+	inc de
+	inc hl
+	dec b
+	jr nz, .nameLoop
+	scf
+	jr .done
+.notStarter
+	and a
+.done
+	pop hl
+	pop de
+	pop bc
 	ret

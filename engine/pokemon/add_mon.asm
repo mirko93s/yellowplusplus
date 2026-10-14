@@ -300,7 +300,7 @@ InitializeStarterPikachu::
 	jr nz, .perfectDVs
 	ld a, CHEAT_SHINY
 	call CheckCheat
-	jr nz, .keepDVs
+	jr nz, .recalculateStats
 .perfectDVs
 	pop hl
 	push hl
@@ -309,6 +309,7 @@ InitializeStarterPikachu::
 	ld a, $ff
 	ld [hli], a
 	ld [hl], a
+.recalculateStats
 	pop hl
 	push hl
 	ld a, [hl]
@@ -338,9 +339,6 @@ InitializeStarterPikachu::
 	inc hl ; current HP
 	ld [hli], a
 	ld [hl], b
-	ret
-.keepDVs
-	pop hl
 	ret
 
 LoadMovePPs:
