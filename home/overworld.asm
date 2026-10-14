@@ -1875,8 +1875,6 @@ asm_0dbd:
 	res 7, a
 	ld [wCurMapTileset], a
 	ldh [hPreviousTileset], a
-	bit 7, b
-	ret nz
 	call GetMapHeaderPointer
 ; copy the first 10 bytes (the fixed area) of the map data to D367-D370
 	ld de, wCurMapTileset
@@ -1887,6 +1885,10 @@ asm_0dbd:
 	inc de
 	dec c
 	jr nz, .copyFixedHeaderLoop
+; Saved ROM pointers can move on rebuild. Refresh the fixed header even on
+; Continue, then preserve the saved connections, warps, signs and NPC state.
+	bit 7, b
+	ret nz
 ; initialize all the connected maps to disabled at first, before loading the actual values
 	ld a, $ff
 	ld [wNorthConnectedMap], a

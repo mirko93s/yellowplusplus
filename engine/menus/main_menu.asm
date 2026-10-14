@@ -144,6 +144,7 @@ MainMenu:
 	call LatchCheatUnlock
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
+	callfar ReloadSavedTilesetHeader
 	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerDirection], a
 	ld c, 10

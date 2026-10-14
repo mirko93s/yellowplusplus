@@ -32,6 +32,24 @@ FileDataDestroyedText:
 	text_far _FileDataDestroyedText
 	text_end
 
+ReloadSavedTilesetHeader::
+; Rebuild ROM pointers and animation settings disabled by the main menu.
+; Loading a dungeon tileset must not move the player to a destination warp.
+	ld a, [wCurMapTileset]
+	push af
+	res 7, a ; the save loader's flag is not part of the tileset index
+	ld [wCurMapTileset], a
+	ld a, [wDestinationWarpID]
+	push af
+	ld a, $ff
+	ld [wDestinationWarpID], a
+	predef LoadTilesetHeader
+	pop af
+	ld [wDestinationWarpID], a
+	pop af
+	ld [wCurMapTileset], a
+	ret
+
 LoadSAV0:
 	call EnableSRAMAndLatchClockData
 	ld a, $1
