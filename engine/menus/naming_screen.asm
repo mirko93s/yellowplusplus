@@ -11,7 +11,7 @@ AskName:
 	ld [wNamedObjectIndex], a
 	call GetMonName
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	pop hl
 	jr .forceNicknamingIfNuzlocke
@@ -210,7 +210,7 @@ DisplayNamingScreen:
 
 .pressedStart
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	ld a, [wNamingScreenNameLength]
 	and a

@@ -245,7 +245,7 @@ FightingDojoText6:
 	call GivePokemon
 	jr nc, .done
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	ld hl, wNuzlockeRegions
 	inc hl
@@ -290,7 +290,7 @@ FightingDojoText7:
 	call GivePokemon
 	jr nc, .done
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	ld hl, wNuzlockeRegions
 	inc hl

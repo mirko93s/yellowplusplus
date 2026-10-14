@@ -229,7 +229,7 @@ HandlePrizeChoice:
 	jr .givePrize
 .getMonName
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlockeOrNoPokemonYet
 	ld hl, wNuzlockeRegions
 	bit CELADON_CITY, [hl]
@@ -282,7 +282,7 @@ HandlePrizeChoice:
 ; were full), return without subtracting coins.
 	ret nc
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .subtractCoins
 	ld hl, wNuzlockeRegions
 	set CELADON_CITY, [hl]

@@ -120,7 +120,7 @@ TryDoWildEncounter:
 	; seed randomizer here
 	push af
 	ld a, [wExtraFlags]
-	bit 5, a
+	bit BIT_SEED_RANDOMIZER, a
 	jr z, .noSeedRandomizer
 	ld a, [wRandomizerSeed]
     ld e, a

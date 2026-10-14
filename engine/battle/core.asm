@@ -266,7 +266,7 @@ StartBattle:
 EnemyRan:
 	call LoadScreenTilesFromBuffer1
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
 	callfar checkFamilyCaught
 	jr c, .noNuzlocke ; do not set area as consumed if dupe
@@ -819,7 +819,7 @@ FaintEnemyPokemon:
 .wild_win
 	call EndLowHealthAlarm
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
 	callfar setNuzlockeFlag
 .noNuzlocke
@@ -1460,7 +1460,7 @@ EnemySendOutFirstMon:
 	jr z, .next4
 	; hard mode check
 	ld a, [wExtraFlags]
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr nz, .next4 ; if in hard mode force set mode
 	ld a, [wOptions]
 	bit BIT_BATTLE_SHIFT, a
@@ -1689,7 +1689,7 @@ TryRunningFromBattle:
 	ret
 .canEscape
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
 	callfar checkFamilyCaught
 	jr c, .noNuzlocke ; do not set area as consumed if dupe
@@ -2462,7 +2462,7 @@ BagWasSelected:
 	jr z, .normalMode ; Not a trainer battle
 
 	ld a, [wExtraFlags] ; jump if we are in normal mode
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr z, .normalMode
 
 	ld hl, ItemsCantBeUsedInHardModeText ; items can't be used during trainer battles in hard mode
@@ -4399,7 +4399,7 @@ CheckForDisobedience:
 	jr nz, .monIsTraded
 
 	ld a, [wExtraFlags]
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr z, .normalMode2 ; jump if we are in normal mode
 	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	ld a, 101 ; always obey ; MAX_LEVEL + 1

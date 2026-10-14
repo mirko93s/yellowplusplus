@@ -254,11 +254,11 @@ ChooseGameDifficulty:
 	ld hl, wExtraFlags
 	bit 0, a ; check if any of the hard modes since they will both have the last bit set (%01 for 2nd item, %11 for 4th item)
 	jr z, .checkNuzlocke
-	set 2, [hl] ; set hard mode
+	set BIT_HARD_MODE, [hl] ; set hard mode
 .checkNuzlocke
 	cp 2 ; check if wCurrentMenuItem >= 2 (nuzlocke or hard-nuzlocke)
 	jr c, .done
-	set 3, [hl] ; set nuzlocke mode
+	set BIT_NUZLOCKE_MODE, [hl] ; set nuzlocke mode
 	; set route 1 and 22 to already encountered so we dont see nuzlocke text/icon until we get pokeballs and bits get reset
 	ld hl, wNuzlockeRegions
 	inc hl ; increment to byte 2 for route1

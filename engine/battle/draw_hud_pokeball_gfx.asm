@@ -159,7 +159,7 @@ PlaceEnemyHUDTiles:
 	cp BATTLE_TYPE_PIKACHU ; don't draw if this is the pikachu battle
 	jr z, .noNuzlocked
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocked ; skip if nuzlocke mode is not enabled
 	callfar checkNuzlockeStatus
 	jr nz, .noNuzlocked ; skip if pokemon is not catchable

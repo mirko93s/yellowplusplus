@@ -529,7 +529,7 @@ DrawTrainerInfo:
 	ld a, [wExtraFlags]
 	rrca
 	rrca
-	and %11
+	and ((1 << BIT_HARD_MODE) | (1 << BIT_NUZLOCKE_MODE)) >> BIT_HARD_MODE
 	cp 3
 	ld de, HardNuzlockeText
 	jr z, .printGamemode
@@ -560,7 +560,7 @@ DrawTrainerInfo:
 	predef PrintPlayerMoney
 	; seed
 	ld a, [wExtraFlags]
-	bit 5, a
+	bit BIT_SEED_RANDOMIZER, a
 	jr z, .noSeed
 	hlcoord 1, 4
 	ld de, TrainerInfo_SeedText
@@ -571,7 +571,7 @@ DrawTrainerInfo:
 .noSeed
 	; dupe clause
 	ld a, [wExtraFlags]
-	bit 4, a
+	bit BIT_NUZLOCKE_DUPE_CLAUSE, a
 	jr z, .noDupeClause
 	ld de, DupeClauseText
 	hlcoord 1, 6

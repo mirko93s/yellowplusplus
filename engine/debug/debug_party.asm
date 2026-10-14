@@ -6,7 +6,7 @@ SetDebugTeam:
 	cp SNORLAX ; snorlax always shiny for testing purposes
 	jr nz, .continue
 	ld hl, wExtraFlags
-	set 1, [hl]
+	set BIT_GIFT_MON_SHINY, [hl]
 .continue
 	cp -1
 	ret z

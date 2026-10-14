@@ -65,7 +65,7 @@ HealParty:
 	; Check if current mon is fainted
 	; nuzlocke mode check
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode ; if in nuzlocke mode revives have no effect
 	CheckEvent EVENT_BATTLED_RIVAL_IN_OAKS_LAB
 	jr z, .normalMode ; if nuzlocke mode we still want to revive pikachu in the first rival battle

@@ -291,7 +291,7 @@ SilphCo7Text1:
 	jr .done
 .givelapras
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	ld hl, wNuzlockeRegions
 	inc hl ; Saffron City is in byte 2
@@ -308,7 +308,7 @@ SilphCo7Text1:
 	call z, WaitForTextScrollButtonPress
 	call EnableAutoTextBoxDrawing
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode2
 	ld hl, wNuzlockeRegions
 	inc hl ; Saffron city is in byte 2

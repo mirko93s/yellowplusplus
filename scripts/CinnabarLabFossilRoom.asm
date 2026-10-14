@@ -49,7 +49,7 @@ FossilsList:
 Lab4Text1:
 	text_asm
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode
 	ld hl, wNuzlockeRegions
 	bit CINNABAR_ISLAND_NUZ, [hl]
@@ -87,7 +87,7 @@ Lab4Text1:
 	call GivePokemon
 	jr nc, .done
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .normalMode2
 	ld hl, wNuzlockeRegions
 	set CINNABAR_ISLAND_NUZ, [hl]

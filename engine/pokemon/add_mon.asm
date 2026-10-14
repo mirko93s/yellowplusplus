@@ -131,8 +131,8 @@ _AddPartyMon::
 	jr nz, .shinyDVs
 	push hl
 	ld hl, wExtraFlags
-	bit 1, [hl]
-	res 1, [hl]
+	bit BIT_GIFT_MON_SHINY, [hl]
+	res BIT_GIFT_MON_SHINY, [hl]
 	pop hl
 	jr z, .randomDVs
 .shinyDVs

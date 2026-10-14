@@ -120,7 +120,7 @@ GainExperience:
 	ld d, MAX_LEVEL
 ;;;;;;;;;;;;;;;;;;;;;; HARD MODE START
 	ld a, [wExtraFlags]
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr z, .continueCalcExperience ; jump if we are in normal mode
 	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	ld d, MAX_LEVEL ; no level cap after we beat champion

@@ -538,7 +538,7 @@ checkNuzlockeStatus::
 
 setFamilyCaught::
 	ld a, [wExtraFlags]
-	bit 4, a
+	bit BIT_NUZLOCKE_DUPE_CLAUSE, a
 	ret z ; return early if dupe clause is disabled
 	ld a, [wTempMon]
 	ld b, FLAG_SET
@@ -547,7 +547,7 @@ setFamilyCaught::
 
 checkFamilyCaught::
 	ld a, [wExtraFlags]
-	bit 4, a
+	bit BIT_NUZLOCKE_DUPE_CLAUSE, a
 	ret z ; return early if dupe clause is disabled
 	ld a, [wEnemyMonSpecies]
 	ld b, FLAG_TEST

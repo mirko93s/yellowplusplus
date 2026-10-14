@@ -63,7 +63,7 @@ PrintBeginningBattleText:
 .doNotDrawPokeballs
 	call PrintText
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	ret z ; if not in nuzlocke mode skip	
 	ld a, [wIsInBattle]
 	dec a 

@@ -77,7 +77,7 @@ DayCareMText1:
 
 	push bc
 	ld a, [wExtraFlags]
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr z, .continueDayCareInUse ; jump if we are in normal mode
 	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	jr nz, .continueDayCareInUse

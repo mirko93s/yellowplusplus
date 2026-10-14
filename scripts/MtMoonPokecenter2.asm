@@ -2,7 +2,7 @@ MagikarpSalesman::
 	CheckEvent EVENT_BOUGHT_MAGIKARP, 1
 	jp c, .alreadyBoughtMagikarp
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .skip1
 	; Since our current position is not in one of the regions defined 
 	; in checkNuzlockeStatus, we manually check the status.
@@ -33,11 +33,11 @@ MagikarpSalesman::
 .enoughMoney
 	push hl
 	ld hl, wExtraFlags
-	set 1, [hl]
+	set BIT_GIFT_MON_SHINY, [hl]
 	pop hl
 	lb bc, MAGIKARP, 15
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .skip2
 	; Hard set Route 3 when purchasing Pokemon.
 	ld hl, wNuzlockeRegions

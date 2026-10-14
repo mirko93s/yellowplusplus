@@ -96,7 +96,7 @@ OakSpeech:
 	call ChooseGameDifficulty
 	call ClearScreen
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocke ; if no nuzlocke skip asking about dupe clause
 	; dupe clause
 	call ShowCaterpie
@@ -117,7 +117,7 @@ OakSpeech:
     and a
     jr z, .dontUseDupeClause
 	ld hl, wExtraFlags
-	set 4, [hl] ; set dupe clause
+	set BIT_NUZLOCKE_DUPE_CLAUSE, [hl] ; set dupe clause
 .dontUseDupeClause
 	call ClearScreen
 .noNuzlocke
@@ -463,7 +463,7 @@ RandomizerSeed::
 	ld [wRandomizerSeed + 1], a
 	; set randomizer seed bit
 	ld hl, wExtraFlags
-	set 5, [hl]
+	set BIT_SEED_RANDOMIZER, [hl]
 .dontUseSeedRandomizer
 	call ClearScreen
 	ret

@@ -353,7 +353,7 @@ ItemUseBall:
 .captured
 	; set area flag if we catch a pokemon in nuzlocke mode
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jr z, .noNuzlocke ; if in nuzlocke mode set the flag for this area pokemon encounter
 	ld a, [wEnemyMonSpecies]
 	ld [wTempMon], a
@@ -977,7 +977,7 @@ ItemUseMedicine:
 	jr c, .noRevives
 	; nuzlocke mode check
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jp nz, .noRevivesNuzlockeEffect ; if in nuzlocke mode revives have no effect
 	jr .healHP ; if it's a Revive or Max Revive
 .noRevives
@@ -1051,7 +1051,7 @@ ItemUseMedicine:
 .fainted
 	; nuzlocke mode check
 	ld a, [wExtraFlags]
-	bit 3, a
+	bit BIT_NUZLOCKE_MODE, a
 	jp nz, .noRevivesNuzlockeEffect ; if in nuzlocke mode revives have no effect
 	ld a, [wCurItem]
 	cp REVIVE
@@ -1522,7 +1522,7 @@ ItemUseMedicine:
 .useRareCandy
 	push hl
 	ld a, [wExtraFlags]
-	bit 3, a ; Nuzlocke mode
+	bit BIT_NUZLOCKE_MODE, a ; Nuzlocke mode
 	jr z, .checkRareCandyLevel
 	ld bc, wPartyMon1HP - wPartyMon1
 	add hl, bc
@@ -1537,7 +1537,7 @@ ItemUseMedicine:
 	;;;;;;;;;;;;;;; HARD MODE START
 	ld b, MAX_LEVEL
 	ld a, [wExtraFlags]
-	bit 2, a
+	bit BIT_HARD_MODE, a
 	jr z, .continueUseRareCandy ; jump if we are in normal mode
 	CheckEvent EVENT_PLAYER_IS_CHAMPION
 	jr nz, .continueUseRareCandy
