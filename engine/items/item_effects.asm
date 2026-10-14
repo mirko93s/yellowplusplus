@@ -2298,11 +2298,6 @@ ItemUseItemfinder:
 	and a
 	jp nz, ItemUseNotTime
 	call ItemUseReloadOverworldData
-	; The pocket Bag closes with sprite updates disabled. Restore the map's
-	; sprites before detecting items or displaying an emotion bubble.
-	ld a, 1
-	ld [wUpdateSpritesEnabled], a
-	call UpdateSprites
 	farcall HiddenItemNear ; check for hidden items
 	ld hl, ItemfinderFoundNothingText
 	jr nc, .printText ; if no hidden items
@@ -3331,6 +3326,9 @@ ItemUseReloadOverworldData:
 	; Successful field effects deliberately return to the map; failed uses do not.
 	farcall ClosePocketBagUI
 	call LoadCurrentMapView
+	; The field Bag saves a disabled sprite state; enable updates for the map.
+	ld a, 1
+	ld [wUpdateSpritesEnabled], a
 	jp UpdateSprites
 
 ; creates a list at wBuffer of maps where the mon in [wPokedexNum] can be found.
