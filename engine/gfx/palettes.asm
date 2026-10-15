@@ -2078,7 +2078,7 @@ INCLUDE "data/pokemon/palettes.asm"
 INCLUDE "data/sgb/sgb_border.asm"
 
 SendShinyCaterpiePal:
-	ld de, PAL_SHINY_CATERPIE
+	ld de, PAL_CATERPIE_SHINY
 	jr SendCustomPacket
 
 SendPokeballPal:
