@@ -461,29 +461,24 @@ ShowPokedexDataInternal:
 	pop af
 	ld [wPokedexNum], a
 	call DrawDexEntryOnScreen
+	push hl
+	ld hl, wShinyMonFlag
+	set 7, [hl] ; enable Select during entry text and page prompts
+	push af
+	hlcoord 5, 8
+	ld de, SelectText
+	call PlaceString
+	pop af
+	pop hl
 	call c, Pokedex_PrintFlavorTextAtRow11
 .waitForButtonPress
 	call JoypadLowSensitivity
-; if select is pressed alternate normal/shiny palette
-	ldh a, [hJoyPressed]
-	and SELECT
-	jr z, .checkAB
-	ld hl, wShinyMonFlag
-	bit 0, [hl]
-	jr nz, .setNormal
-	set 0, [hl]
-	jr .updatePalette
-.setNormal
-	res 0, [hl]
-.updatePalette
-	ld b, SET_PAL_POKEDEX
-	call RunPaletteCommand
-.checkAB
 	ldh a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .waitForButtonPress
 	ld hl, wShinyMonFlag
 	res 0, [hl]
+	res 7, [hl]
 	pop af
 	ldh [hTileAnimations], a
 	call GBPalWhiteOut
@@ -497,6 +492,37 @@ ShowPokedexDataInternal:
 	ldh [rNR50], a
 	ret
 
+Pokedex_HandlePaletteInput::
+	; Bit 7 is set only while the interactive Pokedex entry is open.
+	push af
+	ld a, [wShinyMonFlag]
+	bit 7, a
+	jr z, .done
+	ldh a, [hJoyPressed]
+	and SELECT
+	jr z, .done
+	push bc
+	push de
+	push hl
+	ld hl, wShinyMonFlag
+	ld a, [hl]
+	xor 1
+	ld [hl], a
+	bit 0, a
+	ld a, ' '
+	jr z, .drawShinySymbol
+	ld a, '⁂'
+.drawShinySymbol
+	ldcoord_a 8, 8 ; immediately after the Select tiles
+	ld b, SET_PAL_POKEDEX
+	call RunPaletteCommand
+	pop hl
+	pop de
+	pop bc
+.done
+	pop af
+	ret
+
 HeightWeightText:
 	db   "HT   ?.?m"
 	next "WT   ???Kg@"
@@ -506,7 +532,7 @@ PokeText:
 	db "#@"
 
 SelectText:
-	db " <SEL_L><SEL_C><SEL_R> @"
+	db "<SEL_L><SEL_C><SEL_R>@"
 
 ; horizontal line that divides the pokedex text description from the rest of the data
 PokedexDataDividerLine:
@@ -576,10 +602,8 @@ DrawDexEntryOnScreen:
 	ld a, [wPokedexNum]
 	push af
 
-	hlcoord 2, 8
+	hlcoord 1, 8
 	ld a, '№'
-	ld [hli], a
-	ld a, '.'
 	ld [hli], a
 	ld de, wPokedexNum
 	lb bc, LEADING_ZEROES | 1, 3
@@ -678,8 +702,8 @@ Pokedex_PrintFlavorTextAtBC:
 	call TextCommandProcessor ; print pokedex description text
 	xor a
 	ldh [hClearLetterPrintingDelayFlags], a
-	; replace pokemon number with "SELECT" icon to give a visual indicator for shiny palette switch
-	hlcoord 2, 8
+	; Keep the Select hint beside the entry number.
+	hlcoord 5, 8
 	ld de, SelectText
 	call PlaceString
 	ret

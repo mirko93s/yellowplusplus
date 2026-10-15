@@ -31,6 +31,15 @@ ENDR
 	ldh [rJOYP], a
 	ret
 
+JoypadWithPokedexPaletteInput::
+	call _Joypad
+	push bc
+	push hl
+	farcall Pokedex_HandlePaletteInput
+	pop hl
+	pop bc
+	ret
+
 _Joypad::
 ; hJoyReleased: (hJoyLast ^ hJoyInput) & hJoyLast
 ; hJoyPressed:  (hJoyLast ^ hJoyInput) & hJoyInput
