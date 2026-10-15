@@ -158,6 +158,10 @@ pokeyellow_vc.gbc:    RGBFIXFLAGS += -p 0x00
 
 ### Misc file-specific graphics rules
 
+# Preserve all four embedded palette slots, including unused colors.
+gfx/pokemon/front/%.2bpp: rgbgfx += -c embedded
+gfx/pokemon/back/%.2bpp: rgbgfx += -c embedded
+
 gfx/battle/move_anim_0.2bpp: tools/gfx += --trim-whitespace
 gfx/battle/move_anim_1.2bpp: tools/gfx += --trim-whitespace
 
