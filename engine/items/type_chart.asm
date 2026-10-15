@@ -152,7 +152,7 @@ TypeChartLoadPalettes:
 	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
 	jr z, .color
 	; The standard palette lookup honors both monochrome options.
-	xor a
+	ld de, PAL_ROUTE
 	farcall GetGBCBasePalAddress
 	ld h, d
 	ld l, e

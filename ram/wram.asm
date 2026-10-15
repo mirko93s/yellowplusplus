@@ -2787,6 +2787,7 @@ wMoveTypeIconPalette:: db ; type ID for BG palette 5, including fades
 wMoveCategoryIconPalette:: db ; category in bits 0-1, effectiveness in 2-6;
                             ; or bit 7 set + second type ID
 wBGPPalsBuffer:: ds NUM_BG_PALS * PALETTE_SIZE
+wWholeScreenPaletteID:: dw ; explicit palette for whole-screen mode 2
 
 
 IF DEF(_DEBUG)

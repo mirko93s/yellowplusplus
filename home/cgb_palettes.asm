@@ -17,7 +17,7 @@ StoreGBCObj0BasePalPointer::
 	and a
 	jr z, .store
 	push de
-	ld a, PAL_NPC
+	ld de, PAL_NPC
 	call GetGBCBasePalAddress
 	call .store
 	pop de
@@ -63,6 +63,8 @@ GetShopBasePaletteAddress::
 	ld a, BANK(GetGBCBasePalAddress)
 	call BankswitchCommon
 	ld a, [wShopCityPalette]
+	ld e, a
+	ld d, 0
 	call GetGBCBasePalAddress
 	pop bc
 	ld a, b

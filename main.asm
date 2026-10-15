@@ -720,10 +720,15 @@ MewPicFront::         INCBIN "gfx/pokemon/front/mew.pic"
 MewPicBack::          INCBIN "gfx/pokemon/back/mewb.pic"
 
 
-SECTION "bank42", ROMX, BANK[$42]
+SECTION "bank42", ROMX[$4000], BANK[$42]
 
 INCLUDE "data/sgb/sgb_palettes.asm"
 INCLUDE "data/types/icon_palettes.asm"
+
+PaletteBankDataEnd:
+; Keep the rest of this bank available for palette growth only.
+ASSERT BANK(PaletteBankDataEnd) == BANK(SuperPalettes)
+	ds $8000 - @, 0
 
 SECTION "bank44",ROMX,BANK[$43]
 

@@ -55,9 +55,8 @@ SetPal_Battle:
 	call AddNTimes
 .asm_71ef9
 	call DeterminePaletteIDBack
-	ld b, a
-	;shiny3
-	push bc
+	; Preserve the complete player palette while selecting the enemy palette.
+	push de
 	ld hl, wShinyMonFlag
 	res 0, [hl]
 	ld a, [wEnemyMonSpecies2]
@@ -72,8 +71,7 @@ SetPal_Battle:
     ;shiny4
 	ld hl, wEnemyMonSpecies2
 	call DeterminePaletteIDFront
-	pop bc
-	ld c, a
+	pop bc ; bc = player palette, de = enemy palette
 	ld hl, wPalPacket + 1
 	ld a, [wPlayerHPBarColor]
 	add PAL_GREENBAR
@@ -83,11 +81,13 @@ SetPal_Battle:
 	add PAL_GREENBAR
 	ld [hli], a
 	inc hl
+	ld a, c
+	ld [hli], a
 	ld a, b
 	ld [hli], a
-	inc hl
-	ld a, c
-	ld [hl], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
 	ld hl, wPalPacket
 	ld de, BlkPacket_Battle
 	ld a, SET_PAL_BATTLE
@@ -111,14 +111,16 @@ SetPal_StatusScreen:
 	ld a, $1 ; not pokemon
 .pokemon
 	call DeterminePaletteIDOutOfBattle
-	push af
+	push de
 	ld hl, wPalPacket + 1
 	ld a, [wStatusScreenHPBarColor]
 	add PAL_GREENBAR
 	ld [hli], a
 	inc hl
-	pop af
-	ld [hl], a
+	pop de
+	ld a, e
+	ld [hli], a
+	ld [hl], d
 	ld hl, wPalPacket
 	ld de, BlkPacket_StatusScreen
 	ret
@@ -136,7 +138,9 @@ SetPal_Pokedex:
 	ld a, [wCurPartySpecies]
 	call DeterminePaletteIDOutOfBattle
 	ld hl, wPalPacket + 3
-	ld [hl], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
 	ld hl, wPalPacket
 	ld de, BlkPacket_Pokedex
 	ret
@@ -200,27 +204,34 @@ SetPal_Overworld:
 .townOrRoute
 	cp NUM_CITY_MAPS
 	jr c, .town
-	ld a, PAL_ROUTE - 1
+	ld de, PAL_ROUTE
+	jr .palette
 .town
 	inc a ; a town's palette ID is its map ID + 1
+	ld e, a
+	ld d, 0
+.palette
 	ld hl, wPalPacket + 1
-	ld [hld], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
+	ld hl, wPalPacket
 	ld de, BlkPacket_WholeScreen
 	ld a, SET_PAL_OVERWORLD
 	ld [wDefaultPaletteCommand], a
 	ret
 .PokemonTowerOrAgatha
-	ld a, PAL_GREYMON - 1
-	jr .town
+	ld de, PAL_GREYMON
+	jr .palette
 .caveOrBruno
-	ld a, PAL_CAVE - 1
-	jr .town
+	ld de, PAL_CAVE
+	jr .palette
 .Lorelei
-	xor a
-	jr .town
+	ld de, PAL_PALLET
+	jr .palette
 .trade_center_colosseum
-	ld a, PAL_GREYMON - 1
-	jr .town
+	ld de, PAL_GREYMON
+	jr .palette
 
 ; used when a Pokemon is the only thing on the screen
 ; such as evolution, trading and the Hall of Fame
@@ -233,15 +244,25 @@ SetPal_PokemonWholeScreen:
 	pop bc
 	ld a, c
 	cp 1
-	ld a, PAL_BLACK
+	ld de, PAL_BLACK
 	jr z, .next
 	ld a, c
 	cp 2
 	ld a, [wWholeScreenPaletteMonSpecies]
-	jr z, .next
+	jr nz, .pokemon
+	; Mode 2 supplies an explicit word-sized palette ID, rather than a species.
+	ld a, [wWholeScreenPaletteID]
+	ld e, a
+	ld a, [wWholeScreenPaletteID + 1]
+	ld d, a
+	jr .next
+.pokemon
 	call DeterminePaletteIDOutOfBattle
 .next
+	ld a, e
 	ld [wPalPacket + 1], a
+	ld a, d
+	ld [wPalPacket + 2], a
 	ld hl, wPalPacket
 	ld de, BlkPacket_WholeScreen
 	ret
@@ -327,6 +348,7 @@ BadgeBlkDataLengths:
 	db 6     ; Volcano Badge
 	db 6     ; Earth Badge
 
+; Species/trainer selection returns the full palette ID in de.
 DeterminePaletteIDFront:
 	ld a, [hl]
 DeterminePaletteIDOutOfBattle:
@@ -347,7 +369,10 @@ GetPalID:
 	ld e, a
 	ld d, 0
 	add hl, de
-	ld a, [hl]
+	add hl, de
+	ld a, [hli]
+	ld d, [hl]
+	ld e, a
 	ret
 
 DeterminePaletteIDBack:
@@ -357,9 +382,9 @@ DeterminePaletteIDBack:
 	jp nz, GetMonPalID
 	ld a, [wBattleType]
 	cp BATTLE_TYPE_PIKACHU
-	ld a, PAL_OAKB
+	ld de, PAL_OAKB
 	ret z
-	ld a, PAL_HERO
+	ld de, PAL_HERO
 	ret
 
 
@@ -382,6 +407,8 @@ YellowIntroPaletteAction::
 	ld hl, PalPacket_Generic
 	inc hl
 	ld a, [hli]
+	ld e, a
+	ld d, [hl]
 	call GetGBCBasePalAddress
 	ld a, e
 	ld [wGBCBasePalPointers + 2], a
@@ -400,7 +427,9 @@ LoadOverworldPikachuFrontpicPalettes::
 	call CopyData
 	call GetPal_Pikachu
 	ld hl, wPartyMenuBlkPacket
-	ld [hl], a
+	ld a, e
+	ld [hli], a
+	ld [hl], d
 	ld hl, wPartyMenuBlkPacket + 2
 	ld a, $26
 	ld [hl], a
@@ -442,7 +471,7 @@ LoadOverworldPikachuFrontpicPalettes::
 	ret
 
 GetPal_Pikachu::
-; similar to SetPal_Overworld
+; Similar to SetPal_Overworld; returns the palette ID in de.
 	ld a, [wCurMapTileset]
 	cp CEMETERY
 	jr z, .PokemonTowerOrAgatha
@@ -468,26 +497,29 @@ GetPal_Pikachu::
 .townOrRoute
 	cp SAFFRON_CITY + 1
 	jr c, .town
-	ld a, PAL_ROUTE - 1
+	ld de, PAL_ROUTE
+	ret
 .town
-	inc a ; a town's pallete ID is its map ID + 1
+	inc a ; a town's palette ID is its map ID + 1
+	ld e, a
+	ld d, 0
 	ret
 
 .PokemonTowerOrAgatha
-	ld a, PAL_GREYMON - 1
-	jr .town
+	ld de, PAL_GREYMON
+	ret
 
 .caveOrBruno
-	ld a, PAL_CAVE - 1
-	jr .town
+	ld de, PAL_CAVE
+	ret
 
 .Lorelei
-	xor a ; PAL_PALLET - 1
-	jr .town
+	ld de, PAL_PALLET
+	ret
 
 .battleOrTradeCenter
-	ld a, PAL_GREYMON - 1
-	jr .town
+	ld de, PAL_GREYMON
+	ret
 
 InitPartyMenuBlkPacket:
 	ld hl, BlkPacket_PartyMenu
@@ -805,7 +837,9 @@ InitGBCPalettes:
 		ENDC
 
 		ld a, [hli]
-		inc hl
+		ld e, a
+		ld a, [hli]
+		ld d, a
 
 		IF index < NUM_ACTIVE_PALS - 1
 			push hl
@@ -840,7 +874,7 @@ InitGBCPalettes:
 		call TransferCurOBPData
 	ENDR
 
-	ld a, PAL_EXP
+	ld de, PAL_EXP
 	call GetGBCBasePalAddress
 	xor a
 	call DMGPalToGBCPal
@@ -1081,26 +1115,26 @@ StorageUpdatePalettes::
 	ldh a, [hGBC]
 	and a
 	ret z
-	ld a, PAL_GREYMON
+	ld de, PAL_GREYMON
 	ld b, 0
 	call StorageUploadPalette
 	call StorageUpdateFramePalette
 	ld a, [wCurPartySpecies]
 	and a
-	ld a, PAL_GREYMON
+	ld de, PAL_GREYMON
 	jr z, .front
 	ld a, [wCurPartySpecies]
 	call DeterminePaletteIDOutOfBattle
 .front
 	ld b, 1
 	call StorageUploadPalette
-	ld a, PAL_MEWMON
+	ld de, PAL_MEWMON
 	ld b, 2
 	call StorageUploadPalette
-	ld a, PAL_PURPLEMON
+	ld de, PAL_PURPLEMON
 	ld b, 3
 	call StorageUploadPalette
-	ld a, PAL_BLUEMON
+	ld de, PAL_BLUEMON
 	ld b, 4
 	call StorageUploadPalette
 	call UpdateBattleMoveTypePalette
@@ -1121,7 +1155,7 @@ StorageUpdateFramePalette:
 	call CopyData
 	jr .upload
 .monochrome
-	ld a, PAL_GREYMON
+	ld de, PAL_GREYMON
 	call GetGBCBasePalAddress
 	xor a
 	call DMGPalToGBCPal
@@ -1144,29 +1178,14 @@ StorageUpdateFramePalette:
 
 IF DEF(_DEBUG)
 GetSoundTestPaletteAddress::
-	; A selects a player palette. Follow standard color-mode selection.
-	ld l, a
-	ld h, 0
-	add hl, hl
-	add hl, hl
-	add hl, hl
-	ld a, [wOptions]
-	and COLOR_MODE_MASK
-	ld de, SoundTestPalettes
-	jr z, .table
-	ld de, SoundTestPalettesCorrected
-	cp COLOR_MODE_GBC << COLOR_MODE_SHIFT
-	jr z, .table
-	ld de, DMGGreenPalette
-	cp COLOR_MODE_DMG << COLOR_MODE_SHIFT
-	ret z
-	ld de, DMGGrayPalette
-	ret
-.table
+	; A is a zero-based sound-test palette index.
+	ld e, a
+	ld d, 0
+	ld hl, PAL_SOUND_TEST_NOTE
 	add hl, de
 	ld d, h
 	ld e, l
-	ret
+	jp GetGBCBasePalAddress
 
 SoundTestUploadPalette::
 	; Far calls consume A/B, so receive the player's palette index in C.
@@ -1222,7 +1241,7 @@ StoragePreparePreviewPalettes::
 	ret z
 	ld a, [wCurPartySpecies]
 	and a
-	ld a, PAL_GREYMON
+	ld de, PAL_GREYMON
 	jr z, .front
 	ld a, [wCurPartySpecies]
 	call DeterminePaletteIDOutOfBattle
@@ -1699,12 +1718,11 @@ SetStatusTypeIconAttributes:
 	ret
 
 GetGBCBasePalAddress::
-; Input: a = palette ID
-; Output: de = palette address
+; Input: de = 16-bit palette ID (currently $0000-$01ff for SGB compatibility)
+; Output: de = palette address; preserves bc and hl, clobbers af.
     push hl
-    ld l, a
-    xor a
-    ld h, a
+    ld h, d
+    ld l, e
     add hl, hl
     add hl, hl
     add hl, hl
@@ -1921,7 +1939,7 @@ _UpdateGBCPal_BGP::
 		call BufferBGPPal
 	ENDR
 
-	ld a, PAL_EXP
+	ld de, PAL_EXP
 	call GetGBCBasePalAddress
 	xor a
 	call DMGPalToGBCPal
@@ -2060,31 +2078,34 @@ INCLUDE "data/pokemon/palettes.asm"
 INCLUDE "data/sgb/sgb_border.asm"
 
 SendShinyCaterpiePal:
-	ld a, PAL_SHINY_CATERPIE
+	ld de, PAL_SHINY_CATERPIE
 	jr SendCustomPacket
 
 SendPokeballPal:
-	ld a, PAL_REDBAR
+	ld de, PAL_REDBAR
 	jr SendCustomPacket
 
 SendOakPal:
-	ld a, PAL_OAK
+	ld de, PAL_OAK
 	jr SendCustomPacket
 
 SendPikaPal:
-	ld a, PAL_PIKACHU
+	ld de, PAL_PIKACHU
 	jr SendCustomPacket
 
 SendPlayerPal:
-	ld a, PAL_HERO
+	ld de, PAL_HERO
 	jr SendCustomPacket
 
 SendRivalPal:
-	ld a, PAL_GARY1
+	ld de, PAL_GARY1
 	jr SendCustomPacket
 
 SendCustomPacket:
-	ld [wWholeScreenPaletteMonSpecies], a
+	ld a, e
+	ld [wWholeScreenPaletteID], a
+	ld a, d
+	ld [wWholeScreenPaletteID + 1], a
 	ld c, 2
 	ld b, SET_PAL_POKEMON_WHOLE_SCREEN
 	jp RunPaletteCommand
