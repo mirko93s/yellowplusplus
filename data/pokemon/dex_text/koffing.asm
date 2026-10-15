@@ -6,7 +6,7 @@ _KoffingDexEntry::
 	down "could expand and"
 	down "explode without"
 	down "any warning. Be"
-	down "very careful!@@."
+	down "very careful!"
 
 	page "HP   40│     Type:"
 	down "ATK  65│    Poison"
