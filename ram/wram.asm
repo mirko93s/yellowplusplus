@@ -2706,7 +2706,10 @@ ENDU
 
 wTrainerHeaderPtr:: dw
 
-	ds 6
+; SELECT registration uses saved padding without moving subsequent fields.
+wRegisteredItem:: db
+wRegisteredItemMarker:: ds 2
+	ds 3
 
 ; the trainer the player must face after getting a wrong answer in the Cinnabar
 ; gym quiz

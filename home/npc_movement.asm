@@ -1,15 +1,8 @@
 ; not zero if an NPC movement script is running, the player character is
 ; automatically stepping down from a door, or joypad states are being simulated
 IsPlayerCharacterBeingControlledByGame::
-	ld a, [wNPCMovementScriptPointerTableNum]
-	and a
-	ret nz
-	ld a, [wMovementFlags]
-	bit 1, a ; currently stepping down from door bit
-	ret nz
-	ld a, [wStatusFlags5]
-	and $80
-	ret
+; Callers inspect Z, which the bank switch preserves.
+	farjp IsPlayerCharacterBeingControlledByGame_
 
 RunNPCMovementScript::
 	ld hl, wMovementFlags

@@ -161,7 +161,7 @@ MenuUIFixBoxCorners:
 	db $6e, $6f, $6b, $6c, $68, $69
 
 BagActionCursor:
-	hlcoord 13, 10
+	hlcoord 10, 10
 	ld a, [wCurrentMenuItem]
 	ld bc, SCREEN_WIDTH
 	call AddNTimes

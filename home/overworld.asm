@@ -71,6 +71,12 @@ OverworldLoopLessDelay::
 	ldh a, [hJoyHeld]
 	jr .checkIfStartIsPressed
 .notSimulating
+	farcall CanUseRegisteredItem
+	jr nc, .normalInput
+	ld a, TEXT_REGISTERED_ITEM
+	ldh [hSpriteIndexOrTextID], a
+	jp .displayDialogue
+.normalInput
 	ldh a, [hJoyPressed]
 .checkIfStartIsPressed
 	bit BIT_START, a
@@ -1652,18 +1658,7 @@ JoypadOverworld::
 	jp AreInputsSimulated
 
 ForceBikeDown::
-	ld a, [wStatusFlags7]
-	bit 3, a ; check if a trainer wants a challenge
-	ret nz
-	ld a, [wCurMap]
-	cp ROUTE_17 ; Cycling Road
-	ret nz
-	ldh a, [hJoyHeld]
-	and D_DOWN | D_UP | D_LEFT | D_RIGHT | B_BUTTON | A_BUTTON
-	ret nz
-	ld a, D_DOWN
-	ldh [hJoyHeld], a ; on the cycling road, if there isn't a trainer and the player isn't pressing buttons, simulate a down press
-	ret
+	farjp ForceBikeDown_
 
 AreInputsSimulated::
 	ld a, [wStatusFlags5]

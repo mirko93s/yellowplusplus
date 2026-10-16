@@ -328,11 +328,26 @@ StartMenu_Item::
 	call UpdateSprites
 	jp RedisplayStartMenu
 .choseItem
-	ld a, [wCurItem]
-	cp BICYCLE
-	jr z, .useOrTossItem
 	farcall BagFieldActions
 	jp c, ItemMenuLoop
+	ld a, [wCurrentMenuItem]
+	cp 1
+	jr nz, .useOrTossItem
+	farcall IsRegisterableItem
+	jr nc, .useOrTossItem
+	farcall ToggleRegisteredItem
+	ld a, [wCurItem]
+	ld [wNamedObjectIndex], a
+	call GetItemName
+	call CopyToStringBuffer
+	ld a, [wRegisteredItem]
+	and a
+	ld hl, RegisteredItemText
+	jr nz, .registrationMessage
+	ld hl, UnregisteredItemText
+.registrationMessage
+	call PrintText
+	jp ItemMenuLoop
 .useOrTossItem ; if the player made the choice to use or toss the item
 	ld a, [wCurItem]
 	ld [wNamedObjectIndex], a
@@ -340,14 +355,7 @@ StartMenu_Item::
 	call CopyToStringBuffer
 	ld a, [wCurItem]
 	cp BICYCLE
-	jr nz, .notBicycle2
-	ld a, [wStatusFlags6]
-	bit 5, a
 	jr z, .useItem_closeMenu
-	ld hl, CannotGetOffHereText
-	call PrintText
-	jp ItemMenuLoop
-.notBicycle2
 	ld a, [wCurrentMenuItem]
 	cp 1
 	jr z, .tossItem
@@ -415,9 +423,37 @@ CannotUseItemsHereText:
 	text_far _CannotUseItemsHereText
 	text_end
 
-CannotGetOffHereText:
-	text_far _CannotGetOffHereText
-	text_end
+; Generation II registration wording, with a matching clearing confirmation.
+RegisteredItemText:
+	text "Registered the"
+	line "@"
+	text_ram wStringBuffer
+	text "."
+	prompt
+
+UnregisteredItemText:
+	text "Unregistered the"
+	line "@"
+	text_ram wStringBuffer
+	text "."
+	prompt
+
+UseRegisteredItem::
+; DisplayTextID owns the text/sprite host; return through CloseStartMenu.
+	farcall ValidateRegisteredItem
+	ld a, [wRegisteredItem]
+	and a
+	ret z
+	ld [wCurItem], a
+	ld [wNamedObjectIndex], a
+	call GetItemName
+	call CopyToStringBuffer
+	ld a, [wWalkBikeSurfState]
+	ld [wWalkBikeSurfStateCopy], a
+	call SaveScreenTilesToBuffer2
+	xor a
+	ld [wPseudoItemID], a
+	jp UseItem
 
 INCLUDE "data/items/use_party.asm"
 

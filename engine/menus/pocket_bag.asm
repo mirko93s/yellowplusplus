@@ -724,6 +724,8 @@ BagPocketLabels:
 
 BagFieldActions::
 ; This menu is called only from StartMenu_Item. Carry = cancelled.
+	call IsRegisterableItem
+	jr c, .registerable
 	ld a, [wBagPocket]
 	cp KEY_POCKET
 	jr nc, .useOnly
@@ -731,31 +733,37 @@ BagFieldActions::
 	ld a, [wIsKeyItem]
 	and a
 	jr nz, .useOnly
-	hlcoord 12, 9
-	lb bc, 2, 5
-	call BagSkinBox
-	hlcoord 14, 10
 	ld de, .useToss
+	jr .twoActions
+.registerable
+	ld de, .useSelect
+.twoActions
+	push de
+	hlcoord 9, 9
+	lb bc, 2, 9
+	call BagSkinBox
+	pop de
+	hlcoord 11, 10
 	call PlaceString
 	ld a, 1
 	ld [wMaxMenuItem], a
 	jr .input
 .useOnly
-	hlcoord 12, 9
-	lb bc, 1, 5
+	hlcoord 9, 9
+	lb bc, 1, 9
 	call BagSkinBox
-	hlcoord 14, 10
+	hlcoord 11, 10
 	ld de, .use
 	call PlaceString
 	xor a
 	ld [wMaxMenuItem], a
 .input
-	hlcoord 12, 9
+	hlcoord 9, 9
 	call BagCellAddress
 	ld a, [wMaxMenuItem]
 	add 3
 	ld b, a
-	ld c, 7
+	ld c, 11
 	call BagUploadRectangle
 	xor a
 	ld [wCurrentMenuItem], a
@@ -766,6 +774,9 @@ BagFieldActions::
 	down "Toss@"
 .use
 	db "Use@"
+.useSelect
+	db "Use"
+	down "Select@"
 
 DisplayChooseQuantityMenu_::
 	hlcoord 14, 9
@@ -930,6 +941,7 @@ SpacesBetweenQuantityAndPriceText::
 ; Load the save, then reset transient Bag menu state.
 LoadSAV::
 	farcall LoadSAV_
+	call ValidateRegisteredItem
 	ld hl, wBagPocket
 	ld bc, wShopBoxHeight - wBagPocket + 1
 	xor a

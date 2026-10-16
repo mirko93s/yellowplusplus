@@ -26,6 +26,7 @@ DisplayTextID::
 	ld [wSpriteIndex], a
 
 	dict TEXT_START_MENU,       DisplayStartMenu
+	dict TEXT_REGISTERED_ITEM,  DisplayRegisteredItem
 	dict TEXT_PIKACHU_ANIM,     DisplayPikachuEmotion
 	dict TEXT_SAFARI_GAME_OVER, DisplaySafariGameOverText
 	dict TEXT_MON_FAINTED,      DisplayPokemonFaintedText
@@ -130,6 +131,10 @@ CloseTextDisplay::
 	pop af
 	call BankswitchCommon
 	jp UpdateSprites
+
+DisplayRegisteredItem::
+	farcall UseRegisteredItem
+	jp CloseStartMenu
 
 DisplayPokemartDialogue::
 	push hl

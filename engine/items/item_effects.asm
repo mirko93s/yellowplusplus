@@ -701,6 +701,12 @@ ItemUseBicycle:
 	dec a ; is player already bicycling?
 	jr nz, .tryToGetOnBike
 .getOffBike
+	ld a, [wStatusFlags6]
+	bit 5, a ; forced cycling: applies to Bag and SELECT alike
+	jr z, .canGetOffBike
+	ld hl, .cannotGetOffText
+	jp ItemUseFailed
+.canGetOffBike
 	call ItemUseReloadOverworldData
 	xor a
 	ld [wWalkBikeSurfState], a ; change player state to walking
@@ -726,6 +732,10 @@ ItemUseBicycle:
 	ld a, $1
 	ld [wWalkBikeSurfState], a
 	ret
+
+.cannotGetOffText
+	text_far _CannotGetOffHereText
+	text_end
 
 ; used for Surf out-of-battle effect
 ItemUseSurfboard:

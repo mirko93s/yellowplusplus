@@ -758,6 +758,7 @@ SECTION "Move Learning Menu", ROMX
 INCLUDE "engine/pokemon/move_learning_menu.asm"
 
 SECTION "Pocket Inventory", ROMX
+INCLUDE "engine/overworld/force_bike_down.asm"
 INCLUDE "engine/items/inventory.asm"
 INCLUDE "engine/menus/pocket_bag.asm"
 

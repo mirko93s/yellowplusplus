@@ -427,6 +427,7 @@ RemoveBagItemByID_::
 	jp RemoveItemFromInventory_
 
 InitializePocketBag_::
+	call ClearRegisteredItem
 	xor a
 	ld [wNumItems], a
 	ld [wNumBalls], a
@@ -442,4 +443,77 @@ InitializePocketBag_::
 	ld [wBalls], a
 	ld [wBagSwapIndex], a
 	ld [wBagSelectedIndex], a
+	ret
+
+IsRegisterableItem::
+; wCurItem -> carry if this item supports SELECT registration.
+	ld a, [wCurItem]
+IsRegisterableItemID:
+; A = item ID. Keep the current Bag selection untouched during validation.
+	ld hl, RegisterableItems
+	ld de, 1
+	jp IsInArray
+
+RegisterableItems:
+	db BICYCLE, ITEMFINDER, OLD_ROD, GOOD_ROD, SUPER_ROD
+	db TYPE_CHART, TOWN_MAP, COIN_CASE, POKE_FLUTE
+	db -1
+
+ClearRegisteredItem::
+	xor a
+	ld [wRegisteredItem], a
+	ld a, $53
+	ld [wRegisteredItemMarker], a
+	ld a, $a7
+	ld [wRegisteredItemMarker + 1], a
+	xor a
+	ret
+
+ValidateRegisteredItem::
+; Return the owned, eligible item in A, or zero. Preserve wCurItem.
+	ld a, [wRegisteredItemMarker]
+	cp $53
+	jr nz, ClearRegisteredItem
+	ld a, [wRegisteredItemMarker + 1]
+	cp $a7
+	jr nz, ClearRegisteredItem
+	ld a, [wRegisteredItem]
+	call IsRegisterableItemID
+	jr nc, ClearRegisteredItem
+	ld a, [wRegisteredItem]
+	call GetOwnershipBit
+	jr nc, ClearRegisteredItem
+	ld a, [hl]
+	and b
+	jr z, ClearRegisteredItem
+	ld a, [wRegisteredItem]
+	and a
+	ret
+
+ToggleRegisteredItem::
+	call ValidateRegisteredItem
+	ld b, a
+	ld a, [wCurItem]
+	cp b
+	jr z, ClearRegisteredItem
+	ld [wRegisteredItem], a
+	ret
+
+CanUseRegisteredItem::
+; Only a fresh, real SELECT press while the player is stationary may activate.
+	ldh a, [hJoyPressed]
+	and SELECT
+	ret z
+	call IsPlayerCharacterBeingControlledByGame_
+	ret nz
+	ld a, [wStatusFlags5]
+	bit 2, a
+	ret nz
+	ld a, [wLinkState]
+	cp 1
+	ret z
+	call ValidateRegisteredItem
+	and a
+	ret z
+	scf
 	ret
