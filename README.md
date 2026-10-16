@@ -1,109 +1,54 @@
 # Pokémon Yellow++
 
-A modernized Pokémon Yellow ROM hack with new mechanics, content, and quality-of-life improvements, while preserving the classic story and gameplay.  
+<p align="left">
+  <img src="screenshots/box_art.jpg" alt="Pokémon Yellow++ box art" width="320">
+</p>
 
-[![DOWNLOAD ROM](https://img.shields.io/badge/DOWNLOAD_LATEST_ROM-brightgreen?style=for-the-badge&logo=github&logoColor=white&labelColor=blue)](https://github.com/mirko93s/yellowplusplus/releases/download/ypp-rolling/ypp_latest.gbc)  
-*More in the [latest release](https://github.com/mirko93s/yellowplusplus/releases/tag/ypp-rolling) page*  
+**The classic Pokémon Yellow experience but modernized.**
 
-## ⭐ Features
+Rediscover Kanto with modern battle mechanics, redesigned interfaces, new challenges, and countless quality-of-life improvements — while preserving the original adventure.
 
-**Major changes are in bold.**
+[![Download Latest ROM](https://img.shields.io/badge/DOWNLOAD_LATEST_ROM-brightgreen?style=for-the-badge&logo=github&logoColor=white&labelColor=blue)](https://github.com/mirko93s/yellowplusplus/releases/download/ypp-rolling/ypp_latest.gbc) 
 
-### New Content
-- **Gym Leaders and League Rematches** (with stronger Pokémon)  
-- **More wild Pokémon variety** (10 → 12 per area)  
-- **New Pokémon sprites**  
-- **All 151 Pokémon are obtainable**  
-- **New battle HUD**  
-- **Colored moves type and category icons in battle and status screen**
-- **NES-style font**  
-- **Two selectable fonts and 15 selectable text box frames**
-- **Mew obtainable through easter egg**  
-- **Changed all trainer parties**  
-- **Rebalanced trainer and wild Pokémon levels** (up to Lv. 85 for final rival)  
-- **Move relearner and deleter**  
-- **New game modes: HARD and NUZLOCKE** (can be combined and with an optional dupe clause)  
-- **Brand new status screen** inspired by Gen 2 (made from scratch by me)  
-- **Built-in Wild Pokémon Randomizer with User-Entered Seeds**  
-- **Gen 3-style Bill's PC revamp** with Pokémon sprites and minisprites
-- **Fully revamped bag with pockets in Gen 2-style**  
-- Move power and accuracy shown in the status screen
-- Changed all wild Pokémon and levels (mix of RBY)  
-- Changed all Pokémon trades and casino prizes  
-- All gym leaders and Elite Four have unique sprites and custom movesets  
-- Some new tilesets, sprites, fonts, palettes, etc.  
-- Scripted shiny Pokémon with properly randomized attack DVs (1 guaranteed; others in battle)  
-- Unique trainer names, class DVs, and Pokémon DVs  
-- Unique overworld Pokémon sprites  
+📖 **[Explore the Wiki →](https://github.com/mirko93s/yellowplusplus/wiki)**
 
-### Quality of Life
-- **Cheats menu** — unlock with Konami Code (↑↑↓↓←→←→BA) in the main menu  
-- **Countless original bugs fixed**  
-- **More Info in the Pokédex** (Base stats, Types, Evolutions, Levelup Movesets)
-- **Revamped shop UI** with left/right quantity adjustment  
-- Money limit raised to 9,999,999 (originally 999,999)  
-- Playtime tracks up to 99,999 hours (originally 255), 59 minutes, 59 seconds
-- Type effectiveness indicators in the battle HUD
-- Status effect icons
-- Press SELECT in the Pokédex entry page to alternate Normal/Shiny Sprites
-- Item descriptions
-- Prompt to use CUT, SURF and STRENGTH  
-- Repel prompts
-- Metric system in Pokédex  
-- One Pokémon collection with 216 fixed slots across 12 pages
-- Starter Pikachu has maxed DVs  
-- "Press B to RUN" in wild battles  
-- Fully decapitalized text  
-- Color correction settings (Uncorrected, GBC, DMG, Black/White)
-- Learning moves screen shows power, accuracy and a description
-- In battle move power, accuracy and effects descriptions (hold LEFT or RIGHT)  
+## Features
 
-### Backported / Updated Mechanics
-- **Running shoes** (press B)  
-- **Reusable TMs**  
-- **Player gender**  
-- **Pokémon gender**  
-- **Shiny Pokémon** (1/8192)  
-- **Physical/Special split** (with battle HUD icons)  
-- **Gen 7+ critical chance mechanic** (made from scratch by me)  
-- **Unique Pokémon minisprites** in party  
-- **Special split into sp. atk/sp. def** like Gen 2+ (still share 1 DV)  
-- Healing items, type effectiveness, moves, some move side effects updated to Gen 9  
-- No poison effect out of battle  
-- Updated Pokémon base stats, evolution moves, base EXP, catch rates to newer gens  
-- Item prices updated to Gen 9, selling items reduced (1/4 → 1/2), starting cash 5000  
-- Deposit Pokémon with HM moves in daycare  
-- Sleep mechanic from Gen 9, increased burn, poison, and leech seed damage (1/16 → 1/8)  
+### ⚔️ Modern Battle Mechanics
+Physical/Special split, separate Sp. Atk/Def, Gen 7+ critical hits, updated moves and mechanics, plus an enhanced battle HUD with colored type icons, effectiveness indicators, and detailed move information.
 
-### ...and much more!
-*(check commit history for full details)*
+### 🎮 Redesigned Interfaces
+Brand-new battle HUD, Gen 2-inspired status screen, Gen 2 Bag with pockets, expanded Pokédex, fully graphical Bill's PC with Gen 3-style Pokémon storage.
 
-## 📣 Credits & Inspiration
+### 🗺️ Expanded Kanto
+All 151 Pokémon obtainable (living dex), more diverse wild encounters, rebalanced and more challenging trainers, new Pokémon sprites, and challenging Gym Leader and Pokémon League rematches.
 
-This hack wouldn’t be possible without inspiration, code snippets, and tutorials from the community.
+### 🏆 Game Modes & Randomizer
+HARD and NUZLOCKE modes with an optional Dupe Clause, plus a built-in wild Pokémon randomizer supporting custom shareable seeds.
 
-- **Base ROM:**  
-  [dannye/pokeyellow-gen-2-gfx](https://github.com/dannye/pokeyellow-gen-2-gfx)
+### 🎨 Pokémon & Customization
+Shiny Pokémon, player and Pokémon genders, unique minisprites, selectable fonts and text box frames, and multiple color correction modes.
 
-- **Repos & Hacks that inspired or contributed code/snippets:**  
-  - [Rangi42/redstarbluestar](https://github.com/Rangi42/redstarbluestar)  
-  - [longlostsoul/EvoYellow](https://github.com/longlostsoul/EvoYellow)  
-  - [SteppoBlazer/pokesparkyellow](https://github.com/SteppoBlazer/pokesparkyellow)  
-  - [jojobear13/shinpokered](https://github.com/jojobear13/shinpokered)  
-  - [Vortyne/pureRGB](https://github.com/Vortyne/pureRGB)  
-  - [cRz-Shadows/Pokemon_Yellow_Legacy](https://github.com/cRz-Shadows/Pokemon_Yellow_Legacy)
-  - [ShiraTheMogul/kep-hack](https://github.com/ShiraTheMogul/kep-hack)
+### ⚡ Quality of Life
+Running shoes, reusable TMs, move relearner and deleter, improved item management, built-in cheats menu, numerous og bugs fixed, and much more.
 
-- **Wiki & Tutorials:**  
-  - [pret/pokered Wiki Tutorials](https://github.com/pret/pokered/wiki/Tutorials)  
-  - [pret/pokeyellow Wiki Tutorials](https://github.com/pret/pokeyellow/wiki/Tutorials)
+**...and much more!**
 
-- **Adaptation & Integration:**  
-  Most of the code, mechanics, ideas, and features were adapted from the hacks and tutorials above and carefully integrated into this ROM. Some features and routines were made from scratch by myself, with the [Gen 7–style critical hit mechanic](https://github.com/pret/pokered/wiki/Gen-7--critical-hit-chance-mechanic) being the main example.
+These are just some of the highlights. Check out the **[full feature list on the Wiki](https://github.com/mirko93s/yellowplusplus/wiki)** for everything Pokémon Yellow++ has to offer.
 
-- **Sprites:**  
-  - 80c — for the Pokémon spritesheet (original link is no longer available)  
-  - A few additional community-made sprites from various sources; if you recognize your work, please contact me for proper credit.
+## Screenshots
 
-- **Special thanks:**  
-  - The entire community for documentation, tools, and open-source resources
+| **Enhanced Battle HUD** | **Pokémon Status** | **Bag with Pockets** | **Bill’s PC** |
+|:---:|:---:|:---:|:---:|
+| [![Enhanced Battle HUD](screenshots/battle.gif)](screenshots/battle.gif) | [![Pokémon Status](screenshots/status.gif)](screenshots/status.gif) | [![Bag with Pockets](screenshots/bag.gif)](screenshots/bag.gif) | [![Bill’s PC](screenshots/billspc.png)](screenshots/billspc.png) |
+| **Expanded Pokédex** | **Game Modes** | **Cheats Menu** | **Revamped Shop** |
+| [![Expanded Pokédex](screenshots/dex.gif)](screenshots/dex.gif) | [![Game Modes](screenshots/gamemodes.png)](screenshots/gamemodes.png) | [![Cheats Menu](screenshots/cheats.gif)](screenshots/cheats.gif) | [![Revamped Shop](screenshots/shop.png)](screenshots/shop.png) |
+
+---
+
+## 📣 Credits
+
+Pokémon Yellow++ wouldn't have been possible without the amazing work of the Pokémon ROM hacking community.  
+Special thanks to everyone who contributed code, artwork, tools, tutorials, and inspiration.
+
+**[Full Credits & Acknowledgments](CREDITS.md)**
