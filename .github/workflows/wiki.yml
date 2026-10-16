@@ -1,0 +1,63 @@
+name: Sync GitHub Wiki
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wiki-publish
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'mirko93s/yellowplusplus' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          persist-credentials: false
+
+      - name: Publish wiki
+        shell: bash
+        env:
+          WIKI_SYNC_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$WIKI_SYNC_TOKEN" ]]; then
+            echo '::error::Set the WIKI_SYNC_TOKEN repository secret before publishing.'
+            exit 1
+          fi
+          if [[ ! -d wiki || ! -f wiki/Home.md ]]; then
+            echo '::error::wiki/ and wiki/Home.md must exist before publishing.'
+            exit 1
+          fi
+          # Supply credentials without placing the token in URLs or Git config.
+          auth=$(printf 'x-access-token:%s' "$WIKI_SYNC_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth"
+          export GIT_TERMINAL_PROMPT=0
+          target="$RUNNER_TEMP/published-wiki"
+          if ! git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" "$target"; then
+            echo '::error::Cannot access the wiki. Check token permissions and initialize the wiki on GitHub.'
+            exit 1
+          fi
+          git -C "$target" config user.name 'github-actions[bot]'
+          git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # Mirror all source files and deletions while protecting Git metadata.
+          rsync -a --delete --exclude='.git' "$GITHUB_WORKSPACE/wiki/" "$target/"
+          git -C "$target" add --all --force
+          if git -C "$target" diff --cached --quiet; then
+            echo 'Wiki already matches source; no commit needed.'
+            exit 0
+          fi
+          git -C "$target" commit -m "Sync wiki from $(git rev-parse HEAD)"
+          # Normal push preserves history and fails safely on concurrent external edits.
+          git -C "$target" push origin HEAD
